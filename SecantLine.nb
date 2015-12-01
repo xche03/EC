@@ -1,0 +1,1041 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28397,       1031]
+NotebookOptionsPosition[     27291,        996]
+NotebookOutlinePosition[     27961,       1019]
+CellTagsIndexPosition[     27918,       1016]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["Secant Becoming Tangent", "Subtitle",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["\<\
+This code generates a sequence of frames which can be animated to show a \
+secant line approaching the tangent line to a user-supplied curve.  In the \
+example shown, the function is y = x^3, and the point of tangency is (1,1).\
+\>", "Text",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+f[x_] = Input[\"Enter the function whose tangent line 
+\t\tis desired:\"];
+pr = Input[\"Enter the plotrange in the form 
+\t\t{{xmin,xmax},{ymin,ymax}}:\"];
+x1 = Input[\"Enter the x-coordinate of the point of 
+\t\ttangency:\"];
+x0 = Input[\"Enter the initial x-value for the secant lines:\"];
+steps = Input[\"Enter the number of steps:\"];
+g[x_] = f'[x];
+curve = Plot[f[x],{x,pr[[1,1]],pr[[1,2]]},PlotRange->pr,
+\tPlotStyle->{{RGBColor[.14,.56,.14],Thickness[.0075]}},
+\tDisplayFunction->Identity];
+tanline = Plot[f[x1] + g[x1](x-x1),{x,pr[[1,1]],pr[[1,2]]},PlotRange->pr,
+\tPlotStyle->{{RGBColor[0,0,1],Thickness[.0075]}},
+\tDisplayFunction->Identity];
+Clear[j];
+Do[If[j<steps,
+\t\t(m = (f[x1]-f[x0+j(x1-x0)/steps])/(x1-(x0+j(x1-x0)/steps));
+\t\t  sec = Plot[f[x1]+m(x-x1),{x,pr[[1,1]],pr[[1,2]]},PlotRange->pr,
+\t\t\t\tPlotStyle->{{RGBColor[.2,.6,.8],Thickness[.0075]}},
+\t\t\t\tDisplayFunction->Identity];
+\t\t  Show[curve,sec,
+\t\t   \t\tGraphics[{RGBColor[1,0,0],PointSize[.02],
+\t\t\t\t\tPoint[{x0+j(x1-x0)/steps,f[x0+j(x1-x0)/steps]}],
+\t\t\t\t\tPoint[{x1,f[x1]}],
+\t\t\t\t\tRGBColor[1,0,0],
+    \t\t\t\tText[StringForm[\"slope = ``\",N[m,4]],
+    \t   \t\t\t\t{x1+.2,f[x1]},{-1,0}]}],
+    \t  PlotRange->pr, DisplayFunction->$DisplayFunction]),
+    \t  
+    \t   (Show[curve,tanline,
+\t\t   \t\tGraphics[{RGBColor[1,0,0],PointSize[.02],
+\t\t\t\t\tPoint[{x1,f[x1]}],
+    \t\t\t\tText[StringForm[\"slope = ``\",N[g[x1],4]],
+    \t   \t\t\t\t{x1+.2,f[x1]},{-1,0}]}],
+    \t  PlotRange->pr, DisplayFunction->$DisplayFunction])],
+ {j,0,steps}]
+\
+\>", "Input",
+ CellChangeTimes->{3.6573180304395266`*^9},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 0.61803 
+MathPictureStart
+% Scaling calculations
+0.31746 0.31746 0.1962 0.1962 [
+[(-1)] 0 0.1837 0 1 Msboxa
+[(-0.5)] 0.15873 0.1837 0 1 Msboxa
+[(0.5)] 0.47619 0.1837 0 1 Msboxa
+[(1)] 0.63492 0.1837 0 1 Msboxa
+[(1.5)] 0.79365 0.1837 0 1 Msboxa
+[(2)] 0.95238 0.1837 0 1 Msboxa
+[(-1)] 0.30496 0 1 0 Msboxa
+[(-0.5)] 0.30496 0.0981 1 0 Msboxa
+[(0.5)] 0.30496 0.2943 1 0 Msboxa
+[(1)] 0.30496 0.3924 1 0 Msboxa
+[(1.5)] 0.30496 0.4905 1 0 Msboxa
+[(2)] 0.30496 0.5886 1 0 Msboxa
+[ -0.001 -0.001 0 0 ]
+[ 1.001 0.61903 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+%%Object: Graphics
+[ ] 0 setdash
+0 setgray
+gsave
+gsave
+0.002 setlinewidth
+0 0.1962 moveto
+1 0.1962 lineto
+stroke
+0 0.18995 moveto
+0 0.20245 lineto
+stroke
+0 setgray
+[(-1)] 0 0.1837 0 1 Mshowa
+0.15873 0.18995 moveto
+0.15873 0.20245 lineto
+stroke
+0 setgray
+[(-0.5)] 0.15873 0.1837 0 1 Mshowa
+0.47619 0.18995 moveto
+0.47619 0.20245 lineto
+stroke
+0 setgray
+[(0.5)] 0.47619 0.1837 0 1 Mshowa
+0.63492 0.18995 moveto
+0.63492 0.20245 lineto
+stroke
+0 setgray
+[(1)] 0.63492 0.1837 0 1 Mshowa
+0.79365 0.18995 moveto
+0.79365 0.20245 lineto
+stroke
+0 setgray
+[(1.5)] 0.79365 0.1837 0 1 Mshowa
+0.95238 0.18995 moveto
+0.95238 0.20245 lineto
+stroke
+0 setgray
+[(2)] 0.95238 0.1837 0 1 Mshowa
+0.31746 0 moveto
+0.31746 0.61803 lineto
+stroke
+0.31121 0 moveto
+0.32371 0 lineto
+stroke
+0 setgray
+[(-1)] 0.30496 0 1 0 Mshowa
+0.31121 0.0981 moveto
+0.32371 0.0981 lineto
+stroke
+0 setgray
+[(-0.5)] 0.30496 0.0981 1 0 Mshowa
+0.31121 0.2943 moveto
+0.32371 0.2943 lineto
+stroke
+0 setgray
+[(0.5)] 0.30496 0.2943 1 0 Mshowa
+0.31121 0.3924 moveto
+0.32371 0.3924 lineto
+stroke
+0 setgray
+[(1)] 0.30496 0.3924 1 0 Mshowa
+0.31121 0.4905 moveto
+0.32371 0.4905 lineto
+stroke
+0 setgray
+[(1.5)] 0.30496 0.4905 1 0 Mshowa
+0.31121 0.5886 moveto
+0.32371 0.5886 lineto
+stroke
+0 setgray
+[(2)] 0.30496 0.5886 1 0 Mshowa
+grestore
+grestore
+0 0 moveto
+1 0 lineto
+1 0.618034 lineto
+0 0.618034 lineto
+closepath
+clip
+newpath
+0 setgray
+gsave
+gsave
+gsave
+0.14 0.56 0.14 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 0 moveto
+0.04167 0.06756 lineto
+0.0625 0.09456 lineto
+0.08333 0.1175 lineto
+0.10417 0.13669 lineto
+0.125 0.15248 lineto
+0.14583 0.1652 lineto
+0.16667 0.17517 lineto
+0.1875 0.18274 lineto
+0.19792 0.18572 lineto
+0.20833 0.18823 lineto
+0.21875 0.1903 lineto
+0.22917 0.19198 lineto
+0.23958 0.1933 lineto
+0.25 0.19432 lineto
+0.26042 0.19506 lineto
+0.26563 0.19535 lineto
+0.27083 0.19558 lineto
+0.27604 0.19577 lineto
+0.28125 0.19591 lineto
+0.28646 0.19602 lineto
+0.28906 0.19606 lineto
+0.29167 0.1961 lineto
+0.29427 0.19612 lineto
+0.29688 0.19615 lineto
+0.29948 0.19617 lineto
+0.30208 0.19618 lineto
+0.30469 0.19619 lineto
+0.30599 0.19619 lineto
+0.30729 0.19619 lineto
+0.3125 0.1962 lineto
+0.31771 0.1962 lineto
+0.31901 0.1962 lineto
+0.32031 0.1962 lineto
+0.32161 0.1962 lineto
+0.32292 0.1962 lineto
+0.32422 0.1962 lineto
+0.32552 0.1962 lineto
+0.32682 0.19621 lineto
+0.32813 0.19621 lineto
+0.32943 0.19621 lineto
+0.33073 0.19622 lineto
+0.33333 0.19623 lineto
+0.33594 0.19624 lineto
+0.33854 0.19626 lineto
+0.34115 0.19628 lineto
+0.34375 0.19631 lineto
+0.34896 0.19639 lineto
+0.35417 0.1965 lineto
+0.35938 0.19665 lineto
+Mistroke
+0.36458 0.19684 lineto
+0.36979 0.19708 lineto
+0.375 0.19737 lineto
+0.38542 0.19813 lineto
+0.39583 0.19915 lineto
+0.40625 0.20049 lineto
+0.41667 0.20219 lineto
+0.4375 0.20681 lineto
+0.45833 0.21335 lineto
+0.47917 0.22213 lineto
+0.5 0.2335 lineto
+0.52083 0.24779 lineto
+0.54167 0.26532 lineto
+0.58333 0.31146 lineto
+0.625 0.37458 lineto
+0.66667 0.45735 lineto
+0.70833 0.56242 lineto
+0.75 0.69246 lineto
+0.79167 0.85014 lineto
+0.83333 1.0381 lineto
+0.875 1.25902 lineto
+0.91667 1.51556 lineto
+0.95833 1.81037 lineto
+1 2.14612 lineto
+Mfstroke
+grestore
+grestore
+grestore
+gsave
+gsave
+0.2 0.6 0.8 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 0 moveto
+0.04167 0.02575 lineto
+0.08333 0.0515 lineto
+0.125 0.07725 lineto
+0.16667 0.10301 lineto
+0.20833 0.12876 lineto
+0.25 0.15451 lineto
+0.29167 0.18026 lineto
+0.33333 0.20601 lineto
+0.375 0.23176 lineto
+0.41667 0.25751 lineto
+0.45833 0.28327 lineto
+0.5 0.30902 lineto
+0.54167 0.33477 lineto
+0.58333 0.36052 lineto
+0.625 0.38627 lineto
+0.66667 0.41202 lineto
+0.70833 0.43777 lineto
+0.75 0.46353 lineto
+0.79167 0.48928 lineto
+0.83333 0.51503 lineto
+0.875 0.54078 lineto
+0.91667 0.56653 lineto
+0.95833 0.59228 lineto
+1 0.61803 lineto
+stroke
+grestore
+grestore
+grestore
+gsave
+gsave
+1 0 0 setrgbcolor
+0.02 setlinewidth
+0.31746 0.1962 Mdot
+0.63492 0.3924 Mdot
+1 0 0 setrgbcolor
+0 setgray
+[(slope = 1.)] 0.69841 0.3924 -1 0 Mshowa
+grestore
+grestore
+grestore
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 
+  1}},ImageCache->GraphicsData["CompressedBitmap", "\<\
+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\
+\>"],ImageRangeCache->{{{0, 282}, {174, 0}} -> {-1.11574, -1.14214, \
+0.0117115, 0.0189497}}],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 0.61803 
+MathPictureStart
+% Scaling calculations
+0.31746 0.31746 0.1962 0.1962 [
+[(-1)] 0 0.1837 0 1 Msboxa
+[(-0.5)] 0.15873 0.1837 0 1 Msboxa
+[(0.5)] 0.47619 0.1837 0 1 Msboxa
+[(1)] 0.63492 0.1837 0 1 Msboxa
+[(1.5)] 0.79365 0.1837 0 1 Msboxa
+[(2)] 0.95238 0.1837 0 1 Msboxa
+[(-1)] 0.30496 0 1 0 Msboxa
+[(-0.5)] 0.30496 0.0981 1 0 Msboxa
+[(0.5)] 0.30496 0.2943 1 0 Msboxa
+[(1)] 0.30496 0.3924 1 0 Msboxa
+[(1.5)] 0.30496 0.4905 1 0 Msboxa
+[(2)] 0.30496 0.5886 1 0 Msboxa
+[ -0.001 -0.001 0 0 ]
+[ 1.001 0.61903 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+%%Object: Graphics
+[ ] 0 setdash
+0 setgray
+gsave
+gsave
+0.002 setlinewidth
+0 0.1962 moveto
+1 0.1962 lineto
+stroke
+0 0.18995 moveto
+0 0.20245 lineto
+stroke
+0 setgray
+[(-1)] 0 0.1837 0 1 Mshowa
+0.15873 0.18995 moveto
+0.15873 0.20245 lineto
+stroke
+0 setgray
+[(-0.5)] 0.15873 0.1837 0 1 Mshowa
+0.47619 0.18995 moveto
+0.47619 0.20245 lineto
+stroke
+0 setgray
+[(0.5)] 0.47619 0.1837 0 1 Mshowa
+0.63492 0.18995 moveto
+0.63492 0.20245 lineto
+stroke
+0 setgray
+[(1)] 0.63492 0.1837 0 1 Mshowa
+0.79365 0.18995 moveto
+0.79365 0.20245 lineto
+stroke
+0 setgray
+[(1.5)] 0.79365 0.1837 0 1 Mshowa
+0.95238 0.18995 moveto
+0.95238 0.20245 lineto
+stroke
+0 setgray
+[(2)] 0.95238 0.1837 0 1 Mshowa
+0.31746 0 moveto
+0.31746 0.61803 lineto
+stroke
+0.31121 0 moveto
+0.32371 0 lineto
+stroke
+0 setgray
+[(-1)] 0.30496 0 1 0 Mshowa
+0.31121 0.0981 moveto
+0.32371 0.0981 lineto
+stroke
+0 setgray
+[(-0.5)] 0.30496 0.0981 1 0 Mshowa
+0.31121 0.2943 moveto
+0.32371 0.2943 lineto
+stroke
+0 setgray
+[(0.5)] 0.30496 0.2943 1 0 Mshowa
+0.31121 0.3924 moveto
+0.32371 0.3924 lineto
+stroke
+0 setgray
+[(1)] 0.30496 0.3924 1 0 Mshowa
+0.31121 0.4905 moveto
+0.32371 0.4905 lineto
+stroke
+0 setgray
+[(1.5)] 0.30496 0.4905 1 0 Mshowa
+0.31121 0.5886 moveto
+0.32371 0.5886 lineto
+stroke
+0 setgray
+[(2)] 0.30496 0.5886 1 0 Mshowa
+grestore
+grestore
+0 0 moveto
+1 0 lineto
+1 0.618034 lineto
+0 0.618034 lineto
+closepath
+clip
+newpath
+0 setgray
+gsave
+gsave
+gsave
+0.14 0.56 0.14 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 0 moveto
+0.04167 0.06756 lineto
+0.0625 0.09456 lineto
+0.08333 0.1175 lineto
+0.10417 0.13669 lineto
+0.125 0.15248 lineto
+0.14583 0.1652 lineto
+0.16667 0.17517 lineto
+0.1875 0.18274 lineto
+0.19792 0.18572 lineto
+0.20833 0.18823 lineto
+0.21875 0.1903 lineto
+0.22917 0.19198 lineto
+0.23958 0.1933 lineto
+0.25 0.19432 lineto
+0.26042 0.19506 lineto
+0.26563 0.19535 lineto
+0.27083 0.19558 lineto
+0.27604 0.19577 lineto
+0.28125 0.19591 lineto
+0.28646 0.19602 lineto
+0.28906 0.19606 lineto
+0.29167 0.1961 lineto
+0.29427 0.19612 lineto
+0.29688 0.19615 lineto
+0.29948 0.19617 lineto
+0.30208 0.19618 lineto
+0.30469 0.19619 lineto
+0.30599 0.19619 lineto
+0.30729 0.19619 lineto
+0.3125 0.1962 lineto
+0.31771 0.1962 lineto
+0.31901 0.1962 lineto
+0.32031 0.1962 lineto
+0.32161 0.1962 lineto
+0.32292 0.1962 lineto
+0.32422 0.1962 lineto
+0.32552 0.1962 lineto
+0.32682 0.19621 lineto
+0.32813 0.19621 lineto
+0.32943 0.19621 lineto
+0.33073 0.19622 lineto
+0.33333 0.19623 lineto
+0.33594 0.19624 lineto
+0.33854 0.19626 lineto
+0.34115 0.19628 lineto
+0.34375 0.19631 lineto
+0.34896 0.19639 lineto
+0.35417 0.1965 lineto
+0.35938 0.19665 lineto
+Mistroke
+0.36458 0.19684 lineto
+0.36979 0.19708 lineto
+0.375 0.19737 lineto
+0.38542 0.19813 lineto
+0.39583 0.19915 lineto
+0.40625 0.20049 lineto
+0.41667 0.20219 lineto
+0.4375 0.20681 lineto
+0.45833 0.21335 lineto
+0.47917 0.22213 lineto
+0.5 0.2335 lineto
+0.52083 0.24779 lineto
+0.54167 0.26532 lineto
+0.58333 0.31146 lineto
+0.625 0.37458 lineto
+0.66667 0.45735 lineto
+0.70833 0.56242 lineto
+0.75 0.69246 lineto
+0.79167 0.85014 lineto
+0.83333 1.0381 lineto
+0.875 1.25902 lineto
+0.91667 1.51556 lineto
+0.95833 1.81037 lineto
+1 2.14612 lineto
+Mfstroke
+grestore
+grestore
+grestore
+gsave
+gsave
+0.2 0.6 0.8 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 -0.2943 moveto
+0.04167 -0.24924 lineto
+0.08333 -0.20417 lineto
+0.125 -0.15911 lineto
+0.16667 -0.11404 lineto
+0.20833 -0.06898 lineto
+0.25 -0.02391 lineto
+0.29167 0.02115 lineto
+0.33333 0.06622 lineto
+0.375 0.11128 lineto
+0.41667 0.15635 lineto
+0.45833 0.20141 lineto
+0.5 0.24648 lineto
+0.54167 0.29154 lineto
+0.58333 0.33661 lineto
+0.625 0.38167 lineto
+0.66667 0.42674 lineto
+0.70833 0.4718 lineto
+0.75 0.51687 lineto
+0.79167 0.56193 lineto
+0.83333 0.607 lineto
+0.875 0.65206 lineto
+0.91667 0.69713 lineto
+0.95833 0.74219 lineto
+1 0.78726 lineto
+stroke
+grestore
+grestore
+grestore
+gsave
+gsave
+1 0 0 setrgbcolor
+0.02 setlinewidth
+0.47619 0.22073 Mdot
+0.63492 0.3924 Mdot
+1 0 0 setrgbcolor
+0 setgray
+[(slope = 1.75)] 0.69841 0.3924 -1 0 Mshowa
+grestore
+grestore
+grestore
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 
+  1}},ImageCache->GraphicsData["CompressedBitmap", "\<\
+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
+XsX/OVrbZg==\
+\>"],ImageRangeCache->{{{0, 282}, {174, 0}} -> {-1.11574, -1.14214, \
+0.0117115, 0.0189497}}],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 0.61803 
+MathPictureStart
+% Scaling calculations
+0.31746 0.31746 0.1962 0.1962 [
+[(-1)] 0 0.1837 0 1 Msboxa
+[(-0.5)] 0.15873 0.1837 0 1 Msboxa
+[(0.5)] 0.47619 0.1837 0 1 Msboxa
+[(1)] 0.63492 0.1837 0 1 Msboxa
+[(1.5)] 0.79365 0.1837 0 1 Msboxa
+[(2)] 0.95238 0.1837 0 1 Msboxa
+[(-1)] 0.30496 0 1 0 Msboxa
+[(-0.5)] 0.30496 0.0981 1 0 Msboxa
+[(0.5)] 0.30496 0.2943 1 0 Msboxa
+[(1)] 0.30496 0.3924 1 0 Msboxa
+[(1.5)] 0.30496 0.4905 1 0 Msboxa
+[(2)] 0.30496 0.5886 1 0 Msboxa
+[ -0.001 -0.001 0 0 ]
+[ 1.001 0.61903 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+%%Object: Graphics
+[ ] 0 setdash
+0 setgray
+gsave
+gsave
+0.002 setlinewidth
+0 0.1962 moveto
+1 0.1962 lineto
+stroke
+0 0.18995 moveto
+0 0.20245 lineto
+stroke
+0 setgray
+[(-1)] 0 0.1837 0 1 Mshowa
+0.15873 0.18995 moveto
+0.15873 0.20245 lineto
+stroke
+0 setgray
+[(-0.5)] 0.15873 0.1837 0 1 Mshowa
+0.47619 0.18995 moveto
+0.47619 0.20245 lineto
+stroke
+0 setgray
+[(0.5)] 0.47619 0.1837 0 1 Mshowa
+0.63492 0.18995 moveto
+0.63492 0.20245 lineto
+stroke
+0 setgray
+[(1)] 0.63492 0.1837 0 1 Mshowa
+0.79365 0.18995 moveto
+0.79365 0.20245 lineto
+stroke
+0 setgray
+[(1.5)] 0.79365 0.1837 0 1 Mshowa
+0.95238 0.18995 moveto
+0.95238 0.20245 lineto
+stroke
+0 setgray
+[(2)] 0.95238 0.1837 0 1 Mshowa
+0.31746 0 moveto
+0.31746 0.61803 lineto
+stroke
+0.31121 0 moveto
+0.32371 0 lineto
+stroke
+0 setgray
+[(-1)] 0.30496 0 1 0 Mshowa
+0.31121 0.0981 moveto
+0.32371 0.0981 lineto
+stroke
+0 setgray
+[(-0.5)] 0.30496 0.0981 1 0 Mshowa
+0.31121 0.2943 moveto
+0.32371 0.2943 lineto
+stroke
+0 setgray
+[(0.5)] 0.30496 0.2943 1 0 Mshowa
+0.31121 0.3924 moveto
+0.32371 0.3924 lineto
+stroke
+0 setgray
+[(1)] 0.30496 0.3924 1 0 Mshowa
+0.31121 0.4905 moveto
+0.32371 0.4905 lineto
+stroke
+0 setgray
+[(1.5)] 0.30496 0.4905 1 0 Mshowa
+0.31121 0.5886 moveto
+0.32371 0.5886 lineto
+stroke
+0 setgray
+[(2)] 0.30496 0.5886 1 0 Mshowa
+grestore
+grestore
+0 0 moveto
+1 0 lineto
+1 0.618034 lineto
+0 0.618034 lineto
+closepath
+clip
+newpath
+0 setgray
+gsave
+gsave
+gsave
+0.14 0.56 0.14 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 0 moveto
+0.04167 0.06756 lineto
+0.0625 0.09456 lineto
+0.08333 0.1175 lineto
+0.10417 0.13669 lineto
+0.125 0.15248 lineto
+0.14583 0.1652 lineto
+0.16667 0.17517 lineto
+0.1875 0.18274 lineto
+0.19792 0.18572 lineto
+0.20833 0.18823 lineto
+0.21875 0.1903 lineto
+0.22917 0.19198 lineto
+0.23958 0.1933 lineto
+0.25 0.19432 lineto
+0.26042 0.19506 lineto
+0.26563 0.19535 lineto
+0.27083 0.19558 lineto
+0.27604 0.19577 lineto
+0.28125 0.19591 lineto
+0.28646 0.19602 lineto
+0.28906 0.19606 lineto
+0.29167 0.1961 lineto
+0.29427 0.19612 lineto
+0.29688 0.19615 lineto
+0.29948 0.19617 lineto
+0.30208 0.19618 lineto
+0.30469 0.19619 lineto
+0.30599 0.19619 lineto
+0.30729 0.19619 lineto
+0.3125 0.1962 lineto
+0.31771 0.1962 lineto
+0.31901 0.1962 lineto
+0.32031 0.1962 lineto
+0.32161 0.1962 lineto
+0.32292 0.1962 lineto
+0.32422 0.1962 lineto
+0.32552 0.1962 lineto
+0.32682 0.19621 lineto
+0.32813 0.19621 lineto
+0.32943 0.19621 lineto
+0.33073 0.19622 lineto
+0.33333 0.19623 lineto
+0.33594 0.19624 lineto
+0.33854 0.19626 lineto
+0.34115 0.19628 lineto
+0.34375 0.19631 lineto
+0.34896 0.19639 lineto
+0.35417 0.1965 lineto
+0.35938 0.19665 lineto
+Mistroke
+0.36458 0.19684 lineto
+0.36979 0.19708 lineto
+0.375 0.19737 lineto
+0.38542 0.19813 lineto
+0.39583 0.19915 lineto
+0.40625 0.20049 lineto
+0.41667 0.20219 lineto
+0.4375 0.20681 lineto
+0.45833 0.21335 lineto
+0.47917 0.22213 lineto
+0.5 0.2335 lineto
+0.52083 0.24779 lineto
+0.54167 0.26532 lineto
+0.58333 0.31146 lineto
+0.625 0.37458 lineto
+0.66667 0.45735 lineto
+0.70833 0.56242 lineto
+0.75 0.69246 lineto
+0.79167 0.85014 lineto
+0.83333 1.0381 lineto
+0.875 1.25902 lineto
+0.91667 1.51556 lineto
+0.95833 1.81037 lineto
+1 2.14612 lineto
+Mfstroke
+grestore
+grestore
+grestore
+gsave
+gsave
+0 0 1 setrgbcolor
+gsave
+0.0075 setlinewidth
+0 -0.78481 moveto
+0.04167 -0.70755 lineto
+0.08333 -0.6303 lineto
+0.125 -0.55304 lineto
+0.16667 -0.47579 lineto
+0.20833 -0.39853 lineto
+0.25 -0.32128 lineto
+0.29167 -0.24403 lineto
+0.33333 -0.16677 lineto
+0.375 -0.08952 lineto
+0.41667 -0.01226 lineto
+0.45833 0.06499 lineto
+0.5 0.14225 lineto
+0.54167 0.2195 lineto
+0.58333 0.29675 lineto
+0.625 0.37401 lineto
+0.66667 0.45126 lineto
+0.70833 0.52852 lineto
+0.75 0.60577 lineto
+0.79167 0.68303 lineto
+0.83333 0.76028 lineto
+0.875 0.83753 lineto
+0.91667 0.91479 lineto
+0.95833 0.99204 lineto
+1 1.0693 lineto
+stroke
+grestore
+grestore
+grestore
+gsave
+gsave
+1 0 0 setrgbcolor
+0.02 setlinewidth
+0.63492 0.3924 Mdot
+0 setgray
+[(slope = 3.)] 0.69841 0.3924 -1 0 Mshowa
+grestore
+grestore
+grestore
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 
+  1}},ImageCache->GraphicsData["CompressedBitmap", "\<\
+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\
+\>"],ImageRangeCache->{{{0, 282}, {174, 0}} -> {-1.11574, -1.14214, \
+0.0117115, 0.0189497}}],
+
+Cell["6.03333 Second", "Print",
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[GraphicsData["PICT", "\<\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[GraphicsData["PICT", "\<\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[GraphicsData["PICT", "\<\
+\>"], "Graphics",
+ ImageSize->{283, 175},
+ ImageMargins->{{17, Inherited}, {Inherited, Inherited}},
+ ImageRegion->{{0, 1}, {0, 1}}]
+}, Open  ]]
+},
+WindowToolbars->{},
+CellGrouping->Manual,
+WindowSize->{1037, 838},
+WindowMargins->{{524, Automatic}, {Automatic, 139}},
+PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowCellLabel->True,
+ShowCellTags->False,
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, -1}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False}
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 75, 1, 56, "Subtitle"],
+Cell[636, 23, 283, 5, 49, "Text"],
+Cell[CellGroupData[{
+Cell[944, 32, 1647, 41, 660, "Input"],
+Cell[2594, 75, 8035, 298, 183, 4671, 241, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[10632, 375, 8191, 301, 183, 4684, 241, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[18826, 678, 7888, 294, 183, 4642, 239, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[26717, 974, 63, 1, 23, "Print"],
+Cell[26783, 977, 162, 4, 183, "Graphics"],
+Cell[26948, 983, 162, 4, 183, "Graphics"],
+Cell[27113, 989, 162, 4, 183, "Graphics"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
