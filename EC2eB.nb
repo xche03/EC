@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   3201279,      54208]
-NotebookOptionsPosition[   3186507,      53766]
-NotebookOutlinePosition[   3186853,      53781]
-CellTagsIndexPosition[   3186810,      53778]
+NotebookDataLength[   3201300,      54208]
+NotebookOptionsPosition[   3186528,      53766]
+NotebookOutlinePosition[   3186874,      53781]
+CellTagsIndexPosition[   3186831,      53778]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -52386,7 +52386,7 @@ Cell[TextData[StyleBox["GRAPHING WITH TECHNOLOGY",
 
 Cell[CellGroupData[{
 
-Cell[TextData[StyleBox["EXAMPLE 34",
+Cell[TextData[StyleBox["EXAMPLE 4",
  FontColor->GrayLevel[0]]], "Subsection",
  CellFrame->{{0, 0}, {0, 3}},
  CellChangeTimes->{{3.657217221998408*^9, 3.657217284492182*^9}, 
@@ -52404,7 +52404,7 @@ Cell[TextData[StyleBox["EXAMPLE 34",
    3.658102460398522*^9}, {3.6581026121661196`*^9, 3.658102637472543*^9}, {
    3.658102718728346*^9, 3.6581027302849584`*^9}, {3.6581031479228725`*^9, 
    3.658103148247182*^9}, {3.658103495131838*^9, 3.6581034963925924`*^9}, {
-   3.6581038707271986`*^9, 3.658103871095552*^9}}],
+   3.6581038707271986`*^9, 3.658103871095552*^9}, 3.658191622511484*^9}],
 
 Cell[CellGroupData[{
 
@@ -54187,22 +54187,22 @@ Cell[3075704, 51820, 32274, 543, 113, "Output"]
 Cell[CellGroupData[{
 Cell[3108051, 52371, 860, 13, 67, "Section"],
 Cell[CellGroupData[{
-Cell[3108936, 52388, 1283, 18, 60, "Subsection"],
+Cell[3108936, 52388, 1304, 18, 60, "Subsection"],
 Cell[CellGroupData[{
-Cell[3110244, 52410, 30944, 509, 103, "Subsubsection"],
+Cell[3110265, 52410, 30944, 509, 103, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[3141213, 52923, 3858, 89, 283, "Input"],
-Cell[3145074, 53014, 579, 14, 31, "Output"],
-Cell[3145656, 53030, 6824, 121, 243, "Output"],
-Cell[3152483, 53153, 10879, 187, 281, "Output"],
-Cell[3163365, 53342, 19033, 322, 242, "Output"],
-Cell[3182401, 53666, 554, 13, 31, "Output"],
-Cell[3182958, 53681, 508, 11, 31, "Output"],
-Cell[3183469, 53694, 982, 22, 31, "Output"],
-Cell[3184454, 53718, 911, 19, 31, "Output"],
-Cell[3185368, 53739, 361, 5, 31, "Output"],
-Cell[3185732, 53746, 324, 4, 31, "Output"],
-Cell[3186059, 53752, 360, 5, 31, "Output"]
+Cell[3141234, 52923, 3858, 89, 283, "Input"],
+Cell[3145095, 53014, 579, 14, 31, "Output"],
+Cell[3145677, 53030, 6824, 121, 243, "Output"],
+Cell[3152504, 53153, 10879, 187, 248, "Output"],
+Cell[3163386, 53342, 19033, 322, 242, "Output"],
+Cell[3182422, 53666, 554, 13, 31, "Output"],
+Cell[3182979, 53681, 508, 11, 31, "Output"],
+Cell[3183490, 53694, 982, 22, 31, "Output"],
+Cell[3184475, 53718, 911, 19, 31, "Output"],
+Cell[3185389, 53739, 361, 5, 31, "Output"],
+Cell[3185753, 53746, 324, 4, 31, "Output"],
+Cell[3186080, 53752, 360, 5, 31, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
