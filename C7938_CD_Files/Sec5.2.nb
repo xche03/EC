@@ -1,0 +1,1643 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     53412,       1634]
+NotebookOptionsPosition[     50238,       1543]
+NotebookOutlinePosition[     51081,       1575]
+CellTagsIndexPosition[     51038,       1572]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["5.2  Central Limit Theorem", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.4306713166363354`*^9, 3.4306713203913355`*^9}, {
+  3.4306732667533355`*^9, 3.430673268428335*^9}},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tIn Section 4.3 we observed the very important fact that the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " of a random sample from a normal population is itself a normally \
+distributed random variable with mean \[Mu] and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "/", "n"}], TraditionalForm]]],
+ ".  From this we saw that we could assess the reasonableness of hypothesized \
+values of \[Mu]; if ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " is unlikely to have taken its observed value for a given \[Mu], then we \
+disbelieve that \[Mu].  We saw these ideas again in Section 4.6 on the ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ "-distribution.  But in each case we made the apparently restrictive \
+assumption that the population being sampled from is normally distributed.  \
+There is no theorem more useful in statistical data analysis than the ",
+ StyleBox["Central Limit Theorem",
+  FontSlant->"Italic"],
+ ", because it implies that approximate statistical inference of this kind on \
+the mean of a distribution can be done without assuming that the underlying \
+population is normal, as long as the sample size is large enough.  So, it is \
+our purpose to explore this theorem in this section, and we will also take \
+the opportunity to give some of the history of the normal distribution, the \
+Central Limit Theorem itself, and the beginnings of the subject of \
+statistics.\n\tIt was Abraham DeMoivre (1667-1754) who, in a 1733 paper, \
+first called attention to an analytical result on limits which enables the \
+approximation of binomial probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"n"},
+       {"k"}
+      }], "\[NegativeThinSpace]", ")"}], 
+    SuperscriptBox[
+     RowBox[{
+      SuperscriptBox["p", "k"], "(", 
+      RowBox[{"1", "-", "p"}], ")"}], 
+     RowBox[{"n", "-", "k"}]]}], TraditionalForm]]],
+ " for large ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " by an expression which turns out to be a normal integral.  Although \
+DeMoivre was born at the time when the great French probability tradition was \
+developing, the fact that his family was Protestant made life in France \
+uncomfortable, and even led to DeMoivre's imprisonment for two years.  After \
+he was freed in 1688 he spent the rest of his life in England where Newton's \
+new Calculus was being worked out.  \n\tWhile DeMoivre had confined his work \
+mostly to the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ ", Pierre de Laplace (1749-1827), motivated by an effort to statistically \
+estimate ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " given the observed proportion of successes in a very large sample, \
+generalized DeMoivre's work to arbitrary success probabilities in 1774.   He \
+essentially showed that (Katz, p. 550)"
+}], "Text",
+ CellChangeTimes->{{3.4306715344703355`*^9, 3.4306715348593354`*^9}, {
+  3.4306732772023354`*^9, 3.4306732801953354`*^9}, {3.4378279745403237`*^9, 
+  3.4378279745433235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["lim", 
+     RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"|", 
+      RowBox[{
+       OverscriptBox["p", "^"], "-", "p"}], "|", 
+      RowBox[{"\[LessEqual]", "\[Epsilon]"}]}], "]"}]}], "=", 
+   RowBox[{
+    SubscriptBox["lim", 
+     RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+    RowBox[{
+     FractionBox["2", 
+      SqrtBox[
+       RowBox[{"2", "\[Pi]"}]]], 
+     RowBox[{
+      UnderoverscriptBox["\[Integral]", 
+       RowBox[{" ", "0"}], 
+       RowBox[{"\[Epsilon]", "/", "\[Sigma]"}]], " ", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["u", "2"]}], "/", "2"}]], " ", "d", " ", 
+       "u"}]}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437827982544324*^9, 3.437827983144324*^9}}],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ " is the sample proportion of successes and \[Sigma] is the standard \
+deviation of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ ", namely ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{
+     RowBox[{"p", "(", 
+      RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]], TraditionalForm]]],
+ ".  Leonhard Euler had already shown that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderoverscriptBox["\[Integral]", 
+     RowBox[{" ", "0"}], "\[Infinity]"], " ", 
+    RowBox[{
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["u", "2"]}], "/", "2"}]], " ", "d", " ", "u"}]}], 
+   TraditionalForm]]],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{"\[Pi]", "/", "2"}]], TraditionalForm]]],
+ "; so since \[Sigma] is approaching 0, the limit above is 1.  Notice that \
+with this result Laplace has a novel proof of the Weak Law of Large Numbers \
+by approximation, and is just inches from defining a normal density function. \
+ Laplace published in 1812 the first of several editions of his seminal work \
+on probability, ",
+ StyleBox["Theorie Analytique des Probabilites",
+  FontSlant->"Italic"],
+ ", which contained many results he had derived over a period of years.  In \
+this book he proved the addition and multiplication rules of probability, \
+presented known limit theorems to date, and began to apply probability to \
+statistical questions in the social sciences.  But Laplace was actually more \
+interested in celestial mechanics and the analysis of measurement errors in \
+astronomical data than in social statistics.   Because of the rise of \
+calculus, celestial mechanics was a hot topic in European intellectual \
+circles at that time, and the contemporary advances in probability combined \
+with calculus formed the breeding ground for mathematical statistics. \n\t\
+Carl Friedrich Gauss (1777-1855), who rose from humble family beginnings in \
+Brunswick, Germany to become one of the greatest and most versatile \
+mathematicians of all time, took up Laplace's study of measurement errors in \
+1809.  Gauss was interested in a function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ " which gave the probability (we would say probability ",
+ StyleBox["density",
+  FontVariations->{"Underline"->True}],
+ " instead) of an error of magnitude ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " in measuring a quantity.  Laplace had already given reasonable assumptions \
+about such a function: it should be symmetric about 0 and the integral of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ " over the whole line should be 1; in particular, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ " should approach 0 as ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " approaches both +\[Infinity] and ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "\[Infinity].  But it was Gauss who arrived at the formula for a normal \
+density with mean zero, by considering the maximization of the joint \
+probability density function of several errors, and making the further \
+supposition that this maximum should occur at the sample mean error.  He was \
+able to derive a differential equation for ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " in this way, and to show a connection to the statistical problem of least \
+squares curve fitting.  Gauss' tremendous contributions have led to the \
+common practice of referring to the normal distribution as the ",
+ StyleBox["Gaussian distribution",
+  FontSlant->"Italic"],
+ ".  \n\tLet us return to the Central Limit Theorem, the simplest statement \
+of which is next."
+}], "Text",
+ CellChangeTimes->{3.4306733017173357`*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  (Central Limit Theorem)  Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", 
+    SubscriptBox["X", "3"], ",", "...", " "}], TraditionalForm]]],
+ "be a sequence of independent and identically distributed random variables \
+with mean \[Mu] and variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    OverscriptBox["X", "_"], "n"], TraditionalForm]]],
+ " be the mean of the first ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "'s.  Then the cumulative distribution function ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["F", "n"], TraditionalForm]]],
+ " of the random variable"
+}], "Text",
+ CellChangeTimes->{{3.437828008594324*^9, 3.437828008597324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["Z", "n"], "=", 
+   FractionBox[
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "n"], "-", "\[Mu]"}], 
+    RowBox[{"\[Sigma]", "/", 
+     SqrtBox["n"]}]]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437828014894324*^9, 3.4378280152913237`*^9}}],
+
+Cell[TextData[{
+ "converges to the c.d.f. of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ " distribution as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]]],
+ ".  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.437827790688324*^9, 3.437827792841324*^9}}],
+
+Cell[TextData[{
+ "\tThus, the Central Limit Theorem allows us to say (vaguely) that the \
+distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    OverscriptBox["X", "_"], "n"], TraditionalForm]]],
+ " is approximately ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "/", "n"}]}], ")"}], TraditionalForm]]],
+ " for \"large enough\" ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", despite the fact that the sample members ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "...", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " may not themselves be normal.  How large is \"large enough\" is a very \
+good question.  In Figure 3 for example is a scaled histogram of 500 \
+simulated sample means from samples of size ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "25"}], TraditionalForm]]],
+ " from a ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"2", ",", "1"}], ")"}], TraditionalForm]]],
+ " distribution, with a normal density of mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{
+     RowBox[{"2", "\[CenterDot]", "1"}], "=", "2"}]}], TraditionalForm]]],
+ " and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "/", "n"}],
+     TraditionalForm], "=", 
+    RowBox[{
+     RowBox[{"2", "\[CenterDot]", 
+      RowBox[{
+       SuperscriptBox["1", "2"], "/", "25"}]}], "=", 
+     RowBox[{"2", "/", "25"}]}]}], TraditionalForm]]],
+ " superimposed.  (We used the command SimulateSampleMeans from the last \
+section; you should open up the closed cell below to see the code.)"
+}], "Text",
+ CellChangeTimes->{{3.4306718051113358`*^9, 3.4306718231743355`*^9}, 
+   3.4306733239453354`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimulateSampleMeans", "[", 
+    RowBox[{"nummeans_", ",", "distribution_", ",", "sampsize_"}], "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Mean", "[", 
+      RowBox[{"RandomReal", "[", 
+       RowBox[{"distribution", ",", 
+        RowBox[{"{", "sampsize", "}"}]}], "]"}], "]"}], ",", 
+     RowBox[{"{", "nummeans", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "98567", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"list1", "=", 
+   RowBox[{"SimulateSampleMeans", "[", 
+    RowBox[{"500", ",", 
+     RowBox[{"GammaDistribution", "[", 
+      RowBox[{"2", ",", "1"}], "]"}], ",", "25"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Histogram", "[", 
+    RowBox[{"list1", ",", "8", ",", "\"\<ProbabilityDensity\>\""}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x_", ",", "\[Mu]_", ",", "\[Sigma]_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"\[Mu]", ",", "\[Sigma]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "2", ",", 
+       SqrtBox[
+        FractionBox["2", "25"]]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1.1", ",", "2.9"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.39940889575*^9, 3.39940895371875*^9}, {
+   3.430673338600335*^9, 3.4306733428873353`*^9}, {3.4418078008927526`*^9, 
+   3.4418078015697527`*^9}, {3.441807832004753*^9, 3.4418078375557528`*^9}, 
+   3.441808032360753*^9, {3.4418081329187527`*^9, 3.441808138751753*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 5.3",
+  FontWeight->"Bold"],
+ " - Empirical and limiting distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "25"}], TraditionalForm]]],
+ ", population distribution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"2", ",", "1"}], ")"}], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.437827818971324*^9, 3.4378278262513237`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "The fit of the empirical distribution of sample means to the appropriate \
+normal density is quite good, even for ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " as small as 25.  You should try running this experiment with the gamma \
+distribution again several times (",
+ StyleBox["intializing the random seed to a new value",
+  FontColor->GrayLevel[0]],
+ "), to see whether this is a consistent result.  Also, do the activity below."
+}], "Text",
+ CellChangeTimes->{{3.4306718890943356`*^9, 3.430671901614335*^9}, {
+  3.4306733715613356`*^9, 3.4306733745243354`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Rerun the commands that produced Figure 3 using the uniform",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "2"}], ")"}], TraditionalForm]]],
+ " distribution instead.  Experiment with sample sizes 25, 20, and 15.  Does \
+the histogram begin to depart drastically from the normal density as the \
+sample size decreases?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4306719196983356`*^9, 3.4306719200163355`*^9}, {
+  3.4306734128163357`*^9, 3.430673416475335*^9}}],
+
+Cell[TextData[{
+ "\tYour experimental runs probably indicated a good fit of the empirical \
+distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " to normality even for the smallest sample size of 15 for the uniform \
+distribution.  Experience has shown that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "25"}], TraditionalForm]]],
+ " is fairly safe for most population distributions and, for some of the more \
+symmetric population distributions, even fewer samples are necessary.  This \
+is because there is a general result (Lo\[EGrave]ve (p. 300)) that gives a \
+bound on the difference between the actual c.d.f. ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["F", "n"], TraditionalForm]]],
+ " of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " in (1) and the standard normal c.d.f. ",
+ StyleBox["G",
+  FontSlant->"Italic"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.437828037151324*^9, 3.437828037157324*^9}, {
+  3.45695308356416*^9, 3.45695309096416*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"|", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["F", "n"], "(", "x", ")"}], "-", 
+     RowBox[{"G", "(", "x", ")"}]}], "|", 
+    RowBox[{"\[LessEqual]", 
+     RowBox[{
+      RowBox[{
+       FractionBox["c", 
+        RowBox[{
+         SuperscriptBox["n", 
+          RowBox[{"1", "/", "2"}]], 
+         SuperscriptBox["\[Sigma]", "3"]}]], "\[CenterDot]", " ", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"|", "X", 
+         SuperscriptBox["|", "3"]}], "]"}]}], "   ", "for", " ", "all", " ", 
+      StyleBox["x",
+       FontSlant->"Italic"]}]}]}], ","}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378280449233236`*^9, 3.4378280454943237`*^9}}],
+
+Cell[TextData[{
+ "where ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " is a constant.  You can see that the maximum absolute difference decreases \
+as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " grows, as you would expect, but it increases as the third absolute moment ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", " ", 
+    FormBox[
+     RowBox[{"|", 
+      SuperscriptBox["X", "3"], "|"}],
+     TraditionalForm], " ", "]"}], TraditionalForm]]],
+ " of the distribution being sampled from increases.  Actually, the ratio ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     RowBox[{" ", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"|", "X", 
+        SuperscriptBox["|", "3"]}], "]"}]}],
+     TraditionalForm], "/", 
+    SuperscriptBox["\[Sigma]", "3"]}], TraditionalForm]]],
+ " can be used to measure the lack of symmetry of a distribution, called its ",
+ StyleBox["skewness",
+  FontSlant->"Italic"],
+ ".  Thus, we have the qualitative result that the more symmetric is the \
+underlying distribution, the better the fit of the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " to normality for fixed ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", alternatively, the smaller ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " can be taken for an equally good fit.  "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  If one distribution has a skewness that is half of the skewness of a \
+second distribution, what is the relationship between the sample sizes \
+required to have equal upper bounds on the absolute difference of c.d.f.'s in \
+formula (2)?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tThe Central Limit Theorem can be proved by a moment-generating function \
+argument.  We will outline the proof that the moment-generating function of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " converges to the standard normal m.g.f. ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"M", "(", "t", ")"}], "=", 
+    SuperscriptBox["e", 
+     RowBox[{
+      SuperscriptBox["t", "2"], "/", "2"}]]}], TraditionalForm]]],
+ " as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]]],
+ ", which must imply that the c.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " converges to the standard normal c.d.f. at every point ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ".  (The latter is actually a subtle theorem, whose proof we will omit.)",
+ "\n",
+ "\tWe can write the m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " as:"
+}], "Text",
+ CellChangeTimes->{{3.437828069636324*^9, 3.4378280696403236`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{"t", " ", 
+          SubscriptBox["Z", "n"]}]], "]"}], "=", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{"t", "\[CenterDot]", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             OverscriptBox[
+              SubscriptBox["X", "n"], "_"], "-", "\[Mu]"}], ")"}], "/", 
+           RowBox[{"(", 
+            RowBox[{"\[Sigma]", "/", 
+             SqrtBox["n"]}], ")"}]}]}]], "]"}]},
+      {" ", "=", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{
+           FractionBox[
+            RowBox[{"t", 
+             SqrtBox["n"]}], "\[Sigma]"], "\[CenterDot]", 
+           FractionBox["1", "n"]}], 
+          RowBox[{"\[CapitalSigma]", "(", 
+           RowBox[{
+            SubscriptBox["X", "i"], "-", "\[Mu]"}], ")"}]}]], "]"}]},
+      {" ", "=", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{
+          FractionBox["t", 
+           RowBox[{"\[Sigma]", 
+            SqrtBox["n"]}]], "\[CenterDot]", 
+          RowBox[{"\[CapitalSigma]", "(", 
+           RowBox[{
+            SubscriptBox["X", "i"], "-", "\[Mu]"}], ")"}]}]], "]"}]},
+      {" ", "=", 
+       RowBox[{
+        UnderoverscriptBox["\[Product]", 
+         RowBox[{"i", "=", "1"}], "n"], 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           FractionBox["t", 
+            RowBox[{"\[Sigma]", 
+             SqrtBox["n"]}]], "\[CenterDot]", 
+           RowBox[{"(", 
+            RowBox[{
+             SubscriptBox["X", "i"], "-", "\[Mu]"}], ")"}]}]], "]"}]}]}
+     }],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437828076953324*^9, 3.437828077329324*^9}}],
+
+Cell[TextData[{
+ "Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["M", "1"], "(", "t", ")"}], TraditionalForm]]],
+ " be the m.g.f. of every ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "i"], "-", "\[Mu]"}], TraditionalForm]]],
+ ".  Note that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["M", "1"], "(", "0", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox["e", "0"], "]"}], "=", "1"}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["M", "1"], "\[Prime]"], "(", "0", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       SubscriptBox["X", "i"], "-", "\[Mu]"}], "]"}], "=", "0"}]}], 
+   TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["M", "1"], "\[DoublePrime]"], "(", "0", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["X", "i"], "-", "\[Mu]"}], ")"}], "2"], "]"}], "=", 
+     RowBox[{
+      RowBox[{"Var", "(", 
+       SubscriptBox["X", "i"], ")"}], "=", 
+      SuperscriptBox["\[Sigma]", "2"]}]}]}], TraditionalForm]]],
+ ".   Expanding ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["M", "1"], "(", "t", ")"}], TraditionalForm]]],
+ " in a second-order Taylor series about 0 we have for some ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Xi]", "\[Element]", 
+    RowBox[{"(", 
+     RowBox[{"0", ",", "t"}], ")"}]}], TraditionalForm]]],
+ ","
+}], "Text",
+ CellChangeTimes->{{3.4378280908573236`*^9, 3.437828090861324*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      SubscriptBox["M", "1"], "(", "t", ")"}], "=", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["M", "1"], "(", "0", ")"}], "+", 
+      RowBox[{
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["M", "1"], "\[Prime]"], "(", "0", ")"}], 
+       RowBox[{"(", 
+        RowBox[{"t", "-", "0"}], ")"}]}], "+", 
+      RowBox[{
+       FractionBox["1", "2"], 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["M", "1"], "\[DoublePrime]"], "(", "0", ")"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"t", "-", "0"}], ")"}], "2"]}], "+", 
+      RowBox[{
+       FractionBox["1", "6"], 
+       RowBox[{
+        SuperscriptBox[
+         SuperscriptBox[
+          SubscriptBox["M", "1"], "\[Prime]"], "\[DoublePrime]"], "(", 
+        "\[Xi]", ")"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"t", "-", "0"}], ")"}], "3"]}]}]},
+    {" ", "=", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       FractionBox["1", "2"], 
+       SuperscriptBox["\[Sigma]", "2"], 
+       SuperscriptBox["t", "2"]}], "+", 
+      RowBox[{
+       FractionBox["1", "6"], 
+       RowBox[{
+        SuperscriptBox[
+         SuperscriptBox[
+          SubscriptBox["M", "1"], "\[Prime]"], "\[DoublePrime]"], "(", 
+        "\[Xi]", ")"}], 
+       SuperscriptBox["t", "3"]}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378280983783236`*^9, 3.4378280990273237`*^9}}],
+
+Cell[TextData[{
+ "Substituting this into (3), the m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " becomes"
+}], "Text",
+ CellChangeTimes->{{3.4378281187513237`*^9, 3.437828118755324*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox["e", 
+        RowBox[{"t", " ", 
+         SubscriptBox["Z", "n"]}]], "]"}],
+      TraditionalForm], "=", 
+     FormBox[
+      RowBox[{
+       UnderoverscriptBox["\[Product]", 
+        RowBox[{"i", "=", "1"}], "n"], 
+       RowBox[{
+        SubscriptBox["M", "1"], "(", 
+        FractionBox["t", 
+         RowBox[{"\[Sigma]", 
+          SqrtBox["n"]}]], ")"}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       UnderoverscriptBox["\[Product]", 
+        RowBox[{"i", "=", "1"}], "n"], 
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         RowBox[{
+          FractionBox["1", "2"], 
+          SuperscriptBox["\[Sigma]", "2"], 
+          FractionBox[
+           SuperscriptBox["t", "2"], 
+           RowBox[{
+            SuperscriptBox["\[Sigma]", "2"], "n"}]]}], "+", 
+         RowBox[{
+          FractionBox["1", "6"], 
+          RowBox[{
+           SuperscriptBox[
+            SuperscriptBox[
+             SubscriptBox["M", "1"], "\[Prime]"], "\[DoublePrime]"], "(", 
+           "\[Xi]", ")"}], 
+          FractionBox[
+           SuperscriptBox["t", "3"], 
+           RowBox[{
+            SuperscriptBox["\[Sigma]", "3"], 
+            SuperscriptBox["n", 
+             RowBox[{"3", "/", "2"}]]}]]}]}], ")"}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          FractionBox[
+           RowBox[{
+            SuperscriptBox["t", "2"], "/", "2"}], "n"], "+", 
+          RowBox[{
+           FractionBox["1", "6"], 
+           RowBox[{
+            SuperscriptBox[
+             SuperscriptBox[
+              SubscriptBox["M", "1"], "\[Prime]"], "\[DoublePrime]"], "(", 
+            "\[Xi]", ")"}], 
+           FractionBox[
+            SuperscriptBox["t", "3"], 
+            RowBox[{
+             SuperscriptBox["\[Sigma]", "3"], 
+             SuperscriptBox["n", 
+              RowBox[{"3", "/", "2"}]]}]]}]}], ")"}], "n"], ",", "  ", 
+       RowBox[{"\[Xi]", "\[Element]", 
+        RowBox[{"(", 
+         RowBox[{"0", ",", 
+          FractionBox["t", 
+           RowBox[{"\[Sigma]", 
+            SqrtBox["n"]}]]}], ")"}]}]}],
+      TraditionalForm]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378281255863237`*^9, 3.4378281260803237`*^9}}],
+
+Cell[TextData[{
+ "If the third derivative of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["M", "1"], TraditionalForm]]],
+ " is a well-behaved function near zero, then the third term in parentheses \
+goes swiftly to zero as ",
+ Cell[BoxData[
+  FormBox[
+   FormBox[
+    RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}],
+    TraditionalForm], TraditionalForm]]],
+ ".  The limit of the exponential expression is therefore the same as that of \
+",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      FractionBox[
+       RowBox[{
+        SuperscriptBox["t", "2"], "/", "2"}], "n"]}], ")"}], "n"], 
+   TraditionalForm]]],
+ "which from calculus is well known to be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["e", 
+     RowBox[{
+      SuperscriptBox["t", "2"], "/", "2"}]], "."}], TraditionalForm]]],
+ "  Thus the m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Z", "n"], TraditionalForm]]],
+ " converges to that of the standard normal distribution.  \n\tThough the \
+basic result was known to DeMoivre and Laplace in the 1700's, it was not \
+until the 1900's that the theorem as we know it was proved.  And throughout \
+much of the twentieth century, some of the best probabilistic minds have set \
+to work improving the theorem by relaxing hypotheses.  A.M. Lyapunov, working \
+with bounds such as the one in formula (2), proved the first modern version \
+of the Central Limit Theorem in 1901, making assumptions about the third \
+moments of the random variables.  J.W. Lindeberg proved a general version in \
+1922 of which ours is a corollary.  Important contributions were also made by \
+three men who can without hesitation be called the towering figures in \
+probability in the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["20", "th"], TraditionalForm]]],
+ " century: A.N. Kolmogorov who proved the strong law, the beloved Princeton \
+mathematician and author Willy Feller (1906-1970), and the central figure in \
+the modern French school of probability Paul L\[EAcute]vy (1886-1972).  These \
+and other probabilists have been interested in the more general question of \
+what limiting distributions for sums of random variables are possible, if the \
+restrictions of identical distributions, independence, and finiteness of the \
+variance are removed.  \n\tThe next example shows how our ",
+ StyleBox["form of the Central Limit Theorem ",
+  FontColor->GrayLevel[0]],
+ "covers the special cases studied by DeMoivre and Laplace involving \
+approximation of binomial probabilities.  "
+}], "Text",
+ CellChangeTimes->{{3.4306724135763354`*^9, 3.4306724218113356`*^9}, 
+   3.4306734509413357`*^9, 3.430679949527335*^9, {3.438197369539*^9, 
+   3.43819737413*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  Suppose that we are conducting a poll to find out the proportion of the \
+voting citizenry in a state that is in support of a proposition legalizing \
+gambling.  If we decide to sample 500 voters at random and 315 are in \
+support, give an approximate 95% confidence interval for that proportion.  \
+How many voters should be sampled if we want to estimate the proportion to \
+within 2% with 95% confidence?",
+ "  \n\tTo form a mathematical model for the problem, we suppose that there \
+is an unknown proportion ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " of the voters who support the proposition.  We sample ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "500"}], TraditionalForm]]],
+ " voters in sequence and with replacement, thereby forming 500 independent \
+Bernoulli trials with success probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  We can denote their responses by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "...", " ", ",", 
+    SubscriptBox["X", "500"]}], TraditionalForm]]],
+ " where each ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ " = 1 or 0, respectively, according to whether the voter supports the \
+proposition or not.  Then the sample proportion ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ " who are in favor is the same as the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " of the random variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ ".  Therefore, the Central Limit Theorem applies to ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ ".  By properties of the Bernoulli distribution, the common mean of the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ "'s is \[Mu]",
+ StyleBox[" = p",
+  FontSlant->"Italic"],
+ " and the variance is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", 
+    RowBox[{"p", "(", 
+     RowBox[{"1", "-", "p"}], ")"}]}], TraditionalForm]]],
+ ".   Thus, the appropriate mean and standard deviation with which to \
+standardize ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ " in the Central Limit Theorem are ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SqrtBox[
+     RowBox[{
+      RowBox[{"p", "(", 
+       RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]], ","}], TraditionalForm]]],
+ " respectively.  We therefore have that"
+}], "Text",
+ CellChangeTimes->{{3.4306724747473354`*^9, 3.4306724771723356`*^9}, {
+   3.4306735136883354`*^9, 3.4306735376133356`*^9}, {3.4378281462513237`*^9, 
+   3.437828148252324*^9}, {3.438197389125*^9, 3.4381973931730003`*^9}, 
+   3.45695318247316*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     SubscriptBox["Z", "n"], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        OverscriptBox["p", "^"], "-", "p"}], 
+       SqrtBox[
+        RowBox[{
+         RowBox[{"p", "(", 
+          RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]]], "\[TildeTilde]", 
+      RowBox[{"N", "(", 
+       RowBox[{"0", ",", "1"}], ")"}]}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437828156624324*^9, 3.437828157046324*^9}}],
+
+Cell["\<\
+\tRemember that to construct confidence intervals, the approach is to begin \
+with a transformed random variable whose distribution is known, pick \
+quantiles for that distribution that are suitable for the target level of \
+confidence, then algebraically isolate the parameter of interest in the \
+resulting inequalities.  For a 95% confidence interval, each tail needs \
+probability .025; so here is the suitable normal quantile.\
+\>", "Text",
+ CellChangeTimes->{3.4306735537863355`*^9}],
+
+Cell[BoxData[
+ RowBox[{"z", "=", 
+  RowBox[{"Quantile", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", "1"}], "]"}], ",", ".975"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["Then,", "Text",
+ CellChangeTimes->{{3.437828173978324*^9, 3.437828173980324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{GridBox[{
+     {
+      FormBox[
+       RowBox[{".95", "\[TildeTilde]", 
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          RowBox[{"-", "z"}], "\[LessEqual]", 
+          SubscriptBox["Z", "n"], "\[LessEqual]", "z"}], "]"}]}],
+       TraditionalForm], "=", 
+      FormBox[
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{"-", "z"}], "\[LessEqual]", 
+         FractionBox[
+          RowBox[{
+           OverscriptBox["p", "^"], "-", "p"}], 
+          SqrtBox[
+           RowBox[{
+            RowBox[{"p", "(", 
+             RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]]], "\[LessEqual]", 
+         "z"}], "]"}],
+       TraditionalForm]},
+     {" ", "=", 
+      FormBox[
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{
+          OverscriptBox["p", "^"], "-", 
+          RowBox[{"z", 
+           SqrtBox[
+            RowBox[{
+             RowBox[{"p", "(", 
+              RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]]}]}], "\[LessEqual]",
+          "p", "\[LessEqual]", 
+         RowBox[{
+          OverscriptBox["p", "^"], "+", 
+          RowBox[{"z", 
+           SqrtBox[
+            RowBox[{
+             RowBox[{"p", "(", 
+              RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]]}]}]}], "]"}],
+       TraditionalForm]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], " "}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437828173978324*^9, 3.4378281816463237`*^9}}],
+
+Cell[TextData[{
+ "Hence to give an interval estimate of ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " we can start with the point estimate ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ " and then add and subtract the margin of error term ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", 
+    SqrtBox[
+     RowBox[{
+      RowBox[{"p", "(", 
+       RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]]}], TraditionalForm]]],
+ ".  The only trouble with this is that the margin of error depends on the \
+unknown ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  But since our probability is only approximate anyway, we don't lose much \
+by approximating the unknown margin of error as well, by replacing ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " by the sample proportion ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ ".   We let ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " finish the computations for the given numerical data."
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  OverscriptBox["p", "^"], "=", 
+  FractionBox["315", "500"]}], "\[IndentingNewLine]", 
+ RowBox[{"margin", "=", 
+  RowBox[{"z", "*", 
+   SqrtBox[
+    RowBox[{
+     OverscriptBox["p", "^"], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        OverscriptBox["p", "^"]}], ")"}], "/", 
+      "500"}]}]]}]}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    OverscriptBox["p", "^"], "-", "margin"}], ",", 
+   RowBox[{
+    OverscriptBox["p", "^"], "+", "margin"}]}], "}"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "So the sample proportion is 63% and we are 95% sure that the true \
+proportion of all voters in support of the proposition is between about 59% \
+and 67%.  ",
+ "\n",
+ "\tThe second question is important to the design of the poll.  Our margin \
+of error in the first part of the question was about 4%; what should we have \
+done to cut it to 2%?  Leaving ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " general for a moment, we want to satisfy"
+}], "Text",
+ CellChangeTimes->{{3.4378282072513237`*^9, 3.437828207256324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["z",
+      FontSlant->"Italic"], 
+     FormBox[
+      SqrtBox[
+       RowBox[{
+        RowBox[{"p", "(", 
+         RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]],
+      TraditionalForm]}], " ", "\[LessEqual]", " ", ".02"}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378282140743237`*^9, 3.4378282145273237`*^9}}],
+
+Cell[TextData[{
+ "We know that the quantile ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " is still 1.96 because the confidence level is the same as before, but \
+prior to sampling we again do not know ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ", hence we cannot solve for ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ".  There are two things that can be done: we can produce a pilot sample to \
+estimate ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " by ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["p", "^"], TraditionalForm]]],
+ ", or we can observe that the largest value that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "(", 
+    RowBox[{"1", "-", "p"}], ")"}], TraditionalForm]]],
+ " can take on is 1/4, when",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"p", "=", 
+     RowBox[{"1", "/", "2"}]}]}], TraditionalForm]]],
+ ".  (Do the simple calculus to verify this.)  Then  ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{
+     RowBox[{"p", "(", 
+      RowBox[{"1", "-", "p"}], ")"}], "/", "n"}]], TraditionalForm]]],
+ " \[LessEqual] ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"1", "/", "4"}], "n"}], ")"}]], TraditionalForm]]],
+ " and, as long as the right side is less than or equal to .02, then the left \
+side will be as well.  Thus,"
+}], "Text",
+ CellChangeTimes->{{3.430672635739335*^9, 3.4306726476253357`*^9}, {
+  3.4378282267793236`*^9, 3.437828226783324*^9}, {3.45695321186616*^9, 
+  3.4569532144771595`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     FractionBox["z", 
+      SqrtBox[
+       RowBox[{"4", "n"}]]], "\[LessEqual]", 
+     RowBox[{".02", "\[DoubleLongLeftRightArrow]", 
+      SqrtBox["n"]}], "\[GreaterEqual]", 
+     FractionBox["z", 
+      RowBox[{"2", 
+       RowBox[{"(", ".02", ")"}]}]]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378282332773237`*^9, 3.4378282336803236`*^9}}],
+
+Cell[TextData[{
+ "Squaring both sides of the last inequality gives the following threshhold \
+value for the sample size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ":"
+}], "Text"],
+
+Cell[BoxData[
+ SuperscriptBox[
+  RowBox[{"(", 
+   FractionBox["z", 
+    RowBox[{"2", "*", ".02"}]], ")"}], "2"]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+We would need to poll 2401 people in order to achieve the .02 margin with 95% \
+confidence.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.430671374390335*^9, 3.4306713743923354`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 5.2", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  Use the Central Limit Theorem for means, Theorem 1, to formulate a \
+similar limit theorem for the partial sums ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["S", "n"], TraditionalForm]]],
+ "=",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderoverscriptBox["\[CapitalSigma]", 
+     RowBox[{"i", "=", "1"}], "n"], 
+    SubscriptBox["X", "i"]}], TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell["\<\
+2.  The differential equation that Gauss arrived at for his density function \
+of observed errors is\
+\>", "Text",
+ CellChangeTimes->{{3.437828247980324*^9, 3.437828247985324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["f", "\[Prime]"], "(", "x", ")"}], 
+      RowBox[{"x", " ", 
+       RowBox[{"f", "(", "x", ")"}]}]], "=", 
+     RowBox[{"-", "k"}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437828255110324*^9, 3.437828255608324*^9}}],
+
+Cell[TextData[{
+ "where ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " is a positive constant.  Solve this to obtain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell["3.  The DeMoivre-Laplace limit theorem says that", "Text",
+ CellChangeTimes->{{3.437828269200324*^9, 3.4378282692053237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"k", "=", "a"}], "b"], 
+     RowBox[{
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {"n"},
+         {"k"}
+        }], "\[NegativeThinSpace]", ")"}], 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{
+         SuperscriptBox["p", "k"], "(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        RowBox[{"n", "-", "k"}]], "  ", 
+       UnderscriptBox["\[LongRightArrow]", 
+        RowBox[{"n", "\[RightArrow]", "\[Infinity]"}]], "    ", 
+       UnderoverscriptBox["\[Integral]", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"a", "-", "\[Mu]"}], ")"}], "/", "\[Sigma]"}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"b", "-", "\[Mu]"}], ")"}], "/", "\[Sigma]"}]]}], "  ", 
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", "\[Pi]"}]]], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["z", "2"]}], "/", "2"}]], " ", "d", " ", "z"}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437828276518324*^9, 3.437828277276324*^9}}],
+
+Cell[TextData[{
+ "where \[Mu] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", " ", "p"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", 
+    RowBox[{"n", " ", 
+     RowBox[{
+      RowBox[{"p", "(", 
+       RowBox[{"1", "-", "p"}], ")"}], ".", "  "}]}]}], TraditionalForm]]],
+ "Explain how this result follows as a special case of the Central Limit \
+Theorem."
+}], "Text",
+ CellChangeTimes->{3.4306736622683353`*^9}],
+
+Cell[TextData[{
+ "4.  The Central Limit Theorem has been extended to the case where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", 
+    SubscriptBox["X", "3"], ",", " ", "...", " "}], TraditionalForm]]],
+ "are independent but not necessarily identically distributed.  Write what \
+you think the theorem statement would be in this case."
+}], "Text",
+ CellChangeTimes->{{3.4378283006073236`*^9, 3.4378283006073236`*^9}}],
+
+Cell[TextData[{
+ "5.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The Central Limit Theorem allows the distribution being sampled from to \
+be discrete as well as continuous.  Compare histograms of 300 sample means of \
+samples of sizes 20, 25, and 30 to appropriate normal densities for each of \
+these two distributions: (a) Poisson(3); (b) geometric(.5)."
+}], "Text"],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that your probability of winning a game is .4.  Use the Central \
+Limit Theorem to approximate the probability that you win at least 150 out of \
+400 games."
+}], "Text"],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Do you find significant statistical evidence against the hypothesis that \
+the mean of a population of SAT scores is 540, if the sample mean among 100 \
+randomly selected scores is 550 and the sample standard deviation is 40?"
+}], "Text"],
+
+Cell[TextData[StyleBox["Sample Problems from Actuarial Exam P",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9},
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[StyleBox["8. An insurance company issues 1250 vision care \
+insurance policies. The number of claims filed by a policyholder under a \
+vision care insurance policy during one year is a Poisson random variable \
+with mean 2. Assume the numbers of claims filed by distinct policyholders are \
+independent of one another. What is the approximate probability that there is \
+a total of between 2450 and 2600 claims during a one-year period?",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.4306728493853354`*^9, 3.4306728515093355`*^9}, {
+  3.4306730151243353`*^9, 3.4306730485583353`*^9}, {3.4306780760883355`*^9, 
+  3.4306780783723354`*^9}}],
+
+Cell[TextData[{
+ StyleBox["9. In an analysis of healthcare data, ages have been rounded to \
+the nearest multiple of 5 years. The difference between the true age and the \
+rounded age is assumed to be uniformly distributed on the interval from ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[Minus]",
+  FontFamily->"Times",
+  FontColor->GrayLevel[0]],
+ StyleBox["2.5 years to 2.5 years. The healthcare data are based on a random \
+sample of 48 people. What is the approximate probability that the mean of the \
+rounded ages is within 0.25 years of the mean of the true ages?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4306728520563354`*^9, 3.4306728525963354`*^9}, 
+   3.4306730596353354`*^9, {3.430673137369335*^9, 3.4306731516873355`*^9}, {
+   3.430673192796335*^9, 3.430673202303335*^9}, 3.4306799261153355`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{592, 645},
+WindowMargins->{{7, Automatic}, {Automatic, 6}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 5  Asymptotic Theory"], "Header"]}, {
+   Cell[
+    TextData["5.2 Central Limit Theorem"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 257, 6, 68, "Section"],
+Cell[827, 30, 3179, 70, 553, "Text"],
+Cell[4009, 102, 934, 30, 72, "DisplayFormula"],
+Cell[4946, 134, 3844, 93, 593, "Text"],
+Cell[8793, 229, 918, 32, 93, "Text"],
+Cell[9714, 263, 336, 10, 60, "DisplayFormulaNumbered"],
+Cell[10053, 275, 382, 13, 27, "Text"],
+Cell[10438, 290, 1865, 58, 183, "Text"],
+Cell[12306, 350, 2258, 64, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[14567, 416, 523, 19, 50, "Text"],
+Cell[15093, 437, 583, 12, 90, "Text"],
+Cell[15679, 451, 556, 14, 90, "Text"],
+Cell[16238, 467, 1033, 28, 133, "Text"],
+Cell[17274, 497, 767, 24, 46, "DisplayFormulaNumbered"],
+Cell[18044, 523, 1408, 46, 165, "Text"],
+Cell[19455, 571, 334, 8, 90, "Text"],
+Cell[19792, 581, 1078, 33, 139, "Text"],
+Cell[20873, 616, 2098, 67, 166, "DisplayFormulaNumbered"],
+Cell[22974, 685, 1795, 68, 79, "Text"],
+Cell[24772, 755, 1590, 50, 68, "DisplayFormula"],
+Cell[26365, 807, 227, 7, 27, "Text"],
+Cell[26595, 816, 2564, 82, 118, "DisplayFormula"],
+Cell[29162, 900, 2723, 62, 465, "Text"],
+Cell[31888, 964, 2897, 84, 354, "Text"],
+Cell[34788, 1050, 532, 17, 62, "DisplayFormulaNumbered"],
+Cell[35323, 1069, 499, 8, 110, "Text"],
+Cell[35825, 1079, 513, 15, 56, "Input",
+ InitializationCell->True],
+Cell[36341, 1096, 87, 1, 27, "Text"],
+Cell[36431, 1099, 1673, 54, 109, "DisplayFormula"],
+Cell[38107, 1155, 996, 32, 141, "Text"],
+Cell[39106, 1189, 865, 29, 129, "Input",
+ InitializationCell->True],
+Cell[39974, 1220, 538, 12, 110, "Text"],
+Cell[40515, 1234, 411, 14, 37, "DisplayFormula"],
+Cell[40929, 1250, 1559, 53, 141, "Text"],
+Cell[42491, 1305, 455, 14, 48, "DisplayFormula"],
+Cell[42949, 1321, 178, 6, 48, "Text"],
+Cell[43130, 1329, 451, 14, 71, "Input",
+ InitializationCell->True],
+Cell[43584, 1345, 200, 4, 48, "Text"],
+Cell[CellGroupData[{
+Cell[43809, 1353, 80, 2, 41, "Subsection"],
+Cell[43892, 1357, 400, 14, 66, "Text"],
+Cell[44295, 1373, 190, 4, 48, "Text"],
+Cell[44488, 1379, 380, 12, 52, "DisplayFormula"],
+Cell[44871, 1393, 213, 9, 27, "Text"],
+Cell[45087, 1404, 132, 1, 27, "Text"],
+Cell[45222, 1407, 1171, 35, 73, "DisplayFormula"],
+Cell[46396, 1444, 478, 17, 50, "Text"],
+Cell[46877, 1463, 479, 11, 69, "Text"],
+Cell[47359, 1476, 383, 8, 90, "Text"],
+Cell[47745, 1486, 256, 7, 69, "Text"],
+Cell[48004, 1495, 317, 7, 60, "Text"],
+Cell[48324, 1504, 385, 7, 33, "Text"],
+Cell[48712, 1513, 664, 9, 112, "Text"],
+Cell[49379, 1524, 831, 15, 112, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

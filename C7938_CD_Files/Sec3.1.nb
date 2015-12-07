@@ -1,0 +1,3029 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    102138,       3020]
+NotebookOptionsPosition[     97366,       2885]
+NotebookOutlinePosition[     98189,       2916]
+CellTagsIndexPosition[     98146,       2913]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+CHAPTER 3 
+ CONTINUOUS PROBABILITY\
+\>", "Title",
+ TextAlignment->Center,
+ FontSize->18,
+ FontWeight->"Bold"],
+
+Cell[CellGroupData[{
+
+Cell["3.1  From The Finite to the (Very) Infinite", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "In this chapter we begin the transition from discrete probability, in which \
+sample spaces have either finitely many or countably many outcomes, to \
+continuous probability, in which there is a continuum of possible outcomes.  \
+This area of study continues in the next chapter when we review some of the \
+most useful probability distributions and the properties of continuous random \
+variables.  \n\tCalculus and set theory are the tools for adapting what we \
+have done so far to the more complicated continuous setting.  Remember that \
+when the sample space of a random experiment is finite or countable, to \
+construct a probability it is enough to make an assignment P[\[Omega]] of \
+positive probability to each outcome ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Omega]", "\[Element]", "\[CapitalOmega]"}], TraditionalForm]]],
+ ".  To be valid, these outcome probabilities must be non-negative and must \
+sum to 1.  In continuous probability, we are usually interested in sample \
+spaces ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "\[Subset]", "\[DoubleStruckCapitalR]"}], 
+   TraditionalForm]]],
+ " which are intervals. But the problem is that we cannot assign strictly \
+positive probability to all points in an interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ " without violating the condition that the sample space has probability 1.  \
+To see this, observe that in order for P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", " ", 
+    RowBox[{"[", 
+     RowBox[{"a", ",", "b"}], "]"}], " ", "]"}], TraditionalForm]]],
+ " to be less than or equal to 1, we can have at most 1 point in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ " of probability in (1/2, 1], at most 2 points of probability in (1/3, 1/2], \
+at most 3 points of probability in (1/4, 1/3], etc.  The set of points in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ " of strictly positive probability is the disjoint union as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " ranges from 2 to \[Infinity] of the sets of points whose probability is in \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"1", "/", "n"}], ",", 
+      RowBox[{"1", "/", 
+       RowBox[{"(", 
+        RowBox[{"n", "-", "1"}], ")"}]}]}]}], "]"}], TraditionalForm]]],
+ ". Since the set of points of positive probability is therefore a countable \
+union of finite sets, it is at most countable.  In particular it follows that \
+the set of points of positive probability on \[CapitalOmega] can contain no \
+intervals. \n\tAnother problem concerns what we mean by events.  A typical \
+sampling experiment in discrete probability is to sample two items, in \
+sequence and with replacement, from the universe ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c"}], "}"}], TraditionalForm]]],
+ ".  The sample space for this experiment is"
+}], "Text",
+ CellChangeTimes->{
+  3.426265408863737*^9, 3.426345057415518*^9, {3.4367144545671997`*^9, 
+   3.4367144545732*^9}, 3.4410603678247156`*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[CapitalOmega]", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"a", ",", "a"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"a", ",", "b"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"a", ",", "c"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"b", ",", "a"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"b", ",", "b"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"b", ",", "c"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"c", ",", "a"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"c", ",", "b"}], ")"}], ",", 
+     RowBox[{"(", 
+      RowBox[{"c", ",", "c"}], ")"}]}], "}"}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4367144610982*^9, 3.4367144617192*^9}}],
+
+Cell[TextData[{
+ "which has 9 elements.  Each of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["2", "9"], "=", "512"}], TraditionalForm]]],
+ " subsets of the sample space is an event.  The analogous problem in the \
+continuous domain of sampling two real numbers has all of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[DoubleStruckCapitalR]", "2"], TraditionalForm]]],
+ " as its sample space. The set of all subsets of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[DoubleStruckCapitalR]", "2"], TraditionalForm]]],
+ " is a large breed of infinity indeed, and it also includes some \
+pathological sets whose properties are incompatible with the way we would \
+like to formulate continuous probability.  So in the rest of this book we \
+will restrict our attention to a smaller, more manageable class of events: \
+the so-called ",
+ StyleBox["Borel sets",
+  FontSlant->"Italic"],
+ ", which are described shortly. \n\tIn working with events previously, we \
+were accustomed to taking unions, intersections, and complements of events \
+and expecting the resulting set to be an event.  This is the idea behind the \
+following definition."
+}], "Text",
+ CellChangeTimes->{
+  3.4262661178747373`*^9, {3.4262661818127375`*^9, 3.426266210008737*^9}, {
+   3.4263452130885177`*^9, 3.4263452139445176`*^9}, {3.4263452604835176`*^9, 
+   3.4263452744875174`*^9}, {3.426345315606518*^9, 3.4263453406315174`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  A \[Sigma]-",
+ StyleBox["algebra",
+  FontSlant->"Italic"],
+ " \[ScriptCapitalH] of a set \[CapitalOmega] is a family of subsets of \
+\[CapitalOmega] which contains \[CapitalOmega] itself and is closed under \
+countable union and complementation; i.e., if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "1"], ",", 
+    SubscriptBox["A", "2"], ",", " ", 
+    SubscriptBox["A", "3"], ",", " ", "..."}], TraditionalForm]]],
+ " \[Element] \[ScriptCapitalH]  then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     UnderscriptBox["\[Union]", "i"],
+     TraditionalForm], 
+    SubscriptBox["A", "i"]}], TraditionalForm]]],
+ " \[Element] \[ScriptCapitalH], and if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Element]", "\[ScriptCapitalH]"}], TraditionalForm]]],
+ " then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["A", "c"], " ", "\[Element]", "\[ScriptCapitalH]"}], 
+   TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4263457807285175`*^9, 3.426345790526518*^9}}],
+
+Cell["\<\
+\tThe definition does not specifically refer to closure under countable \
+intersections, but the next activity covers that case.\
+\>", "Text",
+ CellChangeTimes->{{3.4263453676415176`*^9, 3.4263453706765175`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Use DeMorgan's laws to argue that if \[ScriptCapitalH] is a \
+\[Sigma]-algebra then \[ScriptCapitalH] is also closed under countable \
+intersection. "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["  Although the \[Sigma]-algebra concept is most appropriate for \
+continuous probability models, it sheds light on the idea to construct one in \
+the discrete case. Consider a sample space ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6"}], "}"}]}],
+    TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Find (a) the smallest \[Sigma]-algebra containing the event ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["; and (b) the smallest \[Sigma]-algebra containing both of the \
+events ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "4", ",", "5"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.426266263931737*^9, 3.426266435280737*^9}, {
+  3.4263456105065174`*^9, 3.4263456164705176`*^9}}],
+
+Cell[TextData[{
+ StyleBox["\tFor part (a) observe that the power set, that is the family of \
+all subsets of ",
+  FontColor->GrayLevel[0]],
+ "\[CapitalOmega], is certainly closed under countable union and \
+intersection, and it contains the whole space \[CapitalOmega].  Therefore it \
+is a \[Sigma]-algebra containing ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]]],
+ ", but it may not be the smallest one. Since \[CapitalOmega] and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]]],
+ " are in the \[Sigma]-algebra that we would like to construct, so must be \
+their complements, which are \[EmptySet] and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "4", ",", "5", ",", "6"}], "}"}], TraditionalForm]]],
+ ".  Complementation of any of the four subsets of \[CapitalOmega] that we \
+have listed so far does not give us any new candidates, so we turn to unions. \
+The empty set unioned with any set is that set, and \[CapitalOmega] unioned \
+with any set is just \[CapitalOmega], so we find no new candidates for the \
+\[Sigma]-algebra that way.  But also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}], "\[Union]", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "4", ",", "5", ",", "6"}], "}"}]}], "=", 
+    "\[CapitalOmega]"}], TraditionalForm]]],
+ ", which is already in our \[Sigma]-algebra, so no new subsets can be found. \
+  The smallest \[Sigma]-algebra containing ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]]],
+ " is therefore"
+}], "Text",
+ CellChangeTimes->{
+  3.4263456304095173`*^9, {3.4263456650085173`*^9, 3.4263457612065177`*^9}, {
+   3.4263458320875177`*^9, 3.4263458473805175`*^9}, {3.426345920507518*^9, 
+   3.4263462246525173`*^9}, {3.4265460307139215`*^9, 
+   3.4265460398159213`*^9}, {3.4367144838072*^9, 3.4367144838122*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[ScriptCapitalH]", "a"], "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[CapitalOmega]", ",", "\[EmptySet]", ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4", ",", "5", ",", "6"}], "}"}]}], "}"}], "."}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4367144915112*^9, 3.4367144920572*^9}}],
+
+Cell[TextData[{
+ "In part (b) there is a second subset of \[CapitalOmega] to consider.  Both ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "4", ",", "5"}], "}"}], TraditionalForm]]],
+ " and its complement ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "6"}], "}"}], TraditionalForm]]],
+ " must be adjoined to the previous family \[ScriptCapitalH].  Are any more \
+subsets necessary to include?  To maintain closure under union, the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}], "\[Union]", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "4", ",", "5"}], "}"}]}], "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+   TraditionalForm]]],
+ " must be included, as must be its complement ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "6", "}"}], TraditionalForm]]],
+ ".  The smallest \[Sigma]-algebra containing both ",
+ StyleBox["events ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "4", ",", "5"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ " must at least contain all of the following subsets:"
+}], "Text",
+ CellChangeTimes->{{3.4263463235765176`*^9, 3.426346497644518*^9}, {
+  3.4263465331295176`*^9, 3.4263465789905176`*^9}, {3.4367145123822002`*^9, 
+  3.4367145123892*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[ScriptCapitalH]", "b"], "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[CapitalOmega]", ",", "\[EmptySet]", ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4", ",", "5", ",", "6"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4", ",", "5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2", ",", "6"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], ",", 
+      RowBox[{"{", "6", "}"}]}], "}"}], "."}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4367145198652*^9, 3.4367145202092*^9}}],
+
+Cell[TextData[{
+ "Here we have listed out the subsets by pairs, with complementary sets \
+grouped together, so clearly the complement of each set in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ " is also in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ ".  The following activity verifies that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ " is indeed a \[Sigma]-algebra. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.426346624479518*^9, 3.426346737349518*^9}, {
+  3.4263468599455175`*^9, 3.4263468628185177`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Check that the union of any pair of events in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ " above is again in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ ".  Why is this enough to show that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "b"], TraditionalForm]]],
+ " is closed under countable union for this example? "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4263467526085176`*^9, 3.4263468458575172`*^9}}],
+
+Cell["\<\
+\tThe underlying theoretical structure of probability is wrapped up in the \
+following definition. \
+\>", "Text",
+ CellChangeTimes->{{3.4263471304195175`*^9, 3.4263471558795176`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ". A ",
+ StyleBox["probability space",
+  FontSlant->"Italic"],
+ " is a triple ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"\[CapitalOmega]", ",", "\[ScriptCapitalH]", ",", 
+     StyleBox["P",
+      FontSlant->"Plain"]}], ")"}], TraditionalForm]]],
+ " where \[CapitalOmega] is a set called the ",
+ StyleBox["sample space",
+  FontSlant->"Italic"],
+ ", \[ScriptCapitalH] is a \[Sigma]-algebra of subsets of \[CapitalOmega] \
+that we call ",
+ StyleBox["events",
+  FontSlant->"Italic"],
+ ", and P is a probability measure on \[CapitalOmega] that maps events to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.426346939415518*^9, 3.4263471068155174`*^9}}],
+
+Cell[TextData[{
+ "It is perhaps needlessly pedantic to be so formal in the discrete case in \
+which \[CapitalOmega] is finite or countable,  \[ScriptCapitalH] is usually \
+just the power set of \[CapitalOmega], and P is able to be defined simply by \
+its action on outcomes.  But as we move to continuous probability there is \
+more to be said about these three objects.\n",
+ StyleBox["\tTo get started, let the sample space be ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", "\[DoubleStruckCapitalR]"}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". (The construction for higher dimensional sample spaces or \
+interval subsets of ",
+  FontColor->GrayLevel[0]],
+ "\[DoubleStruckCapitalR]",
+ StyleBox[" is analogous.) Certainly intervals should qualify as events.  For \
+definiteness, let us use intervals of the form ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}]}], "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" as our most primitive building blocks, where ",
+  FontColor->GrayLevel[0]],
+ StyleBox["a",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" is allowed to be ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["\[Infinity].  Notice that the intersection of any two of these is \
+either empty or is another interval of this form.  ",
+  FontColor->GrayLevel[0]],
+ "\n\tIf we start with a generating family of sets such as the collection of \
+all intervals \[ScriptCapitalL] =",
+ Cell[BoxData[
+  StyleBox[
+   RowBox[{
+    FormBox[
+     RowBox[{"{", " ", 
+      RowBox[{"(", 
+       RowBox[{"a", ",", "b"}]}], "]"}],
+     TraditionalForm], " ", "}"}],
+   FontFamily->"Times New Roman"]]],
+ ", we can talk about the family of all \[Sigma]-algebras ",
+ Cell[BoxData[
+  FormBox["\[ScriptCapitalH]", TraditionalForm]]],
+ " that contain \[ScriptCapitalL].  This family does have a member, since the \
+power set of \[CapitalOmega] is always a \[Sigma]-algebra, and it contains \
+\[CapitalOmega] and \[ScriptCapitalL]. Exercise 4 asks you to show that an \
+arbitrary intersection of \[Sigma]-algebras is also a \[Sigma]-algebra.  \
+Therefore the intersection of all \[Sigma]-algebras containing \
+\[ScriptCapitalL] is again a \[Sigma]-algebra, and it must be the smallest \
+\[Sigma]-algebra containing \[ScriptCapitalL] in terms of set containment.  \
+The sets in this \[Sigma]-algebra are the Borel sets."
+}], "Text",
+ CellChangeTimes->{{3.4263471821265173`*^9, 3.4263473431145177`*^9}, {
+   3.4263474578155174`*^9, 3.4263474585055175`*^9}, 3.4263475312585173`*^9, {
+   3.4263475613265176`*^9, 3.4263475925325174`*^9}, {3.4263476257815175`*^9, 
+   3.4263477621385174`*^9}, 3.426692106152343*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 3",
+  FontWeight->"Bold"],
+ ". The ",
+ StyleBox["Borel subsets",
+  FontSlant->"Italic"],
+ " of the real line are the sets comprising the smallest \[Sigma]-algebra \
+containing all intervals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}]}], "]"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{
+  3.426346939415518*^9, {3.4263477897545176`*^9, 3.426347792573518*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Let us look more concretely at examples of members of the \
+\[Sigma]-algebra of Borel sets on the real line. All primitive half-open, \
+half-closed intervals such as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"9", ",", "11"}]}], "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "\[Infinity]"}], ",", "3"}]}], "]"}], TraditionalForm]]],
+ " are Borel sets.  Since the family of Borel sets is closed under \
+complementation, open rays such as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"b", ",", "\[Infinity]"}], ")"}], TraditionalForm]]],
+ ", which are complementary to closed rays ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "\[Infinity]"}], ",", " ", "b"}]}], "]"}], 
+   TraditionalForm]]],
+ " are Borel sets.  Singleton sets ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "b", "}"}], TraditionalForm]]],
+ " are also Borel sets, because they can be expressed as countable \
+intersections of intervals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["a", "n"], ",", "b"}]}], "]"}], TraditionalForm]]],
+ " where the sequence of left endpoints ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["a", "n"], TraditionalForm]]],
+ " increases to ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ". Similarly, a closed ray of the form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"a", ",", "\[Infinity]"}]}], ")"}], TraditionalForm]]],
+ " is a Borel set, because it is expressible as a countable intersection of \
+intervals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["a", "n"], ",", "\[Infinity]"}], ")"}], TraditionalForm]]],
+ " where the left endpoints ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["a", "n"], TraditionalForm]]],
+ " increase to ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ".  Exercise 6 asks you to show that intervals of all other possible forms ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"a", ",", "b"}], ")"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"a", ",", "b"}]}], ")"}], TraditionalForm]]],
+ ", for ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ " finite, and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "\[Infinity]"}], ",", "b"}], ")"}], TraditionalForm]]],
+ " are Borel sets as well. Also, any finite or countable union of intervals \
+of any form is a Borel set, hence sets like ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"0", ",", "1"}], ")"}], "\[Union]", 
+     RowBox[{"[", 
+      RowBox[{"8", ",", "\[Infinity]"}]}]}], ")"}], TraditionalForm]]],
+ " are Borel sets.  We will rarely see any set more complicated than a \
+finite, disjoint union of intervals.  In higher dimensions, the \
+\[Sigma]-algebra of Borel sets is the smallest \[Sigma]-algebra containing \
+all generalized rectangles ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{
+       SubscriptBox["a", "1"], ",", 
+       SubscriptBox["b", "1"]}]}], ")"}], " ", "\[Cross]", " ", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{
+       SubscriptBox["a", "2"], ",", 
+       SubscriptBox["b", "2"]}]}], ")"}], "\[Cross]", " ", 
+    "\[CenterEllipsis]"}], TraditionalForm]]],
+ ", which is sufficiently rich to include most events of interest.  \
+\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{
+  3.4262665923977375`*^9, {3.4263478073555174`*^9, 3.4263478102525177`*^9}, {
+   3.4263478716825175`*^9, 3.4263478727875175`*^9}, {3.426347923389518*^9, 
+   3.426347925210518*^9}, {3.4263479556695175`*^9, 3.4263479929525175`*^9}, 
+   3.4263480267545176`*^9, {3.4263480656505175`*^9, 3.4263480656525173`*^9}, 
+   3.4265463324939213`*^9, 3.4266921304263425`*^9}],
+
+Cell[TextData[{
+ "\tSo, in cases where the sample space \[CapitalOmega] is the real line, the \
+family of events \[ScriptCapitalH] will be the collection of Borel subsets of \
+\[CapitalOmega].  If the sample space is a subset of \[DoubleStruckCapitalR], \
+then the events are the Borel sets contained in that subset.  The main \
+advantage to limiting attention to the Borel sets is that we can compute \
+Riemann integrals over these sets in working with continuous probability \
+models.\n\tNext we must look at how to characterize the probability of events \
+in the continuous case.  Whatever we do should be consistent with the \
+definition of a probability measure in Section 1.2, which requires:  (i) P[\
+\[CapitalOmega]] = 1;  (ii) For all ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " \[Element] \[ScriptCapitalH],  P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] \[GreaterEqual] 0;  and  (iii) If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "1"], ",", " ", 
+    SubscriptBox["A", "2"], ",", "\[CenterEllipsis]"}], TraditionalForm]]],
+ "  is a sequence of pairwise disjoint events then P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["A", "1"], "\[Union]", 
+     SubscriptBox["A", "2"], "\[Union]", " ", "\[CenterEllipsis]"}], " ", 
+    "]"}], TraditionalForm]]],
+ " =  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderscriptBox["\[CapitalSigma]", "i"], 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["A", "i"], "]"}]}], TraditionalForm]]],
+ ".  If these axioms are satisfied, Propositions 1-5 in Section 1.2, which \
+give the main properties of probability, still hold without further proof, \
+because they were proved assuming only the axioms, not the finiteness of \
+\[CapitalOmega].  We will discover that many of the other properties of \
+probability, random variables, and distributions will carry over as well.\n\t\
+Continuous probabilities can often be thought of as limits of discrete \
+probabilities where outcomes are measured to higher and higher degrees of \
+accuracy.  To motivate the idea, consider a sample space of numerical \
+outcomes in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}], " "}], TraditionalForm]]],
+ "rounded down to the nearest tenth. The histogram might look as in Figure \
+1(a) if the distribution of probability among outcomes is taken to be uniform \
+for simplicity. Each of the 10 outcomes receives equal probability of .1.  \
+Now suppose that outcomes are rounded down to the nearest .05. The possible \
+outcomes are now ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", ".05", ",", ".1", ",", ".15", ",", "...", " ", ",", ".9", ",", 
+     ".95"}], "}"}], TraditionalForm]]],
+ " of which there are 20, hence each would receive probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"1", "/", "20"}], "=", ".05"}], TraditionalForm]]],
+ " under a uniform model. This is sketched in Figure 1(b). One can imagine \
+continuing the process; if outcomes were rounded down to the nearest .01, \
+then each of the 100 resulting outcomes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", ".01", ",", ".02", ",", "...", " ", ",", ".99"}], "}"}],
+    TraditionalForm]]],
+ " would receive probability .01.  "
+}], "Text",
+ CellChangeTimes->{{3.4262667440057373`*^9, 3.426266762508737*^9}, {
+   3.4263484988175173`*^9, 3.4263485918735175`*^9}, {3.426348694290518*^9, 
+   3.426348713783518*^9}, {3.426348922408518*^9, 3.426348978368518*^9}, {
+   3.4263490754775176`*^9, 3.4263490767725177`*^9}, {3.4263491776525173`*^9, 
+   3.4263492737165174`*^9}, {3.4263493316855173`*^9, 3.426349401455518*^9}, {
+   3.42636447166*^9, 3.426364495314*^9}, {3.426364537273*^9, 
+   3.426364741549*^9}, {3.426365930256*^9, 3.426366009682*^9}, 
+   3.426366044659*^9, {3.426366115342*^9, 3.4263662492790003`*^9}, 
+   3.426366279307*^9, {3.426546401608921*^9, 3.4265464443619213`*^9}, {
+   3.426546496751921*^9, 3.4265465162369213`*^9}, {3.426546550325921*^9, 
+   3.4265466058059216`*^9}, {3.4265466474069214`*^9, 3.426546649632921*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"states1", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{".1", "*", "i"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "9"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"probs1", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{".1", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "9"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"ProbabilityHistogram", "[", 
+    RowBox[{"states1", ",", "probs1", ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "0", ",", ".1", ",", ".2", ",", ".3", ",", ".4", ",", ".5", ",", 
+          ".6", ",", ".7", ",", ".8", ",", ".9"}], "}"}], ",", "Automatic"}], 
+       "}"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"states2", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{".05", "*", "i"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "19"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"probs2", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{".05", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "19"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"ProbabilityHistogram", "[", 
+    RowBox[{"states2", ",", "probs2", ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "0", ",", ".1", ",", ".2", ",", ".3", ",", ".4", ",", ".5", ",", 
+          ".6", ",", ".7", ",", ".8", ",", ".9"}], "}"}], ",", "Automatic"}], 
+       "}"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990457995992813`*^9, 3.3990458032803216`*^9}, 
+   3.3990461709144015`*^9, 3.40405535234375*^9, {3.4263497000135174`*^9, 
+   3.426349783764518*^9}, {3.4263498270655174`*^9, 3.4263498468845177`*^9}, {
+   3.4263647583120003`*^9, 3.426364999297*^9}, {3.426365143861*^9, 
+   3.426365158449*^9}, {3.426365722914*^9, 3.4263657500039997`*^9}, {
+   3.42636581202*^9, 3.426365814013*^9}, 3.4410577188033156`*^9, {
+   3.441057864633116*^9, 3.4410579589663153`*^9}, {3.441058006530716*^9, 
+   3.4410580685407157`*^9}, {3.4410581095999155`*^9, 3.4410581350591154`*^9}, 
+   3.4410582394855156`*^9, {3.4410586563643155`*^9, 3.4410586848655157`*^9}, 
+   3.4410587957347155`*^9, {3.4410590001103153`*^9, 3.4410590085499153`*^9}, {
+   3.4410592423627157`*^9, 3.4410592957303157`*^9}, 3.4410593795023155`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["(a)                                                                \
+                             (b)",
+  FontWeight->"Plain"],
+ "\n",
+ StyleBox["Figure 3.1",
+  FontWeight->"Bold"],
+ StyleBox[" - Two discrete uniform probability measures",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367138747412*^9, 3.4367138802511997`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tAs more precision of measurement is used, the number of outcomes \
+increases and their individual probabilities decrease, but one thing is \
+consistent: the ",
+ StyleBox["probability density",
+  FontSlant->"Italic"],
+ ". In general a scaled probability histogram called a ",
+ StyleBox["density histogram",
+  FontSlant->"Italic"],
+ " can be drawn, by setting the bar height for an interval from ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "+", 
+    RowBox[{"\[CapitalDelta]", " ", "x"}]}], TraditionalForm]]],
+ " equal to the density, that is the probability weight at ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " divided by the length of the interval \[CapitalDelta]",
+ StyleBox["x. ",
+  FontSlant->"Italic"],
+ "If we do this, then the bar area, which is the bar height times \
+\[CapitalDelta]",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", is equal to the probability of outcome ",
+ StyleBox["x.",
+  FontSlant->"Italic"],
+ " For instance, for the probability measure in Figure 1(a) with weights of \
+.1 on each outcome spaced at an interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox[
+      RowBox[{"\[CapitalDelta]", 
+       StyleBox["x",
+        FontSlant->"Italic"]}]], 
+     StyleBox["=.",
+      FontSlant->"Italic"]}], ".1"}], TraditionalForm]]],
+ ", the probability density is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{".1", "/", ".1"}], "=", "1"}], TraditionalForm]]],
+ ". In Figure 1(b), the probability density is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{".05", "/", ".05"}], "=", "1"}], TraditionalForm]]],
+ " again.  The two density histograms are in Figure 2.  Notice the \
+resemblance to the continuous uniform distribution of probability on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ " that we studied in Chapter 1.  Probabilities of sets of outcomes are total \
+rectangle areas in the density histograms; for instance, in part (a), the \
+probability of the set of outcomes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{".4", ",", ".5"}], "}"}], TraditionalForm]]],
+ " is the total of the areas of the rectangles above those outcomes, which is \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"1", "\[CenterDot]", ".1"}], "+", 
+     RowBox[{"1", "\[CenterDot]", ".1"}]}], "=", ".2"}], TraditionalForm]]],
+ ". In part (b), the probability that the outcome takes a value between .2 \
+and .4 inclusive is the total of the five rectangle areas between these two \
+bounds, each of which is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{".05", "\[CenterDot]", "1"}], TraditionalForm]]],
+ ", hence the total probability is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"5", "\[CenterDot]", ".05"}], "=", ".25"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.426366289973*^9, 3.426366304782*^9}, {3.426366337034*^9,
+   3.426366338102*^9}, {3.426366439755*^9, 3.4263667303310003`*^9}, {
+  3.426367095731*^9, 3.426367207888*^9}, {3.4265467148149214`*^9, 
+  3.4265467160249214`*^9}, {3.4265467767349215`*^9, 3.426546962935921*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"states3", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{".1", "*", "i"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "9"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"probs3", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"1", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "9"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"ProbabilityHistogram", "[", 
+    RowBox[{"states3", ",", "probs3", ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "0", ",", ".1", ",", ".2", ",", ".3", ",", ".4", ",", ".5", ",", 
+          ".6", ",", ".7", ",", ".8", ",", ".9"}], "}"}], ",", "Automatic"}], 
+       "}"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"states4", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{".05", "*", "i"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "19"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"probs4", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"1", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "19"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"ProbabilityHistogram", "[", 
+    RowBox[{"states4", ",", "probs4", ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "0", ",", ".1", ",", ".2", ",", ".3", ",", ".4", ",", ".5", ",", 
+          ".6", ",", ".7", ",", ".8", ",", ".9"}], "}"}], ",", "Automatic"}], 
+       "}"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g3", ",", "g4"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990457995992813`*^9, 3.3990458032803216`*^9}, 
+   3.3990461709144015`*^9, 3.40405535234375*^9, {3.4263497000135174`*^9, 
+   3.426349783764518*^9}, {3.4263498270655174`*^9, 3.4263498468845177`*^9}, {
+   3.4263647583120003`*^9, 3.426364999297*^9}, {3.426365143861*^9, 
+   3.426365158449*^9}, {3.426365722914*^9, 3.4263657500039997`*^9}, {
+   3.42636581202*^9, 3.426365814013*^9}, {3.426366819883*^9, 
+   3.426366923696*^9}, {3.4410588874627156`*^9, 3.4410589645111156`*^9}, {
+   3.441059347803116*^9, 3.4410593528731155`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["(a)                                                                \
+                             (b)",
+  FontWeight->"Plain"],
+ "\n",
+ StyleBox["Figure 3.2",
+  FontWeight->"Bold"],
+ StyleBox[" - Two discrete probability density histograms",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367139185762*^9, 3.4367139244852*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ " The idea of using a continuous probability model as an approximation to a \
+discrete model with many states each of which has small probability is more \
+than just a theoretical device. The growing field of financial mathematics \
+makes heavy use of a model for random asset price motions called the ",
+ StyleBox["binomial branch model",
+  FontSlant->"Italic"],
+ ". In this, the price of an asset begins at some value ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " at time 0, and moves to a later value at a later time that we will call \
+time 1 through a sequence of steps. In each step, the process has just two \
+possible next values: \"up\" with probability ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ ", or \"down\" with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ ".  Figure 3 shows two such steps, in which from the starting value ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " the asset can either go up to position 2 or down to position 3; then in \
+the next step if it is at position 2 it can either go up to position 4 or \
+down to 5, and if it is at position 3 it can go up to 5 or down to 6.  "
+}], "Text",
+ CellChangeTimes->{{3.426367249852*^9, 3.426367279091*^9}, {3.426367408284*^9,
+   3.4263674725550003`*^9}, {3.4263680447609997`*^9, 
+  3.4263681596940002`*^9}, {3.426368265826*^9, 3.426368271506*^9}, {
+  3.426368916038*^9, 3.4263689489519997`*^9}, {3.4263692130179996`*^9, 
+  3.426369243724*^9}, {3.426369374983*^9, 3.426369446307*^9}, {
+  3.426369477171*^9, 3.426369581759*^9}}],
+
+Cell[BoxData[
+ RowBox[{"g1", "=", 
+  RowBox[{"Graphics", "[", 
+   RowBox[{
+    RowBox[{"{", " ", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<2\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "1"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<3\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}]}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<4\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "2"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<5\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "0"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<6\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", 
+            RowBox[{"-", "2"}]}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{".05", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{".9", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{".05", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{".9", ",", 
+           RowBox[{"-", "1"}]}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.1", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.9", ",", "1.9"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.1", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.9", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.1", ",", 
+           RowBox[{"-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.9", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.1", ",", 
+           RowBox[{"-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.9", ",", 
+           RowBox[{"-", "2"}]}], "}"}]}], "}"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{".4", ",", ".6"}], "}"}]}], "]"}], ",", "Small"}], "]"}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{".4", ",", 
+            RowBox[{"-", ".2"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", "1.6"}], "}"}]}], "]"}], ",", "Small"}], "]"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", ".8"}], "}"}]}], "]"}], ",", "Small"}], "]"}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", 
+            RowBox[{"-", ".4"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", 
+            RowBox[{"-", "1.2"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}]}], 
+     "}"}], ",", 
+    RowBox[{"AspectRatio", "\[Rule]", ".5"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", ".1"}], ",", "2.2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.2"}], ",", "2.2"}], "}"}]}], "}"}]}]}], "]"}], 
+  " "}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3984360157386284`*^9, 3.3984361316143703`*^9}, {
+   3.398436161911439*^9, 3.3984361760677795`*^9}, {3.3984379385790596`*^9, 
+   3.398438054439176*^9}, {3.398438188924412*^9, 3.3984382701436815`*^9}, {
+   3.3984383083158007`*^9, 3.3984385303015966`*^9}, {3.430913751533318*^9, 
+   3.430913840245318*^9}, {3.430914663919318*^9, 3.4309146755313177`*^9}, {
+   3.433021112968318*^9, 3.433021179750318*^9}, {3.433021210447318*^9, 
+   3.433021222176318*^9}, {3.433021267980318*^9, 3.433021443664318*^9}, {
+   3.4330214787733183`*^9, 3.433021521923318*^9}, {3.433021596907318*^9, 
+   3.4330217279243183`*^9}, {3.4330217615893183`*^9, 
+   3.4330218090823183`*^9}, {3.433021867301318*^9, 3.4330221681703176`*^9}, {
+   3.433022218393318*^9, 3.433022234239318*^9}, {3.433022303929318*^9, 
+   3.4330223549913177`*^9}, {3.4330223872733183`*^9, 3.433022521829318*^9}, {
+   3.4330225597883177`*^9, 3.433022674537318*^9}, {3.433022931246318*^9, 
+   3.433023148147318*^9}, {3.433023190282318*^9, 3.433023251804318*^9}, {
+   3.4330232846633177`*^9, 3.433023375463318*^9}, {3.433023428008318*^9, 
+   3.433023431761318*^9}, {3.433023475956318*^9, 3.433023503978318*^9}, {
+   3.433023536343318*^9, 3.4330235578653183`*^9}, {3.433023598081318*^9, 
+   3.433023615077318*^9}, {3.433023775690318*^9, 3.433023875499318*^9}, 
+   3.433023913753318*^9, {3.433023944323318*^9, 3.4330240788723183`*^9}, {
+   3.4330241161563177`*^9, 3.433024133723318*^9}, {3.433024173828318*^9, 
+   3.4330241877923183`*^9}, 3.4330242588463182`*^9, {3.433024297712318*^9, 
+   3.433024310217318*^9}, {3.4330244461223183`*^9, 3.433024577642318*^9}, {
+   3.433067040290719*^9, 3.433067191367719*^9}, {3.433067245764719*^9, 
+   3.433067276906719*^9}, {3.433067480200719*^9, 3.433067516375719*^9}, {
+   3.433067559689719*^9, 3.433067685886719*^9}, {3.4330677163367195`*^9, 
+   3.433067737804719*^9}, 3.4330677991547194`*^9, {3.433067835889719*^9, 
+   3.4330679030797195`*^9}, {3.433067935577719*^9, 3.4330679405047193`*^9}, {
+   3.4367156015931997`*^9, 3.4367156225912*^9}, {3.4367156986512003`*^9, 
+   3.4367157169802*^9}, {3.4367157933472*^9, 3.4367158381902*^9}}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.3",
+  FontWeight->"Bold"],
+ StyleBox[" - Binomial branch process",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367139696472*^9, 3.4367139746862*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "Suppose that a binomial branch process is normalized so that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ ", and there are ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " time steps between time 0 and time 1.  In each step the value either goes \
+up by a step size of ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{"1", "/", "n"}]], TraditionalForm]]],
+ " or down by the same amount.  Then after ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " steps, if there have been ",
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]]],
+ " ups and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "k"}], TraditionalForm]]],
+ " downs, then the value of the asset is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"0", "+", 
+     RowBox[{"k", 
+      SqrtBox[
+       RowBox[{"1", "/", "n"}]]}], "-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"n", "-", "k"}], ")"}], 
+      SqrtBox[
+       RowBox[{"1", "/", "n"}]]}]}], "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"2", "k"}], "-", "n"}], ")"}], 
+     SqrtBox[
+      RowBox[{"1", "/", "n"}]]}]}], TraditionalForm]]],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"k", "=", "0"}], ",", "1", ",", "2", ",", "...", " ", ",", "n"}], 
+   TraditionalForm]]],
+ ".  These ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ " values are the outcomes in the sample space \[CapitalOmega] of possible \
+asset values at time 1. They are separated from each other by a distance of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", " ", "x"}], "=", 
+    RowBox[{"2", 
+     SqrtBox[
+      RowBox[{"1", "/", "n"}]]}]}], TraditionalForm]]],
+ ". The probability that the outcome corresponding to ",
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]]],
+ " ups happens is the binomial probability:"
+}], "Text",
+ CellChangeTimes->{{3.4263696328789997`*^9, 3.426369709527*^9}, {
+  3.426369861512*^9, 3.426369915994*^9}, {3.426370024124*^9, 
+  3.426370185553*^9}, {3.426370385874*^9, 3.426370428027*^9}, {
+  3.4263704706870003`*^9, 3.42637056074*^9}, {3.426370614243*^9, 
+  3.426370616016*^9}, {3.426371155609*^9, 3.426371210227*^9}, {
+  3.426547532186921*^9, 3.426547534004921*^9}, {3.4367145737061996`*^9, 
+  3.4367145737111998`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{" ", "n", " "}]},
+      {"k"}
+     }], "\[NegativeThinSpace]", ")"}], 
+   SuperscriptBox[
+    RowBox[{"(", ".5", ")"}], "k"], 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", ".5", ")"}], 
+     RowBox[{"n", "-", "k"}]], ".", " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4367145800982*^9, 3.4367145804782*^9}}],
+
+Cell[TextData[{
+ "These probabilities form a valid probability measure on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "k"}], "-", "n"}], ")"}], 
+         SqrtBox[
+          RowBox[{"1", "/", "n"}]]}], ":", "k"}], "=", "0"}], ",", "1", ",", 
+      "2", ",", "...", " ", ",", "n"}], "}"}]}], TraditionalForm]]],
+ ". The following ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command lets you plot the density histogram for this discrete probability \
+model. First the time step ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "/", "n"}], TraditionalForm]]],
+ "  and the asset price step size ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{"1", "/", "n"}]], TraditionalForm]]],
+ " are computed.  The binomial probabilities are assembled into a list, and \
+divided by  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", " ", "x"}], "=", 
+    RowBox[{"2", 
+     SqrtBox[
+      RowBox[{"1", "/", "n"}]]}]}], TraditionalForm]]],
+ " to get the densities. The states ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"2", "k"}], "-", "n"}], ")"}], 
+    SqrtBox[
+     RowBox[{"1", "/", "n"}]]}], TraditionalForm]]],
+ " are assembled into a list, and the probability density histogram is \
+computed."
+}], "Text",
+ CellChangeTimes->{{3.4263705788269997`*^9, 3.426370692758*^9}, {
+  3.426370729712*^9, 3.4263707616280003`*^9}, {3.426372650649*^9, 
+  3.426372812513*^9}, {3.4264362997462*^9, 3.4264363045322*^9}, {
+  3.4264363416132*^9, 3.4264363542372*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"AssetPriceDistribution", "[", "numsteps_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "timestep", ",", "stepsize", ",", "stateprobs", ",", "statelist", ",", 
+      "densitylist"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"timestep", "=", 
+      RowBox[{"1", "/", "numsteps"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"stepsize", "=", 
+      RowBox[{"Sqrt", "[", "timestep", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"stateprobs", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"PDF", "[", 
+         RowBox[{
+          RowBox[{"BinomialDistribution", "[", 
+           RowBox[{"numsteps", ",", ".5"}], "]"}], ",", "k"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"k", ",", "0", ",", "numsteps"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"densitylist", "=", 
+      RowBox[{"stateprobs", "/", 
+       RowBox[{"(", 
+        RowBox[{"2", "*", "stepsize"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"statelist", "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "k"}], "-", "numsteps"}], ")"}], "*", "stepsize"}], 
+        ",", 
+        RowBox[{"{", 
+         RowBox[{"k", ",", "0", ",", "numsteps"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ProbabilityHistogram", "[", 
+      RowBox[{"statelist", ",", "densitylist"}], "]"}]}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426370876073*^9, 3.4263708905369997`*^9}, {
+   3.426370929013*^9, 3.426371065435*^9}, {3.4263710980559998`*^9, 
+   3.426371138961*^9}, {3.426371236758*^9, 3.426371350033*^9}, {
+   3.426371421058*^9, 3.4263714221940002`*^9}, {3.426372286369*^9, 
+   3.426372290395*^9}, 3.426372800248*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Let us see how these density histograms behave as the number of time steps ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " becomes large. The closed cell below contains the graph of a continuous \
+function called the standard normal density function (about which we will \
+have much to say later) that superimposes well onto the density histogram. \
+The graphics output for the plot is named g5.  In the electronic file you can \
+manipulate the value of the number of steps (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "12"}], TraditionalForm]]],
+ " is shown here) in Figure 4 to see that the densities converge to this \
+function.  The fact that probabilities of outcomes are areas of rectangles in \
+the density histogram suggests that as the number of steps approaches \
+infinity, one should be able to find probabilities involving the asset price \
+at time 1 by finding areas under this standard normal density function. \
+\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.426372816427*^9, 3.426372866742*^9}, {3.426372918867*^9,
+    3.42637301906*^9}, {3.426373087922*^9, 3.42637319624*^9}, {
+   3.42637324056*^9, 3.426373244988*^9}, {3.4263732802320004`*^9, 
+   3.426373280233*^9}, {3.4264364489362*^9, 3.4264364834182*^9}, {
+   3.4264366485192003`*^9, 3.4264367058182*^9}, 3.4410599441131153`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"g5", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"PDF", "[", 
+      RowBox[{
+       RowBox[{"NormalDistribution", "[", 
+        RowBox[{"0", ",", "1"}], "]"}], ",", "x"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "3"}], "}"}]}], "]"}]}], ";"}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426371480455*^9, 3.42637152281*^9}, {3.426372202476*^9, 
+   3.426372237564*^9}, 3.426372279624*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"AssetPriceDistribution", "[", "n", "]"}], ",", "g5"}], "}"}], 
+    "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", "2", ",", "20", ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4263713877530003`*^9, 3.4263714016610003`*^9}, {
+  3.4263715284049997`*^9, 3.426371538349*^9}, {3.426371599007*^9, 
+  3.426371622833*^9}, {3.426371653299*^9, 3.426371733123*^9}, {
+  3.426371959653*^9, 3.426371970516*^9}, {3.4263721657*^9, 
+  3.426372165972*^9}, {3.4263723432860003`*^9, 3.4263723461429996`*^9}, {
+  3.426372570441*^9, 3.4263725706210003`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.4",
+  FontWeight->"Bold"],
+ StyleBox[" - Binomial branch probability densities",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367140311661997`*^9, 3.4367140363122*^9}},
+ TextAlignment->Center],
+
+Cell["\<\
+\tThe following examples illustrate ways of defining probability measures in \
+continuous sample spaces.\
+\>", "Text",
+ CellChangeTimes->{{3.4262668412697372`*^9, 3.426266852276737*^9}, {
+  3.4264367458352003`*^9, 3.4264367724882*^9}},
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{
+      FormBox[
+       RowBox[{
+        RowBox[{"f", "(", "x", ")"}], "=", 
+        FractionBox["3", "4"]}],
+       TraditionalForm], 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        SuperscriptBox["x", "2"]}], ")"}]}],
+     TraditionalForm], " "}], TraditionalForm]]],
+ "and let the sample space \[CapitalOmega] be the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", "1"}], "]"}], TraditionalForm]]],
+ ".  Let us argue that the following defines a probability measure on the \
+Borel subsets of \[CapitalOmega] and find several example event \
+probabilities. "
+}], "Text",
+ CellChangeTimes->{{3.4264367842412*^9, 3.4264368921712*^9}, {
+  3.4264369821562*^9, 3.4264370001422*^9}, {3.4264378273472*^9, 
+  3.4264378559212*^9}, {3.4367145990542*^9, 3.4367145990582*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", "E", "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderscriptBox["\[Integral]", "E"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4367146055492*^9, 3.4367146060741997`*^9}}],
+
+Cell[TextData[{
+ "\tThe probability measure is constructed to find probabilities of events \
+(Borel sets) by integration, that is, by finding the area under the graph of ",
+ Cell[BoxData[
+  FormBox["f", TraditionalForm]]],
+ " corresponding to the event on the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "-axis.  It can be shown in more advanced work that the integral in (1) is \
+well-defined on the family of Borel sets which we are taking as our events. \
+The idea here is to think of the function ",
+ Cell[BoxData[
+  FormBox["f", TraditionalForm]]],
+ " as determining how densely the probability weight is concentrated around \
+each ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ ". Adding density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ " times infinitesimal length ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"d", " ", "x"}], TraditionalForm]]],
+ " over all points ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " in event ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ " gives the total probability weight of ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ ". For our building block events ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}]}], "]"}], TraditionalForm]]],
+ " we have"
+}], "Text",
+ CellChangeTimes->{{3.4264371541001997`*^9, 3.4264371991352*^9}, {
+   3.4264372792862*^9, 3.4264372845312*^9}, 3.426547887563921*^9, {
+   3.4266922004783425`*^9, 3.4266922078313427`*^9}, {3.4266922426003428`*^9, 
+   3.4266923474423428`*^9}, {3.4367146192452*^9, 3.4367146192502003`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}], "]"}], " ", "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", "a", "b"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4367146268562*^9, 3.4367146272492*^9}}],
+
+Cell[TextData[{
+ "First, here is a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " definition of our function ",
+ Cell[BoxData[
+  FormBox["f", TraditionalForm]]],
+ ", and a computation and display of the probability associated with the \
+interval (0,.5], which is the shaded area under the density function in \
+Figure 5."
+}], "Text",
+ CellChangeTimes->{{3.4264368939412003`*^9, 3.4264369128932*^9}, {
+  3.4264373110492*^9, 3.4264373889762*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"0.75", "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      SuperscriptBox["x", "2"]}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "0", ".5"], 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], 
+   RowBox[{"\[DifferentialD]", "x"}]}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990459174238896`*^9, 3.3990459654183855`*^9}, {
+   3.4264372236492*^9, 3.4264372247312*^9}, 3.4264374221372004`*^9, 
+   3.436979502381027*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"PlotContsProb", "[", 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0.5`"}], "}"}], ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "0", ",", "0.5`", ",", "1"}], "}"}], ",", 
+      "Automatic"}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990460774473133`*^9, 3.399046077682274*^9}, 
+   3.3990463034788337`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.5",
+  FontWeight->"Bold"],
+ StyleBox[" - Shaded area = P[ ",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"0", ",", ".5"}]}], "]"}],
+    FontWeight->"Plain"], TraditionalForm]]],
+ StyleBox[" ]",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367140711022*^9, 3.4367140770002003`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "To display the area, we have used the command \n\n\t\t\t\
+PlotContsProb[densityfn, domain, between]\n\t\t\t\nin ",
+ "KnoxProb7",
+ "`Utilities`, which takes the density function, a plot domain, and another \
+pair called ",
+ StyleBox["between",
+  FontSlant->"Italic"],
+ " which designates the endpoints of the shaded interval.  Notice that the \
+probability weight of ",
+ StyleBox["every",
+  FontVariations->{"Underline"->True}],
+ " singleton point ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "a", "}"}], TraditionalForm]]],
+ " is 0 in this model, since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", "a", "a"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}], TraditionalForm]]],
+ " = 0.  Only sets that have length will receive positive probability. As a \
+further example, the probability of the event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", ".3"}], ",", ".2"}], "]"}], TraditionalForm]]],
+ " is "
+}], "Text",
+ CellChangeTimes->{{3.4264375303402*^9, 3.4264376010692*^9}, {
+   3.4264376809002*^9, 3.4264377161331997`*^9}, 3.441057729036916*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", 
+   RowBox[{"-", ".3"}], ".2"], 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], 
+   RowBox[{"\[DifferentialD]", "x"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4264376326432*^9, 3.4264376369821997`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Why is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", "a", "b"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}], TraditionalForm]]],
+ " also equal to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}], ")"}], " ", "]"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"[", 
+     RowBox[{"a", ",", "b"}], "]"}], " ", "]"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"a", ",", "b"}]}], ")"}], " ", "]"}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4263468955795174`*^9, 3.4263468969855175`*^9}, {
+  3.4264374847321997`*^9, 3.4264374891532*^9}}],
+
+Cell[TextData[{
+ "\tContinuing with Example 4, we are obliged to check whether P defined by \
+(1) is a valid probability measure.  First observe that the integral of ",
+ Cell[BoxData[
+  FormBox["f", TraditionalForm]]],
+ " over all of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", "1"}], "]"}]}], TraditionalForm]]],
+ " is equal to 1, as required by the first axiom of probability:"
+}], "Text",
+ CellChangeTimes->{{3.4264377294712*^9, 3.4264378032061996`*^9}, {
+  3.4264378669751997`*^9, 3.4264378916991997`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", 
+   RowBox[{"-", "1"}], "1"], 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], 
+   RowBox[{"\[DifferentialD]", "x"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4264376326432*^9, 3.4264376369821997`*^9}, {
+  3.4264379123192*^9, 3.4264379184692*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "It is clear from the fact that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     RowBox[{
+      RowBox[{"f", "(", "x", ")"}], "=", 
+      FractionBox["3", "4"]}],
+     TraditionalForm], 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      SuperscriptBox["x", "2"]}], ")"}]}], TraditionalForm]]],
+ " that the integrand in the defining expression for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", "E", "]"}], TraditionalForm]]],
+ " is non-negative on \[CapitalOmega], hence  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "E", "]"}], "\[GreaterEqual]", "0"}], 
+   TraditionalForm]]],
+ " for all events ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ ", establishing axiom 2 of probability.  The third axiom of probability, \
+that is, the additivity over countable disjoint unions, is actually tricky to \
+show in general, because of the fact that the Borel events can be quite \
+complicated.  We will omit the proof.  But at least for unions of finitely \
+many disjoint intervals the additivity property of the integral, shown in \
+calculus, yields the conclusion of the third axiom without difficulty, as \
+follows."
+}], "Text",
+ CellChangeTimes->{{3.4264379674272003`*^9, 3.4264380785132*^9}, {
+  3.4367146559512*^9, 3.4367146559542*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{GridBox[{
+     {
+      StyleBox[
+       FormBox[
+        FormBox[
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            StyleBox["P",
+             FontSlant->"Plain"], "[", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               SubscriptBox["a", "1"], ",", 
+               SubscriptBox["b", "1"]}], "]"}], "\[Union]", 
+             RowBox[{"(", 
+              RowBox[{
+               SubscriptBox["a", "2"], ",", 
+               SubscriptBox["b", "2"]}]}]}], "]"}], "\[Union]", 
+           RowBox[{"[", 
+            RowBox[{"(", 
+             RowBox[{
+              SubscriptBox["a", "3"], ",", 
+              SubscriptBox["b", "3"]}]}], "]"}]}], "]"}],
+         TraditionalForm],
+        TraditionalForm],
+       FontFamily->"Times New Roman"], "=", 
+      StyleBox[
+       FormBox[
+        RowBox[{
+         UnderscriptBox["\[Integral]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 SubscriptBox["a", "1"], ",", 
+                 SubscriptBox["b", "1"]}]}], "]"}], "\[Union]", 
+              RowBox[{"(", 
+               RowBox[{
+                SubscriptBox["a", "2"], ",", 
+                SubscriptBox["b", "2"]}]}]}], "]"}], "\[Union]", 
+            RowBox[{"(", 
+             RowBox[{
+              SubscriptBox["a", "3"], ",", 
+              SubscriptBox["b", "3"]}]}]}], "]"}]], 
+         RowBox[{
+          RowBox[{"f", "(", "x", ")"}], "d", "x"}]}],
+        TraditionalForm],
+       FontFamily->"Times New Roman"]},
+     {" ", "=", 
+      StyleBox[
+       FormBox[
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           UnderscriptBox["\[Integral]", 
+            SubscriptBox["a", "1"]], 
+           SubscriptBox["b", "1"]], 
+          RowBox[{
+           RowBox[{"f", "(", "x", ")"}], "d", "x"}]}], "+", 
+         RowBox[{
+          SuperscriptBox[
+           UnderscriptBox["\[Integral]", 
+            SubscriptBox["a", "2"]], 
+           SubscriptBox["b", "2"]], 
+          RowBox[{
+           RowBox[{"f", "(", "x", ")"}], "d", "x"}]}], "+", 
+         RowBox[{
+          SuperscriptBox[
+           UnderscriptBox["\[Integral]", 
+            SubscriptBox["a", "3"]], 
+           SubscriptBox["b", "3"]], 
+          RowBox[{
+           RowBox[{"f", "(", "x", ")"}], "d", "x"}]}]}],
+        TraditionalForm],
+       FontFamily->"Times New Roman"]},
+     {" ", "=", 
+      StyleBox[
+       FormBox[
+        RowBox[{
+         RowBox[{
+          StyleBox["P",
+           FontSlant->"Plain"], "[", 
+          RowBox[{"(", 
+           RowBox[{
+            SubscriptBox["a", "1"], ",", 
+            SubscriptBox["b", "1"]}], "]"}], "]"}], "+", 
+         RowBox[{
+          StyleBox["P",
+           FontSlant->"Plain"], "[", 
+          RowBox[{"(", 
+           RowBox[{
+            SubscriptBox["a", "2"], ",", 
+            SubscriptBox["b", "2"]}], "]"}], "]"}], "+", 
+         RowBox[{
+          StyleBox["P",
+           FontSlant->"Plain"], "[", 
+          RowBox[{"(", 
+           RowBox[{
+            SubscriptBox["a", "3"], ",", 
+            SubscriptBox["b", "3"]}], "]"}], "]"}]}],
+        TraditionalForm],
+       FontFamily->"Times New Roman"]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], "  "}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4264379674272003`*^9, 3.4264380785132*^9}, {
+  3.4367146559512*^9, 3.4367146654482*^9}}],
+
+Cell["\[FilledSquare]", "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "  Suppose that an electronic device on which there is a maintenance plan \
+survives for a uniformly distributed time (See Section 1.3) in the real \
+interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ ". It will be replaced at the earlier of time 3 and its death time. Find a \
+probability measure appropriate for the experiment of observing the time of \
+replacement. "
+}], "Text",
+ CellChangeTimes->{
+  3.4264384828241997`*^9, 3.4264386500992002`*^9, {3.4264389272511997`*^9, 
+   3.4264390347742*^9}}],
+
+Cell[TextData[{
+ "\tThe possible outcomes \[Omega] of the experiment belong to the sample \
+space ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "3"}], "]"}]}], TraditionalForm]]],
+ ".  But the actual death time of the device is assumed to be such that the \
+probability that it lies in a Borel subset ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ " of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ " is the length of the subset divided by 4, which is the same as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderscriptBox["\[Integral]", "E"], 
+    RowBox[{
+     FractionBox["1", "4"], " ", "d", " ", "x"}]}], TraditionalForm]]],
+ ". There is a non-zero probability that the replacement occurs exactly at \
+time 3, namely:"
+}], "Text",
+ CellChangeTimes->{{3.4264390352272*^9, 3.4264391084222*^9}, {
+  3.426548848030921*^9, 3.4265489814349213`*^9}, {3.4367146860162*^9, 
+  3.4367146860202*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"replace", " ", "at", " ", "time", " ", "3"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+     "device", " ", "survives", " ", "at", " ", "least", " ", "3", " ", 
+      "time", " ", "units"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      UnderoverscriptBox["\[Integral]", "3", "4"], " ", 
+      RowBox[{
+       FractionBox["1", "4"], " ", "d", " ", "x"}]}], "=", 
+     FractionBox["1", "4"]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4367146983932*^9, 3.4367146987482*^9}}],
+
+Cell[TextData[{
+ "Hence the outcome ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Omega]", "=", "3"}], TraditionalForm]]],
+ " should receive positive probability weight 1/4. For Borel subsets ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"E", "\[Subset]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "3"}], ")"}]}], TraditionalForm]]],
+ " we have"
+}], "Text",
+ CellChangeTimes->{{3.4264392770432*^9, 3.4264393310292*^9}, {
+  3.426549009910921*^9, 3.4265490147639213`*^9}, {3.4367147228702*^9, 
+  3.4367147228822002`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", "E", "]"}], 
+   StyleBox["=",
+    FontSlant->"Plain"], 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{"replace", " ", "at", " ", "time", " ", "t"}], "\[Element]", 
+      "E"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{"device", "  ", "dies", " ", "at", " ", "time", "  ", "t"}], 
+       "\[Element]", "E"}], "]"}], "=", 
+     RowBox[{
+      RowBox[{
+       UnderscriptBox["\[Integral]", "E"], 
+       RowBox[{
+        FractionBox["1", "4"], " ", "d", " ", "x"}]}], "=", 
+      RowBox[{
+       FractionBox["1", "4"], "\[CenterDot]", 
+       RowBox[{"length", "(", "E", ")"}]}]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4367147324161997`*^9, 3.4367147330452003`*^9}}],
+
+Cell["\<\
+Together, formulas (3) and (4) define our probability measure. Axiom 1 of \
+probability is satisfied, since\
+\>", "Text",
+ CellChangeTimes->{{3.4264395289302*^9, 3.4264395710512*^9}, {
+  3.4367147459681997`*^9, 3.4367147459712*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", "\[CapitalOmega]", "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "3", "]"}], "+", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"[", 
+       RowBox[{"0", ",", "3"}], ")"}], "]"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "4"], "+", 
+      RowBox[{
+       FractionBox["1", "4"], "\[CenterDot]", 
+       RowBox[{"length", "(", 
+        RowBox[{"[", 
+         RowBox[{"0", ",", "3"}], ")"}], ")"}]}]}], "=", 
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "4"], "+", 
+       FractionBox["3", "4"]}], "=", "1.", " "}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4264395289302*^9, 3.4264395710512*^9}, {
+  3.4367147459681997`*^9, 3.4367147548052*^9}}],
+
+Cell[TextData[{
+ "Axiom 2 is clearly satisfied, since the point 3 has positive probability, \
+and for Borel subsets of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "3"}], ")"}], TraditionalForm]]],
+ " formula (4) must always give a non-negative result. Do Activity 4 below to \
+help convince yourself that the third axiom holds.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4264396751442003`*^9, 3.4264397902852*^9}, {
+  3.4264398844302*^9, 3.4264398890262003`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Argue that P is Example 5 does satisfy the additivity axiom of \
+probability for two disjoint events ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", "2"], TraditionalForm]]],
+ ". (Hint: since the two events are disjoint, at most one of them can contain \
+the point 3.)"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4263468955795174`*^9, 3.4263468969855175`*^9}, {
+  3.4264374847321997`*^9, 3.4264374891532*^9}, {3.4264398149902*^9, 
+  3.4264399088742*^9}, {3.426548106397921*^9, 3.426548109023921*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 6",
+  FontWeight->"Bold"],
+ "  Consider the sample space ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"x", ",", "y"}], ")"}], "\[Element]", 
+      RowBox[{
+       SuperscriptBox["\[DoubleStruckCapitalR]", "2"], ":", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["x", "2"], "+", 
+         SuperscriptBox["y", "2"]}], "\[LessEqual]", "4"}]}]}], "}"}]}], 
+   TraditionalForm]]],
+ ", that is, the disk of radius 2 in the plane.  Let a set function be \
+defined on the Borel subsets of \[CapitalOmega] by"
+}], "Text",
+ CellChangeTimes->{
+  3.4264384828241997`*^9, 3.4264385773622*^9, {3.4264399577272*^9, 
+   3.4264400749292*^9}, {3.4367147747482*^9, 3.4367147747522*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", "E", "]"}], "=", 
+   RowBox[{"\[Integral]", 
+    RowBox[{
+     SubscriptBox["\[Integral]", "E"], " ", 
+     RowBox[{
+      RowBox[{"c", "\[CenterDot]", 
+       RowBox[{"(", 
+        RowBox[{"4", "-", 
+         SuperscriptBox["x", "2"], "-", 
+         SuperscriptBox["y", "2"]}], ")"}]}], "d", " ", "x", " ", "d", " ", 
+      "y"}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4367147848392*^9, 3.4367147853831997`*^9}}],
+
+Cell[TextData[{
+ "Find the value of ",
+ Cell[BoxData[
+  FormBox["c", TraditionalForm]]],
+ " that makes this a valid probability measure and compute the probability of \
+the unit square ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"0", ",", "1"}], "]"}], "\[Cross]", 
+     RowBox[{"[", 
+      RowBox[{"0", ",", "1"}], "]"}]}], "]"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4264405113302*^9, 3.4264406003942003`*^9}, {
+  3.426549097566921*^9, 3.426549098176921*^9}}],
+
+Cell[TextData[{
+ "\tIn this continuous model, we are defining probabilities as volumes \
+bounded by the surface graph of a two-variable function and the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "-", "y"}], TraditionalForm]]],
+ " coordinate plane. Notice that the condition ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["x", "2"], "+", 
+     SuperscriptBox["y", "2"]}], "\[LessEqual]", "4"}], TraditionalForm]]],
+ " forces the integrand to be non-negative over \[CapitalOmega] as long as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"c", ">", "0"}], TraditionalForm]]],
+ ".  Hence axiom 2 of probability will hold, and axiom 3 will also follow \
+from the additivity of the double integral over disjoint sets.  What we \
+simply need to do is to choose ",
+ Cell[BoxData[
+  FormBox["c", TraditionalForm]]],
+ " so that the double integral over all of \[CapitalOmega] is 1.  By symmetry \
+this double integral is 4 times the integral over the piece of the disk in \
+the first quadrant:"
+}], "Text",
+ CellChangeTimes->{{3.4264406031742*^9, 3.4264407713742*^9}, {
+  3.426548627941921*^9, 3.4265487007469215`*^9}}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"P", "[", "\[CapitalOmega]", "]"}], "="}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"4", "*", 
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", "0", "2"], 
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", "0", 
+      SqrtBox[
+       RowBox[{"4", "-", 
+        SuperscriptBox["x", "2"]}]]], 
+     RowBox[{"c", "*", 
+      RowBox[{"(", 
+       RowBox[{"4", "-", 
+        SuperscriptBox["x", "2"], "-", 
+        SuperscriptBox["y", "2"]}], ")"}], 
+      RowBox[{"\[DifferentialD]", "y"}], 
+      RowBox[{"\[DifferentialD]", "x"}]}]}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4264408057562*^9, 3.4264408940002003`*^9}, {
+  3.4264409505892*^9, 3.4264409512302*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Setting this equal to 1 yields ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"c", "=", 
+    RowBox[{"1", "/", 
+     RowBox[{"(", 
+      RowBox[{"8", "\[Pi]"}], ")"}]}]}], TraditionalForm]]],
+ ".  The probability of the square is the volume underneath the surface shown \
+in Figure 6, which is computed below as 5/(12\[Pi]).  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4264409622542*^9, 3.4264410036752*^9}, {
+  3.4264410354332*^9, 3.4264410386942*^9}, {3.426548231582921*^9, 
+  3.4265483350129213`*^9}, {3.426548414004921*^9, 3.426548422742921*^9}, {
+  3.426548609367921*^9, 3.4265486121779213`*^9}}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{
+      RowBox[{"[", 
+       RowBox[{"0", ",", "1"}], "]"}], "\[Cross]", 
+      RowBox[{"[", 
+       RowBox[{"0", ",", "1"}], "]"}]}], "]"}], "="}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", "0", "1"], 
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", "0", "1"], 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"8", "\[Pi]"}]], "*", 
+     RowBox[{"(", 
+      RowBox[{"4", "-", 
+       SuperscriptBox["x", "2"], "-", 
+       SuperscriptBox["y", "2"]}], ")"}], 
+     RowBox[{"\[DifferentialD]", "y"}], 
+     RowBox[{"\[DifferentialD]", "x"}]}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4264408057562*^9, 3.4264408940002003`*^9}, {
+  3.4264409505892*^9, 3.4264409512302*^9}, {3.4265483671969213`*^9, 
+  3.426548406047921*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"Plot3D", "[", 
+  RowBox[{
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"8", "\[Pi]"}]], 
+    RowBox[{"(", 
+     RowBox[{"4", "-", 
+      SuperscriptBox["x", "2"], "-", 
+      SuperscriptBox["y", "2"]}], ")"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"y", ",", "0", ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426548140193921*^9, 3.426548198596921*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.6",
+  FontWeight->"Bold"],
+ StyleBox[" - Probability modeled as volume",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4367142371742*^9, 3.4367142429252*^9}},
+ TextAlignment->Center],
+
+Cell["Exercises 3.1", "Text",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[StyleBox["1. Devise an example of a random experiment and \
+associated probability space in which a countable number of points receive \
+positive probability and as well an interval of real numbers receives \
+probability through integration.  (Hint: a randomized experiment can be \
+constructed which randomly chooses between two other experiments.)  Carefully \
+describe the action of the probability measure. ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.426544579742921*^9, 3.4265445920889215`*^9}, {
+  3.4265446409189215`*^9, 3.4265446468029213`*^9}, {3.426544767994921*^9, 
+  3.426544813270921*^9}, {3.426627115729148*^9, 3.4266271164881477`*^9}, {
+  3.4266910422403426`*^9, 3.426691176704343*^9}, {3.4266912120093427`*^9, 
+  3.4266912240333424`*^9}}],
+
+Cell[TextData[{
+ StyleBox["2. Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be a sample space. Find (a) the smallest \[Sigma]-algebra \
+containing the events ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"2", ",", "3"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and {1,5}; and (b) the smallest \[Sigma]-algebra containing both \
+of the events ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4265449804659214`*^9, 3.426545075926921*^9}, 
+   3.426545247488921*^9, {3.4266271201421475`*^9, 3.4266271209191475`*^9}}],
+
+Cell["\<\
+3. Explain why the set of all integers is a Borel set.  Explain why any at \
+most countable set of points on the real axis is a Borel set.\
+\>", "Text",
+ CellChangeTimes->{{3.4266271568431473`*^9, 3.426627158908148*^9}, {
+  3.4266287638131475`*^9, 3.4266287700671473`*^9}}],
+
+Cell["\<\
+4. Prove that an arbitrary intersection (not necessarily a countable one) of \
+\[Sigma]-algebras is a \[Sigma]-algebra.  Conclude that the intersection of \
+all \[Sigma]-algebras containing a collection of sets \[ScriptCapitalL] is \
+the smallest \[Sigma]-algebra containing \[ScriptCapitalL].\
+\>", "Text",
+ CellChangeTimes->{{3.4266271702461476`*^9, 3.4266271707641478`*^9}, {
+  3.426628766481148*^9, 3.4266287757531476`*^9}}],
+
+Cell[TextData[{
+ "5. What is the smallest \[Sigma]-algebra containing a singleton set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "x", "}"}], TraditionalForm]]],
+ ", for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "\[Element]", "\[CapitalOmega]"}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellChangeTimes->{{3.426545272183921*^9, 3.426545276622921*^9}, {
+  3.4266272958111477`*^9, 3.4266272966621475`*^9}, {3.4266287820551476`*^9, 
+  3.4266288125841475`*^9}}],
+
+Cell[TextData[{
+ "6. Show that all of the intervals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}], ")"}], ",", " ", 
+    RowBox[{"[", 
+     RowBox[{"a", ",", "b"}], "]"}], ",", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "\[Infinity]"}], ",", "b"}], ")"}], ",", " ", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"a", ",", "b"}]}], ")"}]}], TraditionalForm]]],
+ " are Borel sets for any real numbers ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", " ", "<", " ", "b"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.426627367229148*^9, 3.4266273678851476`*^9}, {
+  3.4266287897261477`*^9, 3.4266287938181477`*^9}}],
+
+Cell[TextData[{
+ "7. Find a constant ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "E", "]"}], "=", 
+    RowBox[{
+     SubscriptBox["\[Integral]", "E"], " ", 
+     RowBox[{
+      RowBox[{"c", "/", 
+       SuperscriptBox["x", "2"]}], " ", "d", " ", "x"}]}]}], 
+   TraditionalForm]]],
+ " is a valid probability measure on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"1", ",", "\[Infinity]"}]}], ")"}]}], TraditionalForm]]],
+ ".  Then find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", ",", "4"}], ")"}], "\[Union]", 
+     RowBox[{"(", 
+      RowBox[{"8", ",", "\[Infinity]"}], ")"}]}], " ", "]"}], 
+   TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4265451310859213`*^9, 3.4265451394589214`*^9}, {
+  3.4266273819711475`*^9, 3.4266273822711477`*^9}, {3.4266287979771476`*^9, 
+  3.4266288005351477`*^9}, {3.4266288563191476`*^9, 3.4266289165081477`*^9}}],
+
+Cell[TextData[{
+ "8.  Find a constant ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "E", "]"}], "=", 
+    RowBox[{
+     SubscriptBox["\[Integral]", "E"], " ", 
+     RowBox[{"c", " ", 
+      RowBox[{"log", "(", "x", ")"}], " ", "d", " ", "x"}]}]}], 
+   TraditionalForm]]],
+ " is a valid probability measure on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "e"}], "]"}]}], TraditionalForm]]],
+ ", and then compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"[", 
+     RowBox[{"2", ",", "e"}], "]"}], " ", "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "2"}], "]"}], " ", "]"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.426545169742921*^9, 3.426545170594921*^9}, {
+  3.4266289876621475`*^9, 3.4266290116081476`*^9}, {3.4266301261261473`*^9, 
+  3.426630126868148*^9}}],
+
+Cell[TextData[{
+ StyleBox["9. ",
+  FontColor->GrayLevel[0]],
+ "Find a constant ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "E", "]"}], "=", 
+    RowBox[{
+     SubscriptBox["\[Integral]", "E"], 
+     RowBox[{
+      SubscriptBox["\[Integral]", " "], " ", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"c", " "}], 
+        RowBox[{"x", "\[CenterDot]", "y"}]], "d", " ", "x", " ", "d", " ", 
+       "y"}]}]}]}], TraditionalForm]]],
+ " is a valid probability measure on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"1", ",", "2"}], "]"}], "\[Cross]", 
+     RowBox[{"[", 
+      RowBox[{"1", ",", "2"}], "]"}]}]}], TraditionalForm]]],
+ ", and then compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"1.5", ",", "2"}], "]"}], "\[Cross]", 
+     RowBox[{"[", 
+      RowBox[{"0", ",", "1.5"}], "]"}]}], " ", "]"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.426549113341921*^9, 3.4265491210659213`*^9}, {
+  3.4266273980621476`*^9, 3.4266273990101476`*^9}, {3.4266301040911474`*^9, 
+  3.4266302632841473`*^9}, {3.4266303184031477`*^9, 3.4266303194111476`*^9}}],
+
+Cell[TextData[{
+ StyleBox["10.",
+  FontColor->GrayLevel[0]],
+ StyleBox[" (Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") Consider a binomial branch process as in Example 3 with 6 time \
+steps, normalized initial price 0 and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Each time step, the price changes by ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PlusMinus]", 
+    SqrtBox[
+     RowBox[{"1", "/", "6"}]]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Find and plot the probability mass function of the asset value \
+at time 1, and use it to find the exact probability that the asset value at \
+time 1 is at least 1.  Then superimpose the graph of the following function \
+onto a probability density histogram and use numerical integration to find \
+the approximate area underneath that function corresponding to the interval ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"1", ",", "\[Infinity]"}], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" in order to continuously approximate the same probability. Does \
+your picture suggest a better interval over which to integrate in order to \
+improve the approximation?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4265470305559216`*^9, 3.426547323636921*^9}, {
+   3.4265473544219213`*^9, 3.426547379599921*^9}, {3.426547612143921*^9, 
+   3.426547692094921*^9}, {3.4266274031451473`*^9, 3.4266274044711475`*^9}, 
+   3.4410603116491156`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", "x_", "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", "1"}], "]"}], ",", "x"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426371480455*^9, 3.42637152281*^9}, {3.426372202476*^9, 
+   3.426372237564*^9}, 3.426372279624*^9, {3.426547446353921*^9, 
+   3.4265474582769213`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["11. A random variable ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" mapping a sample space \[CapitalOmega] with a \[Sigma]-algebra \
+\[ScriptCapitalH] to \[DoubleStruckCapitalR] is called ",
+  FontColor->GrayLevel[0]],
+ StyleBox["measurable with respect to",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" \[ScriptCapitalH] if for every Borel subset ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["B", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" of \[DoubleStruckCapitalR], the inverse image ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["X", 
+      RowBox[{"-", "1"}]], "(", "B", ")"}], "=", 
+    RowBox[{"{", 
+     RowBox[{"\[Omega]", ":", 
+      RowBox[{
+       RowBox[{"X", "(", "\[Omega]", ")"}], "\[Element]", "B"}]}], "}"}]}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is in \[ScriptCapitalH].  Consider the collection of all sets ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[ScriptCapitalH]", "x"], "=", " "}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SuperscriptBox["X", 
+      RowBox[{"-", "1"}]], "(", "B", ")"}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" as ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["B", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" ranges through all Borel sets in \[DoubleStruckCapitalR]. Show \
+that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[ScriptCapitalH]", "x"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is a \[Sigma]-algebra with respect to which ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is measurable, and in fact it is the smallest such  \
+\[Sigma]-algebra. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4265453456719213`*^9, 3.426545529891921*^9}, {
+  3.426545734481921*^9, 3.426545796358921*^9}, {3.426545826785921*^9, 
+  3.426545914839921*^9}, {3.426627417196148*^9, 3.4266274181641474`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{869, 609},
+WindowMargins->{{6, Automatic}, {Automatic, 9}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 3 Continuous Probability"], "Header"]}, {
+   Cell[
+    TextData["3.1 From the Finite to the (Very) Infinite"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowSelection->True,
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 119, 6, 118, "Title"],
+Cell[CellGroupData[{
+Cell[711, 32, 153, 4, 68, "Section"],
+Cell[867, 38, 3207, 73, 318, "Text"],
+Cell[4077, 113, 762, 24, 27, "DisplayFormula"],
+Cell[4842, 139, 1422, 30, 156, "Text"],
+Cell[6267, 171, 1082, 35, 49, "Text"],
+Cell[7352, 208, 222, 4, 27, "Text"],
+Cell[7577, 214, 247, 7, 48, "Text"],
+Cell[7827, 223, 1356, 41, 70, "Text"],
+Cell[9186, 266, 1988, 48, 152, "Text"],
+Cell[11177, 316, 435, 12, 27, "DisplayFormula"],
+Cell[11615, 330, 1572, 47, 90, "Text"],
+Cell[13190, 379, 717, 19, 27, "DisplayFormula"],
+Cell[13910, 400, 666, 18, 48, "Text"],
+Cell[14579, 420, 601, 18, 69, "Text"],
+Cell[15183, 440, 193, 4, 27, "Text"],
+Cell[15379, 446, 822, 27, 49, "Text"],
+Cell[16204, 475, 2828, 65, 256, "Text"],
+Cell[19035, 542, 456, 16, 28, "Text"],
+Cell[19494, 560, 4099, 135, 215, "Text"],
+Cell[23596, 697, 4147, 89, 349, "Text"],
+Cell[27746, 788, 3062, 80, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[30811, 870, 397, 12, 49, "Text"],
+Cell[31211, 884, 3158, 89, 235, "Text"],
+Cell[34372, 975, 2704, 75, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[37079, 1052, 395, 12, 49, "Text"],
+Cell[37477, 1066, 1638, 33, 153, "Text"],
+Cell[39118, 1101, 7359, 187, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[46480, 1290, 229, 8, 28, "Text"],
+Cell[46712, 1300, 2421, 78, 140, "Text"],
+Cell[49136, 1380, 445, 15, 46, "DisplayFormula"],
+Cell[49584, 1397, 1682, 53, 125, "Text"],
+Cell[51269, 1452, 2144, 54, 233, "Input",
+ InitializationCell->True],
+Cell[53416, 1508, 1337, 23, 131, "Text"],
+Cell[54756, 1533, 788, 23, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[55547, 1558, 978, 24, 56, "Input",
+ InitializationCell->True],
+Cell[56528, 1584, 247, 8, 28, "Text"],
+Cell[56778, 1594, 290, 7, 27, "Text"],
+Cell[57071, 1603, 964, 30, 58, "Text"],
+Cell[58038, 1635, 396, 13, 58, "DisplayFormulaNumbered"],
+Cell[58437, 1650, 1591, 45, 110, "Text"],
+Cell[60031, 1697, 462, 15, 71, "DisplayFormulaNumbered"],
+Cell[60496, 1714, 452, 12, 48, "Text"],
+Cell[60951, 1728, 821, 24, 102, "Input",
+ InitializationCell->True],
+Cell[61775, 1754, 1015, 30, 79, "Input",
+ InitializationCell->True],
+Cell[62793, 1786, 425, 17, 28, "Text"],
+Cell[63221, 1805, 1198, 35, 177, "Text"],
+Cell[64422, 1842, 551, 16, 76, "Input",
+ InitializationCell->True],
+Cell[64976, 1860, 1047, 41, 75, "Text"],
+Cell[66026, 1903, 594, 15, 48, "Text"],
+Cell[66623, 1920, 594, 17, 76, "Input",
+ InitializationCell->True],
+Cell[67220, 1939, 1369, 39, 120, "Text"],
+Cell[68592, 1980, 3582, 113, 110, "DisplayFormula"],
+Cell[72177, 2095, 31, 0, 27, "Text"],
+Cell[72211, 2097, 627, 16, 70, "Text"],
+Cell[72841, 2115, 1018, 29, 88, "Text"],
+Cell[73862, 2146, 675, 20, 71, "DisplayFormulaNumbered"],
+Cell[74540, 2168, 510, 15, 27, "Text"],
+Cell[75053, 2185, 940, 31, 60, "DisplayFormulaNumbered"],
+Cell[75996, 2218, 242, 5, 27, "Text"],
+Cell[76241, 2225, 886, 30, 47, "DisplayFormula"],
+Cell[77130, 2257, 501, 12, 48, "Text"],
+Cell[77634, 2271, 661, 18, 69, "Text"],
+Cell[78298, 2291, 801, 23, 53, "Text"],
+Cell[79102, 2316, 536, 16, 46, "DisplayFormula"],
+Cell[79641, 2334, 577, 19, 27, "Text"],
+Cell[80221, 2355, 1132, 27, 112, "Text"],
+Cell[81356, 2384, 1041, 31, 110, "Input",
+ InitializationCell->True],
+Cell[82400, 2417, 620, 14, 48, "Text"],
+Cell[83023, 2433, 1163, 35, 99, "Input",
+ InitializationCell->True],
+Cell[84189, 2470, 757, 23, 75, "Input",
+ InitializationCell->True],
+Cell[84949, 2495, 235, 8, 28, "Text"],
+Cell[85187, 2505, 74, 2, 27, "Text"],
+Cell[85264, 2509, 785, 11, 69, "Text"],
+Cell[86052, 2522, 1147, 37, 48, "Text"],
+Cell[87202, 2561, 283, 5, 27, "Text"],
+Cell[87488, 2568, 438, 7, 48, "Text"],
+Cell[87929, 2577, 459, 13, 27, "Text"],
+Cell[88391, 2592, 680, 22, 27, "Text"],
+Cell[89074, 2616, 1145, 40, 33, "Text"],
+Cell[90222, 2658, 1146, 42, 52, "Text"],
+Cell[91371, 2702, 1352, 46, 57, "Text"],
+Cell[92726, 2750, 1666, 41, 141, "Text"],
+Cell[94395, 2793, 677, 18, 56, "Input",
+ InitializationCell->True],
+Cell[95075, 2813, 2263, 68, 95, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

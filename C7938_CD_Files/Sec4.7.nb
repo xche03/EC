@@ -1,0 +1,4903 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    153364,       4894]
+NotebookOptionsPosition[    147629,       4751]
+NotebookOutlinePosition[    148527,       4785]
+CellTagsIndexPosition[    148484,       4782]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["4.7 Transformations of Normal Random Variables", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.4293035060187163`*^9, 3.4293035082207165`*^9}, {
+   3.4298029571917343`*^9, 3.4298029639797344`*^9}, {3.4298030046317344`*^9, 
+   3.4298030142557344`*^9}, {3.4298030854827347`*^9, 3.4298030878947344`*^9}, 
+   3.4301596170850425`*^9, 3.4303257509366584`*^9},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell["\<\
+This section is meant to prepare you for more advanced study of statistics, \
+especially in the multivariate realm. Our goal is to set down two major \
+theorems about linear and quadratic transformations acting on a group of \
+random variables having the multivariate normal distribution. It may be \
+skipped on a first pass through probability, but my hope is that you will at \
+least get a general sense of what the theorems say, because not only are they \
+very interesting and not only do they fill in some of the unanswered \
+questions in Section 4.6, but they illustrate very well the unity of \
+mathematics. Linear algebra in particular is required here, and we will state \
+but not prove the results that we need from that subject.  But there are also \
+tendrils of the theory that extend from calculus to differential equations, \
+to real and complex analysis, together with applications to statistics and \
+financial mathematics. \
+\>", "Text",
+ CellChangeTimes->{{3.429303612929716*^9, 3.429303619382716*^9}, {
+   3.4298030290267344`*^9, 3.4298032847257347`*^9}, {3.4298033168307343`*^9, 
+   3.4298034109127345`*^9}, {3.4298035278427343`*^9, 3.429803529259734*^9}, {
+   3.4298044795527344`*^9, 3.4298044900787344`*^9}, 3.4298053160517344`*^9, 
+   3.4300823997195234`*^9, 3.4301596170850425`*^9, {3.4378253522843237`*^9, 
+   3.437825357188324*^9}}],
+
+Cell["Linear Transformations", "Subsection",
+ CellChangeTimes->{{3.429803426056734*^9, 3.4298034394707346`*^9}, 
+   3.4301596170860424`*^9, 3.435429340277*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "If you did Exercises 17",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "18 in Section 4.2 you encountered the multivariate generalization of the \
+normal distribution, called the ",
+ StyleBox["multivariate normal distribution",
+  FontSlant->"Italic"],
+ ". This was a relatively straightforward extension of the bivariate normal \
+distribution, couched in vector and matrix terms. The state space of a \
+multivariate normal random vector ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["X", "1"], ",", 
+     SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+     SubscriptBox["X", "n"]}], ")"}], TraditionalForm]]],
+ " consists of vectors ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["x",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["x", "1"], "  ", 
+       SubscriptBox["x", "2"], " ", "\[Ellipsis]", "  ", 
+       SubscriptBox["x", "n"]}], ")"}], "\[Element]", 
+     SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}]}], TraditionalForm]]],
+ ", and the joint density function can be written in matrix form as"
+}], "Text",
+ CellChangeTimes->{
+  3.4298035400817347`*^9, {3.4298053196007347`*^9, 3.4298053650557346`*^9}, {
+   3.429805460752734*^9, 3.4298054986337347`*^9}, {3.4298056176067343`*^9, 
+   3.4298057066437345`*^9}, {3.4299574912357483`*^9, 3.429957511741748*^9}, {
+   3.429957561711748*^9, 3.429957572390748*^9}, {3.4299594345407476`*^9, 
+   3.429959467513748*^9}, {3.429959506854748*^9, 3.429959540963748*^9}, 
+   3.4301596170860424`*^9, {3.4318788021470003`*^9, 3.4318788060810003`*^9}, {
+   3.437819980762324*^9, 3.437819980768324*^9}, 3.4568251964531293`*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", 
+    StyleBox["x",
+     FontWeight->"Bold"], ")"}], "=", 
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"2", "\[Pi]"}], ")"}], 
+       RowBox[{"n", "/", "2"}]], 
+      SqrtBox[
+       RowBox[{"det", "(", "\[Sum]", ")"}]]}]], 
+    SuperscriptBox["e", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "1"}], "/", "2"}], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["x",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "-", 
+         StyleBox["\[Mu]",
+          FontWeight->"Bold"]}], ")"}], "t"], 
+      RowBox[{
+       SuperscriptBox["\[Sum]", 
+        RowBox[{"-", "1"}]], 
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["x",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "-", 
+         StyleBox["\[Mu]",
+          FontWeight->"Bold"]}], ")"}]}]}]]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378199875573235`*^9, 3.437819988038324*^9}}],
+
+Cell[TextData[{
+ "where we use \"det\" to denote the determinant of a matrix, the superscript \
+-1 to denote the inverse of a matrix, and the superscript ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ " to indicate transpose of a vector or matrix.  The two parameters governing \
+the distribution are:"
+}], "Text",
+ CellChangeTimes->{{3.4298057210017347`*^9, 3.4298057425147343`*^9}, {
+   3.4298060373677344`*^9, 3.4298060865327344`*^9}, {3.4298081107756586`*^9, 
+   3.4298081452772083`*^9}, 3.4301596170920424`*^9, {3.4378200027343235`*^9, 
+   3.4378200027393236`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["\[Mu]",
+    FontWeight->"Bold"], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {
+          SubscriptBox["\[Mu]", "1"]},
+         {
+          SubscriptBox["\[Mu]", "2"]},
+         {"\[VerticalEllipsis]"},
+         {
+          SubscriptBox["\[Mu]", "n"]}
+        }], "\[NegativeThinSpace]", ")"}],
+      TraditionalForm], "   ", "and", "  ", "\[Sum]"}], " ", "=", " ", 
+    FormBox[
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         SuperscriptBox[
+          SubscriptBox["\[Sigma]", "1"], "2"], 
+         RowBox[{
+          SubscriptBox["\[Rho]", "12"], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "2"]}], 
+         RowBox[{
+          SubscriptBox["\[Rho]", "13"], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "3"]}], "\[CenterEllipsis]", 
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"1", "n"}]], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "n"]}]},
+        {
+         RowBox[{
+          SubscriptBox["\[Rho]", "12"], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "2"]}], 
+         SuperscriptBox[
+          SubscriptBox["\[Sigma]", "2"], "2"], 
+         RowBox[{
+          SubscriptBox["\[Rho]", "23"], 
+          SubscriptBox["\[Sigma]", "2"], 
+          SubscriptBox["\[Sigma]", "3"]}], "\[CenterEllipsis]", 
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"2", "n"}]], 
+          SubscriptBox["\[Sigma]", "2"], 
+          SubscriptBox["\[Sigma]", "n"]}]},
+        {
+         RowBox[{
+          SubscriptBox["\[Rho]", "13"], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "3"]}], 
+         RowBox[{
+          SubscriptBox["\[Rho]", "23"], 
+          SubscriptBox["\[Sigma]", "2"], 
+          SubscriptBox["\[Sigma]", "3"]}], 
+         SuperscriptBox[
+          SubscriptBox["\[Sigma]", "3"], "2"], "\[CenterEllipsis]", 
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"3", "n"}]], 
+          SubscriptBox["\[Sigma]", "3"], 
+          SubscriptBox["\[Sigma]", "n"]}]},
+        {"\[VerticalEllipsis]", "\[VerticalEllipsis]", "\[CenterEllipsis]", 
+         "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+        {
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"1", "n"}]], 
+          SubscriptBox["\[Sigma]", "1"], 
+          SubscriptBox["\[Sigma]", "n"]}], 
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"2", "n"}]], 
+          SubscriptBox["\[Sigma]", "2"], 
+          SubscriptBox["\[Sigma]", "n"]}], 
+         RowBox[{
+          SubscriptBox["\[Rho]", 
+           RowBox[{"3", "n"}]], 
+          SubscriptBox["\[Sigma]", "3"], 
+          SubscriptBox["\[Sigma]", "n"]}], "\[CenterEllipsis]", 
+         SuperscriptBox[
+          SubscriptBox["\[Sigma]", "n"], "2"]}
+       }], "\[NegativeThinSpace]", ")"}],
+     TraditionalForm]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378200116783237`*^9, 3.437820012377324*^9}}],
+
+Cell[TextData[{
+ "respectively, the vector of means of the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ "'s and the matrix of variances and paired covariances of the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ "'s.  We refer to these as the ",
+ StyleBox["mean vector",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["covariance matrix",
+  FontSlant->"Italic"],
+ " of the random vector ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["X",
+    FontWeight->"Bold",
+    FontSlant->"Plain"], TraditionalForm]]],
+ ", terms that have general usage outside of the domain of normal random \
+variables."
+}], "Text",
+ CellChangeTimes->{{3.4298057457797346`*^9, 3.429805767122734*^9}, {
+   3.429805913733734*^9, 3.4298059142817345`*^9}, {3.4298059665487347`*^9, 
+   3.4298060168737345`*^9}, {3.429806099740734*^9, 3.4298061255327344`*^9}, {
+   3.4298061633877344`*^9, 3.4298061857987347`*^9}, {3.429959477205748*^9, 
+   3.429959477205748*^9}, 3.4301596170990424`*^9, 3.456825207903529*^9}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Check in the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "1"}], TraditionalForm]]],
+ " that the multivariate normal density reduces to the single variable normal \
+density from Section 4.1."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4298065129867344`*^9, 3.4298065458417344`*^9}, 
+   3.4301596171000423`*^9}],
+
+Cell[TextData[{
+ "\tWe would like to show that if ",
+ StyleBox["X ",
+  FontWeight->"Bold"],
+ "has a multivariate normal distribution and ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " is a constant matrix of ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " columns, then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " also has a multivariate normal distribution, thereby generalizing earlier \
+results from Section 4.3 (See Example 7 of that Section). The most \
+straightforward way of doing this is to introduce the multivariate \
+generalization of the moment-generating function."
+}], "Text",
+ CellChangeTimes->{{3.4298065623127346`*^9, 3.4298065754227343`*^9}, {
+   3.429806626273734*^9, 3.4298067429867344`*^9}, {3.429806791221734*^9, 
+   3.4298068020797343`*^9}, {3.429806873582734*^9, 3.4298069220467343`*^9}, 
+   3.4298070424327345`*^9, 3.4301596171000423`*^9, 3.4303259517066584`*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  The ",
+ StyleBox["moment-generating function",
+  FontSlant->"Italic"],
+ " of the random vector ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["X", "1"], ",", 
+      SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+      SubscriptBox["X", "n"]}], ")"}]}], TraditionalForm]]],
+ " is the following function of a vector-variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["t",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["t", "1"], ",", 
+      SubscriptBox["t", "2"], ",", "\[Ellipsis]", " ", ",", 
+      SubscriptBox["t", "n"]}], ")"}]}], TraditionalForm]]],
+ ", defined for all ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["t",
+    FontWeight->"Bold",
+    FontSlant->"Plain"], TraditionalForm]]],
+ " such that the expectation is finite:"
+}], "Text",
+ CellChangeTimes->{{3.4298069524117346`*^9, 3.429807071818734*^9}, {
+   3.429807138077938*^9, 3.429807145876158*^9}, 3.4301596171010427`*^9, {
+   3.4378200346073236`*^9, 3.437820034611324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "(", 
+    StyleBox["t",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], ")"}], "=", 
+   RowBox[{
+    RowBox[{"M", "(", 
+     RowBox[{
+      SubscriptBox["t", "1"], ",", 
+      SubscriptBox["t", "2"], ",", "\[Ellipsis]", " ", ",", 
+      SubscriptBox["t", "n"]}], ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["t", "1"], 
+         SubscriptBox["X", "1"]}], "+", " ", 
+        RowBox[{
+         SubscriptBox["t", "2"], 
+         SubscriptBox["X", "2"]}], "+", "\[CenterEllipsis]", "+", 
+        RowBox[{
+         SubscriptBox["t", "n"], 
+         SubscriptBox["X", "n"]}]}]], "]"}], "=", 
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox["e", 
+       RowBox[{
+        SuperscriptBox[
+         StyleBox["t",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "t"], "\[CenterDot]", 
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378200425013237`*^9, 3.4378200430693235`*^9}}],
+
+Cell[TextData[{
+ "\tLet us now compute the m.g.f. of the multivariate normal distribution \
+with mean vector ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " and covariance matrix \[Sum].  The derivation will involve completing the \
+square in a similar vein to the single variable case.  The two facts from \
+linear algebra that we need for this derivation are:"
+}], "Text",
+ CellChangeTimes->{{3.4298072824445*^9, 3.4298073562581177`*^9}, {
+   3.429808180364699*^9, 3.4298081860561295`*^9}, {3.4298082894097934`*^9, 
+   3.4298083013066034`*^9}, 3.430159617102042*^9, {3.437820058919324*^9, 
+   3.4378200589223237`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"If", " ", 
+   FormBox["A",
+    TraditionalForm], " ", "and", " ", 
+   FormBox["B",
+    TraditionalForm], " ", "are", " ", "matrices"}], ",", " ", 
+  RowBox[{"then", " ", 
+   FormBox[
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"A", " ", "B"}], ")"}], "t"], "=", 
+     RowBox[{
+      SuperscriptBox["B", "t"], 
+      SuperscriptBox["A", "t"]}]}],
+    TraditionalForm]}]}]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378200769633236`*^9, 3.437820103250324*^9}},
+ FontFamily->"Times"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"If", " ", 
+   FormBox["A",
+    TraditionalForm], " ", "is", " ", "a", " ", "matrix"}], ",", " ", 
+  RowBox[{"then", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{"A", "\[CenterDot]", 
+      SuperscriptBox["A", 
+       RowBox[{"-", "1"}]]}], "=", 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["A", 
+        RowBox[{"-", "1"}]], "\[CenterDot]", "A"}], "=", "I"}]}],
+    TraditionalForm]}], ",", " ", 
+  RowBox[{"where", " ", 
+   FormBox["I",
+    TraditionalForm], " ", "is", " ", "an", " ", "identity", " ", 
+   "matrix"}]}]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378201692203236`*^9, 3.437820220929324*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "Note also that \[Sum] is a symmetric matrix, hence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sum]", "t"], 
+    RowBox[{"=", "\[Sum]"}]}], TraditionalForm]]],
+ ". ",
+ "\n",
+ "\tNow, we write the definition of the m.g.f. of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ ", multiply and divide by ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["t",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "t"], "\[CenterDot]", 
+     StyleBox["\[Mu]",
+      FontWeight->"Bold"]}]], TraditionalForm]]],
+ ", write the ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ "-fold integral representing the expectation, and make the simple change of \
+variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["z", "i"], "=", 
+    RowBox[{
+     SubscriptBox["x", "i"], "-", 
+     SubscriptBox["\[Mu]", "i"]}]}], TraditionalForm]]],
+ " for each ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ " to get:"
+}], "Text",
+ CellChangeTimes->{{3.429814261262946*^9, 3.429814368997946*^9}, {
+   3.429816597377946*^9, 3.4298165976009455`*^9}, {3.429816742135946*^9, 
+   3.429816782627946*^9}, 3.4301596171080427`*^9}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"M", 
+       RowBox[{"(", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], ")"}]}], "=", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox["e", 
+        RowBox[{
+         SuperscriptBox[
+          StyleBox["t",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+         StyleBox["X",
+          FontWeight->"Bold",
+          FontSlant->"Plain"]}]], "]"}]},
+     {" ", "=", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         SuperscriptBox[
+          StyleBox["t",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "t"], "\[CenterDot]", 
+         StyleBox["\[Mu]",
+          FontWeight->"Bold"]}]], 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+          RowBox[{"(", 
+           RowBox[{
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "-", 
+            StyleBox["\[Mu]",
+             FontWeight->"Bold"]}], ")"}]}]], "]"}]}]},
+     {" ", "=", GridBox[{
+        {
+         SuperscriptBox["e", 
+          RowBox[{
+           SuperscriptBox[
+            StyleBox["t",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "t"], "\[CenterDot]", 
+           StyleBox["\[Mu]",
+            FontWeight->"Bold"]}]], 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{"\[CenterEllipsis]", 
+           RowBox[{
+            UnderoverscriptBox["\[Integral]", 
+             RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+            RowBox[{
+             UnderoverscriptBox["\[Integral]", 
+              RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+             RowBox[{
+              SuperscriptBox["e", 
+               RowBox[{
+                SuperscriptBox[
+                 RowBox[{
+                  StyleBox["t",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"], " "}], "t"], "\[CenterDot]", 
+                RowBox[{"(", 
+                 RowBox[{
+                  StyleBox["x",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"], "-", 
+                  StyleBox["\[Mu]",
+                   FontWeight->"Bold"]}], ")"}]}]], 
+              FractionBox["1", 
+               RowBox[{
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{"2", "\[Pi]"}], ")"}], 
+                 RowBox[{"n", "/", "2"}]], 
+                SqrtBox[
+                 RowBox[{"det", "(", "\[Sum]", ")"}]]}]], 
+              SuperscriptBox["e", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"-", "1"}], "/", "2"}], 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   StyleBox["x",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], "-", 
+                   StyleBox["\[Mu]",
+                    FontWeight->"Bold"]}], ")"}], "t"], 
+                RowBox[{
+                 SuperscriptBox["\[Sum]", 
+                  RowBox[{"-", "1"}]], 
+                 RowBox[{"(", 
+                  RowBox[{
+                   StyleBox["x",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], "-", 
+                   StyleBox["\[Mu]",
+                    FontWeight->"Bold"]}], ")"}]}]}]], "d", " ", 
+              SubscriptBox["x", "n"], " ", "d", " ", 
+              SubscriptBox["x", 
+               RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+              SubscriptBox["x", "1"]}]}]}]}]}]}
+       },
+       GridBoxAlignment->{"Columns" -> {{Left}}}]},
+     {" ", "=", GridBox[{
+        {
+         SuperscriptBox["e", 
+          RowBox[{
+           SuperscriptBox[
+            StyleBox["t",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "t"], "\[CenterDot]", 
+           StyleBox["\[Mu]",
+            FontWeight->"Bold"]}]], 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{"\[CenterEllipsis]", 
+           RowBox[{
+            UnderoverscriptBox["\[Integral]", 
+             RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+            RowBox[{
+             UnderoverscriptBox["\[Integral]", 
+              RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+             RowBox[{
+              SuperscriptBox["e", 
+               RowBox[{
+                SuperscriptBox[
+                 StyleBox["t",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+                StyleBox["z",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"]}]], 
+              FractionBox["1", 
+               RowBox[{
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{"2", "\[Pi]"}], ")"}], 
+                 RowBox[{"n", "/", "2"}]], 
+                SqrtBox[
+                 RowBox[{"det", "(", "\[Sum]", ")"}]]}]], 
+              SuperscriptBox["e", 
+               RowBox[{
+                RowBox[{"-", 
+                 RowBox[{"(", 
+                  RowBox[{"1", "/", "2"}], ")"}]}], 
+                SuperscriptBox[
+                 StyleBox["z",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "t"], 
+                RowBox[{
+                 SuperscriptBox["\[Sum]", 
+                  RowBox[{"-", "1"}]], 
+                 StyleBox["z",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}]}]], "d", " ", 
+              SubscriptBox["z", "n"], " ", "d", " ", 
+              SubscriptBox["z", 
+               RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+              SubscriptBox["z", "1"]}]}]}]}]}]}
+       },
+       GridBoxAlignment->{"Columns" -> {{Left}}}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.4378204519583235`*^9, 
+  3.437820494528324*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "In the integrand we can bring the two exponentials together; the exponent \
+of ",
+ Cell[BoxData[
+  FormBox["e", TraditionalForm]]],
+ " can then be written"
+}], "Text",
+ CellChangeTimes->{{3.4298144261529455`*^9, 3.429814472469946*^9}, 
+   3.4301596171170425`*^9, {3.437820517136324*^9, 3.437820517141324*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       RowBox[{
+        SuperscriptBox[
+         StyleBox["t",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+        StyleBox["z",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}], 
+       FormBox[
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"(", 
+           RowBox[{"1", "/", "2"}], ")"}]}], 
+         SuperscriptBox[
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "t"], 
+         RowBox[{
+          SuperscriptBox["\[Sum]", 
+           RowBox[{"-", "1"}]], 
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"]}]}],
+        TraditionalForm]}],
+      TraditionalForm], "=", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox["1", "2"]}], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox[
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "t"], 
+         RowBox[{
+          SuperscriptBox["\[Sum]", 
+           RowBox[{"-", "1"}]], 
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"]}]}], 
+        StyleBox["-",
+         FontSlant->"Plain"], 
+        RowBox[{
+         StyleBox["2",
+          FontSlant->"Plain"], 
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], 
+           StyleBox["t",
+            FontSlant->"Italic"]], " ", "\[CenterDot]", 
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"]}]}]}], ")"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "2"]}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["z",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], 
+          RowBox[{
+           SuperscriptBox["\[Sum]", 
+            RowBox[{"-", "1"}]], 
+           StyleBox["z",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}], 
+         StyleBox["-",
+          FontSlant->"Plain"], 
+         RowBox[{
+          StyleBox["2",
+           FontSlant->"Plain"], 
+          RowBox[{
+           SuperscriptBox[
+            StyleBox["t",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], 
+            StyleBox["t",
+             FontSlant->"Italic"]], " ", "\[CenterDot]", 
+           StyleBox["z",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}], "+", 
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], 
+           StyleBox["t",
+            FontSlant->"Italic"]], 
+          RowBox[{"\[Sum]", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}]}], ")"}]}], "+", 
+      RowBox[{
+       FractionBox["1", "2"], 
+       SuperscriptBox[
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "t"], 
+       RowBox[{"\[Sum]", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "2"]}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "-", 
+          RowBox[{"\[Sum]", " ", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}], ")"}], 
+        StyleBox["t",
+         FontSlant->"Italic"]], 
+       RowBox[{
+        SuperscriptBox["\[Sum]", 
+         RowBox[{"-", "1"}]], 
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["z",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "-", 
+          RowBox[{"\[Sum]", " ", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}], ")"}]}]}], "+", 
+      RowBox[{
+       FractionBox["1", "2"], 
+       SuperscriptBox[
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "t"], 
+       RowBox[{"\[Sum]", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437820524523324*^9, 3.4378205250153236`*^9}}],
+
+Cell[TextData[{
+ "In line 2 we added and subtracted ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "2"], 
+    SuperscriptBox[
+     StyleBox["t",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "t"], 
+    RowBox[{"\[Sum]", 
+     StyleBox["t",
+      FontWeight->"Bold",
+      FontSlant->"Plain"]}]}], TraditionalForm]]],
+ " from the expression, and in line 3 we noticed that the expression in \
+parentheses in line 2 factored. (Check this by multiplying out ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["z",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", 
+       RowBox[{"\[Sum]", " ", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]}], ")"}], "t"], 
+    RowBox[{
+     SuperscriptBox["\[Sum]", 
+      RowBox[{"-", "1"}]], 
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["z",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", 
+       RowBox[{"\[Sum]", " ", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]}], ")"}]}]}], TraditionalForm]]],
+ " in line 3 and using properties (4) and (5); note that the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     StyleBox["t",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "t"], " ", "\[CenterDot]", " ", 
+    StyleBox["z",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " is the same as the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     StyleBox["z",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+    StyleBox["t",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " because both are dot products of the same two vectors.)  Returning to the \
+moment-generating function of ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["X",
+    FontWeight->"Bold",
+    FontSlant->"Plain"], TraditionalForm]]],
+ ", we now have"
+}], "Text",
+ CellChangeTimes->{{3.429814881918946*^9, 3.429814962476946*^9}, {
+   3.429815039160946*^9, 3.4298152140709457`*^9}, {3.4298168298149457`*^9, 
+   3.4298169322429457`*^9}, 3.4301596171190424`*^9}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"M", 
+       RowBox[{"(", 
+        StyleBox["t",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], ")"}]}], "=", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox["e", 
+        RowBox[{
+         SuperscriptBox[
+          RowBox[{
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], " "}], "t"], "\[CenterDot]", 
+         StyleBox["X",
+          FontWeight->"Bold",
+          FontSlant->"Plain"]}]], "]"}]},
+     {" ", "=", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         SuperscriptBox[
+          StyleBox["t",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "t"], "\[CenterDot]", 
+         StyleBox["\[Mu]",
+          FontWeight->"Bold"]}]], 
+       RowBox[{
+        UnderoverscriptBox["\[Integral]", 
+         RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+        RowBox[{"\[CenterEllipsis]", 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{
+           UnderoverscriptBox["\[Integral]", 
+            RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+           RowBox[{
+            FractionBox["1", 
+             RowBox[{
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"2", "\[Pi]"}], ")"}], 
+               RowBox[{"n", "/", "2"}]], 
+              SqrtBox[
+               RowBox[{"det", "(", "\[Sum]", ")"}]]}]], 
+            SuperscriptBox["e", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", 
+                FractionBox["1", "2"]}], 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  StyleBox["z",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"], "-", 
+                  RowBox[{"\[Sum]", " ", 
+                   StyleBox["t",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}]}], ")"}], "t"], 
+               RowBox[{
+                SuperscriptBox["\[Sum]", 
+                 RowBox[{"-", "1"}]], 
+                RowBox[{"(", 
+                 RowBox[{
+                  StyleBox["z",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"], "-", 
+                  RowBox[{"\[Sum]", " ", 
+                   StyleBox["t",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}]}], ")"}]}]}], "+", 
+              RowBox[{
+               FractionBox["1", "2"], 
+               SuperscriptBox[
+                StyleBox["t",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "t"], 
+               RowBox[{"\[Sum]", 
+                StyleBox["t",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"]}]}]}]], "d", " ", 
+            SubscriptBox["z", "n"], " ", "d", " ", 
+            SubscriptBox["z", 
+             RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+            SubscriptBox["z", "1"]}]}]}]}]}]}]},
+     {" ", "=", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], "\[CenterDot]", 
+          StyleBox["\[Mu]",
+           FontWeight->"Bold"]}], "+", 
+         RowBox[{
+          FractionBox["1", "2"], 
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], 
+          RowBox[{"\[Sum]", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}]}]], 
+       RowBox[{
+        UnderoverscriptBox["\[Integral]", 
+         RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+        RowBox[{"\[CenterEllipsis]", 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{
+           UnderoverscriptBox["\[Integral]", 
+            RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+           RowBox[{
+            FractionBox["1", 
+             RowBox[{
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"2", "\[Pi]"}], ")"}], 
+               RowBox[{"n", "/", "2"}]], 
+              SqrtBox[
+               RowBox[{"det", "(", "\[Sum]", ")"}]]}]], 
+            SuperscriptBox["e", 
+             RowBox[{
+              RowBox[{"-", 
+               FractionBox["1", "2"]}], 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{
+                 StyleBox["z",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "-", 
+                 RowBox[{"\[Sum]", " ", 
+                  StyleBox["t",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"]}]}], ")"}], "t"], 
+              RowBox[{
+               SuperscriptBox["\[Sum]", 
+                RowBox[{"-", "1"}]], 
+               RowBox[{"(", 
+                RowBox[{
+                 StyleBox["z",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "-", 
+                 RowBox[{"\[Sum]", " ", 
+                  StyleBox["t",
+                   FontWeight->"Bold",
+                   FontSlant->"Plain"]}]}], ")"}]}]}]], "d", " ", 
+            SubscriptBox["z", "n"], " ", "d", " ", 
+            SubscriptBox["z", 
+             RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+            SubscriptBox["z", "1"]}]}]}]}]}]}]},
+     {" ", "=", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], "\[CenterDot]", 
+          StyleBox["\[Mu]",
+           FontWeight->"Bold"]}], "+", 
+         RowBox[{
+          FractionBox["1", "2"], 
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], 
+          RowBox[{"\[Sum]", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}]}]], "\[CenterDot]", "1"}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.4378205725073237`*^9, 
+  3.437820612827324*^9}, {3.438193801807*^9, 3.438193802274*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "The last line follows because the integral is taken over all states of a \
+valid multivariate normal p.d.f. with mean vector ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sum]", " ", 
+    StyleBox["t",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " and covariance matrix ",
+ "\[Sum].  We have therefore proved:"
+}], "Text",
+ CellChangeTimes->{{3.429815468168946*^9, 3.4298155060379457`*^9}, {
+   3.429815560068946*^9, 3.4298155882749457`*^9}, 3.4301596171210423`*^9}],
+
+Cell[TextData[{
+ StyleBox["Lemma 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " has the multivariate normal distribution with parameters ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " and \[Sum], then the moment-generating function of ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4298156211599455`*^9, 3.4298156553249454`*^9}, 
+   3.429815687106946*^9, {3.429815739243946*^9, 3.4298157399599457`*^9}, 
+   3.4301596171210423`*^9, {3.4378206305073237`*^9, 3.437820630509324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   RowBox[{
+    FormBox[
+     RowBox[{
+      RowBox[{"M", "(", 
+       StyleBox["t",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], ")"}], "=", 
+      FormBox[
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], "\[CenterDot]", 
+          StyleBox["\[Mu]",
+           FontWeight->"Bold"]}], "+", 
+         RowBox[{
+          FractionBox["1", "2"], 
+          SuperscriptBox[
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "t"], 
+          RowBox[{"\[Sum]", " ", 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}]}]],
+       TraditionalForm]}],
+     TraditionalForm], "   ", "\[FilledSquare]", " "}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4298156211599455`*^9, 3.4298156553249454`*^9}, 
+   3.429815687106946*^9, {3.429815739243946*^9, 3.4298157399599457`*^9}, 
+   3.4301596171210423`*^9, {3.4378206305073237`*^9, 3.437820637926324*^9}, 
+   3.438193809513*^9}],
+
+Cell["\tIt now becomes very easy to prove our first main theorem.", "Text",
+ CellChangeTimes->{{3.429815715061946*^9, 3.429815744088946*^9}, 
+   3.4301596171220427`*^9, 3.437819598174324*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " has the multivariate normal distribution with parameters ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " and \[Sum], and ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " is a matrix for which the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " is defined, then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " has the multivariate normal distribution with parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["\[Mu]",
+     FontWeight->"Bold"]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[CenterDot]", 
+    RowBox[{"\[Sum]", 
+     RowBox[{"\[CenterDot]", 
+      SuperscriptBox["A", "t"]}]}]}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4298156211599455`*^9, 3.4298156553249454`*^9}, 
+   3.429815687106946*^9, {3.429815739243946*^9, 3.4298158386769457`*^9}, {
+   3.4298158986169457`*^9, 3.4298159184099455`*^9}, 3.430159617123042*^9}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ". The m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.429816057828946*^9, 3.429816086882946*^9}, 
+   3.430159617123042*^9, {3.437820667558324*^9, 3.437820667561324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[GridBox[{
+       {
+        RowBox[{
+         RowBox[{
+          SubscriptBox["M", 
+           RowBox[{"A", " ", 
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"]}]], "(", 
+          StyleBox["t",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], ")"}], "=", 
+         RowBox[{
+          StyleBox["E",
+           FontSlant->"Plain"], "[", 
+          SuperscriptBox["e", 
+           RowBox[{
+            RowBox[{
+             SuperscriptBox[
+              StyleBox["t",
+               FontWeight->"Bold",
+               FontSlant->"Plain"], "t"], " ", "\[CenterDot]", "A"}], " ", 
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"]}]], "]"}]}], "=", 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{
+            StyleBox["(",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], 
+            RowBox[{
+             SuperscriptBox[
+              StyleBox["t",
+               FontWeight->"Bold",
+               FontSlant->"Plain"], "t"], "\[CenterDot]", "A"}], ")"}], 
+           StyleBox["X",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]], "]"}]},
+       {" ", "=", 
+        RowBox[{
+         SubscriptBox["M", 
+          StyleBox["X",
+           FontWeight->"Bold",
+           FontSlant->"Plain"]], "(", 
+         RowBox[{
+          SuperscriptBox["A", "t"], "\[CenterDot]", 
+          StyleBox["t",
+           FontWeight->"Bold",
+           FontSlant->"Plain"]}], ")"}]},
+       {" ", "=", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            StyleBox["(",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], 
+            RowBox[{
+             SuperscriptBox[
+              StyleBox["t",
+               FontWeight->"Bold",
+               FontSlant->"Plain"], "t"], "\[CenterDot]", "A"}], ")"}], 
+           StyleBox["\[Mu]",
+            FontWeight->"Bold"]}], "+", 
+          RowBox[{
+           FractionBox["1", "2"], 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              SuperscriptBox["A", "t"], "\[CenterDot]", 
+              StyleBox["t",
+               FontWeight->"Bold",
+               FontSlant->"Plain"]}], 
+             StyleBox[")",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], "t"], 
+           RowBox[{"\[CapitalSigma]", "(", 
+            RowBox[{
+             SuperscriptBox["A", "t"], "\[CenterDot]", 
+             StyleBox["t",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], ")"}]}]}]]},
+       {" ", "=", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{
+           SuperscriptBox[
+            StyleBox["t",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "t"], "\[CenterDot]", 
+           RowBox[{"(", 
+            RowBox[{"A", " ", 
+             StyleBox["\[Mu]",
+              FontWeight->"Bold"]}], ")"}]}], "+", 
+          RowBox[{
+           FractionBox["1", "2"], 
+           RowBox[{
+            SuperscriptBox[
+             StyleBox["t",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], "t"], 
+            StyleBox[" ",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], 
+            StyleBox["\[CenterDot]",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], 
+            RowBox[{
+             StyleBox["(",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], 
+             RowBox[{"A", " ", "\[CapitalSigma]", " ", 
+              SuperscriptBox[
+               RowBox[{"A", " "}], "t"]}], ")"}]}], 
+           StyleBox["t",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}]}]]}
+      },
+      GridBoxAlignment->{"Columns" -> {{Left}}}], TraditionalForm]]]]], " "}],
+   TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.429816057828946*^9, 3.429816086882946*^9}, 
+   3.430159617123042*^9, {3.437820667558324*^9, 3.4378206747513237`*^9}}],
+
+Cell[TextData[{
+ "The last expression is the moment-generating function of the multivariate \
+normal distribution with parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["\[Mu]",
+     FontWeight->"Bold"]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[CenterDot]", 
+    RowBox[{"\[Sum]", 
+     RowBox[{"\[CenterDot]", 
+      SuperscriptBox["A", "t"]}]}]}], TraditionalForm]]],
+ ", hence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " must have that distribution.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.429816464917946*^9, 3.4298165594149456`*^9}, 
+   3.4301596171250424`*^9, {3.437819605472324*^9, 3.437819608545324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  Consider a random vector ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " with the bivariate normal distribution with mean vector ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Mu]",
+     FontWeight->"Bold"], "=", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"0", ",", "0"}], ")"}], "t"]}], TraditionalForm]]],
+ " and covariance matrix"
+}], "Text",
+ CellChangeTimes->{
+  3.4298036455717344`*^9, {3.429817236147946*^9, 3.429817313805946*^9}, {
+   3.429959998015748*^9, 3.4299599981957483`*^9}, 3.4301596171250424`*^9, {
+   3.4378206973243237`*^9, 3.437820697328324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[Sum]", 
+   RowBox[{"=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"1", ".5"},
+       {".5", "1"}
+      }], "\[NegativeThinSpace]", ")"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{
+  3.4298036455717344`*^9, {3.429817236147946*^9, 3.429817313805946*^9}, {
+   3.429959998015748*^9, 3.4299599981957483`*^9}, 3.4301596171250424`*^9, {
+   3.4378206973243237`*^9, 3.437820704427324*^9}}],
+
+Cell[TextData[{
+ "which means that each of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ " have variance and standard deviation equal to 1. The correlation between \
+them is therefore"
+}], "Text",
+ CellChangeTimes->{{3.4298173525849457`*^9, 3.429817436769946*^9}, {
+   3.429960008903748*^9, 3.429960030089748*^9}, 3.4301596171260424`*^9, {
+   3.437820716658324*^9, 3.437820716662324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   RowBox[{
+    FormBox[
+     RowBox[{"\[Rho]", "=", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"Cov", "(", 
+         RowBox[{
+          SubscriptBox["X", "1"], ",", 
+          SubscriptBox["X", "2"]}], ")"}], 
+        RowBox[{"1", "\[CenterDot]", "1"}]], "=", ".5"}]}],
+     TraditionalForm], ".", "  "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378207257463236`*^9, 3.437820726243324*^9}}],
+
+Cell[TextData[{
+ "Let a new random vector ",
+ StyleBox["Y",
+  FontWeight->"Bold"],
+ " be formed by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["Y",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    RowBox[{"A", " ", 
+     StyleBox["X",
+      FontWeight->"Bold",
+      FontSlant->"Plain"]}]}], TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"1", "1"},
+       {"1", 
+        RowBox[{"-", "1"}]}
+      }], "\[NegativeThinSpace]", ")"}]}], TraditionalForm]]],
+ ".  Then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "1"], "=", 
+    RowBox[{
+     SubscriptBox["X", "1"], "+", 
+     SubscriptBox["X", "2"]}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "2"], "=", 
+    RowBox[{
+     SubscriptBox["X", "1"], "-", 
+     SubscriptBox["X", "2"]}]}], TraditionalForm]]],
+ ". Clearly ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", "\[CenterDot]", 
+     SubscriptBox[
+      StyleBox["\[Mu]",
+       FontWeight->"Bold"], "x"]}], "=", 
+    StyleBox["0",
+     FontWeight->"Bold"]}], TraditionalForm]]],
+ ", hence Theorem 1 implies that ",
+ StyleBox["Y",
+  FontWeight->"Bold"],
+ " is multivariate normal with mean vector ",
+ StyleBox["0 ",
+  FontWeight->"Bold"],
+ "and covariance matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[CenterDot]", 
+    RowBox[{"\[Sum]", 
+     RowBox[{"\[CenterDot]", 
+      SuperscriptBox["A", "t"]}]}]}], TraditionalForm]]],
+ ", which is"
+}], "Text",
+ CellChangeTimes->{{3.4298174885849457`*^9, 3.4298176697689457`*^9}, {
+   3.429818119736946*^9, 3.4298181260799456`*^9}, 3.4301596171270423`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"covY", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", 
+        RowBox[{"-", "1"}]}], "}"}]}], "}"}], ".", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", ".5"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{".5", ",", "1"}], "}"}]}], "}"}], ".", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", 
+        RowBox[{"-", "1"}]}], "}"}]}], "}"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "covY", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.429817672279946*^9, 3.429817674743946*^9}, {
+   3.429817705132946*^9, 3.429817750265946*^9}, {3.429817800887946*^9, 
+   3.429817809562946*^9}, 3.430159617128042*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "We have the surprising result that even though the original variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ " were correlated, the new variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " are not.  Their variances are 3 and 1, respectively, the diagonal elements \
+of the matrix covY above. \n\tLet us check this by simulation.  Here we \
+simulate 200 vectors ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ ", transform each by multiplying by ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", and then plot them in the plane.  We show the contour plot of the density \
+of ",
+ StyleBox["Y",
+  FontWeight->"Bold"],
+ " next to the scatter plot of simulated points, and we see good agreement. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.429818033644946*^9, 3.429818100035946*^9}, {
+   3.4298181415839458`*^9, 3.429818141589946*^9}, 3.429818283418946*^9, {
+   3.4299601761777477`*^9, 3.429960176178748*^9}, 3.430159617130042*^9, 
+   3.456825325683529*^9}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<MultivariateStatistics`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4301596171310425`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Xsimlist", "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"MultinormalDistribution", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", ".5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{".5", ",", "1"}], "}"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", "200", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", 
+       RowBox[{"-", "1"}]}], "}"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ysimlist", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"A", ".", 
+      RowBox[{"Xsimlist", "[", 
+       RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "200"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"Ysimlist", ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"PointSize", "[", "0.015`", "]"}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"y1_", ",", "y2_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"MultinormalDistribution", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y1", ",", "y2"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"y1", ",", "y2"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y1", ",", 
+       RowBox[{"-", "4"}], ",", "4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y2", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", ".6"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3992412045625*^9, 3.399241211828125*^9}, {
+   3.4298182911039457`*^9, 3.429818511979946*^9}, {3.4298185845799456`*^9, 
+   3.429818730864946*^9}, {3.4298187754009457`*^9, 3.429818809988946*^9}, {
+   3.429818843606946*^9, 3.429818893471946*^9}, 3.429960119249748*^9, 
+   3.4301596171320424`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a) Simulated transformed normal vectors;    (b) Contours of theoretical \
+distribution\n",
+ StyleBox["Figure 4.35",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "- Transformed normal random vectors ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4378196427513237`*^9, 3.437819651355324*^9}, 
+   3.437819700658324*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  In the last example, use the elementary rules for variance and covariance \
+to check the form of covY obtained by ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4298065129867344`*^9, 3.4298065458417344`*^9}, {
+   3.4298179687549458`*^9, 3.4298180240839458`*^9}, {3.4299601990927477`*^9, 
+   3.429960228142748*^9}, 3.4301596171360426`*^9, {3.4303265919426584`*^9, 
+   3.4303266341086583`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  One of the reasons for the importance of Theorem 1 is the fact that \
+linear combinations of correlated normal random variables do come up in \
+applications.  For example, suppose that there are three risky assets whose \
+rates of return are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["R", "1"], ",", 
+    SubscriptBox["R", "2"], ","}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "3"], TraditionalForm]]],
+ ", which together have a trivariate normal distribution with mean vector and \
+covariance matrix:"
+}], "Text",
+ CellChangeTimes->{
+  3.4298036455717344`*^9, {3.429817236147946*^9, 3.429817313805946*^9}, {
+   3.429959998015748*^9, 3.4299599981957483`*^9}, {3.429972312278*^9, 
+   3.429972445966*^9}, 3.429972754157*^9, 3.4301596171360426`*^9, {
+   3.437820802131324*^9, 3.4378208021353235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["\[Mu]",
+     FontWeight->"Bold"], "=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {".04"},
+       {".07"},
+       {".09"}
+      }], "\[NegativeThinSpace]", ")"}]}], " ", ",", "  ", 
+   RowBox[{"\[Sum]", 
+    RowBox[{"=", 
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {".02", 
+         RowBox[{"-", ".02"}], ".001"},
+        {
+         RowBox[{"-", ".02"}], ".04", 
+         RowBox[{"-", ".01"}]},
+        {".001", 
+         RowBox[{"-", ".01"}], ".08"}
+       }], "\[NegativeThinSpace]", ")"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437820809721324*^9, 3.437820810295324*^9}}],
+
+Cell["\<\
+Find the distribution, mean and variance of the rate of return on the \
+portfolio that places half of the wealth into the first asset, and splits the \
+remaining wealth evenly between the others. What is the probability that the \
+rate of return on the portfolio of assets will be at least .07?\
+\>", "Text",
+ CellChangeTimes->{{3.429972642506*^9, 3.4299727372460003`*^9}, 
+   3.429973536359*^9, 3.430159617137042*^9}],
+
+Cell[TextData[{
+ "\tLet ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " be the 1\[Times]3 matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], ",", 
+     RowBox[{"1", "/", "4"}], ",", 
+     RowBox[{"1", "/", "4"}]}], ")"}], TraditionalForm]]],
+ ", so that if we denote by ",
+ StyleBox["R",
+  FontWeight->"Bold"],
+ " the column vector of the three rate of return variables, then the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[CenterDot]", 
+    StyleBox["R",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " becomes the portfolio rate of return ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["R", "p"], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "2"], 
+      SubscriptBox["R", "1"]}], "+", 
+     RowBox[{
+      FractionBox["1", "4"], 
+      SubscriptBox["R", "2"]}], "+", 
+     RowBox[{
+      FractionBox["1", "4"], 
+      SubscriptBox["R", "3"]}]}]}], TraditionalForm]]],
+ ". By Theorem 1, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "p"], TraditionalForm]]],
+ " is normally distributed.  The mean of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "p"], TraditionalForm]]],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", "\[CenterDot]", 
+     StyleBox["\[Mu]",
+      FontWeight->"Bold"]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "2"], 
+       RowBox[{"(", ".04", ")"}]}], "+", 
+      RowBox[{
+       FractionBox["1", "4"], 
+       RowBox[{"(", ".07", ")"}]}], "+", 
+      RowBox[{
+       FractionBox["1", "4"], 
+       RowBox[{"(", ".09", ")"}]}]}], "=", ".06"}]}], TraditionalForm]]],
+ ".  The variance of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "p"], TraditionalForm]]],
+ " is  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[CenterDot]", 
+    RowBox[{"\[Sum]", 
+     RowBox[{"\[CenterDot]", 
+      SuperscriptBox["A", "t"]}]}]}], TraditionalForm]]],
+ ", computed in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " below. "
+}], "Text",
+ CellChangeTimes->{{3.42997301476*^9, 3.429973051082*^9}, {3.429973225073*^9, 
+   3.4299735083710003`*^9}, {3.429973541297*^9, 3.429973587977*^9}, 
+   3.4301596171380424`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sigma", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{".02", ",", 
+       RowBox[{"-", ".02"}], ",", ".001"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", ".02"}], ",", ".04", ",", 
+       RowBox[{"-", ".01"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{".001", ",", 
+       RowBox[{"-", ".01"}], ",", ".08"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "4"}], ",", 
+      RowBox[{"1", "/", "4"}]}], "}"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"A", ".", "sigma", ".", 
+  RowBox[{"Transpose", "[", "A", "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4293040383587165`*^9, 3.4293040457937164`*^9}, {
+   3.4299736246140003`*^9, 3.429973689244*^9}, 3.4301596171390424`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Hence the rate of return on the portfolio, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "p"], TraditionalForm]]],
+ " has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{".06", ",", ".0065"}], ")"}], TraditionalForm]]],
+ " distribution. The probability that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["R", "p"], "\[GreaterEqual]", ".07"}], TraditionalForm]]],
+ " is about .45 as shown in the computation below.  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4299737952609997`*^9, 3.429973868454*^9}, {
+   3.429973958704*^9, 3.42997396091*^9}, 3.4301596171390424`*^9}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{".06", ",", 
+       RowBox[{"Sqrt", "[", ".0065", "]"}]}], "]"}], ",", ".07"}], "]"}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.429973871417*^9, 3.429973949799*^9}, 
+   3.4301596171390424`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["Quadratic Forms in Normal Random Vectors", "Subsection",
+ CellChangeTimes->{{3.429803915608734*^9, 3.429803927221734*^9}, 
+   3.4301596171400423`*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "One of the most important theorems in statistics is Theorem 1 from Section \
+4.6, which stated that if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "...", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " is a random sample from the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " distribution, and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ " is the variance of the sample, then the random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"n", "-", "1"}], ")"}], 
+    RowBox[{
+     SuperscriptBox["S", "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ " has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", 
+    RowBox[{"n", "-", "1"}], ")"}], TraditionalForm]]],
+ " distribution, and is independent of the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     OverscriptBox["X", "_"],
+     TraditionalForm]}], TraditionalForm]]],
+ ". From this we constucted the ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]]],
+ " statistic using which statistical inference on the population mean ",
+ Cell[BoxData[
+  FormBox["\[Mu]", TraditionalForm]]],
+ " is possible. We motivated but did not prove this crucial result.  It \
+actually follows from a pair of more general results about ",
+ StyleBox["quadratic forms",
+  FontSlant->"Italic"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     StyleBox["X",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "t"], " ", "Q", " ", 
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], TraditionalForm]]],
+ " of multivariate normal random vectors ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["X",
+    FontWeight->"Bold",
+    FontSlant->"Plain"], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " is a constant matrix.  We will show these results now, and then illustrate \
+how they specialize to our Theorem 1.  These theorems also have important \
+consequences to the statistical areas of regression and experimental design, \
+but we will leave that for another course.\n\tFrom linear algebra we will be \
+needing a few ideas and theorems. An ",
+ StyleBox["idempotent matrix",
+  FontSlant->"Italic"],
+ " is a square matrix ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["Q", "2"], "=", "Q"}], TraditionalForm]]],
+ ".  The ",
+ StyleBox["rank",
+  FontSlant->"Italic"],
+ " of a matrix is the number of linearly independent rows that it has.  \
+(Recall that vectors ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["x",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "1"], ",", 
+    SubscriptBox[
+     StyleBox["x",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "2"], ",", "\[Ellipsis]", " ", ",", 
+    SubscriptBox[
+     StyleBox["x",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "n"]}], TraditionalForm]]],
+ " are ",
+ StyleBox["linearly independent",
+  FontSlant->"Italic"],
+ " if, whenever the linear combination ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["a", "1"], 
+     SubscriptBox[
+      StyleBox["x",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "1"]}], "+", 
+    RowBox[{
+     SubscriptBox["a", "2"], 
+     SubscriptBox[
+      StyleBox["x",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "2"]}], "+", "\[CenterEllipsis]", "+", 
+    RowBox[{
+     SubscriptBox["a", "n"], 
+     SubscriptBox[
+      StyleBox["x",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "n"]}]}], TraditionalForm]]],
+ " is the zero vector, then all of the coefficients ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["a", "i"], TraditionalForm]]],
+ " must equal zero.)  Lastly, we have a diagonalization result: if ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " is a symmetric, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ " idempotent matrix of rank ",
+ Cell[BoxData[
+  FormBox["r", TraditionalForm]]],
+ ", then there is an orthogonal matrix ",
+ Cell[BoxData[
+  FormBox["N", TraditionalForm]]],
+ " (i.e., a matrix satisfying the identities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"N", "\[CenterDot]", 
+     SuperscriptBox["N", "t"]}], "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["N", "t"], "\[CenterDot]", "N"}], "=", "I"}]}], 
+   TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox["I", TraditionalForm]]],
+ " is the identity matrix of dimension ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ") such that"
+}], "Text",
+ CellChangeTimes->{{3.4293052648887167`*^9, 3.4293052714847164`*^9}, {
+   3.429803933384734*^9, 3.4298039414867344`*^9}, {3.4300825165345235`*^9, 
+   3.4300828750275235`*^9}, {3.4300829208635235`*^9, 3.430082993324524*^9}, {
+   3.4300833441715236`*^9, 3.4300834511435237`*^9}, {3.4300876144345236`*^9, 
+   3.4300876227085238`*^9}, 3.430159617142042*^9, {3.430242493047*^9, 
+   3.430242493633*^9}, {3.437820844480324*^9, 3.437820844485324*^9}, 
+   3.456825407848729*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["N", "t"], "\[CenterDot]", "Q", "\[CenterDot]", "N"}], "=", 
+   RowBox[{"A", "=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {
+        SubscriptBox["I", "r"], 
+        StyleBox["0",
+         FontWeight->"Bold"]},
+       {
+        StyleBox["0",
+         FontWeight->"Bold"], 
+        StyleBox["0",
+         FontWeight->"Bold"]}
+      }], "\[NegativeThinSpace]", ")"}], " "}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4293052648887167`*^9, 3.4293052714847164`*^9}, {
+   3.429803933384734*^9, 3.4298039414867344`*^9}, {3.4300825165345235`*^9, 
+   3.4300828750275235`*^9}, {3.4300829208635235`*^9, 3.430082993324524*^9}, {
+   3.4300833441715236`*^9, 3.4300834511435237`*^9}, {3.4300876144345236`*^9, 
+   3.4300876227085238`*^9}, 3.430159617142042*^9, {3.430242493047*^9, 
+   3.430242493633*^9}, {3.437820844480324*^9, 3.4378208624563236`*^9}}],
+
+Cell[TextData[{
+ "In formula (7) ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["I", "r"], TraditionalForm]]],
+ " denotes an ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "\[Times]", "r"}], TraditionalForm]]],
+ " identity matrix, and the 0's indicate blocks of zeros that fill out matrix \
+",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " to give it dimension ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ ". By multiplying on the left by ",
+ Cell[BoxData[
+  FormBox["N", TraditionalForm]]],
+ " and the right by ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["N", "t"], TraditionalForm]]],
+ ", we obtain the equivalent relationship:"
+}], "Text",
+ CellChangeTimes->{{3.4300842840665236`*^9, 3.430084318576524*^9}, {
+   3.4300845622225237`*^9, 3.4300846438875237`*^9}, {3.4300876908625236`*^9, 
+   3.4300877292405233`*^9}, 3.430159617149042*^9, {3.4378208794743237`*^9, 
+   3.4378208794883237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"Q", "=", 
+   RowBox[{
+    RowBox[{"N", " ", "A", " ", 
+     SuperscriptBox["N", "t"], " ", "where", " ", "A"}], "=", 
+    RowBox[{
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         SubscriptBox["I", "r"], 
+         StyleBox["0",
+          FontWeight->"Bold"]},
+        {
+         StyleBox["0",
+          FontWeight->"Bold"], 
+         StyleBox["0",
+          FontWeight->"Bold"]}
+       }], "\[NegativeThinSpace]", ")"}], Cell[""]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437820887572324*^9, 3.437820888078324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ "  A very simple example of a quadratic form is the sum of squares of \
+independent standard normal random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Z", "1"], ",", 
+    SubscriptBox["Z", "2"], ",", "\[Ellipsis]", " ", ",", 
+    SubscriptBox["Z", "n"]}], TraditionalForm]]],
+ ".  To see this, consider the identity matrix ",
+ Cell[BoxData[
+  FormBox["I", TraditionalForm]]],
+ " of dimension ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " and the product"
+}], "Text",
+ CellChangeTimes->{
+  3.4298036455717344`*^9, {3.429817236147946*^9, 3.429817313805946*^9}, {
+   3.429959998015748*^9, 3.4299599981957483`*^9}, {3.429972312278*^9, 
+   3.429972445966*^9}, 3.429972754157*^9, {3.4301540259660425`*^9, 
+   3.4301541830130424`*^9}, 3.4301596171510425`*^9, {3.437820913372324*^9, 
+   3.437820913374324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox[
+     StyleBox["Z",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "t"], "I", " ", 
+    StyleBox["Z",
+     FontWeight->"Bold",
+     FontSlant->"Plain"]}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         SubscriptBox["Z", "1"], 
+         SubscriptBox["Z", "2"], "\[CenterEllipsis]", 
+         SubscriptBox["Z", "n"]}
+       }], "\[NegativeThinSpace]", ")"}], 
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {"1", "0", "\[CenterEllipsis]", "0"},
+        {"0", "1", "\[CenterEllipsis]", "0"},
+        {"\[VerticalEllipsis]", "\[VerticalEllipsis]", 
+         "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+        {"0", "0", "\[CenterEllipsis]", "1"}
+       }], "\[NegativeThinSpace]", ")"}], 
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         SubscriptBox["Z", "1"]},
+        {
+         SubscriptBox["Z", "2"]},
+        {"\[VerticalEllipsis]"},
+        {
+         SubscriptBox["Z", "n"]}
+       }], "\[NegativeThinSpace]", ")"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {
+          SubscriptBox["Z", "1"], 
+          SubscriptBox["Z", "2"], "\[CenterEllipsis]", 
+          SubscriptBox["Z", "n"]}
+        }], "\[NegativeThinSpace]", ")"}], 
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {
+          SubscriptBox["Z", "1"]},
+         {
+          SubscriptBox["Z", "2"]},
+         {"\[VerticalEllipsis]"},
+         {
+          SubscriptBox["Z", "n"]}
+        }], "\[NegativeThinSpace]", ")"}]}], "=", 
+     RowBox[{
+      UnderoverscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "n"], 
+      SuperscriptBox[
+       SubscriptBox["Z", "i"], "2"], " "}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{
+  3.4298036455717344`*^9, {3.429817236147946*^9, 3.429817313805946*^9}, {
+   3.429959998015748*^9, 3.4299599981957483`*^9}, {3.429972312278*^9, 
+   3.429972445966*^9}, 3.429972754157*^9, {3.4301540259660425`*^9, 
+   3.4301541830130424`*^9}, 3.4301596171510425`*^9, {3.437820913372324*^9, 
+   3.437820921061324*^9}}],
+
+Cell[TextData[{
+ "By earlier results, this quadratic form has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", "n", ")"}], TraditionalForm]]],
+ " distribution, since the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["Z", "i"], "2"], TraditionalForm]]],
+ " variables are independent and chi-square(1) distributed. Notice that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["I", "2"], "=", "I"}], TraditionalForm]]],
+ ", so that ",
+ Cell[BoxData[
+  FormBox["I", TraditionalForm]]],
+ " is idempotent, and also ",
+ Cell[BoxData[
+  FormBox["I", TraditionalForm]]],
+ " has rank ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ".  A similar computation shows that if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "i"], ",", 
+    RowBox[{"i", "=", "1"}], ",", "2", ",", "...", " ", ",", "n"}], 
+   TraditionalForm]]],
+ " are independent normal random variables with means ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "i"], TraditionalForm]]],
+ " and common variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", then the quadratic form in the random vector ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "-", "\[Mu]"}], TraditionalForm]]],
+ " whose components are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "i"], "-", 
+    SubscriptBox["\[Mu]", "i"]}], TraditionalForm]]],
+ ",  defined by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+    RowBox[{
+     RowBox[{"I", "(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ ", equals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderoverscriptBox["\[Sum]", 
+     RowBox[{"i", "=", "1"}], "n"], 
+    FractionBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["X", "i"], "-", 
+        SubscriptBox["\[Mu]", "i"]}], ")"}], "2"], 
+     SuperscriptBox["\[Sigma]", "2"]]}], TraditionalForm]]],
+ ", and it also has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", "n", ")"}], TraditionalForm]]],
+ " distribution. As a third example, let ",
+ StyleBox["1 ",
+  FontWeight->"Bold"],
+ "denote an ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ " matrix whose every entry is 1, and consider the matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Q", "=", 
+    RowBox[{
+     FractionBox["1", "n"], 
+     StyleBox["1",
+      FontWeight->"Bold"]}]}], TraditionalForm]]],
+ ".  You can check that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["Q", "2"], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        FractionBox["1", "n"], 
+        StyleBox["1",
+         FontWeight->"Bold"]}], ")"}], "\[CenterDot]", 
+      RowBox[{"(", 
+       RowBox[{
+        FractionBox["1", "n"], 
+        StyleBox["1",
+         FontWeight->"Bold"]}], ")"}]}], "=", 
+     RowBox[{
+      RowBox[{
+       FractionBox["1", 
+        SuperscriptBox["n", "2"]], 
+       RowBox[{
+        StyleBox["1",
+         FontWeight->"Bold"], "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"]}]}], "=", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "n"], 
+        StyleBox["1",
+         FontWeight->"Bold"]}], "=", "Q"}]}]}]}], TraditionalForm]]],
+ ", so that ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " is a symmetric, idempotent matrix. The rows of ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " are identical and so the rank of ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " is 1. For simplicity let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Z", "i"], "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["X", "i"], "-", 
+       SubscriptBox["\[Mu]", "i"]}], ")"}], "/", "\[Sigma]"}]}], 
+   TraditionalForm]]],
+ ", and consider the quadratic form"
+}], "Text",
+ CellChangeTimes->{{3.4301544219210424`*^9, 3.4301547992160425`*^9}, {
+   3.430154840354042*^9, 3.430154874321042*^9}, 3.4301549135770426`*^9, {
+   3.4301549526010427`*^9, 3.4301552360510426`*^9}, {3.4301553311390424`*^9, 
+   3.430155358866042*^9}, 3.4301596171550426`*^9, {3.430242689156*^9, 
+   3.430242697167*^9}, {3.4303268779926586`*^9, 3.4303268918246584`*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{" ", 
+       FormBox[
+        RowBox[{
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+         RowBox[{
+          RowBox[{"Q", "(", 
+           RowBox[{
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+          SuperscriptBox["\[Sigma]", "2"]}]}],
+        TraditionalForm]}], "=", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", 
+         RowBox[{"n", " "}]], "\[CenterDot]", 
+        RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+           {
+            SubscriptBox["Z", "1"], 
+            SubscriptBox["Z", "2"], "\[CenterEllipsis]", 
+            SubscriptBox["Z", "n"]}
+          }], "\[NegativeThinSpace]", ")"}]}], 
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {"1", "1", "\[CenterEllipsis]", "1"},
+          {"1", "1", "\[CenterEllipsis]", "1"},
+          {"\[VerticalEllipsis]", "\[VerticalEllipsis]", 
+           "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+          {"1", "1", "\[CenterEllipsis]", "1"}
+         }], "\[NegativeThinSpace]", ")"}], 
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {
+           SubscriptBox["Z", "1"]},
+          {
+           SubscriptBox["Z", "2"]},
+          {"\[VerticalEllipsis]"},
+          {
+           SubscriptBox["Z", "n"]}
+         }], "\[NegativeThinSpace]", ")"}]}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", 
+         RowBox[{"n", " "}]], "\[CenterDot]", 
+        RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+           {
+            SubscriptBox["Z", "1"], 
+            SubscriptBox["Z", "2"], "\[CenterEllipsis]", 
+            SubscriptBox["Z", "n"]}
+          }], "\[NegativeThinSpace]", ")"}]}], 
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {
+           RowBox[{
+            UnderoverscriptBox["\[Sum]", 
+             RowBox[{"i", "=", "1"}], "n"], 
+            SubscriptBox["Z", "i"]}]},
+          {
+           RowBox[{
+            UnderoverscriptBox["\[Sum]", 
+             RowBox[{"i", "=", "1"}], "n"], 
+            SubscriptBox["Z", "i"]}]},
+          {"\[VerticalEllipsis]"},
+          {
+           RowBox[{
+            UnderoverscriptBox["\[Sum]", 
+             RowBox[{"i", "=", "1"}], "n"], 
+            SubscriptBox["Z", "i"]}]}
+         }], "\[NegativeThinSpace]", ")"}]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.437820975702324*^9, 
+  3.4378209978383236`*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "Each of the entries in the column vector on the right is the same as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[CenterDot]", 
+    OverscriptBox["Z", "_"]}], TraditionalForm]]],
+ ", and so completing the matrix multiplication gives that"
+}], "Text",
+ CellChangeTimes->{{3.430155510972042*^9, 3.4301555761190424`*^9}, 
+   3.4301596171580424`*^9}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{" ", 
+       FormBox[
+        RowBox[{
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+         RowBox[{
+          RowBox[{"Q", "(", 
+           RowBox[{
+            StyleBox["X",
+             FontWeight->"Bold",
+             FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+          SuperscriptBox["\[Sigma]", "2"]}]}],
+        TraditionalForm]}], "=", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "n"], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           UnderoverscriptBox["\[Sum]", 
+            RowBox[{"i", "=", "1"}], "n"], 
+           SubscriptBox["Z", "i"]}], ")"}], "\[CenterDot]", "n", 
+         "\[CenterDot]", 
+         OverscriptBox["Z", "_"]}]}], "=", 
+       RowBox[{"n", "\[CenterDot]", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          OverscriptBox["Z", "_"], ")"}], "2"]}]}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{"n", "\[CenterDot]", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           UnderoverscriptBox["\[Sum]", 
+            RowBox[{"i", "=", "1"}], "n"], 
+           FractionBox[
+            RowBox[{
+             SubscriptBox["X", "i"], "-", 
+             SubscriptBox["\[Mu]", "i"]}], 
+            RowBox[{"n", " ", "\[Sigma]"}]]}], ")"}], "2"]}], "=", 
+       FractionBox[
+        RowBox[{"n", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            OverscriptBox["X", "_"], "-", 
+            OverscriptBox["\[Mu]", "_"]}], ")"}], "2"], " "}], 
+        SuperscriptBox["\[Sigma]", "2"]]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.437821042906324*^9, 
+  3.4378210724093237`*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "In the special case when all the means ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "i"], TraditionalForm]]],
+ " are equal to a common value \[Mu], the right side is the square of the \
+standard normally distributed random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      OverscriptBox["X", "_"], "-", "\[Mu]"}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"\[Sigma]", "/", 
+      SqrtBox["n"]}], ")"}]}], TraditionalForm]]],
+ ", which we know has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", "1", ")"}], TraditionalForm]]],
+ " distribution.  So these examples are pointing at a theorem that says under \
+some conditions that quadratic forms in normal random variables have the \
+chi-square distribution, and the rank of the matrix in the form determines \
+the degrees of freedom. That theorem is next.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4301560230060425`*^9, 3.4301561111380424`*^9}, {
+   3.4301561785540423`*^9, 3.430156326642042*^9}, 3.4301596171600423`*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ". Assume that ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["X", "1"], ",", 
+      SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+      SubscriptBox["X", "n"]}], ")"}]}], TraditionalForm]]],
+ " has the multivariate normal distribution with mean parameter ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " and diagonal covariance matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sum]", 
+    RowBox[{"=", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", "I"}]}]}], 
+   TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4298156211599455`*^9, 3.4298156553249454`*^9}, 
+   3.429815687106946*^9, {3.429815739243946*^9, 3.4298158386769457`*^9}, {
+   3.4298158986169457`*^9, 3.4298159184099455`*^9}, {3.4300858281385236`*^9, 
+   3.4300859247745237`*^9}, {3.4300859549395237`*^9, 
+   3.4300860529365234`*^9}, {3.430086281319524*^9, 3.4300862855065236`*^9}, {
+   3.430156451274042*^9, 3.4301564546190424`*^9}, 3.430159617161042*^9}],
+
+Cell[TextData[{
+ "(a) Suppose that ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]]],
+ " is a symmetric, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ " idempotent matrix of rank ",
+ Cell[BoxData[
+  FormBox["r", TraditionalForm]]],
+ ". Then the quadratic form"
+}], "Text",
+ CellChangeTimes->{{3.4298156211599455`*^9, 3.4298156553249454`*^9}, 
+   3.429815687106946*^9, {3.429815739243946*^9, 3.4298158386769457`*^9}, {
+   3.4298158986169457`*^9, 3.4298159184099455`*^9}, {3.4300858281385236`*^9, 
+   3.4300859247745237`*^9}, {3.4300859549395237`*^9, 
+   3.4300860529365234`*^9}, {3.430086281319524*^9, 3.4300862880505238`*^9}, 
+   3.430159617161042*^9, {3.4378210970073237`*^9, 3.437821097012324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+   RowBox[{
+    RowBox[{"Q", "(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+    SuperscriptBox["\[Sigma]", "2"]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378211048053236`*^9, 3.437821105358324*^9}}],
+
+Cell[TextData[{
+ "has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", "r", ")"}], TraditionalForm]]],
+ " distribution."
+}], "Text",
+ CellChangeTimes->{{3.4300861322555237`*^9, 3.4300861626435237`*^9}, 
+   3.4301596171620426`*^9}],
+
+Cell[TextData[{
+ "(b) If ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " are two symmetric ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ " matrices such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", "1"], "\[CenterDot]", 
+     SubscriptBox["Q", "2"]}], "=", "0"}], TraditionalForm]]],
+ ", then the quadratic forms"
+}], "Text",
+ CellChangeTimes->{{3.4300861636845236`*^9, 3.430086164595524*^9}, {
+   3.4300863179665236`*^9, 3.430086381397524*^9}, 3.430159617163042*^9, {
+   3.4378211184963236`*^9, 3.437821118499324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", "1"], "(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+    SuperscriptBox["\[Sigma]", "2"]}], " ", "and", " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", 
+      StyleBox["\[Mu]",
+       FontWeight->"Bold"]}], ")"}], "t"], 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", "2"], "(", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "-", 
+      StyleBox["\[Mu]",
+       FontWeight->"Bold"]}], ")"}], "/", 
+    SuperscriptBox["\[Sigma]", "2"], "  "}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4300861636845236`*^9, 3.430086164595524*^9}, {
+   3.4300863179665236`*^9, 3.430086381397524*^9}, 3.430159617163042*^9, {
+   3.4378211184963236`*^9, 3.4378211275803237`*^9}}],
+
+Cell["are independent. ", "Text",
+ CellChangeTimes->{{3.4300863826825237`*^9, 3.4300864213895235`*^9}, 
+   3.430086486904524*^9, 3.4301596171640425`*^9}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ". (a) Because the determinant of \[Sum] is ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     SuperscriptBox["\[Sigma]", "2"], ")"}], "n"], TraditionalForm]]],
+ " and the inverse of \[Sum] is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      SuperscriptBox["\[Sigma]", "2"]}], ")"}], "\[CenterDot]", "I"}], 
+   TraditionalForm]]],
+ ", the m.g.f. of the real random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "=", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+     RowBox[{
+      RowBox[{"Q", "(", 
+       RowBox[{
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+      SuperscriptBox["\[Sigma]", "2"]}]}]}], TraditionalForm]]],
+ " is the multiple integral"
+}], "Text",
+ CellChangeTimes->{{3.429816057828946*^9, 3.429816086882946*^9}, {
+   3.4300865540895233`*^9, 3.4300865549995236`*^9}, {3.430086611727524*^9, 
+   3.4300866495915236`*^9}, {3.4300869022835236`*^9, 3.430086971114524*^9}, 
+   3.4301596171640425`*^9, {3.430243078579*^9, 3.430243084479*^9}, {
+   3.4378211551323237`*^9, 3.437821155138324*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"M", 
+       RowBox[{"(", "t", ")"}]}], "=", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox["e", 
+        RowBox[{"t", " ", "\[CenterDot]", "Y"}]], "]"}]},
+     {" ", "=", 
+      RowBox[{
+       UnderoverscriptBox["\[Integral]", 
+        RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+       RowBox[{"\[CenterEllipsis]", 
+        RowBox[{
+         UnderoverscriptBox["\[Integral]", 
+          RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{
+           SuperscriptBox["e", 
+            RowBox[{
+             RowBox[{"t", "\[CenterDot]", 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{
+                 StyleBox["x",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "-", 
+                 StyleBox["\[Mu]",
+                  FontWeight->"Bold"]}], ")"}], "t"]}], 
+             RowBox[{
+              RowBox[{"Q", "(", 
+               RowBox[{
+                StyleBox["x",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "-", 
+                StyleBox["\[Mu]",
+                 FontWeight->"Bold"]}], ")"}], "/", 
+              SuperscriptBox["\[Sigma]", "2"]}]}]], 
+           FractionBox["1", 
+            RowBox[{
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{"2", "\[Pi]"}], ")"}], 
+              RowBox[{"n", "/", "2"}]], 
+             SqrtBox[
+              SuperscriptBox[
+               RowBox[{"(", 
+                SuperscriptBox["\[Sigma]", "2"], ")"}], "n"]]}]], 
+           SuperscriptBox["e", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "1"}], "/", "2"}], 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{
+                StyleBox["x",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "-", 
+                StyleBox["\[Mu]",
+                 FontWeight->"Bold"]}], ")"}], "t"], 
+             RowBox[{
+              RowBox[{"I", "(", 
+               RowBox[{
+                StyleBox["x",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "-", 
+                StyleBox["\[Mu]",
+                 FontWeight->"Bold"]}], ")"}], "/", 
+              SuperscriptBox["\[Sigma]", "2"]}]}]], "d", " ", 
+           SubscriptBox["x", "n"], " ", "d", " ", 
+           SubscriptBox["x", 
+            RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+           SubscriptBox["x", "1"]}]}]}]}]}]},
+     {" ", "=", 
+      RowBox[{
+       UnderoverscriptBox["\[Integral]", 
+        RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+       RowBox[{"\[CenterEllipsis]", 
+        RowBox[{
+         UnderoverscriptBox["\[Integral]", 
+          RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{
+           FractionBox["1", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"2", 
+               SuperscriptBox["\[Pi]\[Sigma]", "2"]}], ")"}], 
+             RowBox[{"n", "/", "2"}]]], 
+           SuperscriptBox["e", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "1"}], "/", "2"}], 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{
+                StyleBox["x",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "-", 
+                StyleBox["\[Mu]",
+                 FontWeight->"Bold"]}], ")"}], "t"], 
+             RowBox[{"(", 
+              RowBox[{"I", "-", 
+               RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                StyleBox["x",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+              SuperscriptBox["\[Sigma]", "2"]}]}]], "d", " ", 
+           SubscriptBox["x", "n"], " ", "d", " ", 
+           SubscriptBox["x", 
+            RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+           SubscriptBox["x", "1"]}]}]}]}]}]},
+     {" ", "=", 
+      RowBox[{
+       SqrtBox[
+        SuperscriptBox[
+         RowBox[{"det", "(", 
+          RowBox[{"I", "-", 
+           RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+         RowBox[{"-", "1"}]]], 
+       RowBox[{
+        UnderoverscriptBox["\[Integral]", 
+         RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+        RowBox[{"\[CenterEllipsis]", 
+         RowBox[{
+          UnderoverscriptBox["\[Integral]", 
+           RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+          RowBox[{
+           UnderoverscriptBox["\[Integral]", 
+            RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+           RowBox[{
+            FractionBox["1", 
+             RowBox[{
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"2", 
+                 SuperscriptBox["\[Pi]\[Sigma]", "2"]}], ")"}], 
+               RowBox[{"n", "/", "2"}]], 
+              SqrtBox[
+               SuperscriptBox[
+                RowBox[{"det", "(", 
+                 RowBox[{"I", "-", 
+                  RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+                RowBox[{"-", "1"}]]]}]], 
+            SuperscriptBox["e", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"(", 
+                RowBox[{"1", "/", "2"}], ")"}]}], 
+              RowBox[{
+               SuperscriptBox[
+                StyleBox["z",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "t"], "(", 
+               RowBox[{"I", "-", 
+                RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+              RowBox[{
+               StyleBox["z",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], 
+               StyleBox["/",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], 
+               SuperscriptBox[
+                StyleBox["\[Sigma]",
+                 FontWeight->"Bold",
+                 FontSlant->"Plain"], "2"]}]}]], "d", " ", 
+            SubscriptBox["z", "n"], " ", "d", " ", 
+            SubscriptBox["z", 
+             RowBox[{"n", "-", "1"}]], "\[CenterEllipsis]", " ", "d", " ", 
+            SubscriptBox["z", "1"]}]}]}]}]}]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.437821218377324*^9, 
+  3.437821271749324*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "In the last line we made the substitution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["z", "i"], "=", 
+    RowBox[{
+     SubscriptBox["x", "i"], "-", 
+     SubscriptBox["\[Mu]", "i"]}]}], TraditionalForm]]],
+ " for each ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ ", and we multiplied and divided by ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    SuperscriptBox[
+     RowBox[{"det", "(", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+     RowBox[{"-", "1"}]]], TraditionalForm]]],
+ ". The integral is 1, because the integrand is the multivariate normal \
+density with mean ",
+ StyleBox["0 ",
+  FontWeight->"Bold"],
+ "and covariance matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", "t", " ", "Q"}]}], ")"}], 
+     RowBox[{"-", "1"}]]}], TraditionalForm]]],
+ ". Thus we have reduced the m.g.f. of ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " to the expression ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    SuperscriptBox[
+     RowBox[{"det", "(", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], 
+     RowBox[{"-", "1"}]]], TraditionalForm]]],
+ ". Moreover, it is also true that the determinant of the inverse of a matrix \
+is the reciprocal of the determinant of the matrix, hence we can rewrite the \
+expression in exponential form as ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"det", "(", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], ")"}], 
+    RowBox[{
+     RowBox[{"-", "1"}], "/", "2"}]], TraditionalForm]]],
+ ". By the diagonalization formula (8), we can rewrite the m.g.f. as"
+}], "Text",
+ CellChangeTimes->{{3.4300873054655237`*^9, 3.4300875211065235`*^9}, {
+   3.4300875587745237`*^9, 3.4300876030025234`*^9}, {3.4300876496315236`*^9, 
+   3.4300876660505238`*^9}, {3.4300877919785233`*^9, 3.4300878135595236`*^9}, 
+   3.430159617168042*^9, {3.437821310927324*^9, 3.437821310934324*^9}, 
+   3.4568254518251295`*^9}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        SubscriptBox["M", "Y"], "(", "t", ")"}], "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"det", "(", 
+          RowBox[{"I", "-", 
+           RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]},
+      {" ", "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"det", "(", 
+          RowBox[{"I", "-", 
+           RowBox[{"2", " ", "t", " ", "N", " ", "A", " ", 
+            SuperscriptBox["N", "t"]}]}], ")"}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]},
+      {" ", "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"det", "(", 
+          RowBox[{
+           RowBox[{"N", " ", "I", " ", 
+            SuperscriptBox["N", "t"]}], "-", 
+           RowBox[{"2", " ", "t", " ", "N", " ", "A", " ", 
+            SuperscriptBox["N", "t"]}]}], ")"}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]},
+      {" ", "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"det", "(", 
+          RowBox[{"N", " ", 
+           RowBox[{"(", 
+            RowBox[{"I", "-", 
+             RowBox[{"2", "t", " ", "A"}]}], ")"}], " ", 
+           SuperscriptBox["N", "t"]}], ")"}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]},
+      {" ", "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"det", "(", "N", " ", ")"}], 
+          RowBox[{"det", "(", 
+           RowBox[{"I", "-", 
+            RowBox[{"2", "t", " ", "A"}]}], ")"}], 
+          RowBox[{"det", "(", " ", 
+           SuperscriptBox["N", "t"], ")"}]}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]},
+      {" ", "=", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"det", "(", 
+          RowBox[{"I", "-", 
+           RowBox[{"2", "t", " ", "A"}]}], ")"}], ")"}], 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", "2"}]]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Left}}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378213184223237`*^9, 3.4378213188713236`*^9}}],
+
+Cell[TextData[{
+ "In lines 3 and 5 we used the fact that ",
+ Cell[BoxData[
+  FormBox["N", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["N", "t"], TraditionalForm]]],
+ " are inverses, hence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"I", "=", 
+    RowBox[{"N", " ", "I", " ", 
+     SuperscriptBox["N", "t"]}]}], TraditionalForm]]],
+ " and also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"det", "(", "N", ")"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"det", "(", 
+    SuperscriptBox["N", "t"], ")"}], TraditionalForm]]],
+ " are reciprocals. Notice that in block form the matrix in the last \
+determinant is"
+}], "Text",
+ CellChangeTimes->{{3.430088127015524*^9, 3.4300882276395235`*^9}, {
+   3.4300882945755234`*^9, 3.430088304826524*^9}, 3.4301596171700425`*^9, {
+   3.4378213481193237`*^9, 3.437821348122324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"I", "-", 
+    RowBox[{"2", "t", " ", "A"}]}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         SubscriptBox["I", "r"], 
+         StyleBox["0",
+          FontWeight->"Bold"]},
+        {
+         StyleBox["0",
+          FontWeight->"Bold"], 
+         SubscriptBox["I", 
+          RowBox[{"n", "-", "r"}]]}
+       }], "\[NegativeThinSpace]", ")"}], "-", 
+     RowBox[{"2", 
+      RowBox[{"t", "(", "\[NegativeThinSpace]", GridBox[{
+         {
+          SubscriptBox["I", "r"], 
+          StyleBox["0",
+           FontWeight->"Bold"]},
+         {
+          StyleBox["0",
+           FontWeight->"Bold"], 
+          StyleBox["0",
+           FontWeight->"Bold"]}
+        }], "\[NegativeThinSpace]", ")"}]}]}], "=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"2", "t"}]}], ")"}], 
+         SubscriptBox["I", "r"]}], 
+        StyleBox["0",
+         FontWeight->"Bold"]},
+       {
+        StyleBox["0",
+         FontWeight->"Bold"], 
+        SubscriptBox["I", 
+         RowBox[{"n", "-", "r"}]]}
+      }], "\[NegativeThinSpace]", ")"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.430088127015524*^9, 3.4300882276395235`*^9}, {
+   3.4300882945755234`*^9, 3.430088304826524*^9}, 3.4301596171700425`*^9, {
+   3.4378213481193237`*^9, 3.437821356538324*^9}}],
+
+Cell[TextData[{
+ "The determinant of this diagonal matrix, that is the product of the \
+diagonal elements, is ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"2", "t"}]}], ")"}], "r"], TraditionalForm]]],
+ ".  Therefore, the m.g.f. of the quadratic form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "=", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+     RowBox[{
+      RowBox[{"Q", "(", 
+       RowBox[{
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+      SuperscriptBox["\[Sigma]", "2"]}]}]}], TraditionalForm]]],
+ " simplifies to:"
+}], "Text",
+ CellChangeTimes->{{3.4300883665845237`*^9, 3.4300884532305236`*^9}, 
+   3.4301596171710424`*^9, {3.437821368130324*^9, 3.4378213681333237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["M", "Y"], "(", "t", ")"}], "=", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"2", "t"}]}], ")"}], 
+    RowBox[{
+     RowBox[{"-", "r"}], "/", "2"}]]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437821374695324*^9, 3.437821375259324*^9}}],
+
+Cell[TextData[{
+ "We recognize this as the m.g.f. of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", "r", ")"}], TraditionalForm]]],
+ " distribution, which proves part (a).\n\tNow suppose that the hypotheses of \
+part (b) are in force.  Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " be the two quadratic forms in question.  We will show that the joint \
+m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " factors into the product of their individual m.g.f.'s, which is enough to \
+show independence of the forms. Note that in the proof of part (a), we \
+arrived at the formula ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"det", "(", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", " ", "t", " ", "Q"}]}], ")"}], ")"}], 
+    RowBox[{
+     RowBox[{"-", "1"}], "/", "2"}]], TraditionalForm]]],
+ " for the m.g.f. of a quadratic form in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "-", "\[Mu]"}], TraditionalForm]]],
+ " without using the hypothesis of idempotency, which we are not making in \
+part (b).  Taking ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "1"}], TraditionalForm]]],
+ ", this allows us to write the following formula for the joint m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4300885053555236`*^9, 3.4300885443025236`*^9}, 
+   3.430156422354042*^9, {3.4301564841520424`*^9, 3.4301565528490424`*^9}, {
+   3.430156793932042*^9, 3.4301568066970425`*^9}, {3.4301568371830425`*^9, 
+   3.4301569546130424`*^9}, {3.430157169017042*^9, 3.4301571775440426`*^9}, 
+   3.4301596171720424`*^9, {3.4378213968453236`*^9, 3.437821396848324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[GridBox[{
+       {
+        RowBox[{
+         RowBox[{"M", 
+          RowBox[{"(", 
+           RowBox[{
+            SubscriptBox["t", "1"], ",", 
+            SubscriptBox["t", "2"]}], ")"}]}], "=", 
+         RowBox[{
+          StyleBox["E",
+           FontSlant->"Plain"], "[", 
+          SuperscriptBox["e", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["t", "1"], 
+             SubscriptBox["Y", "1"]}], "+", " ", 
+            RowBox[{
+             SubscriptBox["t", "2"], 
+             SubscriptBox["Y", "2"]}]}]], "]"}]}], "=", 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{
+            SubscriptBox["t", "1"], 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               StyleBox["X",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+            RowBox[{
+             RowBox[{
+              SubscriptBox["Q", "1"], "(", 
+              RowBox[{
+               StyleBox["X",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+             SuperscriptBox["\[Sigma]", "2"]}]}], "+", 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{
+              SubscriptBox["t", "2"], "(", 
+              RowBox[{
+               StyleBox["X",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+            RowBox[{
+             RowBox[{
+              SubscriptBox["Q", "2"], "(", 
+              RowBox[{
+               StyleBox["X",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+             SuperscriptBox["\[Sigma]", "2"]}]}]}]], "]"}]},
+       {" ", "=", 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              StyleBox["X",
+               FontWeight->"Bold",
+               FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              SubscriptBox["t", "1"], 
+              SubscriptBox["Q", "1"]}], "+", 
+             RowBox[{
+              SubscriptBox["t", "2"], 
+              SubscriptBox["Q", "2"]}]}], ")"}], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              StyleBox["X",
+               FontWeight->"Bold",
+               FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+            SuperscriptBox["\[Sigma]", "2"]}]}]], "]"}]},
+       {" ", "=", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"det", "(", 
+           RowBox[{"I", "-", 
+            RowBox[{"2", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{
+                SubscriptBox["t", "1"], 
+                SubscriptBox["Q", "1"]}], "+", 
+               RowBox[{
+                SubscriptBox["t", "2"], 
+                SubscriptBox["Q", "2"]}]}], ")"}]}]}], ")"}], ")"}], 
+         RowBox[{
+          RowBox[{"-", "1"}], "/", "2"}]]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}], TraditionalForm]]]]], " "}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4300885053555236`*^9, 3.4300885443025236`*^9}, 
+   3.430156422354042*^9, {3.4301564841520424`*^9, 3.4301565528490424`*^9}, {
+   3.430156793932042*^9, 3.4301568066970425`*^9}, {3.4301568371830425`*^9, 
+   3.4301569546130424`*^9}, {3.430157169017042*^9, 3.4301571775440426`*^9}, 
+   3.4301596171720424`*^9, {3.4378213968453236`*^9, 3.4378214043573236`*^9}}],
+
+Cell[TextData[{
+ "But notice that since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", "1"], 
+     SubscriptBox["Q", "2"]}], "=", "0"}], TraditionalForm]]],
+ ", we have"
+}], "Text",
+ CellChangeTimes->{{3.4301573171830425`*^9, 3.430157348116042*^9}, 
+   3.4301596171770425`*^9, {3.437821416044324*^9, 3.4378214160503235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"I", "-", 
+      RowBox[{"2", 
+       SubscriptBox["t", "1"], 
+       SubscriptBox["Q", "1"]}]}], ")"}], 
+    RowBox[{"(", 
+     RowBox[{"I", "-", 
+      RowBox[{"2", 
+       SubscriptBox["t", "2"], 
+       SubscriptBox["Q", "2"]}]}], ")"}]}], "=", 
+   RowBox[{
+    RowBox[{"I", "-", 
+     RowBox[{"2", 
+      SubscriptBox["t", "1"], 
+      SubscriptBox["Q", "1"]}], "-", 
+     RowBox[{"2", 
+      SubscriptBox["t", "2"], 
+      SubscriptBox["Q", "2"]}], "+", 
+     RowBox[{"4", 
+      SubscriptBox["t", "1"], 
+      SubscriptBox["t", "2"], 
+      SubscriptBox["Q", "1"], 
+      SubscriptBox["Q", "2"]}]}], "=", 
+    RowBox[{"I", "-", 
+     RowBox[{"2", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["t", "1"], 
+         SubscriptBox["Q", "1"]}], "+", 
+        RowBox[{
+         SubscriptBox["t", "2"], 
+         SubscriptBox["Q", "2"]}]}], ")"}]}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378214239843235`*^9, 3.437821424516324*^9}}],
+
+Cell[TextData[{
+ "Hence the joint moment-generating function of the forms ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " becomes"
+}], "Text",
+ CellChangeTimes->{{3.4301574769760427`*^9, 3.4301575037460423`*^9}, 
+   3.4301596171780424`*^9, {3.437821435827324*^9, 3.437821435832324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "(", 
+    RowBox[{
+     SubscriptBox["t", "1"], ",", 
+     SubscriptBox["t", "2"]}], ")"}], "=", 
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"det", "(", 
+        RowBox[{"I", "-", 
+         RowBox[{"2", 
+          SubscriptBox["t", "1"], 
+          SubscriptBox["Q", "1"]}]}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{"I", "-", 
+         RowBox[{"2", 
+          SubscriptBox["t", "2"], 
+          SubscriptBox["Q", "2"]}]}], ")"}]}], ")"}], 
+     RowBox[{
+      RowBox[{"-", "1"}], "/", "2"}]], "=", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"det", "(", 
+        RowBox[{"I", "-", 
+         RowBox[{"2", 
+          SubscriptBox["t", "1"], 
+          SubscriptBox["Q", "1"]}]}], ")"}], ")"}], 
+      RowBox[{
+       RowBox[{"-", "1"}], "/", "2"}]], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"det", "(", 
+        RowBox[{"I", "-", 
+         RowBox[{"2", 
+          SubscriptBox["t", "2"], 
+          SubscriptBox["Q", "2"]}]}], ")"}], ")"}], 
+      RowBox[{
+       RowBox[{"-", "1"}], "/", "2"}]]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378214436543236`*^9, 3.437821444124324*^9}}],
+
+Cell[TextData[{
+ "which is the product of the m.g.f.'s of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ ".  This completes the proof.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4301576389680424`*^9, 3.4301576651620426`*^9}, 
+   3.4301596171790423`*^9, {3.4378198038263235`*^9, 3.437819806035324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  It now remains to apply the previous theorem to our theorem about ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"n", "-", "1"}], ")"}], 
+    RowBox[{
+     SuperscriptBox["S", "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ ".  We assume now that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " is a random sample from the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " distribution, so the first hypothesis of Theorem 2 holds, and the mean \
+vector ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " has equal entries of \[Mu]. We already noted in Example 3 that if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"Z", "=", 
+     FormBox[
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         OverscriptBox["X", "_"], "-", "\[Mu]"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"\[Sigma]", "/", 
+         SqrtBox["n"]}], ")"}]}],
+      TraditionalForm]}]}], TraditionalForm]]],
+ ", then ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["Z", "2"], TraditionalForm]]],
+ " can be written as a quadratic form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["X",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["Q", "1"], "(", 
+        RowBox[{
+         StyleBox["X",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+       SuperscriptBox["\[Sigma]", "2"]}]}],
+     TraditionalForm]}], TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Q", "1"], "=", 
+    RowBox[{
+     FractionBox["1", "n"], 
+     StyleBox["1",
+      FontWeight->"Bold"]}]}], TraditionalForm]]],
+ " is a symmetric, idempotent matrix of rank 1.  Hence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["Z", "2"], "\[Tilde]", 
+    RowBox[{
+     SuperscriptBox["\[Chi]", "2"], "(", "1", ")"}]}], TraditionalForm]]],
+ " by part (a) of Theorem 2. Now consider the matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Q", "2"], "=", 
+    RowBox[{"(", 
+     RowBox[{"I", "-", 
+      RowBox[{
+       FractionBox["1", "n"], 
+       StyleBox["1",
+        FontWeight->"Bold"]}]}], ")"}]}], TraditionalForm]]],
+ " and the quadratic form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Q", "2"], "(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ ".  Written out in full, "
+}], "Text",
+ CellChangeTimes->{{3.4301577146290426`*^9, 3.4301577459010425`*^9}, {
+   3.4301578123240423`*^9, 3.4301578321540422`*^9}, {3.4301578867120423`*^9, 
+   3.4301579380860424`*^9}, {3.4301579688270426`*^9, 
+   3.4301580706100426`*^9}, {3.4301581178600426`*^9, 
+   3.4301582005590425`*^9}, {3.4301582495800424`*^9, 3.4301583417160425`*^9}, 
+   3.4301596171800423`*^9, {3.4302433303570004`*^9, 3.430243332291*^9}, {
+   3.4303275236586585`*^9, 3.4303275292686586`*^9}, {3.437821465285324*^9, 
+   3.4378214652913237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["Q", "2"], "=", 
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{"1", "-", 
+        RowBox[{"1", "/", "n"}]}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], "\[CenterEllipsis]", 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}]},
+      {
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{"1", "-", 
+        RowBox[{"1", "/", "n"}]}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], "\[CenterEllipsis]", 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}]},
+      {
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{"1", "-", 
+        RowBox[{"1", "/", "n"}]}], "\[CenterEllipsis]", 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}]},
+      {"\[VerticalEllipsis]", "\[VerticalEllipsis]", "\[VerticalEllipsis]", 
+       "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+      {
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], 
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "n"}], "\[CenterEllipsis]", 
+       RowBox[{"1", "-", 
+        RowBox[{"1", "/", "n"}]}]}
+     }], "\[NegativeThinSpace]", ")"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437821473111324*^9, 3.4378214737713237`*^9}}],
+
+Cell[TextData[{
+ "Since the rows of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " sum to zero, they cannot be linearly independent, hence the rank of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " can be no more than ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ ".  Actually, in Exercise 10 you will show that the rank is exactly ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ ".  Also, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " is idempotent, because:"
+}], "Text",
+ CellChangeTimes->{{3.4301585193770423`*^9, 3.4301585310720425`*^9}, {
+   3.4301585776520424`*^9, 3.4301586460470424`*^9}, 3.430159617182042*^9, {
+   3.430325824887658*^9, 3.430325825175658*^9}, {3.437821490960324*^9, 
+   3.437821490964324*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       SubscriptBox["Q", "2"], "\[CenterDot]", 
+       SubscriptBox["Q", "2"]}], "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"I", "-", 
+         RowBox[{
+          FractionBox["1", "n"], 
+          StyleBox["1",
+           FontWeight->"Bold"]}]}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{"I", "-", 
+         RowBox[{
+          FractionBox["1", "n"], 
+          StyleBox["1",
+           FontWeight->"Bold"]}]}], ")"}]}]},
+     {" ", "=", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", "\[CenterDot]", 
+        FractionBox["1", "n"], "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"]}], "+", 
+       RowBox[{
+        FractionBox["1", 
+         SuperscriptBox["n", "2"]], "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"], "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"]}]}]},
+     {" ", "=", 
+      RowBox[{"I", "-", 
+       RowBox[{"2", "\[CenterDot]", 
+        FractionBox["1", "n"], "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"]}], "+", 
+       RowBox[{
+        FractionBox["1", 
+         SuperscriptBox["n", "2"]], "\[CenterDot]", "n", "\[CenterDot]", 
+        StyleBox["1",
+         FontWeight->"Bold"]}]}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{"I", "-", 
+        RowBox[{
+         FractionBox["1", "n"], 
+         StyleBox["1",
+          FontWeight->"Bold"]}]}], "=", 
+       SubscriptBox["Q", "2"]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.4378215183333235`*^9, 
+  3.4378215483243237`*^9}, {3.4378215844283237`*^9, 3.4378215911123238`*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "By part (a) of the theorem again, the quadratic form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Q", "2"], "(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ " has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Chi]", "2"], "(", 
+    RowBox[{"n", "-", "1"}], ")"}], TraditionalForm]]],
+ " distribution.  In Exercise 11 you will multiply out this quadratic form to \
+find that"
+}], "Text",
+ CellChangeTimes->{{3.4301588327820425`*^9, 3.4301589353630424`*^9}, 
+   3.4301596171830425`*^9, {3.4303257793126583`*^9, 3.4303257794626584`*^9}, {
+   3.437821608839324*^9, 3.437821608841324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Q", "2"], "(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"n", "-", "1"}], ")"}], 
+    RowBox[{
+     SuperscriptBox["S", "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"], " "}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4301588327820425`*^9, 3.4301589353630424`*^9}, 
+   3.4301596171830425`*^9, {3.4303257793126583`*^9, 3.4303257794626584`*^9}, {
+   3.437821608839324*^9, 3.4378216187083235`*^9}}],
+
+Cell[TextData[{
+ "So we have the distributional result that we wanted.  The last item is the \
+independence of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ ".  Theorem 2(b) establishes the independence of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["Z", "2"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"n", "-", "1"}], ")"}], 
+    RowBox[{
+     SuperscriptBox["S", "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ ", because"
+}], "Text",
+ CellChangeTimes->{{3.4301591582500424`*^9, 3.4301592319030423`*^9}, {
+   3.4301592883630424`*^9, 3.4301593263500423`*^9}, 3.4301596171850424`*^9, {
+   3.4303274822426586`*^9, 3.4303274862336583`*^9}, {3.437821637179324*^9, 
+   3.4378216371823235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["Q", "1"], "\[CenterDot]", 
+    SubscriptBox["Q", "2"]}], "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox["1", "n"], 
+     RowBox[{
+      StyleBox["1",
+       FontWeight->"Bold"], "\[CenterDot]", 
+      RowBox[{"(", 
+       RowBox[{"I", "-", 
+        RowBox[{
+         FractionBox["1", "n"], 
+         StyleBox["1",
+          FontWeight->"Bold"]}]}], ")"}]}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "n"], 
+       StyleBox["1",
+        FontWeight->"Bold"]}], "-", 
+      RowBox[{
+       FractionBox["1", 
+        SuperscriptBox["n", "2"]], "\[CenterDot]", 
+       StyleBox["1",
+        FontWeight->"Bold"], "\[CenterDot]", 
+       StyleBox["1",
+        FontWeight->"Bold"]}]}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "n"], 
+        StyleBox["1",
+         FontWeight->"Bold"]}], "-", 
+       RowBox[{
+        FractionBox["n", 
+         SuperscriptBox["n", "2"]], 
+        StyleBox["1",
+         FontWeight->"Bold"]}]}], "=", 
+      StyleBox["0.",
+       FontWeight->"Bold"]}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437821644943324*^9, 3.4378216454773235`*^9}}],
+
+Cell[TextData[{
+ "You will complete the argument that ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " must also be independent of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ " in Exercise 12. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4301595162660427`*^9, 3.430159567255042*^9}, 
+   3.4301596171860423`*^9, {3.4303257681986585`*^9, 3.430325768413658*^9}, {
+   3.4303274959496584`*^9, 3.430327498229658*^9}, {3.4303275370026584`*^9, 
+   3.430327538776658*^9}}],
+
+Cell["Exercises 4.7", "Subsection",
+ CellChangeTimes->{3.429804396813734*^9},
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write out the expression for the three-variable normal density in which \
+the means of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ","}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ " are, respectively, 2.5, 0, and 1.8; the variances are, respectively, 1, 1, \
+and 4; and the correlations are as follows: between ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ": 0; between ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ": 0; and between ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ": .2."
+}], "Text",
+ CellChangeTimes->{{3.404169943375*^9, 3.404169957375*^9}, 
+   3.429804405858734*^9, {3.430241318901*^9, 3.430241471633*^9}, {
+   3.4303338728380003`*^9, 3.430333876212*^9}}],
+
+Cell["\<\
+2.  Simplify the expression for the multivariate normal density when the \
+covariance matrix is diagonal.\
+\>", "Text",
+ CellChangeTimes->{
+  3.429804409931734*^9, {3.430241524849*^9, 3.430241546605*^9}}],
+
+Cell[TextData[{
+ "3.  If ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " are independent ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ " random variables, find the joint distribution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "=", 
+    RowBox[{"X", "+", "Y"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"V", "=", 
+    RowBox[{"X", "-", "Y"}]}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{
+  3.4298044146757345`*^9, {3.430241600234*^9, 3.430241652448*^9}}],
+
+Cell[TextData[{
+ "4.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Let ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " be a random vector with the trivariate normal distribution with mean \
+vector ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Mu]",
+     FontWeight->"Bold"], "=", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "0", ",", "1"}], ")"}], "t"]}], 
+   TraditionalForm]]],
+ " and covariance matrix"
+}], "Text",
+ CellChangeTimes->{{3.4293062357187166`*^9, 3.4293062439167166`*^9}, 
+   3.4298044185367346`*^9, {3.430242074388*^9, 3.4302421209969997`*^9}, {
+   3.4303276124646587`*^9, 3.4303276149476585`*^9}, {3.4378216688173237`*^9, 
+   3.4378216688193235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[Sum]", 
+   RowBox[{"=", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"4", 
+        RowBox[{"-", ".6"}], 
+        RowBox[{"-", ".4"}]},
+       {
+        RowBox[{"-", ".6"}], "9", "1.5"},
+       {
+        RowBox[{"-", ".4"}], "1.5", "1"}
+      }], "\[NegativeThinSpace]", ")"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4293062357187166`*^9, 3.4293062439167166`*^9}, 
+   3.4298044185367346`*^9, {3.430242074388*^9, 3.4302421209969997`*^9}, {
+   3.4303276124646587`*^9, 3.4303276149476585`*^9}, {3.4378216688173237`*^9, 
+   3.437821676427324*^9}}],
+
+Cell[TextData[{
+ "Find the joint distribution of the random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "1"], "=", 
+    RowBox[{
+     SubscriptBox["X", "1"], "-", 
+     SubscriptBox["X", "2"]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "2"], "=", 
+    RowBox[{
+     RowBox[{"2", 
+      SubscriptBox["X", "1"]}], "+", 
+     SubscriptBox["X", "3"]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "3"], "=", 
+    RowBox[{
+     SubscriptBox["X", "1"], "+", 
+     SubscriptBox["X", "2"], "+", 
+     SubscriptBox["X", "3"]}]}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.430242269578*^9, 3.430242355995*^9}}],
+
+Cell[TextData[{
+ "5. A random vector ",
+ StyleBox["X = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["X", "1"], ",", 
+     SubscriptBox["X", "2"], ",", 
+     SubscriptBox["X", "3"]}], ")"}], TraditionalForm]]],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "has joint moment-generating function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"M", "(", 
+     StyleBox["t",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox["e", 
+       RowBox[{
+        SuperscriptBox[
+         StyleBox["t",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], "t"], " ", "\[CenterDot]", 
+        StyleBox["X",
+         FontWeight->"Bold",
+         FontSlant->"Plain"]}]], "]"}], "=", 
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"2", 
+        SubscriptBox["t", "1"]}], "+", 
+       SubscriptBox["t", "2"], "+", 
+       RowBox[{
+        FractionBox["3", "2"], 
+        SuperscriptBox[
+         SubscriptBox["t", "1"], "2"]}], "+", 
+       RowBox[{
+        FractionBox["1", "2"], 
+        SuperscriptBox[
+         SubscriptBox["t", "2"], "2"]}], "+", 
+       RowBox[{"2", 
+        SuperscriptBox[
+         SubscriptBox["t", "3"], "2"]}]}]]}]}], TraditionalForm]]],
+ ".  What joint distribution does ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " have, and what are the marginal distributions of each of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ","}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellChangeTimes->{{3.4293062694637165`*^9, 3.4293062792167163`*^9}, 
+   3.4298044262837343`*^9, {3.430241714142*^9, 3.430241759314*^9}, {
+   3.430241836266*^9, 3.430241948975*^9}, {3.438194070256*^9, 
+   3.438194070512*^9}}],
+
+Cell[TextData[{
+ "6. ",
+ StyleBox["Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ " be i.i.d. standard normal random variables. What distribution does the \
+random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "5"], 
+      SuperscriptBox[
+       SubscriptBox["X", "1"], "2"]}], "+", 
+     RowBox[{
+      FractionBox["4", "5"], 
+      SubscriptBox["X", "1"], 
+      SubscriptBox["X", "2"]}], "+", 
+     RowBox[{
+      FractionBox["4", "5"], 
+      SuperscriptBox[
+       SubscriptBox["X", "2"], "2"]}]}]}], TraditionalForm]]],
+ " have? "
+}], "Text",
+ CellChangeTimes->{
+  3.4298044301737347`*^9, {3.430242929865*^9, 3.430242934384*^9}, {
+   3.430325303394658*^9, 3.4303254041196585`*^9}}],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Consider a quadratic form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "1"], "=", 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "t"], 
+     SubscriptBox["Q", "1"], " ", 
+     StyleBox[
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold"], 
+       StyleBox["/",
+        FontWeight->"Plain"], 
+       StyleBox["4",
+        FontWeight->"Plain"]}],
+      FontSlant->"Plain"]}]}], TraditionalForm]]],
+ " in four independent ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "4"}], ")"}], TraditionalForm]]],
+ " random variables with matrix ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "1"], TraditionalForm]]],
+ " as below.  What distribution does ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " have?  Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to repeatedly simulate observations ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["X", "1"], ",", 
+      SubscriptBox["X", "2"], ",", 
+      SubscriptBox["X", "3"], ",", 
+      SubscriptBox["X", "4"]}], ")"}]}], TraditionalForm]]],
+ ", transform them into observations of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ ", and compare the scaled histogram of the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " observations to the theoretical p.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.429804438587734*^9, 3.430242293292*^9, {3.4303234189926586`*^9, 
+   3.4303236884746585`*^9}, {3.430324068715658*^9, 3.4303240687196584`*^9}, 
+   3.4303243792826586`*^9, {3.4303244259806585`*^9, 3.4303244328886585`*^9}, {
+   3.4303254454826584`*^9, 3.4303254541226587`*^9}, {3.430325578439658*^9, 
+   3.4303255908896585`*^9}, {3.437821697155324*^9, 3.4378216971593237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["Q", "1"], "=", 
+   RowBox[{
+    FractionBox["1", "2"], 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"1", "1", "0", "0"},
+       {"1", "1", "0", "0"},
+       {"0", "0", "1", "1"},
+       {"0", "0", "1", "1"}
+      }], "\[NegativeThinSpace]", ")"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{
+  3.429804438587734*^9, 3.430242293292*^9, {3.4303234189926586`*^9, 
+   3.4303236884746585`*^9}, {3.430324068715658*^9, 3.4303240687196584`*^9}, 
+   3.4303243792826586`*^9, {3.4303244259806585`*^9, 3.4303244328886585`*^9}, {
+   3.4303254454826584`*^9, 3.4303254541226587`*^9}, {3.430325578439658*^9, 
+   3.4303255908896585`*^9}, {3.437821697155324*^9, 3.437821706013324*^9}}],
+
+Cell[TextData[{
+ "8. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") ",
+ StyleBox["Under the same setup as Exercise 7, define the quadratic form ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "2"], "=", 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "t"], 
+     SubscriptBox["Q", "2"], " ", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], 
+      StyleBox["/",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], 
+      StyleBox["4",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], " "}]}]}], TraditionalForm]]],
+ "where the matrix ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " is below.  Are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "1"], " ", "and", " ", 
+    SubscriptBox["Y", "2"]}], TraditionalForm]]],
+ " independent?  What is the probability distribution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "2"], "?"}], TraditionalForm]]],
+ " Jointly simulate 200 observations of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "2"], TraditionalForm]]],
+ " using the same underlying ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ " simulated values for each, and construct a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " list plot of the pairs to see whether the simulated pairs seem to obey \
+independence. Finally, let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["1", "4"], TraditionalForm]]],
+ " denote the 4\[Times]4 matrix of 1's.  What can be said about the forms ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "3"], "=", 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "t"], 
+     SubscriptBox["Q", "3"], " ", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], 
+      StyleBox["/",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], 
+      StyleBox["4",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], " "}]}]}], TraditionalForm]]],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "4"], "=", 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "t"], 
+     SubscriptBox["Q", "4"], " ", 
+     RowBox[{
+      StyleBox["X",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], 
+      StyleBox["/",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], 
+      StyleBox["4",
+       FontWeight->"Plain",
+       FontSlant->"Plain"], " "}]}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Q", "3"], "=", 
+    RowBox[{
+     SubscriptBox["Q", "1"], "-", 
+     RowBox[{
+      FractionBox["1", "4"], 
+      SubscriptBox["1", "4"]}]}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Q", "4"], "=", 
+    RowBox[{
+     SubscriptBox["Q", "2"], "-", 
+     RowBox[{
+      FractionBox["1", "4"], 
+      SubscriptBox["1", "4"]}]}]}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellChangeTimes->{
+  3.4298044337347345`*^9, {3.430242871781*^9, 3.430242918347*^9}, {
+   3.4302429651219997`*^9, 3.430242996321*^9}, 3.4303244005076585`*^9, {
+   3.4303244659176583`*^9, 3.4303244765276585`*^9}, {3.430325438361658*^9, 
+   3.4303255337596583`*^9}, {3.4303255996916585`*^9, 3.430325683663658*^9}, {
+   3.430417422129366*^9, 3.4304176149386444`*^9}, {3.4378217223903236`*^9, 
+   3.437821748063324*^9}, 3.438194146835*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["Q", "2"], "=", 
+   RowBox[{
+    FractionBox["1", "2"], 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"1", "0", "1", "0"},
+       {"0", "1", "0", "1"},
+       {"1", "0", "1", "0"},
+       {"0", "1", "0", "1"}
+      }], "\[NegativeThinSpace]", ")"}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4378217321663237`*^9, 3.437821732657324*^9}}],
+
+Cell[TextData[{
+ "9.  Suppose as in Theorem 2 that  ",
+ StyleBox["X",
+  FontWeight->"Bold"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["X", "1"], ",", 
+      SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+      SubscriptBox["X", "n"]}], ")"}]}], TraditionalForm]]],
+ " is multivariate normal with mean vector ",
+ StyleBox["\[Mu]",
+  FontWeight->"Bold"],
+ " and covariance matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sum]", 
+    RowBox[{"=", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", "I"}]}]}], 
+   TraditionalForm]]],
+ ". Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " be two ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]]],
+ " symmetric, idempotent matrices, of ranks ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "2"], TraditionalForm]]],
+ ", respectively, such that also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", "1"], 
+     SubscriptBox["Q", "2"]}], "=", "0"}], TraditionalForm]]],
+ ". Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "i"], ",", 
+    RowBox[{"i", "=", "1"}], ",", "2"}], TraditionalForm]]],
+ " be the quadratic forms ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "t"], 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Q", "i"], "(", 
+      RowBox[{
+       StyleBox["X",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], "-", "\[Mu]"}], ")"}], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ ". What is the moment generating function of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "1"], "+", 
+    SubscriptBox["Y", "2"]}], TraditionalForm]]],
+ "? What is the corresponding probability distribution?"
+}], "Text",
+ CellChangeTimes->{
+  3.429804438587734*^9, {3.430243975066*^9, 3.430243992264*^9}, {
+   3.4303238032616587`*^9, 3.4303239535356584`*^9}, {3.430323999590658*^9, 
+   3.4303240353166585`*^9}, 3.430324406335658*^9, 3.438194149899*^9, {
+   3.456825580930729*^9, 3.456825597170329*^9}}],
+
+Cell[TextData[{
+ "10.  Show that the rank of the matrix ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Q", "2"], TraditionalForm]]],
+ " in formula (12) is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.429804438587734*^9, {3.430242295644*^9, 3.430242295852*^9}, {
+   3.430243399625*^9, 3.430243434148*^9}}],
+
+Cell["11.  Prove formula (13).", "Text",
+ CellChangeTimes->{
+  3.429804438587734*^9, {3.430242298763*^9, 3.430242298946*^9}, {
+   3.4302434676470003`*^9, 3.43024347575*^9}, {3.430243557624*^9, 
+   3.430243557627*^9}}],
+
+Cell[TextData[{
+ "12. This finishes the argument in Example 4 that since the quadratic forms ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["Z", "2"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"n", "-", "1"}], ")"}], 
+    RowBox[{
+     SuperscriptBox["S", "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ " are independent of each other then so are ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ ".  (a) Show that if random variables ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " are independent, so are the random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"a", " ", "X"}], "+", "b"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"c", " ", "Y"}], "+", "d"}], TraditionalForm]]],
+ ". (b) Show that if random variables ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["X", "2"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " are independent and the distribution of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is symmetric about 0, then ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " are independent. "
+}], "Text",
+ CellChangeTimes->{{3.430243558038*^9, 3.430243559701*^9}, {
+  3.4302436159969997`*^9, 3.430243679229*^9}, {3.4302437179119997`*^9, 
+  3.4302438771610003`*^9}, {3.4303275513446584`*^9, 3.4303275538746586`*^9}, {
+  3.430427531510346*^9, 3.430427554548346*^9}, {3.456825606982729*^9, 
+  3.456825607762729*^9}}]
+},
+AutoGeneratedPackage->None,
+CellGrouping->Manual,
+WindowSize->{583, 628},
+WindowMargins->{{14, Automatic}, {Automatic, 23}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 4 Continuous Distributions"], "Header"]}, {
+   Cell[
+    TextData["4.7 Transformations of Normal Random Variables"], "Header"], 
+   None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 436, 8, 68, "Section"],
+Cell[984, 30, 1368, 20, 232, "Text"],
+Cell[2355, 52, 180, 3, 41, "Subsection"],
+Cell[2538, 57, 1797, 45, 129, "Text"],
+Cell[4338, 104, 1058, 38, 59, "DisplayFormulaNumbered"],
+Cell[5399, 144, 577, 11, 69, "Text"],
+Cell[5979, 157, 3179, 90, 218, "DisplayFormulaNumbered"],
+Cell[9161, 249, 1032, 28, 91, "Text"],
+Cell[10196, 279, 396, 12, 69, "Text"],
+Cell[10595, 293, 995, 25, 111, "Text"],
+Cell[11593, 320, 1208, 40, 71, "Text"],
+Cell[12804, 362, 1227, 41, 38, "DisplayFormulaNumbered"],
+Cell[14034, 405, 620, 12, 91, "Text"],
+Cell[14657, 419, 548, 18, 33, "DisplayFormulaNumbered"],
+Cell[15208, 439, 679, 21, 33, "DisplayFormulaNumbered"],
+Cell[15890, 462, 1215, 42, 94, "Text"],
+Cell[17108, 506, 6537, 183, 154, "DisplayFormula"],
+Cell[23648, 691, 327, 8, 48, "Text"],
+Cell[23978, 701, 4486, 158, 99, "DisplayFormula"],
+Cell[28467, 861, 2178, 74, 123, "Text"],
+Cell[30648, 937, 6590, 189, 168, "DisplayFormula"],
+Cell[37241, 1128, 511, 13, 48, "Text"],
+Cell[37755, 1143, 547, 16, 50, "Text"],
+Cell[38305, 1161, 1161, 36, 39, "DisplayFormulaNumbered"],
+Cell[39469, 1199, 191, 2, 27, "Text"],
+Cell[39663, 1203, 1227, 43, 70, "Text"],
+Cell[40893, 1248, 374, 13, 28, "Text"],
+Cell[41270, 1263, 4143, 128, 130, "DisplayFormula"],
+Cell[45416, 1393, 791, 26, 48, "Text"],
+Cell[46210, 1421, 649, 20, 49, "Text"],
+Cell[46862, 1443, 462, 12, 46, "DisplayFormula"],
+Cell[47327, 1457, 502, 14, 48, "Text"],
+Cell[47832, 1473, 462, 14, 48, "DisplayFormula"],
+Cell[48297, 1489, 1703, 66, 90, "Text"],
+Cell[50003, 1557, 1226, 38, 101, "Input",
+ InitializationCell->True],
+Cell[51232, 1597, 1212, 35, 133, "Text"],
+Cell[52447, 1634, 461, 12, 56, "Input",
+ InitializationCell->True],
+Cell[52911, 1648, 3010, 93, 321, "Input",
+ InitializationCell->True],
+Cell[55924, 1743, 537, 19, 49, "Text"],
+Cell[56464, 1764, 522, 13, 69, "Text"],
+Cell[56989, 1779, 916, 23, 111, "Text"],
+Cell[57908, 1804, 698, 23, 66, "DisplayFormula"],
+Cell[58609, 1829, 428, 7, 90, "Text"],
+Cell[59040, 1838, 2203, 81, 131, "Text"],
+Cell[61246, 1921, 1242, 37, 123, "Input",
+ InitializationCell->True],
+Cell[62491, 1960, 628, 18, 52, "Text"],
+Cell[63122, 1980, 672, 20, 79, "Input",
+ InitializationCell->True],
+Cell[63797, 2002, 177, 3, 41, "Subsection"],
+Cell[63977, 2007, 5282, 172, 413, "Text"],
+Cell[69262, 2181, 952, 23, 46, "DisplayFormulaNumbered"],
+Cell[70217, 2206, 940, 29, 69, "Text"],
+Cell[71160, 2237, 607, 19, 46, "DisplayFormulaNumbered"],
+Cell[71770, 2258, 900, 24, 70, "Text"],
+Cell[72673, 2284, 2168, 63, 115, "DisplayFormula"],
+Cell[74844, 2349, 4568, 160, 248, "Text"],
+Cell[79415, 2511, 2916, 82, 176, "DisplayFormula"],
+Cell[82334, 2595, 367, 9, 50, "Text"],
+Cell[82704, 2606, 2120, 63, 80, "DisplayFormulaNumbered"],
+Cell[84827, 2671, 1089, 28, 140, "Text"],
+Cell[85919, 2701, 1119, 33, 58, "Text"],
+Cell[87041, 2736, 741, 18, 48, "Text"],
+Cell[87785, 2756, 500, 17, 33, "DisplayFormulaNumbered"],
+Cell[88288, 2775, 266, 9, 29, "Text"],
+Cell[88557, 2786, 709, 24, 48, "Text"],
+Cell[89269, 2812, 1138, 38, 33, "DisplayFormulaNumbered"],
+Cell[90410, 2852, 153, 2, 27, "Text"],
+Cell[90566, 2856, 1335, 41, 58, "Text"],
+Cell[91904, 2899, 6859, 187, 184, "DisplayFormula"],
+Cell[98766, 3088, 2138, 65, 176, "Text"],
+Cell[100907, 3155, 2221, 67, 152, "DisplayFormula"],
+Cell[103131, 3224, 864, 28, 69, "Text"],
+Cell[103998, 3254, 1477, 48, 46, "DisplayFormula"],
+Cell[105478, 3304, 948, 30, 74, "Text"],
+Cell[106429, 3336, 350, 11, 30, "DisplayFormula"],
+Cell[106782, 3349, 2086, 62, 177, "Text"],
+Cell[108871, 3413, 3859, 111, 102, "DisplayFormula"],
+Cell[112733, 3526, 355, 11, 27, "Text"],
+Cell[113091, 3539, 1071, 38, 50, "DisplayFormula"],
+Cell[114165, 3579, 400, 12, 27, "Text"],
+Cell[114568, 3593, 1245, 43, 55, "DisplayFormula"],
+Cell[115816, 3638, 428, 13, 27, "Text"],
+Cell[116247, 3653, 3754, 126, 221, "Text"],
+Cell[120004, 3781, 1455, 45, 107, "DisplayFormulaNumbered"],
+Cell[121462, 3828, 877, 26, 69, "Text"],
+Cell[122342, 3856, 1915, 58, 134, "DisplayFormula"],
+Cell[124260, 3916, 970, 30, 55, "Text"],
+Cell[125233, 3948, 856, 27, 33, "DisplayFormulaNumbered"],
+Cell[126092, 3977, 895, 28, 74, "Text"],
+Cell[126990, 4007, 1221, 44, 48, "DisplayFormula"],
+Cell[128214, 4053, 540, 15, 29, "Text"],
+Cell[128757, 4070, 122, 3, 41, "Subsection"],
+Cell[128882, 4075, 1216, 44, 87, "Text"],
+Cell[130101, 4121, 214, 5, 48, "Text"],
+Cell[130318, 4128, 631, 25, 48, "Text"],
+Cell[130952, 4155, 730, 24, 49, "Text"],
+Cell[131685, 4181, 626, 17, 66, "DisplayFormula"],
+Cell[132314, 4200, 740, 29, 48, "Text"],
+Cell[133057, 4231, 1928, 68, 88, "Text"],
+Cell[134988, 4301, 896, 33, 58, "Text"],
+Cell[135887, 4336, 2112, 72, 110, "Text"],
+Cell[138002, 4410, 759, 18, 86, "DisplayFormula"],
+Cell[138764, 4430, 3662, 132, 162, "Text"],
+Cell[142429, 4564, 426, 13, 86, "DisplayFormula"],
+Cell[142858, 4579, 2403, 87, 146, "Text"],
+Cell[145264, 4668, 376, 13, 27, "Text"],
+Cell[145643, 4683, 217, 4, 27, "Text"],
+Cell[145863, 4689, 1762, 60, 119, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)

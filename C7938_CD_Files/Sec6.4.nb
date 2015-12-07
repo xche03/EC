@@ -1,0 +1,4080 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    133983,       4071]
+NotebookOptionsPosition[    127562,       3898]
+NotebookOutlinePosition[    128358,       3928]
+CellTagsIndexPosition[    128315,       3925]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["6.4 Brownian Motion", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.425570834098*^9, 3.425570847191*^9}, {
+   3.4335382965938*^9, 3.4335383009578*^9}, 3.4342758525157204`*^9},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "To this point the stochastic processes that we have studied have had \
+discrete state spaces. The Brownian motion process that we introduce in this \
+section is appropriate when the state space of the process is continuous, the \
+time set is continuous, and changes in value of the process over short time \
+intervals are small and random. In this sense, the Brownian motion is a \
+version of a random walk in continuous time. Applications are found in many \
+areas, including genetics, population growth, diffusion of heat and, more \
+recently, finance. \n",
+ StyleBox["\t",
+  FontSlant->"Italic"],
+ "We begin by exploring an example data set.",
+ StyleBox[" Mathematica",
+  FontSlant->"Italic"],
+ " is able to pull financial data from the Wolfram Research web site using \
+the command"
+}], "Text",
+ CellChangeTimes->{{3.4335381781538*^9, 3.4335382044958*^9}, {
+   3.4335383560718*^9, 3.4335383635598*^9}, {3.4335385599698*^9, 
+   3.4335387471717997`*^9}, {3.4335445792078*^9, 3.4335446677208*^9}, 
+   3.4335449584877996`*^9, {3.4335456825548*^9, 3.4335457786247997`*^9}, {
+   3.4335466834528*^9, 3.4335467034178*^9}, {3.4335467729978*^9, 
+   3.4335468083887997`*^9}, 3.433601931447*^9, {3.433602034348*^9, 
+   3.433602043274*^9}, {3.433603117245*^9, 3.43360315195*^9}, {
+   3.433759205121334*^9, 3.4337592068673344`*^9}, {3.4342758939337206`*^9, 
+   3.4342759113197203`*^9}, {3.4343793155802*^9, 3.4343793174142*^9}, {
+   3.4571013673501997`*^9, 3.4571013699866*^9}}],
+
+Cell["\t\tFinancialData[companycode, {startdate, enddate, period}]", "Text",
+ CellChangeTimes->{{3.433601980351*^9, 3.433602020394*^9}}],
+
+Cell[TextData[{
+ "(There are some variations in the arguments that are explained in the on \
+line help system, but this will suffice for our needs.) Given the short code \
+for a company, for instance \"ATT,\" or \"IBM,\" or \"GE,\" and a list \
+including the starting and ending date, and the period over which you want \
+price data to be returned (such as \"Day,\" \"Week,\" or \"Month\"), this \
+command returns a list of pairs of the form {closing date, closing price}. \
+The dates in the input can be written out as text strings such as \"Jan. 1, \
+2005.\" The format of the date in the output from the command is a list of \
+elements of the form {year, month, day}. For example, the following is the \
+February 2006 weekly price data for IBM stock.  The output shows that \
+observations of price are made on the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["1", "st"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["6", "th"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["13", "th"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["21", "st"], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["27", "th"], TraditionalForm]]],
+ " of the month in this case. "
+}], "Text",
+ CellChangeTimes->{{3.4336019731*^9, 3.433601973101*^9}, {3.433602050649*^9, 
+  3.433602212683*^9}, {3.4336022431280003`*^9, 3.433602270045*^9}, {
+  3.4336024332679996`*^9, 3.433602454112*^9}, {3.4336028657530003`*^9, 
+  3.433602962874*^9}, {3.433603183927*^9, 3.433603276795*^9}, {
+  3.4342759535377207`*^9, 3.4342759626767206`*^9}, {3.43427601272972*^9, 
+  3.43427601548672*^9}, {3.4343793850822*^9, 3.4343794604342003`*^9}, {
+  3.4571013783638*^9, 3.4571014139630003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"IBMpricefulldata", "=", 
+  RowBox[{"FinancialData", "[", 
+   RowBox[{"\"\<IBM\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Feb. 1, 2006\>\"", ",", "\"\<Feb. 28, 2006\>\"", ",", 
+      "\"\<Week\>\""}], "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335402784868*^9, 3.4335403700008*^9}, {
+  3.4335404204007998`*^9, 3.4335404311608*^9}, {3.4335415442928*^9, 
+  3.4335415487958*^9}, {3.4335423401647997`*^9, 3.4335424786478*^9}, {
+  3.4335425860278*^9, 3.4335426350738*^9}, {3.4335436510018*^9, 
+  3.4335436716338*^9}, {3.4335447543677998`*^9, 3.4335447603798*^9}, {
+  3.4335466591658*^9, 3.4335466669168*^9}, {3.433602231809*^9, 
+  3.4336022380620003`*^9}, {3.433602278019*^9, 3.433602296204*^9}, {
+  3.4336023537279997`*^9, 3.433602422325*^9}, {3.433602463416*^9, 
+  3.4336024644700003`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["i", "th"], TraditionalForm]]],
+ " price in the list would be referred to as the second member of the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["i", "th"], TraditionalForm]]],
+ " sublist, as below. In this way we can strip off the date lists to create a \
+list of only prices. "
+}], "Text",
+ CellChangeTimes->{{3.4336025020109997`*^9, 3.4336025365889997`*^9}, {
+  3.433602616642*^9, 3.433602632686*^9}, {3.433602982381*^9, 
+  3.4336029961219997`*^9}, {3.433603293605*^9, 3.433603301276*^9}, {
+  3.43427604368972*^9, 3.4342760494857206`*^9}, {3.4343794899772*^9, 
+  3.4343794942802*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"IBMpricedata", "=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"IBMpricefulldata", "[", 
+     RowBox[{"[", 
+      RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", "5"}], "}"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"IBMpricedata", "[", 
+  RowBox[{"[", "2", "]"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335402784868*^9, 3.4335403700008*^9}, {
+  3.4335404204007998`*^9, 3.4335404311608*^9}, {3.4335415442928*^9, 
+  3.4335415487958*^9}, {3.4335423401647997`*^9, 3.4335424786478*^9}, {
+  3.4335425860278*^9, 3.4335426350738*^9}, {3.4335436510018*^9, 
+  3.4335436716338*^9}, {3.4335447543677998`*^9, 3.4335447603798*^9}, {
+  3.4335466591658*^9, 3.4335466669168*^9}, {3.433602231809*^9, 
+  3.4336022380620003`*^9}, {3.433602278019*^9, 3.433602296204*^9}, {
+  3.4336023537279997`*^9, 3.433602422325*^9}, {3.433602463416*^9, 
+  3.4336024644700003`*^9}, {3.433602560889*^9, 3.433602607454*^9}, {
+  3.433602709984*^9, 3.4336027139440002`*^9}, {3.433602761131*^9, 
+  3.433602783774*^9}, {3.4336030097200003`*^9, 3.433603017821*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tNow consider the series of weekly closing stock prices ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["P", "n"], TraditionalForm]]],
+ " for General Electric, and the ratios of successive prices ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["R", "n"], "=", 
+    RowBox[{
+     SubscriptBox["P", 
+      RowBox[{"n", "+", "1"}]], "/", 
+     SubscriptBox["P", "n"]}]}], TraditionalForm]]],
+ " graphed in Figure 10(a) and 10(b), respectively, for a period of three \
+years beginning in January 2005. The two types of data show somewhat \
+different characteristics, with the sequence of prices appearing to grow with \
+time, perhaps superlinearly, and the ratios moving up and down in an \
+apparently random way, centered near 1. "
+}], "Text",
+ CellChangeTimes->{{3.4335381781538*^9, 3.4335382044958*^9}, {
+   3.4335383560718*^9, 3.4335383635598*^9}, {3.4335385599698*^9, 
+   3.4335387471717997`*^9}, {3.4335445792078*^9, 3.4335446677208*^9}, 
+   3.4335449584877996`*^9, {3.4335456825548*^9, 3.4335457786247997`*^9}, {
+   3.4335466834528*^9, 3.4335467034178*^9}, {3.4335467729978*^9, 
+   3.4335468083887997`*^9}, 3.433601931447*^9, {3.43360310526*^9, 
+   3.433603106558*^9}, {3.433603330892*^9, 3.43360334729*^9}, 
+   3.433603378201*^9, {3.4342761342717204`*^9, 3.4342761574697204`*^9}, {
+   3.43427626158572*^9, 3.4342763108827205`*^9}, 3.4571015537078*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"GEpricefulldata", "=", 
+   RowBox[{"FinancialData", "[", 
+    RowBox[{"\"\<GE\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Jan. 1, 2005\>\"", ",", "\"\<Dec. 31, 2007\>\"", ",", 
+       "\"\<Week\>\""}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"GEprices", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"GEpricefulldata", "[", 
+      RowBox[{"[", 
+       RowBox[{"j", ",", "2"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", 
+       RowBox[{"Length", "[", "GEpricefulldata", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"GErates", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"GEprices", "[", 
+       RowBox[{"[", 
+        RowBox[{"i", "+", "1"}], "]"}], "]"}], "/", 
+      RowBox[{"GEprices", "[", 
+       RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", "GEprices", "]"}], "-", "1"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"ListPlot", "[", 
+     RowBox[{"GEprices", ",", 
+      RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"ListPlot", "[", 
+     RowBox[{"GErates", ",", 
+      RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], "}"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335402784868*^9, 3.4335403700008*^9}, {
+  3.4335404204007998`*^9, 3.4335404311608*^9}, {3.4335415442928*^9, 
+  3.4335415487958*^9}, {3.4335423401647997`*^9, 3.4335424786478*^9}, {
+  3.4335425860278*^9, 3.4335426350738*^9}, {3.4335436510018*^9, 
+  3.4335436716338*^9}, {3.4335447543677998`*^9, 3.4335447603798*^9}, {
+  3.4335466591658*^9, 3.4335466669168*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a) Weekly closing prices of GE, 2005",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "2007         (b) Weekly ratios of return on GE stock\n",
+ StyleBox["Figure 6.10",
+  FontWeight->"Bold"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4385523732815275`*^9, 3.4385523788395276`*^9}, 
+   3.4571015584658003`*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "Here we look for correlations between the ratios and their nearest \
+neighbors, by forming a list GErate1 of all but the last ratio, and a lagged \
+list GErate2 of all but the first ratio. So the GErate1 list would have price \
+ratios ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["R", "1"], ",", 
+     SubscriptBox["R", "2"], ",", "...", " ", ",", 
+     SubscriptBox["R", 
+      RowBox[{"n", "-", "1"}]]}], ")"}], TraditionalForm]]],
+ " and the GErate2 list would have price ratios ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["R", "2"], ",", 
+     SubscriptBox["R", "2"], ",", "...", " ", ",", 
+     SubscriptBox["R", "n"]}], ")"}], TraditionalForm]]],
+ " This enables us to study the pairs ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["R", "i"], ",", 
+     SubscriptBox["R", 
+      RowBox[{"i", "+", "1"}]]}], ")"}], TraditionalForm]]],
+ ", looking particularly for statistical dependence. The computation below \
+shows that the correlation between ratios and their nearest neighbors is very \
+small. "
+}], "Text",
+ CellChangeTimes->{{3.4336033984110003`*^9, 3.43360346388*^9}, {
+  3.43360366604*^9, 3.433603689057*^9}, {3.4337593022353344`*^9, 
+  3.433759464310334*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"GErate1", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"GErates", "[", 
+      RowBox[{"[", "i", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", "GErates", "]"}], "-", "1"}]}], "}"}]}], 
+    "]"}]}], ";", 
+  RowBox[{"GErate2", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"GErates", "[", 
+      RowBox[{"[", "i", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "2", ",", 
+       RowBox[{"Length", "[", "GErates", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Correlation", "[", 
+  RowBox[{"GErate1", ",", "GErate2"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335457915348*^9, 3.4335459359168*^9}, {
+  3.4336036291219997`*^9, 3.43360363442*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Use ListPlot to look at the graphical relationship between the GErate1 \
+and GErate2 variables.  Do you see any dependence?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4336035547279997`*^9, 3.433603611723*^9}}],
+
+Cell["\<\
+In order to make a point below, notice from Figure 11 that the logs of the \
+price ratios also seem to be approximately normally distributed. \
+\>", "Text",
+ CellChangeTimes->{{3.433601555343*^9, 3.433601571092*^9}, {3.433603796704*^9,
+   3.43360382126*^9}, {3.4336039989119997`*^9, 3.433604005201*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Histogram", "[", 
+  RowBox[{
+   RowBox[{"Log", "[", "GErates", "]"}], ",", 
+   RowBox[{"{", ".01", "}"}], ",", "\"\<Probability\>\"", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335462849648*^9, 3.4335463039088*^9}, {
+   3.433601318031*^9, 3.433601322597*^9}, {3.433601594777*^9, 
+   3.433601594946*^9}, {3.433603753658*^9, 3.4336037558929996`*^9}, 
+   3.44218164599612*^9, {3.442181855365103*^9, 3.4421818908810654`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.11 ",
+  FontWeight->"Bold"],
+ "-  Histogram of logged GE price ratios",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4385524674625273`*^9, 3.4385524754985275`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tAs above, denote by ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["P", "n"], TraditionalForm]]],
+ " the price at week ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["R", "n"], "=", 
+    RowBox[{
+     SubscriptBox["P", 
+      RowBox[{"n", "+", "1"}]], "/", 
+     SubscriptBox["P", "n"]}]}], TraditionalForm]]],
+ " the price ratio between weeks ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ ".  Then we can telescope ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["P", "n"], TraditionalForm]]],
+ " multiplicatively as"
+}], "Text",
+ CellChangeTimes->{{3.43360076116*^9, 3.433600859374*^9}, {3.433600895936*^9, 
+   3.433600920913*^9}, {3.433600980859*^9, 3.4336009972539997`*^9}, 
+   3.433604014267*^9, {3.43427634678172*^9, 3.4342763906267204`*^9}, {
+   3.4342764465677204`*^9, 3.4342764557057204`*^9}, {3.4343796487972*^9, 
+   3.4343796515632*^9}, {3.4385532128055277`*^9, 3.438553212808528*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["P", "n"], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["P", "1"], "\[CenterDot]", 
+      FractionBox[
+       SubscriptBox["P", "2"], 
+       SubscriptBox["P", "1"]], "\[CenterDot]", 
+      FractionBox[
+       SubscriptBox["P", "3"], 
+       SubscriptBox["P", "2"]]}], "\[CenterEllipsis]", 
+     FractionBox[
+      SubscriptBox["P", "n"], 
+      SubscriptBox["P", 
+       RowBox[{"n", "-", "1"}]]]}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["P", "1"], "\[CenterDot]", 
+      SubscriptBox["R", "1"], "\[CenterDot]", 
+      SubscriptBox["R", "2"]}], "\[CenterEllipsis]", " ", 
+     SubscriptBox["R", 
+      RowBox[{"n", "-", "1"}]]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385532191015277`*^9, 3.4385532195575275`*^9}}],
+
+Cell["\<\
+If we plot the logs of the prices as in Figure 12, we get a stochastic \
+process that shows signs of linear increase on the average, with variability. \
+By formula (1),\
+\>", "Text",
+ CellChangeTimes->{{3.4335467254778*^9, 3.4335467271028*^9}, {
+  3.4335468274158*^9, 3.4335468920308*^9}, {3.433601140467*^9, 
+  3.43360114669*^9}, {3.433604093708*^9, 3.433604097101*^9}, {
+  3.4385532419345274`*^9, 3.4385532419375277`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"log", "(", 
+    SubscriptBox["P", "n"], ")"}], " ", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"log", "(", 
+      SubscriptBox["P", "1"], ")"}], "\[CenterDot]", 
+     RowBox[{"log", "(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["R", "1"], "\[CenterDot]", 
+        SubscriptBox["R", "2"]}], "\[CenterEllipsis]", " ", 
+       SubscriptBox["R", 
+        RowBox[{"n", "-", "1"}]]}], ")"}]}], "=", 
+    RowBox[{
+     RowBox[{"log", "(", 
+      SubscriptBox["P", "1"], ")"}], "\[CenterDot]", 
+     RowBox[{
+      UnderoverscriptBox["\[Sum]", 
+       RowBox[{"k", "=", "1"}], 
+       RowBox[{"n", "-", "1"}]], 
+      RowBox[{"log", "(", 
+       SubscriptBox["R", "k"], ")"}]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385532497745275`*^9, 3.4385532503075275`*^9}}],
+
+Cell[TextData[{
+ "So the logged price is a constant times a total of random variables that \
+empirically seem to be independent and normally distributed. The increment of \
+the logged price process is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"log", "(", 
+      SubscriptBox["P", "n"], ")"}], "-", 
+     RowBox[{"log", "(", 
+      SubscriptBox["P", 
+       RowBox[{"n", "-", "1"}]], ")"}]}], "=", 
+    RowBox[{
+     RowBox[{"log", "(", 
+      SubscriptBox["P", "1"], ")"}], 
+     RowBox[{"log", "(", 
+      SubscriptBox["R", 
+       RowBox[{"n", "-", "1"}]], ")"}]}]}], TraditionalForm]]],
+ ".  Roughly stated, between successive weeks the log price seems to change \
+by a random amount that is normally distributed, independent of other \
+increments of price. "
+}], "Text",
+ CellChangeTimes->{{3.433601410991*^9, 3.433601491836*^9}, {3.433601522124*^9,
+   3.433601541041*^9}, {3.433601696888*^9, 3.433601704736*^9}, {
+  3.433601759171*^9, 3.4336017827209997`*^9}, {3.433604125087*^9, 
+  3.4336042183599997`*^9}, {3.4342765374707203`*^9, 3.43427654613772*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"Log", "[", "GEprices", "]"}], ",", " ", 
+   RowBox[{"Joined", " ", "->", " ", "True"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335465785928*^9, 3.4335465827128*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.12 ",
+  FontWeight->"Bold"],
+ "-  TIme series graph of logged GE prices "
+}], "Text",
+ CellChangeTimes->{{3.4385525713515277`*^9, 3.4385525771845274`*^9}, {
+  3.438722045591*^9, 3.4387220460109997`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe preceding discussion should help to motivate the definition of a \
+continuous-time stochastic process whose paths resemble Figure 12, and which \
+has similar probabilistic characteristics. In order to state the definition, \
+we need to recall two properties, ",
+ StyleBox["stationarity",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["independent increments",
+  FontSlant->"Italic"],
+ ", that were introduced in Section 6.2 on Poisson processes. For ease of \
+reference the definitions are repeated below. "
+}], "Text",
+ CellChangeTimes->{{3.433601809558*^9, 3.433601845309*^9}, {
+  3.4336248832031326`*^9, 3.4336250083851323`*^9}, {3.433625047374132*^9, 
+  3.4336251700871325`*^9}, {3.4337595380313344`*^9, 3.4337595488013344`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ". (a) A stochastic process ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is called ",
+ StyleBox["stationary",
+  FontSlant->"Italic"],
+ " if for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"t", "\[GreaterEqual]", "0"}], ",", 
+    RowBox[{"s", ">", "0"}]}], TraditionalForm]]],
+ ", the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"t", "+", "s"}]], "-", 
+    SubscriptBox["X", "t"]}], TraditionalForm]]],
+ " does not depend on ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ ";\n\t(b) A stochastic process ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is said to have ",
+ StyleBox["independent increments",
+  FontSlant->"Italic"],
+ " if",
+ StyleBox[" ",
+  FontSlant->"Italic"],
+ "for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"t", "\[GreaterEqual]", "0"}], ",", 
+    RowBox[{"s", ">", "0"}]}], TraditionalForm]]],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"t", "+", "s"}]], "-", 
+    SubscriptBox["X", "t"]}], TraditionalForm]]],
+ " is independent of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "r"], TraditionalForm]]],
+ " for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "\[LessEqual]", "t"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellFrame->False,
+ CellChangeTimes->{{3.4324825464442*^9, 3.4324826756312*^9}, {
+   3.4324827333032*^9, 3.4324827560601997`*^9}, 3.4336250379201326`*^9},
+ Background->None],
+
+Cell[TextData[{
+ "Stationarity means that the probability law of the increment of the process \
+over ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"t", ",", 
+     RowBox[{"t", "+", "s"}]}], "]"}], TraditionalForm]]],
+ " does not depend on the beginning time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ ", only on the length of the interval. When a process has independent \
+increments, the change in value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"t", "+", "s"}]], "-", 
+    SubscriptBox["X", "t"]}], TraditionalForm]]],
+ " is independent of a similar change in value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"r", "+", "u"}]], "-", 
+    SubscriptBox["X", "r"]}], TraditionalForm]]],
+ " as long as the two time intervals ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"t", ",", 
+     RowBox[{"t", "+", "s"}]}], "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"r", ",", 
+     RowBox[{"r", "+", "u"}]}], "]"}], TraditionalForm]]],
+ " are disjoint. \n\tA Brownian motion is a stochastic process with these two \
+properties, and one more important additional property."
+}], "Text",
+ CellChangeTimes->{{3.4324828482422*^9, 3.4324830495652*^9}, {
+   3.4328296651069136`*^9, 3.432829718772914*^9}, {3.4336252009101324`*^9, 
+   3.4336254280401325`*^9}, {3.4336254724291325`*^9, 3.4336254724461327`*^9}, 
+   3.4336255537331324`*^9, {3.4337596004213343`*^9, 3.4337596198223343`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ". A stochastic process ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is called a ",
+ StyleBox["Brownian motion",
+  FontSlant->"Italic"],
+ " with drift rate \[Mu] and variance rate ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " if \n\t(a) For all outcomes \[Omega] except possibly some in a set of \
+probability zero, the path function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "\[RightTeeArrow]", 
+    RowBox[{
+     SubscriptBox["X", "t"], "(", "\[Omega]", ")"}]}], TraditionalForm]]],
+ " is continuous at every ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ ";\n\t(b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "t"], ")"}], TraditionalForm]]],
+ " has stationary, independent increments\n\t(c) For all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", ">", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "-", 
+    SubscriptBox["X", "0"]}], TraditionalForm]]],
+ " is normally distributed with mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", " ", "t"}], TraditionalForm]]],
+ " and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "t"}], TraditionalForm]]],
+ ".\nThe process is called a ",
+ StyleBox["standard Brownian motion",
+  FontSlant->"Italic"],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", "1"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->False,
+ CellChangeTimes->{{3.4324825464442*^9, 3.4324826756312*^9}, {
+   3.4324827333032*^9, 3.4324827560601997`*^9}, 3.4336250379201326`*^9, 
+   3.4336255682501326`*^9, 3.4336256050501328`*^9, {3.4336256360711327`*^9, 
+   3.433625755452132*^9}, 3.4336257931911325`*^9, {3.4336264682121325`*^9, 
+   3.433626509237132*^9}, {3.433626589985132*^9, 3.4336265900001326`*^9}, {
+   3.433626634836132*^9, 3.4336266500351324`*^9}},
+ Background->None],
+
+Cell[TextData[{
+ "We usually assume that the initial value ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ " is a known constant ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ ", often 0. Then a standard Brownian motion with initial value 0 is such \
+that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"0", ",", "t"}], ")"}]}], TraditionalForm]]],
+ ".  The paths of a Brownian motion will vary around the line ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "+", 
+    RowBox[{"\[Mu]", " ", "t"}]}], TraditionalForm]]],
+ ", and the fact that the variance of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " is proportional to ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ " implies that the value of the process becomes less and less predictable as \
+time goes on. In advanced texts on Brownian motion some of the peculiar \
+properties of the path are discussed, particularly that for almost every \
+outcome they are continuous, but nowhere differentiable. "
+}], "Text",
+ CellChangeTimes->{{3.4336266690991325`*^9, 3.4336268368331327`*^9}, {
+  3.4336268915121326`*^9, 3.4336269200571327`*^9}, {3.4343802278742*^9, 
+  3.4343802756012*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  What does the definition of Brownian motion imply about the probability \
+distribution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"t", "+", "s"}]], "-", 
+    SubscriptBox["X", "t"]}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4336035547279997`*^9, 3.433603611723*^9}, {
+  3.433626969433132*^9, 3.4336270106251326`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  It is a relatively easy matter to simulate paths of a Brownian motion, \
+and in doing so, gain a better appreciation for its defining properties. \
+Focus on simulating the path between times 0 and ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ " by discretizing the time interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "t"}], "]"}], TraditionalForm]]],
+ " into a large number ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " of disjoint, equally sized subintervals, each of length ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "/", "n"}], TraditionalForm]]],
+ ". The subintervals are formed by partition points of the form"
+}], "Text",
+ CellChangeTimes->{{3.4336269205101323`*^9, 3.433626940202132*^9}, {
+  3.4336270326411324`*^9, 3.4336270353991327`*^9}, {3.433627092176132*^9, 
+  3.4336271538631325`*^9}, {3.433627273577132*^9, 3.4336273225031323`*^9}, {
+  3.433773486801*^9, 3.433773493336*^9}, {3.4343798973032*^9, 
+  3.4343799090562*^9}, {3.438553289685528*^9, 3.438553289690528*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["t", "i"], "=", 
+    RowBox[{"i", "\[CenterDot]", 
+     FractionBox["t", "n"]}]}], ",", " ", 
+   RowBox[{"i", "=", "0"}], ",", "1", ",", "...", " ", ",", "n"}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385532960885277`*^9, 3.438553296480528*^9}}],
+
+Cell[TextData[{
+ "We will simulate values of the process at each of these time points. If you \
+answered the question in the last Activity, it should be easy to understand \
+that the increment ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     SubscriptBox["t", 
+      RowBox[{"i", "+", "i"}]]], "-", 
+    SubscriptBox["X", 
+     SubscriptBox["t", "i"]]}], TraditionalForm]]],
+ " has the same distribution as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"t", "/", "n"}]], "-", 
+    SubscriptBox["X", "0"]}], TraditionalForm]]],
+ ", namely, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{
+     RowBox[{"\[Mu]", "\[CenterDot]", 
+      FractionBox["t", "n"]}], ",", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", 
+      FractionBox["t", "n"]}]}], ")"}], TraditionalForm]]],
+ ".  Also, by the independent increments property, the increment ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     SubscriptBox["t", 
+      RowBox[{"i", "+", "i"}]]], "-", 
+    SubscriptBox["X", 
+     SubscriptBox["t", "i"]]}], TraditionalForm]]],
+ " is independent of each of the other increments. The values of the Brownian \
+motion simply accumulate these increments:"
+}], "Text",
+ CellChangeTimes->{{3.4336274158021326`*^9, 3.4336275948201323`*^9}, {
+   3.433627637730132*^9, 3.4336276785671325`*^9}, 3.4336277182531323`*^9, {
+   3.433627760322132*^9, 3.433627824735132*^9}, {3.433759736159334*^9, 
+   3.4337597504573345`*^9}, {3.4385533150485277`*^9, 3.4385533150545273`*^9}, 
+   3.457101624875*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["X", 
+     SubscriptBox["t", "1"]], "=", 
+    RowBox[{
+     SubscriptBox["X", "0"], "+", 
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["X", 
+        SubscriptBox["t", "1"]], "-", 
+       SubscriptBox["X", "0"]}], ")"}]}]}], ",", " ", 
+   RowBox[{
+    SubscriptBox["X", 
+     SubscriptBox["t", "2"]], "=", 
+    RowBox[{
+     SubscriptBox["X", 
+      SubscriptBox["t", "1"]], "+", 
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["X", 
+        SubscriptBox["t", "2"]], "-", 
+       SubscriptBox["X", 
+        SubscriptBox["t", "1"]]}], ")"}]}]}], ",", " ", 
+   RowBox[{
+    SubscriptBox["X", 
+     SubscriptBox["t", "3"]], "=", 
+    RowBox[{
+     SubscriptBox["X", 
+      SubscriptBox["t", "2"]], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["X", 
+         SubscriptBox["t", "3"]], "-", 
+        SubscriptBox["X", 
+         SubscriptBox["t", "2"]]}], ")"}], "\[Ellipsis]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385533272585278`*^9, 3.4385533275975275`*^9}}],
+
+Cell[TextData[{
+ "This means that, beginning at a starting state ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ ", we can simulate a sequence of new states by successively adding a random \
+value sampled from the appropriate normal distribution. \n\tBelow is the \
+algorithm. The input parameters are the starting state ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ ", the final time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ ", the number of time intervals ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ", and the drift rate and variance rate. The function first computes the \
+subinterval length, and then computes a list called ",
+ StyleBox["times",
+  FontSlant->"Italic"],
+ " of all the partition points. It successively adjoins to a list called ",
+ StyleBox["states",
+  FontSlant->"Italic"],
+ " the initial state, the intial state plus the first random normal \
+increment, etc., by simply appending to the growing list the most recent \
+state (i.e., Last[states]) plus a new normal increment."
+}], "Text",
+ CellChangeTimes->{{3.4336280800871325`*^9, 3.4336281445241327`*^9}, {
+   3.433628219572132*^9, 3.4336282601361322`*^9}, {3.4343800129012003`*^9, 
+   3.4343801911652*^9}, 3.438722152215*^9, {3.4571016401474*^9, 
+   3.4571016557474003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimulateBrownianMotion", "[", 
+    RowBox[{"x_", ",", "t_", ",", "n_", ",", "\[Mu]_", ",", "\[Sigma]2_"}], 
+    "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"intlength", ",", "times", ",", "states"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"intlength", "=", 
+       RowBox[{"t", "/", "n"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"times", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"k", "*", "intlength"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"k", ",", "0", ",", "n"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"states", "=", 
+       RowBox[{"{", "x", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"states", ",", 
+          RowBox[{
+           RowBox[{"Last", "[", "states", "]"}], "+", 
+           RowBox[{"RandomReal", "[", 
+            RowBox[{"NormalDistribution", "[", 
+             RowBox[{
+              RowBox[{"\[Mu]", "*", "intlength"}], ",", 
+              SqrtBox[
+               RowBox[{"\[Sigma]2", "*", "intlength"}]]}], "]"}], "]"}]}]}], 
+         "]"}], ",", 
+        RowBox[{"{", "n", "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Transpose", "[", 
+       RowBox[{"{", 
+        RowBox[{"times", ",", "states"}], "}"}], "]"}]}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4336281984381323`*^9, 3.4336282146231327`*^9}, {
+   3.433628277735132*^9, 3.4336283028061323`*^9}, {3.433628402617132*^9, 
+   3.4336284969321327`*^9}, {3.4336285336981325`*^9, 
+   3.4336285532591324`*^9}, {3.4336285940811324`*^9, 3.433628661841132*^9}, {
+   3.433628699079132*^9, 3.4336287392791324`*^9}, 3.4336287713121324`*^9, {
+   3.4336289147971325`*^9, 3.4336289441611323`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tFigure 13 shows the result of one simulation for the case where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "1"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "100"}], TraditionalForm]]],
+ " time intervals, and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", "1"}], TraditionalForm]]],
+ ", that is, standard Brownian motion with initial state zero. In the \
+electronic book, you should set the seed randomly and repeat the simulation \
+to see how the paths behave. Sometimes variability can give the appearance of \
+a trend, as in this particular picture. But for the standard Brownian motion, \
+over many simulatons you will see false downward trends about as often as \
+false upward trends, since the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " is symmetric about zero. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.433629117683132*^9, 3.4336292245261326`*^9}, {
+  3.433629279473132*^9, 3.4336293433351326`*^9}, {3.433629388466132*^9, 
+  3.4336295272311325`*^9}, {3.433773479494*^9, 3.433773479495*^9}, {
+  3.434296747396*^9, 3.434296749198*^9}, {3.4343801972532*^9, 
+  3.4343802181942*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "567763", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"path", "=", 
+   RowBox[{"SimulateBrownianMotion", "[", 
+    RowBox[{"0", ",", "1", ",", "100", ",", "0", ",", "1"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"path", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4336281984381323`*^9, 3.4336282146231327`*^9}, {
+   3.433628277735132*^9, 3.4336283614551325`*^9}, {3.4336287832081327`*^9, 
+   3.433628830145132*^9}, 3.4336289748561325`*^9, {3.433844689715715*^9, 
+   3.433844689914715*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.13 ",
+  FontWeight->"Bold"],
+ "-  Simulated values of a standard Brownian motion with starting state 0",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438552534730528*^9, 3.4385525408575277`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " be a standard Brownian motion starting at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]]],
+ ". Find (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "1.2"], ">", ".5"}], "]"}], TraditionalForm]]],
+ " ; (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "5.4"], "-", 
+       SubscriptBox["X", "2.3"]}], "\[LessEqual]", 
+      RowBox[{"-", "1.6"}]}], ",", 
+     RowBox[{
+      SubscriptBox["X", "1"], ">", "0"}]}], "]"}], TraditionalForm]]],
+ "; (c) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "2.6"], ">", "2"}], "|", 
+      SubscriptBox["X", "1.1"]}], "=", "1"}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.433773504311*^9, 3.433773547955*^9}, {3.433774034157*^9,
+   3.433774045415*^9}, {3.433865737093*^9, 3.4338658813310003`*^9}}],
+
+Cell[TextData[{
+ "\tFor part (a), we simply use Definition 2(c) to observe that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1.2"], "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"0", ",", "1.2"}], ")"}]}], TraditionalForm]]],
+ ", since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", "1"}], TraditionalForm]]],
+ " here.  Consequently, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "1.2"], ">", ".5"}], "]"}], TraditionalForm]]],
+ " is:"
+}], "Text",
+ CellChangeTimes->{{3.433865913917*^9, 3.433866011609*^9}, {3.433866065767*^9,
+   3.433866085227*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", 
+      SqrtBox["1.2"]}], "]"}], ",", ".5"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+  3.43386610535*^9, 3.433866115465*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "In part (b), the increment of the process ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "5.4"], "-", 
+    SubscriptBox["X", "2.3"]}], TraditionalForm]]],
+ " in the time interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"2.3", ",", "5.4"}], "]"}], TraditionalForm]]],
+ " is independent of previous values of the process, so that"
+}], "Text",
+ CellChangeTimes->{{3.4338661330360003`*^9, 3.433866329854*^9}, {
+  3.4386087285803237`*^9, 3.4386087285833235`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "5.4"], "-", 
+       SubscriptBox["X", "2.3"]}], "\[LessEqual]", 
+      RowBox[{"-", "1.6"}]}], ",", 
+     RowBox[{
+      SubscriptBox["X", "1"], ">", "0"}]}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "5.4"], "-", 
+       SubscriptBox["X", "2.3"]}], "\[LessEqual]", 
+      RowBox[{"-", "1.6"}]}], "]"}], 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       SubscriptBox["X", "1"], ">", "0"}], "]"}], "."}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4338661330360003`*^9, 3.433866329854*^9}, {
+  3.4386087285803237`*^9, 3.4386087450763235`*^9}}],
+
+Cell[TextData[{
+ "Since ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is a standard Brownian motion, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["X", "1"], ">", "0"}], "]"}], "=", ".5"}], 
+   TraditionalForm]]],
+ ", and also by the stationarity property, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "5.4"], "-", 
+    SubscriptBox["X", "2.3"]}], TraditionalForm]]],
+ " has the same distribution as ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3.1"], TraditionalForm]]],
+ ", namely, the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "3.1"}], ")"}], TraditionalForm]]],
+ " distribution.  Consequently, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "5.4"], "-", 
+       SubscriptBox["X", "2.3"]}], "\[LessEqual]", 
+      RowBox[{"-", "1.6"}]}], ",", 
+     RowBox[{
+      SubscriptBox["X", "1"], ">", "0"}]}], "]"}], TraditionalForm]]],
+ " is:"
+}], "Text",
+ CellChangeTimes->{{3.4338661330360003`*^9, 3.433866329854*^9}, {
+   3.4386087285803237`*^9, 3.4386087552463236`*^9}, 3.4571017397377996`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", 
+      SqrtBox["3.1"]}], "]"}], ",", 
+    RowBox[{"-", "1.6"}]}], "]"}], "*", ".5"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+  3.43386610535*^9, 3.433866115465*^9}, {3.433866351818*^9, 
+  3.4338663683970003`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Now in the conditional probability in part (c), subtract the given value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1.1"], "=", "1"}], TraditionalForm]]],
+ " from both sides of the inequality and use stationarity and independent \
+increments to get"
+}], "Text",
+ CellChangeTimes->{{3.433866395947*^9, 3.433866472781*^9}, {
+  3.4385533522885275`*^9, 3.4385533522925277`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          SubscriptBox["X", "2.6"], ">", "2"}], "|", 
+         SubscriptBox["X", "1.1"]}], "=", "1"}], "]"}],
+      TraditionalForm], "=", 
+     FormBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           SubscriptBox["X", "2.6"], "-", 
+           SubscriptBox["X", "1.1"]}], ">", 
+          RowBox[{"2", "-", "1"}]}], "|", 
+         SubscriptBox["X", "1.1"]}], "=", "1"}], "]"}],
+      TraditionalForm]},
+    {" ", "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], "2.6"], "-", 
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], "1.1"]}], ">", "1"}], "|", 
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], "1.1"]}], "=", "1"}], "]"}]},
+    {" ", "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], "2.6"], "-", 
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], "1.1"]}], ">", "1"}], "]"}]},
+    {" ", "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       SubscriptBox[
+        StyleBox["X",
+         FontSlant->"Italic"], "1.5"], ">", "1"}], "]"}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385533587885275`*^9, 3.4385533591695275`*^9}}],
+
+Cell[TextData[{
+ "Since ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1.5"], TraditionalForm]]],
+ " has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "1.5"}], ")"}], TraditionalForm]]],
+ " distribution, this probability is:"
+}], "Text",
+ CellChangeTimes->{{3.433866634822*^9, 3.4338666598780003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", 
+      SqrtBox["1.5"]}], "]"}], ",", "1"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+  3.43386610535*^9, 3.433866115465*^9}, {3.433866673045*^9, 
+  3.433866676351*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[" \[FilledSquare]", "Text",
+ CellChangeTimes->{{3.43386668773*^9, 3.433866689644*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ "  Suppose that the number of people in a large community who are infected \
+by a certain variety of the flu can be approximately modeled by a Brownian \
+motion process ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ ".  If the initial state is 50, if the parameters are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", "4"}], TraditionalForm]]],
+ ", and if the flu disappears forever when the number who are infected \
+reaches zero, find the probability that at time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "20"}], TraditionalForm]]],
+ " there are at least 25 individuals still infected. "
+}], "Text",
+ CellChangeTimes->{{3.433773551531*^9, 3.433773665876*^9}, {3.433773704125*^9,
+    3.433773886245*^9}, {3.433774006692*^9, 3.433774028542*^9}, 
+   3.433774848623*^9, {3.4338446131587152`*^9, 3.4338446388957148`*^9}, {
+   3.434128079751*^9, 3.434128079751*^9}, 3.434129870554*^9, {
+   3.434142322413211*^9, 3.434142322989153*^9}, {3.434142574014048*^9, 
+   3.434142578563593*^9}, {3.4343804791822*^9, 3.4343804968782*^9}}],
+
+Cell[TextData[{
+ "\tThe problem statement indicates that we have a different version of the \
+Brownian motion here than usual: the flu infection process stops at 0 once \
+the population is clear. Define the Brownian motion ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "t"], ")"}], TraditionalForm]]],
+ " to be the unconstrained process with constant drift rate 0 and variance \
+rate 4. It is convenient to introduce the time of first visit by the ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " process to state 0: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "0"], "=", 
+    RowBox[{"min", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"s", ">", "0"}], ":", 
+        SubscriptBox["X", "s"]}], "=", "0"}], "}"}]}]}], TraditionalForm]]],
+ ". If we define a new stochastic process whose ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["t", "th"], TraditionalForm]]],
+ " member is:"
+}], "Text",
+ CellChangeTimes->{{3.434129878707*^9, 3.4341299533719997`*^9}, {
+   3.434130644448*^9, 3.43413071021*^9}, {3.4341308148459997`*^9, 
+   3.434130824234*^9}, 3.4341407844724493`*^9, {3.434140842287449*^9, 
+   3.434140878728449*^9}, 3.434142592530196*^9, {3.4343805167511997`*^9, 
+   3.4343805603512*^9}, {3.4385533912885275`*^9, 3.4385533912935276`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    TagBox[
+     RowBox[{
+      SuperscriptBox[
+       SubscriptBox[
+        StyleBox["X",
+         ShowAutoStyles->False], "t"], "\[Prime]"], "=", 
+      RowBox[{
+       StyleBox["{",
+        ShowAutoStyles->False], 
+       StyleBox[GridBox[{
+          {
+           SubscriptBox["X", "t"], 
+           RowBox[{
+            RowBox[{"if", " ", "t"}], "<", 
+            SubscriptBox["T", "0"]}]},
+          {"0", "otherwise"}
+         }],
+        ShowAutoStyles->True]}]}],
+     #& ],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385533971865273`*^9, 3.438553397598528*^9}}],
+
+Cell[TextData[{
+ "then the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["X", "\[Prime]"], TraditionalForm]]],
+ " process captures the absorption property at 0.  We are interested in \
+finding ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["X", "20"], "\[Prime]"], "\[GreaterEqual]", "25"}], "]"}], 
+   TraditionalForm]]],
+ ".  Actually, we will compute more generally ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["X", "t"], "\[Prime]"], "\[GreaterEqual]", "25"}], "]"}], 
+   TraditionalForm]]],
+ " for each ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ ". \n\t First, by complementation and the multiplication rule we have"
+}], "Text",
+ CellChangeTimes->{{3.4341308502060003`*^9, 3.4341309370290003`*^9}, {
+   3.434130973014*^9, 3.4341309730179996`*^9}, 3.4341312205290003`*^9, {
+   3.434131255917*^9, 3.434131289693*^9}, {3.434140577518449*^9, 
+   3.434140577519449*^9}, 3.434140778864449*^9, {3.4341409732964487`*^9, 
+   3.4341409894144487`*^9}, {3.434141980481407*^9, 3.434141980763379*^9}, {
+   3.434142337694682*^9, 3.4341423481136403`*^9}, {3.43414265228722*^9, 
+   3.4341426577436743`*^9}, {3.4343806111331997`*^9, 3.4343806223032*^9}, {
+   3.4385534135815277`*^9, 3.4385534135855274`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["X", "t"], "\[Prime]"], "\[GreaterEqual]", "25"}], "]"}],
+      TraditionalForm], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], ",", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["T",
+          FontSlant->"Italic"], "0"], ">", 
+        StyleBox["t",
+         FontSlant->"Italic"]}]}], "]"}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "]"}], "-", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox[
+          StyleBox["X",
+           FontSlant->"Italic"], 
+          StyleBox["t",
+           FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], ",", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["T",
+           FontSlant->"Italic"], "0"], "\[LessEqual]", 
+         StyleBox["t",
+          FontSlant->"Italic"]}]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "]"}], "-", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], 
+           StyleBox["t",
+            FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "|", 
+         RowBox[{
+          SubscriptBox[
+           StyleBox["T",
+            FontSlant->"Italic"], "0"], "\[LessEqual]", 
+          StyleBox["t",
+           FontSlant->"Italic"]}]}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["T",
+           FontSlant->"Italic"], "0"], "\[LessEqual]", 
+         StyleBox["t",
+          FontSlant->"Italic"]}], "]"}]}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385534207195272`*^9, 3.4385534211735277`*^9}}],
+
+Cell[TextData[{
+ "At time ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "0"], TraditionalForm]]],
+ ", the value of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is zero. Since the ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " process has no drift, given the event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "0"], "\[LessEqual]", "t"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is as likely to go up 25 units in the next ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "-", 
+    SubscriptBox["T", "0"]}], TraditionalForm]]],
+ " time units as it is to go down 25 units.  Thus, the conditional \
+probability that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], 
+     StyleBox["t",
+      FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], TraditionalForm]]],
+ " in the second term in formula (4) can be replaced by the conditional \
+probability that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "\[LessEqual]", 
+    RowBox[{"-", "25"}]}], TraditionalForm]]],
+ ".  But then the event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["X", "t"], "\[LessEqual]", 
+     RowBox[{"-", "25"}]}], "}"}], TraditionalForm]]],
+ " is contained in the event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox[
+      StyleBox["T",
+       FontSlant->"Italic"], "0"], "\[LessEqual]", 
+     StyleBox["t",
+      FontSlant->"Italic"]}], "}"}], TraditionalForm]]],
+ ", so that we can write"
+}], "Text",
+ CellChangeTimes->{{3.434141243575449*^9, 3.434141257254449*^9}, {
+  3.4341413009654493`*^9, 3.434141333294449*^9}, {3.434141416261449*^9, 
+  3.4341416425692015`*^9}, {3.4341424013873124`*^9, 3.4341424282746234`*^9}, {
+  3.4341426976086874`*^9, 3.4341427187725706`*^9}, {3.4341427598724604`*^9, 
+  3.434142760449403*^9}, {3.4343806526712*^9, 3.4343806534182*^9}, {
+  3.4385534425565276`*^9, 3.4385534425615273`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["X", "t"], "\[Prime]"], "\[GreaterEqual]", "25"}], "]"}],
+      TraditionalForm], "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "]"}], "-", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], 
+           StyleBox["t",
+            FontSlant->"Italic"]], "\[LessEqual]", 
+          RowBox[{"-", "25"}]}], "|", 
+         RowBox[{
+          SubscriptBox[
+           StyleBox["T",
+            FontSlant->"Italic"], "0"], "\[LessEqual]", 
+          StyleBox["t",
+           FontSlant->"Italic"]}]}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["T",
+           FontSlant->"Italic"], "0"], "\[LessEqual]", 
+         StyleBox["t",
+          FontSlant->"Italic"]}], "]"}]}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "]"}], "-", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox[
+          StyleBox["X",
+           FontSlant->"Italic"], 
+          StyleBox["t",
+           FontSlant->"Italic"]], "\[LessEqual]", 
+         RowBox[{"-", "25"}]}], ",", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["T",
+           FontSlant->"Italic"], "0"], "\[LessEqual]", 
+         StyleBox["t",
+          FontSlant->"Italic"]}]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[GreaterEqual]", "25"}], "]"}], "-", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox[
+         StyleBox["X",
+          FontSlant->"Italic"], 
+         StyleBox["t",
+          FontSlant->"Italic"]], "\[LessEqual]", 
+        RowBox[{"-", "25"}]}], "]"}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385534496775274`*^9, 3.4385534500435276`*^9}}],
+
+Cell[TextData[{
+ "Applying formula (5) at time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "20"}], TraditionalForm]]],
+ ", and observing that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "20"], "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"50", ",", 
+      RowBox[{"4", "\[CenterDot]", "20"}]}], ")"}]}], TraditionalForm]]],
+ " yields"
+}], "Text",
+ CellChangeTimes->{{3.434141752266231*^9, 3.434141760936364*^9}, {
+   3.4341418924872074`*^9, 3.4341419853869166`*^9}, 3.434142825526894*^9, {
+   3.434142954335012*^9, 3.4341429550309424`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"50", ",", 
+       SqrtBox[
+        RowBox[{"4", "*", "20"}]]}], "]"}], ",", "25"}], "]"}], "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"50", ",", 
+       SqrtBox[
+        RowBox[{"4", "*", "20"}]]}], "]"}], ",", 
+     RowBox[{"-", "25"}]}], "]"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+  3.43386610535*^9, 3.433866115465*^9}, {3.433866673045*^9, 
+  3.433866676351*^9}, {3.4341420211043444`*^9, 3.434142140524401*^9}, {
+  3.434142834995947*^9, 3.4341428536990767`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Notice that with the given problem parameters, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "20"], TraditionalForm]]],
+ " has standard deviation a little less than 9, so it is very likely to take \
+a value within 18 units of the mean of 50.  Hence it is highly likely for ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "20"], TraditionalForm]]],
+ " to exceed 25.  In fact, we worked hard to cope with the possibility of \
+absorption prior to time 20, which is what introduced the extra term ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox[
+      StyleBox["X",
+       FontSlant->"Italic"], 
+      StyleBox["t",
+       FontSlant->"Italic"]], "\[LessEqual]", 
+     RowBox[{"-", "25"}]}], "]"}], TraditionalForm]]],
+ " in formula (5), but that possibility did not change the answer in any \
+significant way, as shown in the computation below."
+}], "Text",
+ CellChangeTimes->{{3.4341429309503508`*^9, 3.434143095381906*^9}, {
+  3.43414320813263*^9, 3.434143242718171*^9}, {3.434143299271515*^9, 
+  3.4341433661908226`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"50", ",", 
+      SqrtBox[
+       RowBox[{"4", "*", "20"}]]}], "]"}], ",", 
+    RowBox[{"-", "25"}]}], "]"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+   3.43386610535*^9, 3.433866115465*^9}, {3.433866673045*^9, 
+   3.433866676351*^9}, {3.4341420211043444`*^9, 3.434142140524401*^9}, {
+   3.434142834995947*^9, 3.4341428536990767`*^9}, 3.434142906820764*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+As time wears on however, variability increases the chance of absorption, as \
+you will discover in the next activity.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.434143369754466*^9, 3.434143430115429*^9}, {
+  3.4341434610093393`*^9, 3.4341434632011204`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Use the general expression for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["X", "t"], "\[Prime]"], "\[GreaterEqual]", "25"}], "]"}], 
+   TraditionalForm]]],
+ " in Example 3 to graph it as a function of ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ " for values of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", ">", "200"}], TraditionalForm]]],
+ ". On the same graph, show ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox[
+      StyleBox["X",
+       FontSlant->"Italic"], 
+      StyleBox["t",
+       FontSlant->"Italic"]], "\[LessEqual]", 
+     RowBox[{"-", "25"}]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4336035547279997`*^9, 3.433603611723*^9}, {
+  3.433626969433132*^9, 3.4336270106251326`*^9}, {3.4341434586495757`*^9, 
+  3.4341435243000097`*^9}, {3.4341435743490047`*^9, 3.4341436294434943`*^9}, {
+  3.4341438176426725`*^9, 3.434143824345002*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  Assume that the logged GE prices as in Figure 12 do form a Brownian \
+motion.  Estimate the parameters \[Mu] and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", and use the estimates to compute the probability that the price after 100 \
+weeks is at least 35, given that the initial price is 32. "
+}], "Text",
+ CellChangeTimes->{{3.4337740523570004`*^9, 3.43377406413*^9}, {
+  3.433774111278*^9, 3.433774176792*^9}, {3.433774217763*^9, 
+  3.433774301506*^9}}],
+
+Cell[TextData[{
+ "\tLet ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["P", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " denote the process of prices, and let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " denote the process of logged prices, i.e., for each ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "\[GreaterEqual]", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "=", 
+    RowBox[{"log", "(", 
+     SubscriptBox["P", "t"], ")"}]}], TraditionalForm]]],
+ ".  We are assuming that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " forms a Brownian motion with parameters \[Mu] and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", hence the increments ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["X", "2"], "-", 
+     SubscriptBox["X", "1"]}], ",", 
+    RowBox[{
+     SubscriptBox["X", "3"], "-", 
+     SubscriptBox["X", "2"]}], ",", 
+    RowBox[{
+     SubscriptBox["X", "4"], "-", 
+     SubscriptBox["X", "3"]}], ",", "..."}], TraditionalForm]]],
+ ", for which the length of the time interval is exactly 1 week, must have \
+the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{
+     RowBox[{"\[Mu]", "\[CenterDot]", "1"}], ",", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", "1"}]}], ")"}], 
+   TraditionalForm]]],
+ " distribution, and they are independent of each other.  We can therefore \
+estimate the parameters by the sample mean and sample variance of these \
+increments."
+}], "Text",
+ CellChangeTimes->{{3.433867215894*^9, 3.433867299498*^9}, {
+   3.4338673421400003`*^9, 3.433867527102*^9}, {3.433867712454*^9, 
+   3.43386773684*^9}, 3.433867957241*^9, {3.4343808056102*^9, 
+   3.4343808066952*^9}, {3.4343808434632*^9, 3.4343808442441998`*^9}, 
+   3.4571018408570004`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Xtprocess", "=", 
+   RowBox[{"Log", "[", "GEprices", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Increments", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Xtprocess", "[", 
+       RowBox[{"[", "i", "]"}], "]"}], "-", 
+      RowBox[{"Xtprocess", "[", 
+       RowBox[{"[", 
+        RowBox[{"i", "-", "1"}], "]"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "2", ",", 
+       RowBox[{"Length", "[", "Xtprocess", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"xbar", "=", 
+  RowBox[{"Mean", "[", "Increments", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"var", "=", 
+  RowBox[{"Variance", "[", "Increments", "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335465785928*^9, 3.4335465827128*^9}, {
+  3.433867987266*^9, 3.433868046815*^9}, {3.433868081927*^9, 
+  3.433868106597*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Now if the initial price is 32, then the log of the initial price is \
+log(32), and at time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "100"}], TraditionalForm]]],
+ " the log of the GE price has approximately the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"log", "(", "32", ")"}], "+", 
+      RowBox[{"xbar", "*", "100"}]}], ",", 
+     RowBox[{"var", "*", "100"}]}], ")"}], TraditionalForm]]],
+ " distribution.  Thus, the probability that the price is at least 35 is"
+}], "Text",
+ CellChangeTimes->{{3.4338681354969997`*^9, 3.433868276896*^9}, {
+  3.438553496388528*^9, 3.4385534963945274`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["P", "t"], "\[GreaterEqual]", "35"}], "]"}], "=", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "t"], "=", 
+     RowBox[{
+      RowBox[{"log", "(", 
+       SubscriptBox["P", "t"], ")"}], "\[GreaterEqual]", 
+      RowBox[{"log", "(", "35", ")"}]}]}], "]"}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385535029455276`*^9, 3.4385535033455276`*^9}}],
+
+Cell["This probability is estimated as:", "Text",
+ CellChangeTimes->{{3.433868349549*^9, 3.4338683569820004`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Log", "[", "32", "]"}], "+", 
+       RowBox[{"xbar", "*", "100"}]}], ",", 
+      SqrtBox[
+       RowBox[{"var", "*", "100"}]]}], "]"}], ",", 
+    RowBox[{"Log", "[", "35", "]"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4338660153380003`*^9, 3.43386604867*^9}, {
+  3.43386610535*^9, 3.433866115465*^9}, {3.433866673045*^9, 
+  3.433866676351*^9}, {3.433868379356*^9, 3.4338684116540003`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[" \[FilledSquare]", "Text",
+ CellChangeTimes->{{3.43386668773*^9, 3.433866689644*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Geometric Brownian Motion", "Subsection",
+ CellChangeTimes->{{3.433774306795*^9, 3.4337743120810003`*^9}}],
+
+Cell["\<\
+Certain transformations of Brownian motions can be even more useful than \
+Brownian motions themselves in probabilistic modeling, in particular in \
+finance. To bring the discussion of this section around full circle, we now \
+introduce one of these. \
+\>", "Text",
+ CellChangeTimes->{{3.433774342867*^9, 3.433774466925*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 3",
+  FontWeight->"Bold"],
+ ". A stochastic process ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is called a ",
+ StyleBox["geometric",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["Brownian motion",
+  FontSlant->"Italic"],
+ " with parameters \[Mu] and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " if its log forms a Brownian motion ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " with drift rate \[Mu] and variance rate ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  In other words, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is a geometric Brownian motion if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "t"], "=", " ", 
+    SuperscriptBox["e", 
+     SubscriptBox["X", "t"]]}], TraditionalForm]]],
+ " for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "\[GreaterEqual]", "0"}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is a Brownian motion. "
+}], "Text",
+ CellFrame->False,
+ CellChangeTimes->{{3.4324825464442*^9, 3.4324826756312*^9}, {
+   3.4324827333032*^9, 3.4324827560601997`*^9}, 3.4336250379201326`*^9, 
+   3.4336255682501326`*^9, 3.4336256050501328`*^9, {3.4336256360711327`*^9, 
+   3.433625755452132*^9}, 3.4336257931911325`*^9, {3.4336264682121325`*^9, 
+   3.433626509237132*^9}, {3.433626589985132*^9, 3.4336265900001326`*^9}, {
+   3.433626634836132*^9, 3.4336266500351324`*^9}, {3.433774482184*^9, 
+   3.4337747082650003`*^9}, 3.4571019056438*^9},
+ Background->None],
+
+Cell["\<\
+\tThe data presented at the start of the section on the GE price process \
+suggested that the logged prices might be well modeled as Brownian motion, \
+hence the price process itself can be modeled as a geometric Brownian motion. \
+We will say a bit more about this and give another example in a moment. \
+\>", "Text",
+ CellChangeTimes->{{3.4337747410150003`*^9, 3.433774812781*^9}, {
+  3.4338712904700003`*^9, 3.433871305635*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "  We know the mean and variance of a Brownian motion as a function of time, \
+namely ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "t"], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SubscriptBox["X", "t"], "]"}], "=", 
+     RowBox[{"x", "+", 
+      RowBox[{"\[Mu]", " ", "t"}]}]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["\[Sigma]", "t"], "2"], "=", 
+    RowBox[{
+     RowBox[{"Var", "(", 
+      SubscriptBox["X", "t"], ")"}], "=", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "t"}]}]}], TraditionalForm]]],
+ ".  What are the mean and variance functions for geometric Brownian motion?"
+}], "Text",
+ CellChangeTimes->{{3.433870904314*^9, 3.4338710403780003`*^9}, {
+  3.4343810824012003`*^9, 3.4343810892782*^9}, {3.4385526338515277`*^9, 
+  3.4385526338525276`*^9}}],
+
+Cell[TextData[{
+ "\tRecall that the moment-generating function of a ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " random variable is"
+}], "Text",
+ CellChangeTimes->{{3.433871059377*^9, 3.4338710894189997`*^9}, {
+  3.4385535560785275`*^9, 3.4385535560815277`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FormBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{"M", "(", "s", ")"}], "=", " ", 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"\[Mu]", " ", "s"}], " ", "+", " ", 
+        RowBox[{
+         SuperscriptBox["\[Sigma]", "2"], 
+         RowBox[{
+          SuperscriptBox["s", "2"], "/", "2"}]}]}]]}], " ", ",", " ", 
+     RowBox[{"s", "\[Element]", " ", "\[DoubleStruckCapitalR]", " "}]}],
+    TraditionalForm], " "}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.433871059377*^9, 3.4338710894189997`*^9}, {
+  3.4385535560785275`*^9, 3.4385535633305273`*^9}}],
+
+Cell[TextData[{
+ "Suppose that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "t"], "=", " ", 
+    SuperscriptBox["e", 
+     SubscriptBox["X", "t"]]}], TraditionalForm]]],
+ " is our geometric Brownian motion, where the drift and variance parameters \
+are \[Mu] and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  Then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{
+      RowBox[{"x", "+", 
+       RowBox[{"\[Mu]", " ", "t"}]}], ",", 
+      RowBox[{
+       SuperscriptBox["\[Sigma]", "2"], "t"}]}], ")"}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " is the state at time 0. The mean function for the ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ " process can be considered as an instance of the m.g.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ", with real parameter ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", "1"}], TraditionalForm]]],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.433871353557*^9, 3.4338713759230003`*^9}, {
+  3.433871434783*^9, 3.433871559171*^9}, {3.438553574994528*^9, 
+  3.4385535750005274`*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SubscriptBox["Y", "t"], "]"}], "=", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", " ", 
+        SuperscriptBox["e", 
+         SubscriptBox["X", "t"]], "]"}]},
+      {" ", "=", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", " ", 
+        SuperscriptBox["e", 
+         RowBox[{"1", "\[CenterDot]", 
+          SubscriptBox["X", "t"]}]], "]"}]},
+      {" ", "=", 
+       RowBox[{
+        SubscriptBox["M", 
+         SubscriptBox["X", "t"]], "(", "1", ")"}]},
+      {" ", "=", 
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"x", "+", 
+            RowBox[{"\[Mu]", " ", "t"}]}], ")"}], " ", "\[CenterDot]", "1"}], 
+         " ", "+", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["\[Sigma]", "2"], "t"}], ")"}], 
+          RowBox[{
+           SuperscriptBox["1", "2"], "/", "2"}]}]}]]},
+      {" ", "=", 
+       RowBox[{
+        SuperscriptBox["e", "x"], "\[CenterDot]", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"\[Mu]", "+", 
+            RowBox[{
+             FractionBox["1", "2"], 
+             SuperscriptBox["\[Sigma]", "2"]}]}], ")"}], "t"}]]}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385535814325275`*^9, 3.438553581895528*^9}}],
+
+Cell[TextData[{
+ "Similarly, to find the variance function we can compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SuperscriptBox[
+      SubscriptBox["Y", "t"], "2"], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", " ", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        SuperscriptBox["e", 
+         SubscriptBox["X", "t"]], ")"}], "2"], "]"}], "=", 
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", " ", 
+      SuperscriptBox["e", 
+       RowBox[{"2", 
+        SubscriptBox["X", "t"]}]], "]"}]}]}], TraditionalForm]]],
+ ".  Following along the lines of the previous calculation,"
+}], "Text",
+ CellChangeTimes->{{3.433871795584*^9, 3.433871890058*^9}, {
+  3.438553599579528*^9, 3.4385535995815277`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[GridBox[{
+       {
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox[
+          SubscriptBox["Y", "t"], "2"], "]"}], "=", 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", " ", 
+         SuperscriptBox["e", 
+          RowBox[{"2", "\[CenterDot]", 
+           SubscriptBox["X", "t"]}]], "]"}]},
+       {" ", "=", 
+        RowBox[{
+         SubscriptBox["M", 
+          SubscriptBox["X", "t"]], "(", "2", ")"}]},
+       {" ", "=", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"x", "+", 
+             RowBox[{"\[Mu]", " ", "t"}]}], ")"}], " ", "\[CenterDot]", "2"}],
+           " ", "+", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             SuperscriptBox["\[Sigma]", "2"], "t"}], ")"}], 
+           RowBox[{
+            SuperscriptBox["2", "2"], "/", "2"}]}]}]]},
+       {" ", "=", 
+        RowBox[{
+         SuperscriptBox["e", 
+          RowBox[{"2", "x"}]], "\[CenterDot]", 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"2", "\[Mu]"}], "+", 
+             RowBox[{"2", 
+              SuperscriptBox["\[Sigma]", "2"]}]}], ")"}], "t"}]]}]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}], TraditionalForm]]]]], " "}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.433871795584*^9, 3.433871890058*^9}, {
+  3.438553599579528*^9, 3.4385536072985277`*^9}}],
+
+Cell[TextData[{
+ "Hence, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Var", "(", 
+     SubscriptBox["Y", "t"], ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{"2", "x"}]], "\[CenterDot]", 
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "\[Mu]"}], "+", 
+           RowBox[{"2", 
+            SuperscriptBox["\[Sigma]", "2"]}]}], ")"}], "t"}]]}], "-", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["e", "x"], "\[CenterDot]", 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"\[Mu]", "+", 
+             RowBox[{
+              FractionBox["1", "2"], 
+              SuperscriptBox["\[Sigma]", "2"]}]}], ")"}], "t"}]]}], ")"}], 
+       "2"]}], "=", 
+     RowBox[{
+      SuperscriptBox["e", 
+       RowBox[{"2", "x"}]], "(", 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "\[Mu]"}], "+", 
+           RowBox[{"2", 
+            SuperscriptBox["\[Sigma]", "2"]}]}], ")"}], "t"}]], "-", 
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", "\[Mu]"}], "+", 
+           SuperscriptBox["\[Sigma]", "2"]}], ")"}], "t"}]]}], ")"}]}]}], 
+   TraditionalForm]]],
+ ".  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.433871973245*^9, 3.433872077309*^9}, {
+  3.4338721159519997`*^9, 3.433872118424*^9}}],
+
+Cell[TextData[{
+ "\tIt is easy to use the cumulative distribution function technique to find \
+the p.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ ".  It should be pointed out that even though Theorem 1 below gives a \
+formula for the density, the m.g.f. approach that we used in Example 5 to \
+compute the moments is simpler than the definition. "
+}], "Text",
+ CellChangeTimes->{{3.434144111680266*^9, 3.434144131990235*^9}, {
+  3.434144164527981*^9, 3.4341442729411383`*^9}, {3.4343812139772*^9, 
+  3.4343812301001997`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ". If ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " is a geometric Brownian motion, then the p.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.434144302677164*^9, 3.4341443724611855`*^9}, {
+  3.4385536282295275`*^9, 3.4385536282325277`*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{"g", "(", "y", ")"}], "=", 
+     RowBox[{
+      FractionBox["1", "y"], 
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", 
+         SuperscriptBox["\[Pi]\[Sigma]", "2"], "t"}]]], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"log", "(", "y", ")"}], "-", 
+             RowBox[{"(", 
+              RowBox[{"x", "+", 
+               RowBox[{"\[Mu]", " ", "t"}]}], ")"}]}], ")"}], "2"]}], "/", 
+         "2"}], 
+        SuperscriptBox["\[Sigma]", "2"], "t"}]]}]}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438553635001528*^9, 3.4385536355185275`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ". First express ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "t"], "=", 
+    SuperscriptBox["e", 
+     SubscriptBox["X", "t"]]}], TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is a Brownian motion. The c.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4341444545319777`*^9, 3.434144455954835*^9}, {
+   3.434144508347595*^9, 3.434144537551675*^9}, {3.4341446112323055`*^9, 
+   3.434144611949234*^9}, {3.4341447103013983`*^9, 3.434144723227105*^9}, {
+   3.4385537292725277`*^9, 3.4385537292765274`*^9}, 3.43872240184*^9}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubscriptBox[
+       StyleBox["G",
+        FontSlant->"Plain"], 
+       SubscriptBox["Y", "t"]], "(", "y", ")"}], "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox["Y", "t"], "\[LessEqual]", "y"}], "]"}], "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SuperscriptBox["e", 
+          SubscriptBox["X", "t"]], "\[LessEqual]", "y"}], "]"}], "=", 
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          SubscriptBox["X", "t"], "\[LessEqual]", 
+          RowBox[{"log", "(", "y", ")"}]}], "]"}], "=", 
+        RowBox[{
+         SubscriptBox["F", 
+          SubscriptBox["X", "t"]], "(", 
+         RowBox[{"log", "(", "y", ")"}], ")"}]}]}]}]}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385537357215276`*^9, 3.4385537361205273`*^9}}],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["F", 
+     SubscriptBox["X", "t"]], "(", "x", ")"}], TraditionalForm]]],
+ " is the c.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ". The p.d.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ " is the derivative of this c.d.f., which is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"g", "(", "y", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["f", 
+       SubscriptBox["X", "t"]], "(", 
+      RowBox[{"log", "(", "y", ")"}], ")"}], "\[CenterDot]", 
+     RowBox[{"(", 
+      RowBox[{"1", "/", "y"}], ")"}]}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", 
+    SubscriptBox["X", "t"]], TraditionalForm]]],
+ " is the density of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ". This density is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{
+     RowBox[{"x", "+", 
+      RowBox[{"\[Mu]", " ", "t"}]}], ",", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "t"}]}], ")"}], TraditionalForm]]],
+ ", hence the density of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4341448777276535`*^9, 3.4341449173366923`*^9}, {
+  3.4341450817312512`*^9, 3.4341452390255203`*^9}, {3.4385537500355277`*^9, 
+  3.438553750039528*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[{
+    Cell[BoxData[
+     FormBox[
+      RowBox[{
+       RowBox[{"g", "(", "y", ")"}], "="}], TraditionalForm]]],
+    Cell[BoxData[
+     FormBox[
+      RowBox[{
+       FractionBox["1", "y"], 
+       FractionBox["1", 
+        SqrtBox[
+         RowBox[{"2", 
+          SuperscriptBox["\[Pi]\[Sigma]", "2"], "t"}]]], 
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"log", "(", "y", ")"}], "-", 
+              RowBox[{"(", 
+               RowBox[{"x", "+", 
+                RowBox[{"\[Mu]", " ", "t"}]}], ")"}]}], ")"}], "2"]}], "/", 
+          "2"}], 
+         SuperscriptBox["\[Sigma]", "2"], "t"}]]}], TraditionalForm]]]
+   }]], "  ", "\[FilledSquare]"}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4385537585695276`*^9, 3.4385537589925275`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 6",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox[" An investor has entered into a deal in which it becomes \
+profitable for him to sell 1000 shares of Microsoft stock if the price \
+exceeds $42 at time 10 (weeks); otherwise, he will not sell.  He is willing \
+to assume that the stock price is in geometric Brownian motion. The current \
+price of the stock is $40 and the investor has historical data on weekly \
+rates of return as below (in the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" list MicrosoftRofR, viewable in the electronic file) for a three \
+year period in order to estimate parameters. Here, the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["rate of return",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" on an investment over a time period refers to the ratio of the \
+growth in value over that time period to the intial value. What is the \
+probability that it will be profitable for him to sell? What is the estimated \
+expected value of his sale proceeds (taking account of the chance that he \
+will not sell at all)? ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.433844898267715*^9, 3.433844964315715*^9}, {
+   3.433868501498*^9, 3.433868510841*^9}, {3.433871317359*^9, 
+   3.433871323677*^9}, {3.4341898089933357`*^9, 3.4341898532783356`*^9}, {
+   3.4341899240903354`*^9, 3.434190235475335*^9}, {3.4341903907993355`*^9, 
+   3.4341904363633356`*^9}, {3.4341905930633354`*^9, 
+   3.4341906742753353`*^9}, {3.4343813991672*^9, 3.4343814112742*^9}, {
+   3.4385538456325274`*^9, 3.4385538573835278`*^9}, 3.4571019374834003`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Microsoftfulldata", "=", 
+   RowBox[{"FinancialData", "[", 
+    RowBox[{"\"\<MSFT\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Jan. 1, 2005\>\"", ",", "\"\<Dec. 31, 2007\>\"", ",", 
+       "\"\<Week\>\""}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Microsoftprices", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Microsoftfulldata", "[", 
+      RowBox[{"[", 
+       RowBox[{"j", ",", "2"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", 
+       RowBox[{"Length", "[", "Microsoftfulldata", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MicrosoftRofR", "=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Microsoftprices", "[", 
+        RowBox[{"[", 
+         RowBox[{"i", "+", "1"}], "]"}], "]"}], "-", 
+       RowBox[{"Microsoftprices", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], ")"}], "/", 
+     RowBox[{"Microsoftprices", "[", 
+      RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{
+       RowBox[{"Length", "[", "Microsoftprices", "]"}], "-", "1"}]}], "}"}]}],
+    "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"ListPlot", "[", 
+     RowBox[{"Microsoftprices", ",", 
+      RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"ListPlot", "[", 
+     RowBox[{"MicrosoftRofR", ",", 
+      RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], "}"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335402784868*^9, 3.4335403700008*^9}, {
+   3.4335404204007998`*^9, 3.4335404311608*^9}, {3.4335415442928*^9, 
+   3.4335415487958*^9}, {3.4335423401647997`*^9, 3.4335424786478*^9}, {
+   3.4335425860278*^9, 3.4335426350738*^9}, {3.4335436510018*^9, 
+   3.4335436716338*^9}, {3.4335447543677998`*^9, 3.4335447603798*^9}, {
+   3.4335466591658*^9, 3.4335466669168*^9}, {3.4341895588163357`*^9, 
+   3.4341897233413353`*^9}, 3.4341899124183354`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a) Weekly closing prices of Microsoft, 2005-2007         (b) Weekly rates \
+of return on Microsoft\n",
+ StyleBox["Figure 6.14",
+  FontWeight->"Bold"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438552722874528*^9, 3.4385527300695276`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tFigure 14 shows time series graphs of both the weekly prices themselves \
+and the weekly rates of return. The price graph shows signs of being an \
+exponentiated Brownian motion, and the rate of return graph suggests noise \
+centered near zero. (Do the Activity following this example to check that it \
+is reasonable that the rates of return could be normally distributed with no \
+significant dependence on one another.) First let us take a look back at the \
+geometric Brownian motion model, and relate the model to rates of return on \
+the stock.",
+ "\n",
+ "\tIf the price process is related to the underlying Brownian motion by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "t"], "=", 
+    SuperscriptBox["e", 
+     SubscriptBox["X", "t"]]}], TraditionalForm]]],
+ ", then the rate of return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "i"], TraditionalForm]]],
+ " for week ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.434190556772335*^9, 3.434190574081335*^9}, {
+   3.4341907080883355`*^9, 3.4341907714203353`*^9}, {3.4341909820563354`*^9, 
+   3.4341910188853354`*^9}, {3.4341911241503353`*^9, 3.4341912480963354`*^9}, 
+   3.4342025968719997`*^9, {3.4342052058035407`*^9, 3.434205205807541*^9}, 
+   3.434205496569541*^9, {3.4385538802005277`*^9, 3.438553880204528*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     SubscriptBox["R", "i"], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        SubscriptBox["Y", 
+         RowBox[{"i", "+", "1"}]], "-", 
+        SubscriptBox["Y", "i"]}], 
+       SubscriptBox["Y", "i"]], "=", 
+      RowBox[{
+       FractionBox[
+        RowBox[{
+         SuperscriptBox["e", 
+          SubscriptBox["X", 
+           RowBox[{"i", "+", "1"}]]], "-", 
+         SuperscriptBox["e", 
+          SubscriptBox["X", "i"]]}], 
+        SuperscriptBox["e", 
+         SubscriptBox["X", "i"]]], "=", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["e", 
+          RowBox[{
+           SubscriptBox["X", 
+            RowBox[{"i", "+", "1"}]], "-", 
+           SubscriptBox["X", "i"]}]], "-", 
+         RowBox[{"1", "\[DoubleLongRightArrow]", 
+          RowBox[{"log", "(", 
+           RowBox[{"1", "+", 
+            SubscriptBox["R", "i"]}], ")"}]}]}], "=", 
+        RowBox[{
+         SubscriptBox["X", 
+          RowBox[{"i", "+", "1"}]], "-", 
+         SubscriptBox["X", "i"]}]}]}]}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4385538996845274`*^9, 3.4385539036635275`*^9}}],
+
+Cell[TextData[{
+ "Thus, by the defining properties of Brownian motion, the collection of \
+random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"log", "(", 
+    RowBox[{"1", "+", 
+     SubscriptBox["R", "i"]}], ")"}], TraditionalForm]]],
+ " form a random sample from the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"N", "(", 
+     RowBox[{
+      RowBox[{"\[Mu]", "\[CenterDot]", "1"}], ",", 
+      RowBox[{
+       SuperscriptBox["\[Sigma]", "2"], "\[CenterDot]", "1"}]}], ")"}], " "}],
+    TraditionalForm]]],
+ "distribution (the time interval is 1 week).  Hence we can use the sample \
+mean and variance of these data to estimate the drift rate \[Mu] and the \
+variance rate ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", respectively:"
+}], "Text",
+ CellChangeTimes->{{3.4342052866585407`*^9, 3.434205509413541*^9}, {
+  3.434206382412541*^9, 3.4342065287965407`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"logratesplus1", "=", 
+   RowBox[{"Log", "[", 
+    RowBox[{"1", "+", "MicrosoftRofR"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Mu]", "=", 
+  RowBox[{"Mean", "[", "logratesplus1", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"sigsq", "=", 
+  RowBox[{"Variance", "[", "logratesplus1", "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4335457915348*^9, 3.4335459359168*^9}, {
+  3.4336036291219997`*^9, 3.43360363442*^9}, {3.4341908090293355`*^9, 
+  3.4341908689743357`*^9}, {3.434190904079335*^9, 3.4341909126563354`*^9}, {
+  3.4342065635795407`*^9, 3.4342066236795406`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "We can now answer the questions posed in the problem. The stock will be \
+profitable to sell if the price ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "10"], TraditionalForm]]],
+ " at time 10 is greater than 42, and remember that the current price is 40.  \
+Because of the latter assumption, the initial value ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " of the Brownian motion satisfies ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"40", "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["e", "x"], "\[DoubleLongRightArrow]", "x"}], "=", 
+     RowBox[{"log", "(", "40", ")"}]}]}], TraditionalForm]]],
+ ". Using the density derived in Theorem 1, we obtain:"
+}], "Text",
+ CellChangeTimes->{{3.434206682753541*^9, 3.434206837348541*^9}, {
+  3.434206893919541*^9, 3.4342068960685406`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"P", "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Y", "10"], " ", ">", " ", "42"}], " ", "="}], " "}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"1", "-", 
+   RowBox[{"NIntegrate", "[", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "y"], "*", 
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", "\[Pi]", "*", "sigsq", "*", "10"}]]], "*", 
+      SuperscriptBox["E", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Log", "[", "y", "]"}], "-", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Log", "[", "40", "]"}], "+", 
+              RowBox[{"\[Mu]", "*", "10"}]}], ")"}]}], ")"}], "2"]}], "/", 
+        RowBox[{"(", 
+         RowBox[{"2", "*", "sigsq", "*", "10"}], ")"}]}]]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "0", ",", "42"}], "}"}]}], "]"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.434206854208541*^9, 3.434207094107541*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The second question asks for the expected value of the sale proceeds.  The \
+investor earns ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1000", "\[CenterDot]", 
+    SubscriptBox["Y", "10"]}], TraditionalForm]]],
+ " if he sells, that is if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "10"], ">", "42"}], TraditionalForm]]],
+ ", and 0 otherwise.  Thus, the usual integral that defines the expectation \
+must be restricted to the interval of integration ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"42", ",", "\[Infinity]"}], ")"}], TraditionalForm]]],
+ ", and we find:"
+}], "Text",
+ CellChangeTimes->{{3.434207169558541*^9, 3.434207312602541*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Expected", " ", "proceeds"}], " ", "="}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"1000", "*", 
+   RowBox[{"NIntegrate", "[", 
+    RowBox[{
+     RowBox[{"y", "*", 
+      FractionBox["1", "y"], "*", 
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", "\[Pi]", "*", "sigsq", "*", "10"}]]], "*", 
+      SuperscriptBox["E", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Log", "[", "y", "]"}], "-", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Log", "[", "40", "]"}], "+", 
+              RowBox[{"\[Mu]", "*", "10"}]}], ")"}]}], ")"}], "2"]}], "/", 
+        RowBox[{"(", 
+         RowBox[{"2", "*", "sigsq", "*", "10"}], ")"}]}]]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "42", ",", "\[Infinity]"}], "}"}]}], 
+    "]"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.434206854208541*^9, 3.434207094107541*^9}, {
+  3.434207325286541*^9, 3.4342073640405407`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[" \[FilledSquare]", "Text",
+ CellChangeTimes->{{3.4342073867505407`*^9, 3.434207388614541*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Use graphical and numerical techniques to check the assumption of \
+independence of the weekly rates of return for Microsoft. Check also the \
+assumption of normality of the distribution of the logs of the rates of \
+return +1."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4336035547279997`*^9, 3.433603611723*^9}, {
+  3.433626969433132*^9, 3.4336270106251326`*^9}, {3.4341434586495757`*^9, 
+  3.4341435243000097`*^9}, {3.4341435743490047`*^9, 3.4341436294434943`*^9}, {
+  3.4341438176426725`*^9, 3.434143824345002*^9}, {3.4341903421693354`*^9, 
+  3.4341903758873353`*^9}, {3.4341910426903353`*^9, 3.434191059310335*^9}, {
+  3.434207402430541*^9, 3.4342074111345406`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 6.4", "Subsection",
+ CellChangeTimes->{{3.4329178268736*^9, 3.4329178276396*^9}, {
+   3.4329230153536*^9, 3.4329230165536003`*^9}, 3.433600578877*^9},
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ StyleBox["1.  Suppose that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is a Brownian motion starting at ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", with drift rate ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "1"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and variance rate ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", "1"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Find: (a) ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"0", "\[LessEqual]", 
+     SubscriptBox["X", "3.1"], "\[LessEqual]", "2"}], "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["; (b) ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["X", "3.1"], "\[LessEqual]", "3"}], "|", 
+      SubscriptBox["X", "1.4"]}], "=", "2"}], "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["; (c) ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1.4"], "\[LessEqual]", "2"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3.1"], "\[LessEqual]", "3"}]}], "]"}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4337588435403347`*^9, 3.433758851369334*^9}, {
+  3.4343817606591997`*^9, 3.4343817695002003`*^9}, {3.4343818117102003`*^9, 
+  3.4343820830622*^9}, {3.4344513214808364`*^9, 3.4344513221128364`*^9}}],
+
+Cell[TextData[{
+ StyleBox["2.  (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") In Example 1 we showed how to simulate paths of a Brownian \
+motion ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Modify the SimulateBrownianMotion command to study the simulated \
+distribution of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" for fixed ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Specifically, for (a) a standard Brownian motion starting at ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", and (b) the Brownian motion in Exercise 1, simulate 500 \
+replications of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and produce a histogram.  Comment on the relationship of the data \
+histogram to the true distribution of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" in each case. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4336293579171324`*^9, 3.4336293666891327`*^9}, {
+  3.4343820943632*^9, 3.4343823724902*^9}, {3.434464608007*^9, 
+  3.434464608883*^9}}],
+
+Cell[TextData[{
+ StyleBox["3.  (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") A two-dimensional stochastic process ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["X",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "=", 
+    SubscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["X", "t"], ",", 
+       SubscriptBox["Y", "t"]}], ")"}], 
+     RowBox[{"t", "\[GreaterEqual]", "0"}]]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is called a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["two-dimensional (independent) Brownian motion",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" if each of the component processes ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is a Brownian motion and all ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" observations are independent of all ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" observations. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4337587586383343`*^9, 3.433758767475334*^9}, {
+  3.4343823845922003`*^9, 3.4343826843782*^9}, {3.4343827181122*^9, 
+  3.4343828965942*^9}, {3.4343830016812*^9, 3.4343830617651997`*^9}, {
+  3.43446849401*^9, 3.4344685546619997`*^9}, {3.434468596743*^9, 
+  3.434468783958*^9}}],
+
+Cell[TextData[{
+ StyleBox["(a) Write a simulation program that simulates paths of a \
+two-dimensional Brownian motion. Your program should return a list in which \
+each element is a triple",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox[" ",
+     FontColor->RGBColor[1, 0, 0]], 
+    FormBox[
+     RowBox[{"{", 
+      RowBox[{"t", ",", "x", ",", "y"}], "}"}],
+     TraditionalForm]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" indicating the time, the state of the ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "t"], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" process, and the state of the ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["Y", "t"], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" process. You may use the utility function ShowLineGraph below to \
+plot the path in three-dimensional space, formatted as a list of triples. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4337587586383343`*^9, 3.433758767475334*^9}, {
+  3.4343823845922003`*^9, 3.4343826843782*^9}, {3.4343827181122*^9, 
+  3.4343828965942*^9}, {3.4343830016812*^9, 3.4343830617651997`*^9}, {
+  3.43446849401*^9, 3.4344685546619997`*^9}, {3.434468596743*^9, 
+  3.4344688218199997`*^9}, {3.434469406302*^9, 3.43446941595*^9}, {
+  3.4345637407931213`*^9, 3.434563743502122*^9}, {3.4345653952351217`*^9, 
+  3.4345653959471216`*^9}}],
+
+Cell[TextData[{
+ StyleBox["(b) For the case where each component process is standard Brownian \
+motion starting at 0, write another program that simulates 200 paths of the \
+two-dimensional process up to the time when the process exits the open disk ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"S", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"x", ",", "y"}], ")"}], ":", 
+      RowBox[{
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], "<", "10"}]}], "}"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Let the program compute the proportion of replications in which \
+the departure from the circle occurred in each of the first, second, third, \
+and fourth quadrants of the plane.  What do you expect those proportions to \
+be?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4337587586383343`*^9, 3.433758767475334*^9}, {
+   3.4343823845922003`*^9, 3.4343826843782*^9}, {3.4343827181122*^9, 
+   3.4343828965942*^9}, {3.4343830016812*^9, 3.4343830617651997`*^9}, {
+   3.43446849401*^9, 3.4344685546619997`*^9}, {3.434468596743*^9, 
+   3.434468851461*^9}, {3.4345639601901217`*^9, 3.4345639689581213`*^9}, {
+   3.4345651327891216`*^9, 3.4345651329991217`*^9}, 3.4345652741051216`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ShowLineGraph", "[", "datalist_", "]"}], ":=", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Line", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"datalist", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], ",", 
+            RowBox[{"datalist", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", "+", "1"}], "]"}], "]"}]}], "}"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{
+            RowBox[{"Length", "[", "datalist", "]"}], "-", "1"}]}], "}"}]}], 
+        "]"}], ",", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Point", "[", 
+          RowBox[{"{", 
+           RowBox[{"datalist", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "}"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"Length", "[", "datalist", "]"}]}], "}"}]}], "]"}]}], 
+      "]"}], ",", 
+     RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<t\>\"", ",", "\"\<x\>\"", ",", "\"\<y\>\""}], "}"}]}]}], 
+    "]"}]}], ";"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4344664070559998`*^9, 3.434466442615*^9}, {
+   3.4344664751800003`*^9, 3.434466578416*^9}, {3.4344668161429996`*^9, 
+   3.43446681906*^9}, {3.434467057191*^9, 3.434467062229*^9}, {
+   3.434467114799*^9, 3.434467131823*^9}, {3.43446722415*^9, 
+   3.4344673417869997`*^9}, {3.434467728576*^9, 3.434467740582*^9}, 
+   3.4344683138719997`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["4.  Compute the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["covariance function",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" of a Brownian motion ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", that is, ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"C", "(", 
+     RowBox[{"t", ",", "s"}], ")"}], "=", 
+    RowBox[{"Cov", "(", 
+     RowBox[{
+      SubscriptBox["X", "t"], ",", 
+      SubscriptBox["X", 
+       RowBox[{"t", "+", "s"}]]}], ")"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". (For simplicity, suppose that the starting state is ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Does this matter?) Does this function depend on ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4338696972019997`*^9, 3.43386970459*^9}, {
+  3.4343830785671997`*^9, 3.4343831884351997`*^9}, {3.4345655847601213`*^9, 
+  3.4345656254111214`*^9}}],
+
+Cell[TextData[{
+ StyleBox["5.  Brownian motion can be viewed as a limit of discrete-time, \
+discrete-state random walks as the time between jumps and the jump size \
+approach zero together. Consider a sequence of random walks on the real line \
+that start at 0, and such that the ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" random walk has right move probability ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", moves every ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", " ", "t"}], "=", 
+    RowBox[{"1", "/", "n"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" time units, and jumps either to the left of or the right of its \
+current state by a distance ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", " ", "x"}], "=", 
+    RowBox[{"c", "\[CenterDot]", 
+     SqrtBox[
+      RowBox[{"\[CapitalDelta]", " ", "t"}]]}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Argue that the position of the random walk at time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is approximately normally distributed for large ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", find the parameters of that distribution, and argue informally \
+that each random walk has stationary, independent increments. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4337588189203343`*^9, 3.4337588281863346`*^9}, {
+   3.4343837273322*^9, 3.4343838255341997`*^9}, {3.4343840186382*^9, 
+   3.4343840222332*^9}, {3.4343840633002*^9, 3.4343840678182*^9}, {
+   3.4343841319642*^9, 3.4343844056562*^9}, {3.4343872955962*^9, 
+   3.4343873068831997`*^9}, 3.4343885432522*^9}],
+
+Cell[TextData[{
+ StyleBox["6. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") A town whose population is currently 30,000 knows that when the \
+popuation reaches 35,000 they will need to upgrade their water distribution \
+network. If the population is in Brownian motion with drift rate 1,000/yr and \
+variance rate 900/year, in how many years is the expected population 35,000?  \
+What is the smallest time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" such that the probability that the population exceeds 35,000 at \
+that time is at least .9? ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4343848578422003`*^9, 3.4343848692522*^9}, {
+   3.4343851181702003`*^9, 3.4343853356502*^9}, 3.434655734190525*^9, {
+   3.434655862466525*^9, 3.434655862754525*^9}}],
+
+Cell[TextData[{
+ StyleBox["7.  In Example 3 we introduced the hitting time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "0"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" of state 0 by a Brownian motion with no drift. Now consider a \
+Brownian motion with initial state ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", drift rate ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", and variance rate ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Find the c.d.f. of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "a"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", the first time that the Brownian motion reaches state ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", ">", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". (Hint: relate the event ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "t"], "\[GreaterEqual]", "a"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" to the event ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "a"], "\[LessEqual]", "t"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".)",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.433758863133334*^9, 3.4337588851363344`*^9}, {
+   3.433869990884*^9, 3.433870015675*^9}, {3.433870887375*^9, 
+   3.433870892498*^9}, {3.4343842584542*^9, 3.4343842627502003`*^9}, {
+   3.4343844925722*^9, 3.4343845449772*^9}, {3.4343846503831997`*^9, 
+   3.4343848167972*^9}, 3.4343848545522003`*^9}],
+
+Cell[TextData[{
+ StyleBox["8.  (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") The solution to the epidemic problem in Example 3 depended \
+critically on the assumption that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Using the same data as in that Example, except that now the \
+drift rate is ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{"-", "8"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", write and run a simulation program to estimate the mean time \
+until the epidemic dies out.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.433759050963334*^9, 3.4337590687873344`*^9}, {
+  3.4343848918492002`*^9, 3.4343848950671997`*^9}, {3.4343854006132*^9, 
+  3.4343854286422*^9}, {3.4343854818862*^9, 3.4343855448732*^9}, {
+  3.434655923296525*^9, 3.434655926512525*^9}}],
+
+Cell[TextData[{
+ StyleBox["9. A stochastic process ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is called ",
+  FontColor->GrayLevel[0]],
+ StyleBox["(standard) Brownian motion reflected at 0",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" if for each ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["Y", "t"], "=", 
+    RowBox[{"|", 
+     SubscriptBox["X", "t"], "|"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", where ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is a standard Brownian motion starting at zero. Compute the \
+c.d.f., p.d.f., and mean of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" for a standard Brownian motion reflected at 0.",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]]
+}], "Text",
+ CellChangeTimes->{{3.433869719602*^9, 3.433869724179*^9}, {3.433869755808*^9,
+    3.433869763571*^9}, {3.4343849066752*^9, 3.4343849078662*^9}, {
+   3.4343855718652*^9, 3.4343857580302*^9}, 3.4343885532272*^9, {
+   3.4343886765592003`*^9, 3.4343886814751997`*^9}}],
+
+Cell[TextData[{
+ StyleBox["10. Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["Y", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be a geometric Brownian motion with initial state 1 and \
+parameters ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Mu]", "=", "0"}], ",", 
+    RowBox[{
+     SuperscriptBox["\[Sigma]", "2"], "=", "1"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Use Definition 3, rather than Theorem 1, to compute ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["Y", "6"], "/", 
+      SubscriptBox["Y", "3"]}], "\[GreaterEqual]", "2"}], "]"}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4343846002752*^9, 3.4343846179161997`*^9}, {
+  3.4343849114432*^9, 3.4343849125252*^9}, {3.4343858014002*^9, 
+  3.4343858574932003`*^9}, {3.4343859009222*^9, 3.4343859933252*^9}}],
+
+Cell[TextData[{
+ StyleBox["11. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") As in Example 6, obtain data on the prices of IBM stock for the \
+most recent three-year time period.  Assuming that the prices are in \
+geometric Brownian motion, use the data to estimate parameters. Find the \
+probability that the current price gains in value by at least 10% in the next \
+year. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4343849253072*^9, 3.4343849274732*^9}, 
+   3.4343860088742*^9, {3.4343864710882*^9, 3.4343865715852003`*^9}, {
+   3.4343866039992*^9, 3.4343866859792*^9}}],
+
+Cell[TextData[{
+ StyleBox["12. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") Repeat Exercise 11, except look at AT&T, and find the \
+probability the the current price decreases by at least 1% in the next year. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4343849276232*^9, 3.4343849282132*^9}, {
+  3.4343866434742002`*^9, 3.4343867272862*^9}}],
+
+Cell[TextData[{
+ StyleBox["13. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") An investor owns two stocks, A and B, in a portfolio with 1000 \
+shares apiece. The stocks are currently priced at $10 per share and $15 per \
+share, respectively. Assume that the stocks are independent of each other, \
+and are undergoing geometric Brownian motion with the following parameters, \
+where the rates are in time units of years: ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Mu]", "A"], "=", ".05"}], ",", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "A"], "2"], "=", ".008"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["; ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Mu]", "B"], "=", ".04"}], ",", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "B"], "2"], "=", ".007"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Find the probability that the portfolio is worth at least \
+$28,000 in two years.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.433844983516715*^9, 3.4338450135007153`*^9}, {
+  3.4343849325532*^9, 3.4343849359922*^9}, {3.4343867519732*^9, 
+  3.4343867880682*^9}, {3.4343868182072*^9, 3.4343871349432*^9}, {
+  3.4346649562075253`*^9, 3.434665033697525*^9}, {3.4347143158961134`*^9, 
+  3.434714316093113*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{574, 618},
+WindowMargins->{{14, Automatic}, {Automatic, 10}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 6  Stochastic Processes and Applications"], "Header"]}, {
+   Cell[
+    TextData["6.4 Brownian Motion"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowSelection->True,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 259, 6, 68, "Section"],
+Cell[829, 30, 1486, 26, 193, "Text"],
+Cell[2318, 58, 136, 1, 27, "Text"],
+Cell[2457, 61, 1755, 39, 216, "Text"],
+Cell[4215, 102, 1158, 26, 101, "Input",
+ InitializationCell->True],
+Cell[5376, 130, 660, 16, 50, "Text"],
+Cell[6039, 148, 1442, 32, 101, "Input",
+ InitializationCell->True],
+Cell[7484, 182, 1381, 28, 131, "Text"],
+Cell[8868, 212, 2176, 61, 277, "Input",
+ InitializationCell->True],
+Cell[11047, 275, 386, 12, 70, "Text"],
+Cell[11436, 289, 1287, 35, 131, "Text"],
+Cell[12726, 326, 1147, 34, 145, "Input",
+ InitializationCell->True],
+Cell[13876, 362, 286, 7, 69, "Text"],
+Cell[14165, 371, 313, 5, 48, "Text"],
+Cell[14481, 378, 914, 21, 101, "Input",
+ InitializationCell->True],
+Cell[15398, 401, 218, 7, 28, "Text"],
+Cell[15619, 410, 1075, 34, 48, "Text"],
+Cell[16697, 446, 846, 26, 50, "DisplayFormulaNumbered"],
+Cell[17546, 474, 434, 8, 48, "Text"],
+Cell[17983, 484, 854, 26, 61, "DisplayFormulaNumbered"],
+Cell[18840, 512, 1085, 26, 110, "Text"],
+Cell[19928, 540, 561, 15, 56, "Input",
+ InitializationCell->True],
+Cell[20492, 557, 263, 7, 28, "Text"],
+Cell[20758, 566, 755, 15, 110, "Text"],
+Cell[21516, 583, 1746, 68, 95, "Text"],
+Cell[23265, 653, 1521, 44, 152, "Text"],
+Cell[24789, 699, 2180, 72, 182, "Text"],
+Cell[26972, 773, 1280, 35, 152, "Text"],
+Cell[28255, 810, 458, 15, 69, "Text"],
+Cell[28716, 827, 1097, 26, 111, "Text"],
+Cell[29816, 855, 332, 9, 46, "DisplayFormula"],
+Cell[30151, 866, 1583, 45, 147, "Text"],
+Cell[31737, 913, 1099, 39, 56, "DisplayFormula"],
+Cell[32839, 954, 1286, 29, 193, "Text"],
+Cell[34128, 985, 2201, 56, 291, "Input",
+ InitializationCell->True],
+Cell[36332, 1043, 1411, 38, 154, "Text"],
+Cell[37746, 1083, 972, 24, 123, "Input",
+ InitializationCell->True],
+Cell[38721, 1109, 249, 7, 28, "Text"],
+Cell[38973, 1118, 1328, 50, 51, "Text"],
+Cell[40304, 1170, 777, 28, 50, "Text"],
+Cell[41084, 1200, 630, 18, 62, "Input",
+ InitializationCell->True],
+Cell[41717, 1220, 510, 15, 48, "Text"],
+Cell[42230, 1237, 886, 31, 27, "DisplayFormula"],
+Cell[43119, 1270, 1263, 46, 69, "Text"],
+Cell[44385, 1318, 700, 20, 84, "Input",
+ InitializationCell->True],
+Cell[45088, 1340, 413, 10, 48, "Text"],
+Cell[45504, 1352, 1899, 67, 90, "DisplayFormula"],
+Cell[47406, 1421, 337, 12, 27, "Text"],
+Cell[47746, 1435, 672, 19, 62, "Input",
+ InitializationCell->True],
+Cell[48421, 1456, 91, 1, 27, "Text"],
+Cell[48515, 1459, 1334, 33, 115, "Text"],
+Cell[49852, 1494, 1313, 33, 133, "Text"],
+Cell[51168, 1529, 671, 24, 46, "DisplayFormulaNumbered"],
+Cell[51842, 1555, 1403, 38, 90, "Text"],
+Cell[53248, 1595, 2760, 95, 70, "DisplayFormulaNumbered"],
+Cell[56011, 1692, 2009, 65, 110, "Text"],
+Cell[58023, 1759, 2923, 101, 70, "DisplayFormulaNumbered"],
+Cell[60949, 1862, 569, 17, 27, "Text"],
+Cell[61521, 1881, 1045, 29, 89, "Input",
+ InitializationCell->True],
+Cell[62569, 1912, 1118, 29, 131, "Text"],
+Cell[63690, 1943, 850, 22, 62, "Input",
+ InitializationCell->True],
+Cell[64543, 1967, 278, 5, 48, "Text"],
+Cell[64824, 1974, 1145, 39, 69, "Text"],
+Cell[65972, 2015, 565, 13, 72, "Text"],
+Cell[66540, 2030, 2152, 68, 163, "Text"],
+Cell[68695, 2100, 1219, 34, 167, "Input",
+ InitializationCell->True],
+Cell[69917, 2136, 669, 18, 90, "Text"],
+Cell[70589, 2156, 549, 18, 27, "DisplayFormula"],
+Cell[71141, 2176, 114, 1, 27, "Text"],
+Cell[71258, 2179, 876, 24, 86, "Input",
+ InitializationCell->True],
+Cell[72137, 2205, 91, 1, 27, "Text"],
+Cell[CellGroupData[{
+Cell[72253, 2210, 112, 1, 41, "Subsection"],
+Cell[72368, 2213, 335, 6, 69, "Text"],
+Cell[72706, 2221, 2042, 66, 105, "Text"],
+Cell[74751, 2289, 441, 7, 90, "Text"],
+Cell[75195, 2298, 972, 31, 72, "Text"],
+Cell[76170, 2331, 365, 10, 32, "Text"],
+Cell[76538, 2343, 622, 17, 35, "DisplayFormula"],
+Cell[77163, 2362, 1239, 42, 97, "Text"],
+Cell[78405, 2406, 1692, 53, 147, "DisplayFormula"],
+Cell[80100, 2461, 838, 27, 54, "Text"],
+Cell[80941, 2490, 1683, 51, 117, "DisplayFormula"],
+Cell[82627, 2543, 1537, 53, 71, "Text"],
+Cell[84167, 2598, 565, 12, 90, "Text"],
+Cell[84735, 2612, 503, 17, 30, "Text"],
+Cell[85241, 2631, 829, 25, 51, "DisplayFormulaNumbered"],
+Cell[86073, 2658, 713, 22, 29, "Text"],
+Cell[86789, 2682, 1084, 34, 34, "DisplayFormula"],
+Cell[87876, 2718, 1445, 53, 80, "Text"],
+Cell[89324, 2773, 945, 29, 51, "DisplayFormula"],
+Cell[90272, 2804, 1701, 33, 236, "Text"],
+Cell[91976, 2839, 2418, 65, 387, "Input",
+ InitializationCell->True],
+Cell[94397, 2906, 278, 8, 70, "Text"],
+Cell[94678, 2916, 1366, 30, 195, "Text"],
+Cell[96047, 2948, 1217, 39, 78, "DisplayFormulaNumbered"],
+Cell[97267, 2989, 923, 27, 97, "Text"],
+Cell[98193, 3018, 942, 23, 101, "Input",
+ InitializationCell->True],
+Cell[99138, 3043, 819, 21, 110, "Text"],
+Cell[99960, 3066, 1358, 41, 127, "Input",
+ InitializationCell->True],
+Cell[101321, 3109, 692, 20, 60, "Text"],
+Cell[102016, 3131, 1386, 41, 168, "Input",
+ InitializationCell->True],
+Cell[103405, 3174, 100, 1, 33, "Text"],
+Cell[103508, 3177, 747, 14, 86, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[104292, 3196, 211, 4, 51, "Subsection"],
+Cell[104506, 3202, 2014, 70, 65, "Text"],
+Cell[106523, 3274, 1607, 50, 112, "Text"],
+Cell[108133, 3326, 1895, 61, 91, "Text"],
+Cell[110031, 3389, 1508, 39, 86, "Text"],
+Cell[111542, 3430, 1313, 28, 118, "Text"],
+Cell[112858, 3460, 1976, 53, 208, "Input",
+ InitializationCell->True],
+Cell[114837, 3515, 1348, 44, 62, "Text"],
+Cell[116188, 3561, 2009, 52, 145, "Text"],
+Cell[118200, 3615, 922, 21, 112, "Text"],
+Cell[119125, 3638, 1917, 59, 88, "Text"],
+Cell[121045, 3699, 1031, 28, 86, "Text"],
+Cell[122079, 3729, 1666, 53, 62, "Text"],
+Cell[123748, 3784, 1175, 38, 65, "Text"],
+Cell[124926, 3824, 669, 15, 86, "Text"],
+Cell[125598, 3841, 437, 11, 60, "Text"],
+Cell[126038, 3854, 1496, 40, 115, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

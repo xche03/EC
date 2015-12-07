@@ -1,0 +1,2584 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     85321,       2575]
+NotebookOptionsPosition[     80176,       2432]
+NotebookOutlinePosition[     81074,       2465]
+CellTagsIndexPosition[     81031,       2462]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "6.5",
+ StyleBox[" Financial Mathematics",
+  FontColor->GrayLevel[0]]
+}], "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{
+  3.425570630175*^9, {3.432984403282919*^9, 3.432984404962919*^9}, {
+   3.432994572999*^9, 3.432994577734*^9}, {3.4330193700643177`*^9, 
+   3.433019381136318*^9}},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "The comments that we made at the start of Section 6.3 about queueing theory \
+and its effect on the rapid development of probability could also be made \
+about the area of ",
+ StyleBox["financial mathematics",
+  FontColor->GrayLevel[0]],
+ ".  Increasingly, economists have studied aspects of financial problems that \
+are subject to random influences.  Since time is usually a factor, the study \
+of random processes like the Poisson process, Markov chains and others has \
+become a key element in the education of finance specialists.  Several Nobel \
+prizes in economics have been awarded to people who have made key \
+contributions to ",
+ StyleBox["financial mathematics",
+  FontColor->GrayLevel[0]],
+ ".  Here are just a few example problems in which probabilistic analysis is \
+important."
+}], "Text",
+ CellChangeTimes->{{3.432994549929*^9, 3.432994550217*^9}, {3.432994589133*^9,
+    3.432994594293*^9}, {3.432994633856*^9, 3.43299463488*^9}, 
+   3.4329946922*^9, {3.433019398226318*^9, 3.433019414710318*^9}, 
+   3.4330194447813177`*^9}],
+
+Cell["\<\
+1.  An investor must decide how to allocate wealth between a risky asset such \
+as a stock, and a non-risky asset such as a bond.\
+\>", "Text"],
+
+Cell[TextData[{
+ "2.  An ",
+ StyleBox["option",
+  FontSlant->"Italic"],
+ " on a stock is a contract that can be taken out which lets the option owner \
+buy a share of the stock at a fixed price at a later time.  What is the fair \
+value of this option?"
+}], "Text"],
+
+Cell["\<\
+3.  A firm must decide how to balance its equity (money raised by issuance of \
+stock to buyers, who then own a part of the company) and debt (money raised \
+by selling bonds which are essentially loans made by the bond-holders to the \
+company).  The main considerations are the tax-deductibility of the interest \
+on the bonds, and the chance of default penalties if the company is unable to \
+make payments on the bonds.  The goal is to maximize the total value of the \
+money raised. \
+\>", "Text"],
+
+Cell["\<\
+4.  How should an individual consume money from a fund which appreciates with \
+interest rates that change randomly as time progresses, if the person wants a \
+high probability of consumption of at least a specified amount for a \
+specified number of years?\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  The insurance industry has always been filled with financial problems in \
+which randomness is a factor.  Write descriptions of at least two problems of \
+this kind."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tIn the interest of brevity we will just look at problems 1 and 2 above, on \
+finding an optimal combination of two assets in a portfolio, and pricing a \
+stock option.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell["Optimal Portfolios", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "All other things being equal, you would surely prefer an investment whose \
+expected return is 6% to one whose expected return is 4%.  But all other \
+things are rarely equal.  If you knew that the standard deviation of the \
+return on the first asset was 4% and that of the second was 1% it might \
+change your decision.  Chebyshev's inequality says that most of the time, \
+random variables take values within 2 standard deviations of their means, so \
+that the first asset has a range of returns in [",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "2%, 14%] most of the time, and the second asset will give a return in [2%, \
+6%] most of the time.  The more risk averse you are, the more you would tend \
+to prefer the surer, but smaller, return given by the second asset to the \
+more variable return on the first.\n\tLet us pose a simple mathematical model \
+for investment.  There are just two times under consideration: \"now\" and \
+\"later.\"  The investor will make a decision now about what proportion of \
+wealth to devote to each of two potential holdings, and then a return will be \
+collected later.  One of these two holdings is a bond with a certain rate of \
+return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "1"], TraditionalForm]]],
+ ", meaning that the total dollars earned in this single period is certain to \
+be ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "1"], TraditionalForm]]],
+ " times the dollars invested in the bond.  The other potential investment is \
+a risky stock whose rate of return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "2"], TraditionalForm]]],
+ " is a random variable with known mean ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "2"], TraditionalForm]]],
+ " and standard deviation ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  The investor starts with wealth ",
+ StyleBox["W",
+  FontSlant->"Italic"],
+ " and is to choose the proportion ",
+ Cell[BoxData[
+  FormBox["q", TraditionalForm]]],
+ " of that wealth to invest in the stock, leaving the proportion ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "q"}], TraditionalForm]]],
+ " in the bond.  The dollar return on this portfolio of assets is a \
+combination of a deterministic part and a random part:"
+}], "Text",
+ CellChangeTimes->{
+  3.432994839316*^9, {3.438602516917324*^9, 3.438602516920324*^9}, {
+   3.4571854604214*^9, 3.4571854617005997`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"W", "(", 
+     RowBox[{"1", "-", "q"}], ")"}], 
+    SubscriptBox["r", "1"]}], "+", 
+   RowBox[{"W", " ", "q", " ", 
+    SubscriptBox["R", "2"]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438602523195324*^9, 3.4386025241423235`*^9}}],
+
+Cell[TextData[{
+ "Hence the rate of return ",
+ StyleBox["on the portfolio of two assets",
+  FontColor->GrayLevel[0]],
+ ", i.e., the dollar return divided by the number of dollars ",
+ StyleBox["W",
+  FontSlant->"Italic"],
+ " invested, is"
+}], "Text",
+ CellChangeTimes->{{3.4329949206619997`*^9, 3.432994927219*^9}, {
+  3.438602536334324*^9, 3.438602536339324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"R", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "-", "q"}], ")"}], 
+     SubscriptBox["r", "1"]}], "+", " ", 
+    RowBox[{"q", " ", 
+     SubscriptBox["R", "2"]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602542752324*^9, 3.4386025432083235`*^9}}],
+
+Cell[TextData[{
+ "\tBecause ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "2"], TraditionalForm]]],
+ " is random, the investor cannot tell in advance what values this portfolio \
+return ",
+ StyleBox["R",
+  FontSlant->"Italic"],
+ " will take.  So, it is not a well-specified problem to optimize the rate of \
+return given by (1).  The investor might decide to optimize expected return, \
+but this is likely to be a trivial problem, because the risky stock will \
+probably have a higher expected return ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "2"], "=", 
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["R", "2"], "]"}]}], TraditionalForm]]],
+ " than the return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "1"], TraditionalForm]]],
+ " on the bond; so the investor should simply put everything into the stock \
+if this criterion is used.  Moreover, this optimization criterion takes no \
+account of the riskiness of the stock, as measured by ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["\[Sigma]", "2"], "2"], TraditionalForm]]],
+ ", the variance of the rate of return.  \n\tThere are various reasonable \
+ways to construct a function to be optimized which penalizes variability \
+according to the degree of the investor's aversion to risk.  One easy way is \
+based on the following idea.  Suppose we are able to query the investor and \
+determine how many units of extra expected rate of return he would demand in \
+exchange for an extra unit of risk on the rate of return.  Suppose that \
+number of units of extra return is ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " (for aversion).  Then the investor would be indifferent between a \
+portfolio with mean rate of return \[Mu] and variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " and another with mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "+", "a"}], TraditionalForm]]],
+ " and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "+", "1"}], TraditionalForm]]],
+ ", or another with mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", 
+    FormBox[
+     RowBox[{
+      RowBox[{"+", "2"}], "a"}],
+     TraditionalForm]}], TraditionalForm]]],
+ " and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "+", "2"}], TraditionalForm]]],
+ ", etc.  Such risk averse behavior follows if the investor attempts to \
+maximize"
+}], "Text",
+ CellChangeTimes->{{3.438602558354324*^9, 3.4386025583623238`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     SubscriptBox["\[Mu]", "p"], "-", 
+     RowBox[{"a", " ", 
+      SuperscriptBox[
+       SubscriptBox["\[Sigma]", "p"], "2"]}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4386025639283237`*^9, 3.438602564334324*^9}}],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "p"], TraditionalForm]]],
+ " is the mean portfolio rate of return and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["\[Sigma]", "p"], "2"], TraditionalForm]]],
+ " is the variance of the rate of return.  This is because with objective \
+(2), the value to this investor of a portfolio with mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "+", 
+    RowBox[{"k", " ", "a"}]}], TraditionalForm]]],
+ " and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "+", "k"}], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4386025730143237`*^9, 3.438602573019324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"\[Mu]", "+", 
+      RowBox[{"k", " ", "a"}]}], ")"}], "-", 
+    RowBox[{"a", "(", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], "+", "k"}], ")"}]}], "=", 
+   RowBox[{"\[Mu]", "-", 
+    RowBox[{"a", " ", 
+     SuperscriptBox["\[Sigma]", "2"]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438602578742324*^9, 3.4386025791123238`*^9}}],
+
+Cell[TextData[{
+ "which is the value of the portfolio of mean \[Mu] and variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  So we will take formula (2) as our objective function.",
+ "\n",
+ "\tFrom formula (1), the mean portfolio rate of return as a function of ",
+ StyleBox["q",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.438602590457324*^9, 3.4386025904613237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[Mu]", "p"], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", "q"}], ")"}], 
+       SubscriptBox["r", "1"]}], "+", " ", 
+      RowBox[{"q", " ", 
+       SubscriptBox["R", "2"]}]}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", "q"}], ")"}], 
+      SubscriptBox["r", "1"]}], "+", " ", 
+     RowBox[{"q", " ", 
+      SubscriptBox["\[Mu]", "2"]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602597287324*^9, 3.438602597674324*^9}}],
+
+Cell[TextData[{
+ "and the variance of ",
+ StyleBox["R",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.438602613611324*^9, 3.438602613615324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    SubscriptBox["\[Sigma]", "p"], "2"], "=", 
+   RowBox[{
+    RowBox[{"Var", "(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", "q"}], ")"}], 
+       SubscriptBox["r", "1"]}], "+", " ", 
+      RowBox[{"q", " ", 
+       SubscriptBox["R", "2"]}]}], ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["q", "2"], 
+      RowBox[{"Var", "(", 
+       SubscriptBox["R", "2"], ")"}]}], "=", 
+     RowBox[{
+      SuperscriptBox["q", "2"], 
+      SuperscriptBox[
+       SubscriptBox["\[Sigma]", "2"], "2"]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602620078324*^9, 3.4386026205503235`*^9}}],
+
+Cell[TextData[{
+ "Combining (2), (3), and (4), an investor with risk aversion constant ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " will maximize as a function of ",
+ StyleBox["q",
+  FontSlant->"Italic"],
+ ":"
+}], "Text",
+ CellChangeTimes->{
+  3.432995047701*^9, {3.438602634393324*^9, 3.4386026343973236`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "q", ")"}], "=", 
+   RowBox[{
+    SubscriptBox["r", "1"], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["\[Mu]", "2"], "-", 
+       SubscriptBox["r", "1"]}], ")"}], "q"}], "-", 
+    RowBox[{"a", " ", 
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "2"], "2"], 
+     SuperscriptBox["q", "2"]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602640302324*^9, 3.4386026407463236`*^9}}],
+
+Cell[TextData[{
+ "By simple calculus, the optimal value ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " for this objective is"
+}], "Text",
+ CellChangeTimes->{{3.438602649136324*^9, 3.438602650087324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox["q", "*"], "=", 
+   FractionBox[
+    RowBox[{
+     SubscriptBox["\[Mu]", "2"], " ", "-", " ", 
+     SubscriptBox["r", "1"]}], 
+    RowBox[{"2", " ", "a", " ", 
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "2"], "2"]}]]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602655861324*^9, 3.438602656204324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Verify the formula for ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " in (6)."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tNotice from (6) the intuitively satisfying implications that as either \
+the risk aversion ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " or the stock variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["\[Sigma]", "2"], "2"], TraditionalForm]]],
+ " increase, the fraction ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " of wealth invested in the stock decreases, and as the gap ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "2"], "-", 
+    SubscriptBox["r", "1"]}], TraditionalForm]]],
+ " between the expected rate of return on the stock and the certain rate of \
+return on the bond increases, ",
+ StyleBox["q",
+  FontSlant->"Italic"],
+ " increases.  "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  Suppose that the riskless rate of return is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "1"], "=", ".04"}], TraditionalForm]]],
+ ", and the investor has the opportunity of investing in a stock whose \
+expected return is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "2"], "=", ".07"}], TraditionalForm]]],
+ ", and whose standard deviation is .03.  Let us look at the behavior of the \
+optimal proportion ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " as a function of the risk aversion ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]]],
+ ".  ",
+ "\n",
+ "\tFirst, here is a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function that gives ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " in terms of all problem parameters.  "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"qstar", "[", 
+   RowBox[{"a_", ",", "r1_", ",", "\[Mu]2_", ",", "\[Sigma]2_"}], "]"}], ":=", 
+  FractionBox[
+   RowBox[{"\[Mu]2", "-", "r1"}], 
+   RowBox[{"2", "*", "a", "*", 
+    SuperscriptBox["\[Sigma]2", "2"]}]]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The plot of this function in Figure 15 shows something rather surprising.   \
+The optimal proportion ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " does not sink below 1 = 100% until the risk aversion becomes about 17 or \
+greater.  (Try zooming in on the graph to find more precisely where ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ " intersects the horizontal line through 1.)  There are two ways to make \
+sense of this: investors whose risk aversions are less than 17 hold all of \
+their wealth in the stock and none in the bond, or if it is possible to \
+borrow cash (which is called holding a ",
+ StyleBox["short position",
+  FontSlant->"Italic"],
+ " in the bond), then an investor with low risk aversion borrows an amount ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{"1", "-", 
+     SuperscriptBox["q", "*"]}], "|", "W"}], TraditionalForm]]],
+ " of cash and places his original wealth plus this borrowed amount in the \
+stock.  His overall wealth is still ",
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]]],
+ ", because he owns ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["q", "*"], "-", "1"}], ")"}], "W"}]}], 
+   TraditionalForm]]],
+ " of stock and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["q", "*"], "-", "1"}], ")"}]}], "W"}], 
+   TraditionalForm]]],
+ " of cash.  He hopes that the stock grows enough to let him pay off his cash \
+debt, and still profit by the growth of his holding in stock.  "
+}], "Text",
+ CellChangeTimes->{{3.432995130736*^9, 3.432995131814*^9}, {3.434725432866*^9,
+   3.4347254331470003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"qstar", "[", 
+      RowBox[{"a", ",", ".04", ",", ".07", ",", ".03"}], "]"}], ",", "1"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "2", ",", "20"}], "}"}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0", ",", "0"}], "]"}], ",", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"1", ",", "0", ",", "0"}], "]"}]}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<a\>\"", ",", "\"\<\!\(\*SuperscriptBox[\(q\), \(*\)]\)\>\""}], 
+     "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "5"}], "}"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.15",
+  FontWeight->"Bold"],
+ "- Optimal proportion of wealth in risky asset as a function of risk \
+aversion",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438602018230324*^9, 3.4386020239353237`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tLet us simulate the experiment of making this investment 200 times, and \
+keep track of the investor's profit under the optimal choice ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ ", and then under a less than optimal choice.  This will give us numerical \
+evidence that this borrowing is a good thing for the investor.  We will plot \
+a histogram, and compute a sample mean and standard deviation of profit in \
+each case.  The distribution of the stock rate of return will be assumed \
+normal.  The rate of return information will be as described in the problem, \
+and we will take an initial $100 investment and an investor with risk \
+aversion parameter ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", "10"}], TraditionalForm]]],
+ ".  First we define a simulator of total returns given initial wealth ",
+ StyleBox["W",
+  FontSlant->"Italic"],
+ ", portfolio coefficient ",
+ StyleBox["q",
+  FontSlant->"Italic"],
+ ", the rates of return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["r", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "2"], TraditionalForm]]],
+ ", the standard deviation of the stock return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", and the number of simulations desired."
+}], "Text",
+ CellChangeTimes->{{3.438722942267*^9, 3.4387229428970003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4422687289347296`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TotalReturn", "[", 
+   RowBox[{
+   "W_", ",", "q_", ",", "r1_", ",", "\[Mu]2_", ",", "\[Sigma]2_", ",", 
+    "numreps_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"W", "*", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", "q"}], ")"}], "r1"}], "+", 
+       RowBox[{"q", "*", 
+        RowBox[{"RandomReal", "[", 
+         RowBox[{"NormalDistribution", "[", 
+          RowBox[{"\[Mu]2", ",", "\[Sigma]2"}], "]"}], "]"}]}]}], ")"}]}], 
+    ",", 
+    RowBox[{"{", "numreps", "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"SeedRandom", "[", "6786389", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Here is a typical result using the optimal strategy.  The first output is \
+the optimal ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "*"], TraditionalForm]]],
+ ", and the sample mean and standard deviation of total returns corresponding \
+to it.  Then we let ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " compute the sample mean and standard deviation for the portfolio which \
+puts 100% of wealth in the stock, without borrowing. Beneath these are \
+histograms of total returns for each simulation."
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{"q", "=", 
+  RowBox[{"qstar", "[", 
+   RowBox[{"10", ",", ".04", ",", ".07", ",", ".03"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"returns1", "=", 
+   RowBox[{"TotalReturn", "[", 
+    RowBox[{"100", ",", "q", ",", ".04", ",", ".07", ",", ".03", ",", "200"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Mean", "[", "returns1", "]"}], ",", 
+   RowBox[{"StandardDeviation", "[", "returns1", "]"}]}], "}"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{"q", "=", "1"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"returns2", "=", 
+   RowBox[{"TotalReturn", "[", 
+    RowBox[{"100", ",", "q", ",", ".04", ",", ".07", ",", ".03", ",", "200"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Mean", "[", "returns2", "]"}], ",", 
+   RowBox[{"StandardDeviation", "[", "returns2", "]"}]}], "}"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Histogram", "[", 
+    RowBox[{"returns1", ",", "6", ",", "\"\<Probability\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Histogram", "[", 
+    RowBox[{"returns2", ",", "6", ",", "\"\<Probability\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4422689134767294`*^9, 3.4422689183717294`*^9}, {
+  3.4422690702507296`*^9, 3.4422690839697294`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a) optimal strategy ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "=", "1.6667"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"a", "=", "10"}], ",", 
+    RowBox[{"W", "=", "100"}]}], TraditionalForm]]],
+ "       (b)",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{"q", "=", "1"}],
+     TraditionalForm]}], TraditionalForm]]],
+ "(no borrowing), ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"a", "=", "10"}], ",", 
+    RowBox[{"W", "=", "100"}]}], TraditionalForm]]],
+ "\n",
+ StyleBox["Figure 6.16",
+  FontWeight->"Bold"],
+ " - Distribution of profits under two strategies",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438602072155324*^9, 3.4386020800143237`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "Since the first run began with more money in the stock, it is to be \
+expected that the mean total return of about 8.5 exceeds the mean total \
+return for the second scenario of about 6.7.  It is also to be expected that \
+the standard deviation of the return is a little higher in the first case \
+than the second.  But the distribution of returns in Figure 16 is noticeably \
+more desirable in the optimal case than in the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "=", "1"}], TraditionalForm]]],
+ " case, since the center of the distribution is higher, and its highest \
+category is higher than the one for the non-optimal case, while the lowest \
+categories are comparable.  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.40432095203125*^9, 3.404321014875*^9}, {
+  3.4329954389639997`*^9, 3.432995438966*^9}, {3.433019585258318*^9, 
+  3.433019586569318*^9}, {3.434725470335*^9, 3.4347254741029997`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Compare the distribution, mean, and standard deviation in the optimal \
+case to some suboptimal cases for an investor with high risk aversion of 30."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tExtensions of this basic problem are possible.  Exercise 4 investigates \
+what happens when there are two stocks of different means and variances.  An \
+important result in the multiple stock case is the ",
+ StyleBox["Separation Theorem",
+  FontSlant->"Italic"],
+ ", which says that risk aversion affects only the balance between the bond \
+and the group of all stocks; all investors hold the stocks themselves in the \
+same relative proportions.  One can also consider multiple time periods over \
+which the portfolio is allowed to move.  Mathematical economists have also \
+studied different objective criteria than the mean-variance criterion we have \
+used.  One of the main alternatives is to maximize a utility function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "(", "R", ")"}], TraditionalForm]]],
+ " of the rate of return on the portfolio, where ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " is designed to capture both an investor's preference for high return, and \
+aversion to risk.  "
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Option Pricing", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "Our second problem is the option pricing problem.  An asset called a ",
+ StyleBox["call option of European type",
+  FontSlant->"Italic"],
+ " can be purchased, which is a contract that gives its owner the right to \
+buy a share (actually, it is more commonly 100 shares) of another risky asset \
+at a fixed price ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " per share at a particular time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " in the future.  The price ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " is called the ",
+ StyleBox["exercise price",
+  FontSlant->"Italic"],
+ " of the option.  The question is, what is the present value of such a call \
+option contract?  (The \"European\" designation means that it is not possible \
+to exercise the option until time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ", while options of ",
+ StyleBox["American type",
+  FontSlant->"Italic"],
+ " permit the option to be exercised at any time up to ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ". )\n\tThe value of the European call option depends on how the risky \
+asset, whose price at time ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " we denote by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "(", "t", ")"}], TraditionalForm]]],
+ ", moves in time.  If the final price ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "(", "T", ")"}], TraditionalForm]]],
+ " exceeds ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ ", the owner of the option can exercise it, buy the share at price ",
+ Cell[BoxData[
+  FormBox["E", TraditionalForm]]],
+ ", then immediately resell it at the higher price ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "(", "T", ")"}], TraditionalForm]]],
+ " for a profit of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"P", "(", "T", ")"}], "-", "E"}], TraditionalForm]]],
+ ".  But if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"P", "(", "T", ")"}], "<", "E"}], TraditionalForm]]],
+ " then it does not pay to exercise the option to buy, so the option becomes \
+valueless.  \n\tSuppose that the value of money discounts by a percentage of ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ " per time period.  This means that a dollar now is worth ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "+", "r"}], TraditionalForm]]],
+ " times the worth of a dollar next time period; equivalently a dollar in the \
+next time period is worth only ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "+", "r"}], ")"}], 
+    RowBox[{"-", "1"}]], TraditionalForm]]],
+ " times a dollar in present value terms.  Similarly, a dollar at time ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]]],
+ " is only worth ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "+", "r"}], ")"}], 
+    RowBox[{"-", "T"}]], TraditionalForm]]],
+ " times a dollar now.  Therefore, the present value of the call option is \
+the expectation"
+}], "Text",
+ CellChangeTimes->{{3.404321039015625*^9, 3.404321041875*^9}, 
+   3.432995510909*^9, {3.4386026875993237`*^9, 3.4386026876073236`*^9}, 
+   3.4571855498562*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["E",
+    FontSlant->"Plain"], "[", 
+   RowBox[{
+    FractionBox["1", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"1", "+", "r"}], ")"}], "T"]], 
+    RowBox[{"max", "(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"P", "(", "T", ")"}], "-", "E"}], ",", "0"}], ")"}]}], "]"}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602694045324*^9, 3.438602694412324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  A ",
+ StyleBox["European put option",
+  FontSlant->"Italic"],
+ " is a contract enabling the owner to ",
+ StyleBox["sell",
+  FontVariations->{"Underline"->True}],
+ " a share of a risky asset for a price ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " at time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ".  Write an expression similar to (7) for the value of a put option."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tTo proceed, we need to make some assumptions about the risky asset price \
+process ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "(", "t", ")"}], TraditionalForm]]],
+ ".  Nobel winners Fischer Black and Myron Scholes in their seminal 1973 \
+paper chose a continuous time model in which ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"log", "(", 
+    RowBox[{"P", "(", "t", ")"}], ")"}], TraditionalForm]]],
+ " has a normal distribution with known parameters, implying that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "(", "t", ")"}], TraditionalForm]]],
+ " has a distribution called the ",
+ StyleBox["log-normal distribution",
+  FontSlant->"Italic"],
+ ". (See also Section 6.4 on the Geometric Brownian motion process.)  The \
+Black-Scholes solution, which has dominated financial theory since its \
+inception, is expressed in terms of the standard normal c.d.f. and some \
+parameters which govern the stock price dynamics.  But there is quite a lot \
+of machinery involved in setting up the model process, and finding the \
+expectation in (7) for this continuous time problem.  So we will use the \
+simpler Cox, Ross, and Rubinstein model (see Lamberton and LaPeyre, p. 12) in \
+discrete time.  It turns out that, in the limit as the number of time periods \
+approaches infinity while the length of a period goes to 0, the Cox, Ross, \
+and Rubinstein call option value converges to the Black-Scholes call option \
+value.  ",
+ "\n",
+ "\tIn the Cox, Ross, and Rubinstein framework, we assume that from one time \
+to the next the asset price changes by:"
+}], "Text",
+ CellChangeTimes->{{3.432995607521*^9, 3.4329956341219997`*^9}, {
+  3.4386027924283237`*^9, 3.438602792433324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"P", "(", 
+    RowBox[{"t", "+", "1"}], ")"}], "=", 
+   StyleBox[
+    TagBox[
+     RowBox[{" ", 
+      StyleBox[
+       RowBox[{"{", GridBox[{
+          {
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", "a"}], ")"}], 
+            RowBox[{"P", "(", "t", ")"}]}], 
+           RowBox[{"with", " ", "probability", " ", "p"}]},
+          {
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", "b"}], ")"}], 
+            RowBox[{"P", "(", "t", ")"}]}], 
+           RowBox[{
+            RowBox[{"with", " ", "probability", " ", "1"}], "-", "p"}]}
+         }]}],
+       ShowAutoStyles->False]}],
+     #& ],
+    GridBoxOptions->{
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438602800679324*^9, 3.4386028010743237`*^9}}],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "<", "b"}], TraditionalForm]]],
+ ".  So there are two possible growth rates for the price in one time period: \
+",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " or ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", and these occur with probabilities ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"1", "-", "p"}], ")"}], TraditionalForm]]],
+ ".  By the way, ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " need not be positive; in fact, it is probably useful to think of the ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " transition as a \"down\" movement of the price and the ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ " transition as an \"up\" price movement.  One other assumption is that the \
+ratios ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Y", "(", "t", ")"}], "=", 
+    RowBox[{
+     RowBox[{"P", "(", "t", ")"}], "/", 
+     RowBox[{"P", "(", 
+      RowBox[{"t", "-", "1"}], ")"}]}]}], TraditionalForm]]],
+ " are independent random variables.  By (8), "
+}], "Text",
+ CellChangeTimes->{{3.438602974839324*^9, 3.438602974844324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"Y", "(", "t", ")"}], "=", 
+   RowBox[{
+    StyleBox["{",
+     ShowAutoStyles->False,
+     GridBoxOptions->{
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}}], 
+    RowBox[{
+     RowBox[{
+      StyleBox[GridBox[{
+         {
+          RowBox[{"(", 
+           RowBox[{"1", "+", "b"}], ")"}], 
+          RowBox[{"with", " ", "probability", " ", "p"}]},
+         {
+          RowBox[{"(", 
+           RowBox[{"1", "+", "a"}], ")"}], 
+          RowBox[{
+           RowBox[{"with", " ", "probability", " ", "1"}], "-", "p"}]}
+        }],
+       ShowAutoStyles->False,
+       GridBoxOptions->{
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}}], "   ", "and", "   ", 
+      RowBox[{"P", "(", "t", ")"}]}], "=", 
+     RowBox[{
+      RowBox[{"P", "(", "0", ")"}], 
+      SubscriptBox["Y", "1"], 
+      SubscriptBox["Y", "2"], 
+      SubscriptBox[
+       StyleBox[
+        RowBox[{"\[CenterEllipsis]", 
+         StyleBox["Y",
+          FontSlant->"Italic"]}]], "t"]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4386030054483237`*^9, 3.438603005792324*^9}}],
+
+Cell[TextData[StyleBox["A tree diagram summarizing the possible paths of the \
+asset for two time periods is in Figure 17.",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.4329956802720003`*^9, 3.432995690665*^9}, {
+  3.4329960638529997`*^9, 3.4329960917060003`*^9}, {3.4330197181703176`*^9, 
+  3.433019737739318*^9}, {3.4330679709447193`*^9, 3.4330679756997194`*^9}, {
+  3.434725539875*^9, 3.434725545166*^9}}],
+
+Cell[BoxData[
+ RowBox[{"g1", "=", 
+  RowBox[{"Graphics", "[", 
+   RowBox[{
+    RowBox[{"{", " ", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x(1+b)\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "1"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x(1+a)\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}]}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x(1+b\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "2"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x(1+a)(1+b)\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "0"}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"\"\<x(1+a\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", 
+            RowBox[{"-", "2"}]}], "}"}]}], "]"}], ",", "Medium", ",", 
+        "Bold"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{".1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{".85", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{".1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{".85", ",", 
+           RowBox[{"-", "1"}]}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.15", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8", ",", "1.9"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.15", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.15", ",", 
+           RowBox[{"-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.15", ",", 
+           RowBox[{"-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8", ",", 
+           RowBox[{"-", "2"}]}], "}"}]}], "}"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{".4", ",", ".6"}], "}"}]}], "]"}], ",", "Small"}], "]"}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{".4", ",", 
+            RowBox[{"-", ".2"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", "1.6"}], "}"}]}], "]"}], ",", "Small"}], "]"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", ".8"}], "}"}]}], "]"}], ",", "Small"}], "]"}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", 
+            RowBox[{"-", ".4"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{"Text", "[", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1.4", ",", 
+            RowBox[{"-", "1.2"}]}], "}"}]}], "]"}], ",", "Small"}], "]"}]}], 
+     "}"}], ",", 
+    RowBox[{"AspectRatio", "\[Rule]", ".5"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", ".1"}], ",", "2.2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.2"}], ",", "2.2"}], "}"}]}], "}"}]}]}], "]"}], 
+  " "}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3984360157386284`*^9, 3.3984361316143703`*^9}, {
+   3.398436161911439*^9, 3.3984361760677795`*^9}, {3.3984379385790596`*^9, 
+   3.398438054439176*^9}, {3.398438188924412*^9, 3.3984382701436815`*^9}, {
+   3.3984383083158007`*^9, 3.3984385303015966`*^9}, {3.430913751533318*^9, 
+   3.430913840245318*^9}, {3.430914663919318*^9, 3.4309146755313177`*^9}, {
+   3.433021112968318*^9, 3.433021179750318*^9}, {3.433021210447318*^9, 
+   3.433021222176318*^9}, {3.433021267980318*^9, 3.433021443664318*^9}, {
+   3.4330214787733183`*^9, 3.433021521923318*^9}, {3.433021596907318*^9, 
+   3.4330217279243183`*^9}, {3.4330217615893183`*^9, 
+   3.4330218090823183`*^9}, {3.433021867301318*^9, 3.4330221681703176`*^9}, {
+   3.433022218393318*^9, 3.433022234239318*^9}, {3.433022303929318*^9, 
+   3.4330223549913177`*^9}, {3.4330223872733183`*^9, 3.433022521829318*^9}, {
+   3.4330225597883177`*^9, 3.433022674537318*^9}, {3.433022931246318*^9, 
+   3.433023148147318*^9}, {3.433023190282318*^9, 3.433023251804318*^9}, {
+   3.4330232846633177`*^9, 3.433023375463318*^9}, {3.433023428008318*^9, 
+   3.433023431761318*^9}, {3.433023475956318*^9, 3.433023503978318*^9}, {
+   3.433023536343318*^9, 3.4330235578653183`*^9}, {3.433023598081318*^9, 
+   3.433023615077318*^9}, {3.433023775690318*^9, 3.433023875499318*^9}, 
+   3.433023913753318*^9, {3.433023944323318*^9, 3.4330240788723183`*^9}, {
+   3.4330241161563177`*^9, 3.433024133723318*^9}, {3.433024173828318*^9, 
+   3.4330241877923183`*^9}, 3.4330242588463182`*^9, {3.433024297712318*^9, 
+   3.433024310217318*^9}, {3.4330244461223183`*^9, 3.433024577642318*^9}, {
+   3.433067040290719*^9, 3.433067191367719*^9}, {3.433067245764719*^9, 
+   3.433067276906719*^9}, {3.433067480200719*^9, 3.433067516375719*^9}, {
+   3.433067559689719*^9, 3.433067685886719*^9}, {3.4330677163367195`*^9, 
+   3.433067737804719*^9}, 3.4330677991547194`*^9, {3.433067835889719*^9, 
+   3.4330679030797195`*^9}, {3.433067935577719*^9, 3.4330679405047193`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.17",
+  FontWeight->"Bold"],
+ "- C-R-R asset price model",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438602160523324*^9, 3.438602166210324*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tIf the initial price of the risky asset is ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", then in the time periods ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", ",", "2", ",", "...", " ", ",", "T"}], TraditionalForm]]],
+ " the price will undergo some number ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " of \"ups\" and consequently ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "-", "j"}], TraditionalForm]]],
+ " \"downs\" to produce a final price of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"x", "(", 
+      RowBox[{"1", "+", "b"}], ")"}], "j"], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"1", "+", "a"}], ")"}], 
+     RowBox[{"T", "-", "j"}]]}], TraditionalForm]]],
+ ".  By our assumptions, the number of \"ups\" has the binomial distribution \
+with parameters ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  Therefore, the expectation in (7), i.e., the present value of the call \
+option, is a function of the initial price ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", the exercise price ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", and the exercise time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " by"
+}], "Text",
+ CellChangeTimes->{{3.4386030203363237`*^9, 3.4386030203403234`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"V", "(", 
+    RowBox[{"x", ",", "T", ",", "E"}], ")"}], "=", 
+   RowBox[{
+    FractionBox["1", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"1", "+", "r"}], ")"}], "T"]], 
+    UnderoverscriptBox["\[CapitalSigma]", 
+     RowBox[{"j", "=", "0"}], "T"], " ", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {
+        RowBox[{" ", "T", " "}]},
+       {"j"}
+      }], "\[NegativeThinSpace]", ")"}], " ", 
+    SuperscriptBox[
+     RowBox[{
+      SuperscriptBox["p", "j"], "(", 
+      RowBox[{"1", "-", "p"}], ")"}], 
+     RowBox[{"T", "-", "j"}]], 
+    RowBox[{"max", "(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"x", "(", 
+          RowBox[{"1", "+", "b"}], ")"}], "j"], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"1", "+", "a"}], ")"}], 
+         RowBox[{"T", "-", "j"}]]}], "-", "E"}], ",", "0"}], ")"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4386030263503237`*^9, 3.4386030266653237`*^9}}],
+
+Cell[TextData[{
+ "\tIt appears that formula (10) solves the option valuation problem, but \
+there is a little more to the story.  Economic restrictions against the \
+ability of investors to arbitrage, i.e., to earn unlimited risk-free returns \
+at rates above the standard risk-free rate ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ ", imply that we may assume not only that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "<", "r", "<", "b"}], TraditionalForm]]],
+ ", but also that"
+}], "Text",
+ CellChangeTimes->{{3.438603039122324*^9, 3.438603039125324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    FractionBox[
+     RowBox[{"P", "(", "t", ")"}], 
+     RowBox[{"P", "(", 
+      RowBox[{"t", "-", "1"}], ")"}]], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["Y", "t"], "]"}], "=", 
+    RowBox[{"1", "+", "r"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438603045545324*^9, 3.4386030458993235`*^9}}],
+
+Cell[TextData[{
+ "The argument that justifies this is actually rather subtle, and can be \
+found in most finance books, including Lamberton and LaPeyre mentioned above. \
+ It hinges on the fact that if the option were valued in any other way, a \
+portfolio of the stock and the option could be constructed which would hedge \
+away all risk, and yet would return more than the riskless rate. We will omit \
+the details.  By construction of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "t"], TraditionalForm]]],
+ ", ",
+ StyleBox["we can use the anti-arbitrage condition ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["Y", "t"], "]"}], "=", 
+    RowBox[{"1", "+", "r"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" to conclude that",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.432996221508*^9, 3.43299624376*^9}, {
+  3.438603058693324*^9, 3.438603058696324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "+", "b"}], ")"}], "p"}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "+", "a"}], ")"}], 
+     RowBox[{"(", 
+      RowBox[{"1", "-", "p"}], ")"}]}]}], "=", 
+   RowBox[{
+    RowBox[{"1", "+", 
+     RowBox[{"r", "\[DoubleLongRightArrow]", "p"}]}], "=", 
+    FractionBox[
+     RowBox[{"r", "-", "a"}], 
+     RowBox[{"b", "-", "a"}]]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4386030644163237`*^9, 3.438603064778324*^9}}],
+
+Cell[TextData[{
+ "after some easy algebra.  So with the \"up\" and \"down\" percentages ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", and the riskless rate ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ " as given parameters, equation",
+ StyleBox["s",
+  FontColor->GrayLevel[0]],
+ " (10) ",
+ StyleBox["and (11) form",
+  FontColor->GrayLevel[0]],
+ " a complete description of the fair option value.\n\tAlso, the same \
+reasoning as before applies to the problem of finding the present value at \
+time ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " of the same option at the time ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " between 0 and ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ".  All of the ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ "'s in formula (10) would be replaced by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "-", "t"}], TraditionalForm]]],
+ ", which is the remaining number of time steps."
+}], "Text",
+ CellChangeTimes->{{3.4329963228310003`*^9, 3.43299634906*^9}, {
+  3.433019770079318*^9, 3.433019770362318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Let us define the option price function ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " as a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function that we call OptionValue, and examine some of its \
+characteristics.  In addition to current time ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ ", current price ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", we will also put ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ " as arguments, and let the function compute ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  We use variable name ",
+ StyleBox["EP",
+  FontSlant->"Italic"],
+ " instead of ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " for the exercise price, since ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " is a reserved name."
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"OptValue", "[", 
+   RowBox[{
+   "t_", ",", "x_", ",", "T_", ",", "EP_", ",", "b_", ",", "a_", ",", "r_"}], 
+   "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", " ", 
+     RowBox[{"p", ",", "V"}], " ", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"p", "=", 
+      FractionBox[
+       RowBox[{"r", "-", "a"}], 
+       RowBox[{"b", "-", "a"}]]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"V", "=", 
+      RowBox[{
+       FractionBox["1", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"1", "+", "r"}], ")"}], 
+         RowBox[{"T", "-", "t"}]]], "*", 
+       RowBox[{"NSum", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Binomial", "[", 
+           RowBox[{
+            RowBox[{"T", "-", "t"}], ",", "j"}], "]"}], "*", 
+          SuperscriptBox["p", "j"], "*", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"1", "-", "p"}], ")"}], 
+           RowBox[{"T", "-", "t", "-", "j"}]], "*", 
+          RowBox[{"Max", "[", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{"x", "*", 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"1", "+", "b"}], ")"}], "j"], "*", 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"1", "+", "a"}], ")"}], 
+               RowBox[{"T", "-", "t", "-", "j"}]]}], "-", "EP"}]}], "]"}]}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "0", ",", 
+           RowBox[{"T", "-", "t"}]}], "}"}]}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", "V"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.404321128484375*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Here is one example run.  Think carefully about the question in the activity \
+that follows.\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"OptValue", "[", 
+  RowBox[{
+  "0", ",", "22", ",", "3", ",", "18", ",", ".07", ",", ".03", ",", ".05"}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.404321133609375*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "   In the output above the difference between the stock price and the \
+option exercise price is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"P", "(", "0", ")"}], "-", "E"}], "=", 
+    RowBox[{
+     RowBox[{"$22", "-", "$18"}], "=", "$4"}]}], TraditionalForm]]],
+ ".  Why is $6.45 a reasonable answer for the value of the option?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tFigure 18(a) shows the graph of option price against stock price, for \
+fixed time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "=", "0"}], TraditionalForm]]],
+ ", time horizon ",
+ StyleBox["T ",
+  FontSlant->"Italic"],
+ "= 8, and exercise price ",
+ StyleBox["E ",
+  FontSlant->"Italic"],
+ "= 18.  We take ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", ".09"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", ".03"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".05"}], TraditionalForm]]],
+ ".   We observe that the option is worthless until the stock price is larger \
+than 11 or so, which is to be expected because if the stock price is so much \
+lower than ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", and can only rise at best by a little less than 10% for each of 8 time \
+periods, it has little if any chance of exceeding the exercise price by time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ".  As the initial stock price rises, the price has a much better chance of \
+exceeding 18 at time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "=", "8"}], TraditionalForm]]],
+ ", so the amount the buyer expects to receive increases, and the price of \
+the option therefore increases."
+}], "Text",
+ CellChangeTimes->{{3.4329964257139997`*^9, 3.432996426829*^9}, {
+  3.434725586344*^9, 3.43472559009*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"OptValue", "[", 
+      RowBox[{
+      "0", ",", "x", ",", "8", ",", "18", ",", ".09", ",", ".03", ",", 
+       ".05"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "5", ",", "22"}], "}"}], ",", 
+     RowBox[{"AxesOrigin", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"5", ",", 
+        RowBox[{"-", ".5"}]}], "}"}]}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<stock\>\"", ",", "\"\<option\>\""}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"OptValue", "[", 
+      RowBox[{
+      "0", ",", "22", ",", "8", ",", "EP", ",", ".09", ",", ".03", ",", 
+       ".05"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"EP", ",", "15", ",", "35"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<E\>\"", ",", "\"\<option\>\""}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.40432117109375*^9, 3.4043211809375*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a)  ",
+ StyleBox["T ",
+  FontSlant->"Italic"],
+ "= 8, ",
+ StyleBox["E ",
+  FontSlant->"Italic"],
+ "= 18, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", ".09"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", ".03"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".05"}], TraditionalForm]]],
+ "\t     (b)",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{
+      RowBox[{"T", "=", "8"}], ",", 
+      RowBox[{"b", "=", ".09"}], ",", 
+      RowBox[{"a", "=", ".03"}], ",", 
+      RowBox[{"r", "=", ".05"}]}],
+     TraditionalForm]}], TraditionalForm]]],
+ ", stock price $22.\n",
+ StyleBox["Figure 6.18",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "- (a) Option price at time 0 as a function of stock price;  (b) Option \
+price at time 0 as a function of exercise price",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438602215858324*^9, 3.4386022231993237`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tWe see the same phenomenon in a different way in Figure 18(b), in which \
+the option price is plotted against the exercise price ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", for fixed initial stock price $22 (the other parameters have the same \
+values as before).  As the exercise price increases, it becomes more likely \
+that the stock price will not exceed it, lowering the price of the option.  \
+Thus, the price of the option goes down as the exercise price increases.  To \
+complete the study, in Exercise 6 you are asked to study the effect of \
+lengthening the time horizon on the option price. \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.432996504267*^9, 3.43299650531*^9}, {3.432996535946*^9, 
+  3.432996535947*^9}, {3.434725610248*^9, 3.434725614421*^9}}],
+
+Cell[TextData[{
+ "\tWe can use the OptValue function in a simple way to simulate a stock \
+price and its option price together. The  function SimStockAndOption \
+simulates a series of \"ups\" and \"downs\" of the stock price, and updates \
+and returns lists of stock prices and corresponding option prices at each \
+time up to ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4043212368125*^9, 3.4043212375*^9}, {
+  3.404321283796875*^9, 3.4043213060625*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimStockAndOption", "[", 
+   RowBox[{
+   "initprice_", ",", "T_", ",", "EP_", ",", "b_", ",", "a_", ",", "r_"}], 
+   "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "p", ",", "stockprice", ",", "stocklist", ",", "optionprice", ",", 
+      "optionlist"}], "}"}], ",", "\[IndentingNewLine]", "\t", 
+    RowBox[{
+     RowBox[{"p", "=", 
+      FractionBox[
+       RowBox[{"r", "-", "a"}], 
+       RowBox[{"b", "-", "a"}]]}], ";", "\[IndentingNewLine]", "     ", 
+     RowBox[{"stocklist", "=", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "initprice"}], "}"}], "}"}]}], ";", "\t", 
+     RowBox[{"optionlist", "=", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", 
+         RowBox[{"OptValue", "[", 
+          RowBox[{
+          "0", ",", "initprice", ",", "T", ",", "EP", ",", "b", ",", "a", ",",
+            "r"}], "]"}]}], "}"}], "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"stockprice", "=", "initprice"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"RandomReal", "[", "]"}], "\[LessEqual]", "p"}], ",", 
+          RowBox[{"stockprice", "=", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", "b"}], ")"}], "stockprice"}]}], ",", 
+          RowBox[{"stockprice", "=", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", "a"}], ")"}], "stockprice"}]}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"stocklist", ",", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", "stockprice"}], "}"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"optionprice", "=", 
+         RowBox[{"OptValue", "[", 
+          RowBox[{
+          "t", ",", "stockprice", ",", "T", ",", "EP", ",", "b", ",", "a", 
+           ",", "r"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"optionlist", ",", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", "optionprice"}], "}"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "1", ",", "T"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{"ListPlot", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"stocklist", ",", "optionlist"}], "}"}], ",", 
+        RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Black", ",", "Gray"}], "}"}]}]}], "]"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"stocklist", ",", "optionlist"}], "}"}]}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.40432123334375*^9, 3.404321256421875*^9}, 
+   3.43299658545*^9, {3.4329968308529997`*^9, 3.432996836976*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tHere is an example simulation, with a starting stock price of $15, \
+exercise time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "=", "10"}], TraditionalForm]]],
+ ", exercise price ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"E", "=", "$18"}], TraditionalForm]]],
+ ", multipliers",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"b", "=", ".08"}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", 
+    RowBox[{"-", ".02"}]}], TraditionalForm]]],
+ ", and riskless rate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".04"}], TraditionalForm]]],
+ ".  Feel free to run the command several times with this choice of \
+parameters, and then to change the parameters to find patterns.  One thing \
+that you will always see is that the difference between the stock price and \
+the option price is the exercise price at the final time, ",
+ StyleBox["if the option is valuable enough to be exercised.  ",
+  FontColor->GrayLevel[0]],
+ "(Why?) "
+}], "Text",
+ CellChangeTimes->{{3.432996734584*^9, 3.4329967651809998`*^9}, {
+  3.4571855995109997`*^9, 3.4571856037074003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"SimStockAndOption", "[", 
+  RowBox[{"15", ",", "10", ",", "18", ",", ".08", ",", 
+   RowBox[{"-", ".02"}], ",", ".04"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.19",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "- Simulated stock price (upper curve) and option price (lower curve) \
+together with list of {time, stockprice} pairs and list of {time, \
+optionprice} pairs",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438602263026324*^9, 3.4386022684743237`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThis chapter has only scratched the surface of the many interesting \
+extensions and applications of probability.  Other important areas, such as \
+reliability theory, stochastic optimization, information theory, the analysis \
+of algorithms, and inventory theory, await you.  Or, you might decide you \
+want to study Markov chains, ",
+ StyleBox["Brownian motion",
+  FontColor->GrayLevel[0]],
+ " and other random processes, queues, or finance more deeply.  Probably the \
+most important next step is the subject of statistics, which we have \
+previewed a number of times.  It is my hope that your experience with this \
+book has prepared you well for all of these studies, as well as enhancing \
+your problem-solving abilities, and giving you a new view of a world fraught \
+with uncertainties. "
+}], "Text",
+ CellChangeTimes->{{3.432996951876*^9, 3.4329969551400003`*^9}, {
+  3.4571856801006002`*^9, 3.4571856854046*^9}}],
+
+Cell["Exercises 6.5", "Text",
+ CellChangeTimes->{{3.4329945329309998`*^9, 3.4329945340550003`*^9}, {
+  3.433019854191318*^9, 3.4330198554583178`*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  If your investment strategy is to pick just one stock from among the \
+following three to invest in, and your risk aversion is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", "5"}], TraditionalForm]]],
+ ", which stock would you pick?\n\tStock 1: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Mu]", "1"], "=", ".05"}], ",", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "1"], "2"], "=", ".008"}]}], TraditionalForm]]],
+ ";  Stock 2: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Mu]", "2"], "=", ".06"}], ",", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "1"], "2"], "=", ".01"}]}], TraditionalForm]]],
+ ";  Stock 3: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Mu]", "1"], "=", ".09"}], ",", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["\[Sigma]", "1"], "2"], "=", ".02"}]}], TraditionalForm]]]
+}], "Text"],
+
+Cell[TextData[{
+ "2.  Find the optimal portfolio of one stock and one bond for an investor \
+with risk aversion ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", "12"}], TraditionalForm]]],
+ ", if the non-risky rate of return is 4%, and the stock rate of return is \
+random with mean 5% and standard deviation 4%.  "
+}], "Text"],
+
+Cell[TextData[{
+ "3.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Simulate the total returns for 200 replications of the investment problem \
+in Exercise 2, for the optimal portfolio, for a portfolio consisting of 100% \
+stock, and for a portfolio consisting of 50% stock and 50% bonds.  Assume an \
+initial wealth of $1000, and assume that the stock rate of return is normally \
+distributed.  Produce and compare histograms and summary statistics of the \
+simulated returns.  "
+}], "Text",
+ CellChangeTimes->{{3.433082326778*^9, 3.433082347351*^9}, 
+   3.4571857007706003`*^9}],
+
+Cell[TextData[{
+ "4.  Suppose that two independent stocks with mean rates of return ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "2"], TraditionalForm]]],
+ " and standard deviations ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Sigma]", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " are available, as well as the non-risky bond with rate of return ",
+ Cell[BoxData[
+  FormBox["r", TraditionalForm]]],
+ ". Find expressions for the optimal proportions of wealth that an investor \
+with risk aversion ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]]],
+ " is to hold in each asset.  Does the relative balance between the two risky \
+assets depend on the risk aversion?"
+}], "Text"],
+
+Cell[TextData[{
+ "5.  Suppose that the non-risky rate of return is 5%, and we are interested \
+in a two period portfolio problem in which we collect our profit at the end \
+of the second time period.  If the stock follows a binomial model as \
+described in the second subsection, with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", ".10"}], TraditionalForm]]],
+ ",",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"a", "=", "0"}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".4"}], TraditionalForm]]],
+ ", and the investor's risk aversion is 15, find the optimal portfolio."
+}], "Text"],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") In Example 2, produce a graph of the option price at time 0 as a function \
+of the exercise time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ", with the initial stock price = $14, and other parameters as in the \
+example:  ",
+ StyleBox["E ",
+  FontSlant->"Italic"],
+ "= 18, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", ".09"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", ".03"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".05"}], TraditionalForm]]],
+ ".  Then see how the graph changes as you vary the initial stock price."
+}], "Text"],
+
+Cell[TextData[{
+ "7.  A stock follows the binomial model with initial price $30, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", ".08"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", "0"}], TraditionalForm]]],
+ ", and the riskless rate is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".04"}], TraditionalForm]]],
+ ".  Find (by hand) the probability ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ ", the distribution of the stock price two time units later, and the value \
+of an option whose exercise time is 2 and whose exercise price is $32. "
+}], "Text"],
+
+Cell["\<\
+8.  Express the value of the European call option (10) in terms of the \
+binomial cumulative distribution function.\
+\>", "Text"],
+
+Cell[TextData[{
+ "9.  An ",
+ StyleBox["American call option",
+  FontSlant->"Italic"],
+ " is one that can be exercised at any time prior to the termination time ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]]],
+ " of the contract.  Argue that a lower bound for the value of an American \
+call option ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"V", "(", 
+    RowBox[{"S", ",", "t", ",", "E"}], ")"}], TraditionalForm]]],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"max", "(", 
+    RowBox[{
+     RowBox[{"S", "-", "E"}], ",", "0"}], ")"}], TraditionalForm]]],
+ ".  Sketch the graph of this lower bound as a function of ",
+ StyleBox["S",
+  FontSlant->"Italic"],
+ ".  (Incidentally, it can be shown that the value of an American call is the \
+same as that of a European call.  So this lower bound holds for the European \
+call option as well.)"
+}], "Text"],
+
+Cell[TextData[{
+ "10.  Consider a single time period option ",
+ StyleBox["problem ",
+  FontColor->GrayLevel[0]],
+ "with a general binomial model expressed by (8) holding for the stock upon \
+which the option is based.  Again let ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ " be the non-risky rate.  Show that the investment action of holding one \
+option at time 0 can be ",
+ StyleBox["replicated",
+  FontSlant->"Italic"],
+ " by holding a certain number ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ " of shares of the stock, and borrowing an amount ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " at the non-risky rate, i.e., whether the stock goes up or down in the \
+single time period, this replicating portfolio performs exactly as the option \
+would perform.  Find expressions for the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " that do this replication."
+}], "Text",
+ CellChangeTimes->{{3.432997100401*^9, 3.4329971012390003`*^9}, 
+   3.433019873242318*^9}],
+
+Cell[TextData[{
+ StyleBox["11. In the context of options pricing it was claimed in the \
+section that opportunities for limitless risk-free profits could ensue if the \
+anti-arbitrage condition ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "<", "r", "<", "b"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" was not in force, where",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ Cell[BoxData[
+  FormBox["r", TraditionalForm]]],
+ " is the interest rate on a risk-free asset and ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["b", TraditionalForm]]],
+ " are the parameters in formula (8) governing the possible states of the \
+risky asset. Explain how this can happen. "
+}], "Text",
+ CellChangeTimes->{{3.43299628037*^9, 3.43299629204*^9}, {3.432997141778*^9, 
+  3.432997142572*^9}, {3.4330680676077194`*^9, 3.4330682399757195`*^9}}],
+
+Cell[TextData[{
+ StyleBox["12.  The perception of a firm's value by its stockholders and \
+potential stockholders is an influential factor in the price of a share of \
+its stock on the market. There have been several models put forth by finance \
+specialists for the value of a firm, but a relatively simple one involves the \
+present value of the expected total profit.  Consider a firm whose profits \
+last year were $40 million.  They are expected to grow each year by a random \
+factor ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "+", 
+    SubscriptBox["X", "i"]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", where ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is normally distributed with mean .04 and variance .0004. Assume \
+that these random variables are independent of each other. Suppose that the \
+value of money discounts by a percentage of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"r", "=", ".02"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" per year.  Compute the present value of the expected total profit \
+through year 10.  ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4329946617679996`*^9, 3.432994672148*^9}, {
+   3.4329971446879997`*^9, 3.432997145737*^9}, {3.433084017413*^9, 
+   3.433084181205*^9}, {3.4330844310559998`*^9, 3.433084626178*^9}, {
+   3.433084689101*^9, 3.433084730466*^9}, {3.433084773869*^9, 
+   3.433084791995*^9}, {3.433085013032*^9, 3.433085030784*^9}, 
+   3.4331526616363173`*^9},
+ FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+ StyleBox["13. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") A man is planning to retire in two years, at which time he will \
+have saved an amount ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" in his retirement account.  Suppose that he is allowed to lock in \
+the interest rate ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["R", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" on his retirement account at the time of retirement, but ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["R", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is unknown to him now. He estimates that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["R", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is normally distributed with mean .035 and variance .000095. He \
+would like to be able to consume a fixed income of at least $50,000 for at \
+least 20 years. How large must ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be in order for him to achieve his financial goal with \
+probability at least .9?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.432994768666*^9, 3.4329947944630003`*^9}, {
+   3.432997147426*^9, 3.432997148675*^9}, {3.433084866961*^9, 
+   3.433084984117*^9}, {3.433085041252*^9, 3.433085190113*^9}, {
+   3.433152665308317*^9, 3.4331526666293173`*^9}, {3.433153839619317*^9, 
+   3.4331538720123167`*^9}, {3.433153906666317*^9, 3.433153976775317*^9}, 
+   3.433154558723317*^9},
+ FontColor->RGBColor[1, 0, 0]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowSize->{655, 620},
+WindowMargins->{{4, Automatic}, {Automatic, 6}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 6  Stochastic Processes and Applications"], "Header"]}, {
+   Cell[
+    TextData["6.5 Financial Mathematics"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 376, 12, 68, "Section"],
+Cell[946, 36, 1062, 20, 173, "Text"],
+Cell[2011, 58, 153, 3, 48, "Text"],
+Cell[2167, 63, 265, 7, 48, "Text"],
+Cell[2435, 72, 512, 8, 131, "Text"],
+Cell[2950, 82, 281, 5, 69, "Text"],
+Cell[3234, 89, 263, 7, 69, "Text"],
+Cell[3500, 98, 193, 4, 48, "Text"],
+Cell[CellGroupData[{
+Cell[3718, 106, 61, 1, 41, "Subsection"],
+Cell[3782, 109, 2447, 55, 380, "Text"],
+Cell[6232, 166, 312, 9, 27, "DisplayFormula"],
+Cell[6547, 177, 363, 10, 48, "Text"],
+Cell[6913, 189, 340, 10, 33, "DisplayFormulaNumbered"],
+Cell[7256, 201, 2569, 71, 326, "Text"],
+Cell[9828, 274, 334, 10, 33, "DisplayFormulaNumbered"],
+Cell[10165, 286, 708, 23, 75, "Text"],
+Cell[10876, 311, 442, 14, 33, "DisplayFormula"],
+Cell[11321, 327, 436, 12, 71, "Text"],
+Cell[11760, 341, 666, 23, 33, "DisplayFormulaNumbered"],
+Cell[12429, 366, 164, 6, 27, "Text"],
+Cell[12596, 374, 715, 24, 33, "DisplayFormulaNumbered"],
+Cell[13314, 400, 311, 10, 48, "Text"],
+Cell[13628, 412, 501, 16, 33, "DisplayFormulaNumbered"],
+Cell[14132, 430, 237, 7, 27, "Text"],
+Cell[14372, 439, 395, 12, 48, "DisplayFormulaNumbered"],
+Cell[14770, 453, 209, 9, 48, "Text"],
+Cell[14982, 464, 759, 25, 92, "Text"],
+Cell[15744, 491, 921, 32, 111, "Text"],
+Cell[16668, 525, 592, 17, 74, "Input",
+ InitializationCell->True],
+Cell[17263, 544, 1778, 49, 214, "Text"],
+Cell[19044, 595, 1225, 37, 123, "Input",
+ InitializationCell->True],
+Cell[20272, 634, 255, 8, 28, "Text"],
+Cell[20530, 644, 1408, 36, 193, "Text"],
+Cell[21941, 682, 458, 12, 56, "Input",
+ InitializationCell->True],
+Cell[22402, 696, 959, 29, 167, "Input",
+ InitializationCell->True],
+Cell[23364, 727, 398, 11, 56, "Input",
+ InitializationCell->True],
+Cell[23765, 740, 546, 13, 110, "Text"],
+Cell[24314, 755, 825, 23, 101, "Input",
+ InitializationCell->True],
+Cell[25142, 780, 738, 20, 101, "Input",
+ InitializationCell->True],
+Cell[25883, 802, 924, 26, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[26810, 830, 764, 31, 49, "Text"],
+Cell[27577, 863, 932, 16, 131, "Text"],
+Cell[28512, 881, 246, 6, 69, "Text"],
+Cell[28761, 889, 1030, 20, 193, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29828, 914, 57, 1, 41, "Subsection"],
+Cell[29888, 917, 3072, 92, 363, "Text"],
+Cell[32963, 1011, 449, 15, 51, "DisplayFormulaNumbered"],
+Cell[33415, 1028, 465, 17, 90, "Text"],
+Cell[33883, 1047, 1693, 35, 297, "Text"],
+Cell[35579, 1084, 965, 30, 46, "DisplayFormulaNumbered"],
+Cell[36547, 1116, 1166, 41, 110, "Text"],
+Cell[37716, 1159, 1297, 40, 46, "DisplayFormulaNumbered"],
+Cell[39016, 1201, 422, 6, 27, "Text"],
+Cell[39441, 1209, 7605, 193, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[47049, 1404, 200, 7, 28, "Text"],
+Cell[47252, 1413, 1298, 45, 112, "Text"],
+Cell[48553, 1460, 1063, 34, 52, "DisplayFormulaNumbered"],
+Cell[49619, 1496, 556, 13, 90, "Text"],
+Cell[50178, 1511, 482, 16, 51, "DisplayFormula"],
+Cell[50663, 1529, 1004, 26, 131, "Text"],
+Cell[51670, 1557, 558, 18, 44, "DisplayFormulaNumbered"],
+Cell[52231, 1577, 1073, 37, 131, "Text"],
+Cell[53307, 1616, 998, 44, 91, "Text"],
+Cell[54308, 1662, 2023, 59, 271, "Input",
+ InitializationCell->True],
+Cell[56334, 1723, 116, 3, 27, "Text"],
+Cell[56453, 1728, 519, 15, 56, "Input",
+ InitializationCell->True],
+Cell[56975, 1745, 448, 14, 90, "Text"],
+Cell[57426, 1761, 1388, 42, 173, "Text"],
+Cell[58817, 1805, 1609, 47, 167, "Input",
+ InitializationCell->True],
+Cell[60429, 1854, 1003, 40, 91, "Text"],
+Cell[61435, 1896, 795, 13, 131, "Text"],
+Cell[62233, 1911, 492, 11, 90, "Text"],
+Cell[62728, 1924, 3264, 86, 463, "Input",
+ InitializationCell->True],
+Cell[65995, 2012, 1116, 33, 131, "Text"],
+Cell[67114, 2047, 490, 13, 56, "Input",
+ InitializationCell->True],
+Cell[67607, 2062, 382, 11, 49, "Text"],
+Cell[67992, 2075, 942, 16, 173, "Text"],
+Cell[68937, 2093, 195, 4, 27, "Text"],
+Cell[69135, 2099, 969, 33, 71, "Text"],
+Cell[70107, 2134, 328, 8, 69, "Text"],
+Cell[70438, 2144, 591, 12, 110, "Text"],
+Cell[71032, 2158, 850, 26, 90, "Text"],
+Cell[71885, 2186, 634, 18, 90, "Text"],
+Cell[72522, 2206, 682, 25, 90, "Text"],
+Cell[73207, 2233, 600, 18, 69, "Text"],
+Cell[73810, 2253, 139, 3, 48, "Text"],
+Cell[73952, 2258, 854, 25, 110, "Text"],
+Cell[74809, 2285, 1007, 29, 131, "Text"],
+Cell[75819, 2316, 944, 25, 90, "Text"],
+Cell[76766, 2343, 1660, 38, 163, "Text"],
+Cell[78429, 2383, 1719, 45, 137, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

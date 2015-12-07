@@ -1,0 +1,2569 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     81634,       2560]
+NotebookOptionsPosition[     76017,       2409]
+NotebookOutlinePosition[     77046,       2446]
+CellTagsIndexPosition[     77003,       2443]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["4.5 Gamma Distributions", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.4291115642356*^9, 3.4291115702906*^9}, 
+   3.4291182222756*^9},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell["Main Properties", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tThe family of ",
+ StyleBox["gamma distributions",
+  FontSlant->"Italic"],
+ " is one of the most important of all in probability and statistics. In this \
+section we will learn about the distributional properties of the general \
+gamma distribution, then we will discuss some of the special features and \
+applications of an important instance: the ",
+ StyleBox["exponential distribution",
+  FontSlant->"Italic"],
+ ". Another instance of the gamma family, the ",
+ StyleBox["chi-square distribution",
+  FontSlant->"Italic"],
+ ", will be introduced in the next section."
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ". A continuous random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["gamma distribution",
+  FontSlant->"Italic"],
+ " if its probability density function is:"
+}], "Text",
+ CellChangeTimes->{{3.437485636172117*^9, 3.437485636174117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["f",
+     FontSlant->"Italic"], "(", 
+    RowBox[{
+     RowBox[{
+      StyleBox["x",
+       FontSlant->"Italic"], ";", " ", "\[Alpha]"}], ",", "\[Beta]"}], ")"}], 
+   " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      FractionBox["1", 
+       RowBox[{
+        SuperscriptBox["\[Beta]", "\[Alpha]"], 
+        RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]}]], 
+      SuperscriptBox["x", 
+       RowBox[{"\[Alpha]", "-", "1"}]], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", "x"}], "/", "\[Beta]"}]]}], ",", " ", 
+     RowBox[{"x", ">", "0"}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4374856415731173`*^9, 3.437485642128117*^9}}],
+
+Cell[TextData[{
+ "where \[Alpha], \[Beta] > 0 are constant parameters. We abbreviate ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] \[CapitalGamma](\[Alpha], \[Beta])."
+}], "Text"],
+
+Cell["\<\
+\tAs we mentioned earlier in the book, the gamma function in the denominator \
+of (1) is defined by the integral\
+\>", "Text",
+ CellChangeTimes->{{3.4374856568281174`*^9, 3.4374856568331175`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}], "=", 
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+    RowBox[{
+     SuperscriptBox[
+      StyleBox["t",
+       FontSlant->"Italic"], 
+      RowBox[{"\[Alpha]", "-", "1"}]], 
+     SuperscriptBox[
+      StyleBox["e",
+       FontSlant->"Italic"], 
+      RowBox[{"-", 
+       StyleBox["t",
+        FontSlant->"Italic"]}]], 
+     StyleBox["dt",
+      FontSlant->"Italic"]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437485662268117*^9, 3.437485662655117*^9}}],
+
+Cell["\<\
+which can be obtained by integration by parts for many values of \[Alpha]. We \
+will consider its properties in more detail in a moment. \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Use the substitution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", " ", "=", " ", 
+    RowBox[{"x", "/", "\[Beta]"}]}], TraditionalForm]]],
+ " to show that the integral of the gamma density is 1."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{3.404167451625*^9}],
+
+Cell[TextData[{
+ "\tThe ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"n", ",", 
+     RowBox[{"1", "/", "\[Lambda]"}]}], ")"}], TraditionalForm]]],
+ " distribution, where ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is a positive integer, is called by some authors the ",
+ StyleBox["Erlang distribution",
+  FontSlant->"Italic"],
+ " with parameters ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and \[Lambda], but we will not use that terminology here. \n \tLet's take \
+a look at the graph of the gamma density function. In the kernel there is a \
+GammaDistribution[\[Alpha], \[Beta]] object, to which you can apply the PDF \
+function as below.  In Figure 25 is the gamma p.d.f. for parameters \[Alpha] \
+= 2 and \[Beta] = 3. Note the asymmetrical, right-skewed shape of the density \
+graph. "
+}], "Text",
+ CellChangeTimes->{{3.431878216592*^9, 3.431878216788*^9}, 
+   3.437485063285117*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"GammaDistribution", "[", 
+      RowBox[{"2", ",", "3"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"PlotContsProb", "[", 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "18"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "5"}], "}"}], ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "1", ",", "3", ",", "5", ",", "7", ",", "9", ",", "11", ",", "13", ",",
+         "15"}], "}"}], ",", "Automatic"}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399388757609672*^9, 3.399388787017602*^9}, 
+   3.441650223112548*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.25",
+  FontWeight->"Bold"],
+ StyleBox[" - The \[CapitalGamma](2,3) density function",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.437485029200117*^9, 3.4374850561851172`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "The area shaded is the probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1", "\[LessEqual]", "X", "\[LessEqual]", "5"}], "]"}], 
+   TraditionalForm]]],
+ " which can be found by integrating the density function over the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"1", ",", "5"}], "]"}], TraditionalForm]]],
+ ". "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", "1", "5"], 
+   RowBox[{
+    RowBox[{"f", "[", "x", "]"}], "\[ThinSpace]", 
+    RowBox[{"\[DifferentialD]", "x"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Try to approximate the median ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " of the \[CapitalGamma](2,3) distribution by using the CDF function.  \
+(Remember that the median of a distribution is such that exactly half of the \
+total probability lies to its right.) Then check your guess by using the \
+Quantile command."
+}], "Text",
+ CellFrame->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x_", ",", "\[Alpha]_", ",", "\[Beta]_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"GammaDistribution", "[", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "0.5`", ",", "3"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "1", ",", "3"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2", ",", "3"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "3", ",", "3"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Dashing", "[", 
+         RowBox[{"{", 
+          RowBox[{"0.01`", ",", "0.01`"}], "}"}], "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "0.5`", "]"}], ",", 
+        RowBox[{"Thickness", "[", "0.005`", "]"}], ",", 
+        RowBox[{"Thickness", "[", "0.012`", "]"}]}], "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2", ",", "0.5`"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2", ",", "1"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2", ",", "1.5`"}], "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2", ",", "2"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Dashing", "[", 
+         RowBox[{"{", 
+          RowBox[{"0.01`", ",", "0.01`"}], "}"}], "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "0.5`", "]"}], ",", 
+        RowBox[{"Thickness", "[", "0.005`", "]"}], ",", 
+        RowBox[{"Thickness", "[", "0.012`", "]"}]}], "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3993888858726487`*^9, 3.399388908636044*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a)                                                    (b)\n",
+ StyleBox["Figure 4.26 - ",
+  FontWeight->"Bold"],
+ "(a) Gamma densities, \[Alpha] = .5 (dashed), 1 (gray), 2 (thin), 3 (thick) \
+and \[Beta] = 3; (b) Gamma densities, \[Beta] = .5 (dashed), 1 (gray), 1.5 \
+(thin), 2 (thick) and \[Alpha] = 2 "
+}], "Text",
+ CellChangeTimes->{{3.4374851620331173`*^9, 3.4374851709061174`*^9}, 
+   3.437485229697117*^9, 3.4567786154621267`*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe graphs in Figure 26(a) illustrate the dependence of the gamma density \
+on the \[Alpha] parameter for \[Alpha] = .5, 1, 2, and 3.  In all cases we \
+fix \[Beta] at 3.  The two cases where \[Alpha] \[LessEqual] 1 show a \
+markedly different behavior: for \[Alpha] = .5 the density is asymptotic to \
+the ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ "-axis, and for \[Alpha] = 1 there is a non-zero ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ "-intercept. (What is it?) You can check that in fact \[Alpha] = 1 is a \
+break point, beyond which the density graph takes on the humpbacked shape of \
+the other two curves. Note that the probability weight shifts to the right as \
+\[Alpha] increases. \n\tIn Figure 26(b) we examine the dependence of the \
+shape of the gamma density on the \[Beta] parameter for \[Beta] = .5, 1, 2, \
+and 3. In each case \[Alpha] is set at 2.  As \[Beta] increases, notice the \
+spreading out of the density accompanied by a shift to the right. ",
+ StyleBox["In the electronic text you can execute the Manipulate command \
+below to see the effect of changes to the parameters on the density graph. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4291127892366*^9, 3.4291127894496*^9}, {
+  3.431878234932*^9, 3.431878235133*^9}, {3.437485232726117*^9, 
+  3.4374852479931173`*^9}, {3.4567786258231263`*^9, 3.4567786291861267`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x_", ",", "\[Alpha]_", ",", "\[Beta]_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"GammaDistribution", "[", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "\[Alpha]", ",", "\[Beta]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Alpha]", ",", ".5", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Beta]", ",", ".5", ",", "3"}], "}"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.4291124683826*^9, 3.4291125649416*^9}, {
+   3.4291125978536*^9, 3.4291126024096003`*^9}, {3.4291126328966*^9, 
+   3.4291126595495996`*^9}, 3.4291127531186*^9, 3.4291128918546*^9, {
+   3.4291186199446*^9, 3.4291186216496*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}]
+}, Open  ]],
+
+Cell["\<\
+\tThe gamma function upon which the gamma density depends has some \
+interesting properties that permit the density to be written more explicitly \
+in some cases. First,\
+\>", "Text",
+ CellChangeTimes->{{3.4374856847961173`*^9, 3.4374856848021173`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"\[CapitalGamma]", "(", "1", ")"}], " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{"-", "t"}]], 
+       StyleBox["dt",
+        FontSlant->"Italic"]}]}], "=", "1."}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4374856909391174`*^9, 3.437485696200117*^9}}],
+
+Cell["\<\
+Second, by using integration by parts, we can derive the following recursive \
+relationship:\
+\>", "Text",
+ CellChangeTimes->{{3.437485708930117*^9, 3.4374857370831175`*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"\[CapitalGamma]", 
+       RowBox[{"(", 
+        StyleBox["n",
+         FontSlant->"Italic"], ")"}]}], "=", 
+      StyleBox[
+       RowBox[{
+        SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], " ", 
+        RowBox[{
+         SuperscriptBox[
+          StyleBox["t",
+           FontSlant->"Italic",
+           GridBoxOptions->{
+           GridBoxAlignment->{
+            "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}}], 
+          RowBox[{
+           StyleBox["n",
+            FontSlant->"Italic"], "-", "1"}]], 
+         SuperscriptBox[
+          StyleBox["e",
+           FontSlant->"Italic"], 
+          RowBox[{"-", 
+           StyleBox["t",
+            FontSlant->"Italic"]}]], 
+         StyleBox["dt",
+          FontSlant->"Italic"]}]}],
+       GridBoxOptions->{
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}}]},
+     {" ", "=", 
+      StyleBox[
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox[
+           StyleBox["t",
+            FontSlant->"Italic",
+            GridBoxOptions->{
+            GridBoxAlignment->{
+             "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}}], 
+           RowBox[{
+            StyleBox["n",
+             FontSlant->"Italic"], "-", "1"}]]}], 
+         SuperscriptBox[
+          StyleBox["e",
+           FontSlant->"Italic",
+           GridBoxOptions->{
+           GridBoxAlignment->{
+            "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}}], 
+          RowBox[{"-", 
+           StyleBox["t",
+            FontSlant->"Italic"]}]]}], 
+        SubsuperscriptBox["|", "0", "\[Infinity]"], 
+        RowBox[{"+", 
+         RowBox[{
+          SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             StyleBox["n",
+              FontSlant->"Italic"], "-", "1"}], ")"}], 
+           SuperscriptBox[
+            StyleBox["t",
+             FontSlant->"Italic"], 
+            RowBox[{
+             StyleBox["n",
+              FontSlant->"Italic"], "-", "2"}]], 
+           SuperscriptBox[
+            StyleBox["e",
+             FontSlant->"Italic"], 
+            RowBox[{"-", 
+             StyleBox["t",
+              FontSlant->"Italic"]}]], 
+           StyleBox["d",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           StyleBox["t",
+            FontSlant->"Italic"]}]}]}]}],
+       GridBoxOptions->{
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}}]},
+     {" ", "=", 
+      StyleBox[
+       RowBox[{"0", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           StyleBox["n",
+            FontSlant->"Italic"], "-", "1"}], ")"}], 
+         RowBox[{
+          SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+          RowBox[{
+           SuperscriptBox[
+            StyleBox["t",
+             FontSlant->"Italic"], 
+            RowBox[{
+             StyleBox["n",
+              FontSlant->"Italic"], "-", "2"}]], 
+           SuperscriptBox[
+            StyleBox["e",
+             FontSlant->"Italic"], 
+            RowBox[{"-", 
+             StyleBox["t",
+              FontSlant->"Italic"]}]], 
+           StyleBox["d",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           StyleBox["t",
+            FontSlant->"Italic"]}]}]}]}],
+       GridBoxOptions->{
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}}]},
+     {" ", "=", 
+      StyleBox[
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["n",
+           FontSlant->"Italic"], "-", "1"}], ")"}], "\[CapitalGamma]", 
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["n",
+           FontSlant->"Italic"], "-", "1"}], ")"}]}],
+       GridBoxOptions->{
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.437485773032117*^9, 
+  3.4374858120501175`*^9}},
+ FontFamily->"Times"],
+
+Cell[TextData[{
+ "This relationship is true regardless of whether ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is an integer; however, if ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is an integer then we can also iterate backward to obtain:"
+}], "Text",
+ CellChangeTimes->{{3.437485826749117*^9, 3.437485826754117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"\[CapitalGamma]", "(", "n", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"n", "-", "1"}], ")"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"n", "-", "2"}], ")"}], "\[CenterDot]", "\[CenterDot]", 
+      "\[CenterDot]", "2", "\[CenterDot]", "1", "\[CenterDot]", 
+      RowBox[{"\[CapitalGamma]", "(", "1", ")"}]}]}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"n", "-", "1"}], ")"}], "!"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4374858327291174`*^9, 3.4374858332241173`*^9}}],
+
+Cell[TextData[{
+ "Defining 0! to be 1 as is the custom, this formula gives values to the \
+gamma function for all positive integers ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ".  It also turns out that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalGamma]", "(", 
+     RowBox[{"1", "/", "2"}], ")"}], "="}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SqrtBox["\[Pi]"], TraditionalForm]]],
+ ", as ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " shows below."
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+  RowBox[{
+   SuperscriptBox["t", 
+    RowBox[{
+     RowBox[{"-", "1"}], "/", "2"}]], 
+   SuperscriptBox["E", 
+    RowBox[{"-", "t"}]], "\[ThinSpace]", 
+   RowBox[{"\[DifferentialD]", "t"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+\tThe first two moments of the gamma distribution depend on the parameters \
+\[Alpha] and \[Beta] in an easy way.\
+\>", "Text",
+ CellChangeTimes->{3.4291131029976*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] \[CapitalGamma](\[Alpha], \[Beta]) then \n\t(a) E[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "] = \[Alpha] \[Beta];\n\t(b) Var(",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ") = \[Alpha]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    SuperscriptBox["\[Beta]", "2"]}], TraditionalForm]]],
+ ".\t"
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ": (a) We have"
+}], "Text",
+ CellChangeTimes->{{3.4374858525361176`*^9, 3.437485852539117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    StyleBox["X",
+     FontSlant->"Italic"], "]"}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     RowBox[{
+      SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+      RowBox[{
+       RowBox[{"t", "\[CenterDot]", 
+        FractionBox["1", 
+         RowBox[{
+          SuperscriptBox["\[Beta]", "\[Alpha]"], 
+          RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]}]]}], 
+       SuperscriptBox["t", 
+        RowBox[{"\[Alpha]", "-", "1"}]], 
+       SuperscriptBox["e", 
+        RowBox[{
+         RowBox[{"-", "t"}], "/", "\[Beta]"}]], 
+       StyleBox["dt",
+        FontSlant->"Italic"]}]}],
+     TraditionalForm], ".", " "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4374858525361176`*^9, 3.437485858522117*^9}}],
+
+Cell[TextData[{
+ "But ",
+ StyleBox["by multiplying and dividing by constants",
+  FontColor->GrayLevel[0]],
+ " this integral can be rearranged into"
+}], "Text",
+ CellChangeTimes->{{3.4291145428056*^9, 3.4291145499505997`*^9}, {
+  3.437485877039117*^9, 3.4374858770431175`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    StyleBox["X",
+     FontSlant->"Italic"], "]"}], " ", "=", " ", 
+   RowBox[{"\[Beta]", "\[CenterDot]", 
+    RowBox[{
+     FormBox[
+      RowBox[{
+       FractionBox[
+        RowBox[{"\[CapitalGamma]", "(", 
+         RowBox[{"\[Alpha]", "+", "1"}], ")"}], 
+        RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]], "\[CenterDot]", 
+       RowBox[{
+        SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+        RowBox[{
+         FractionBox["1", 
+          RowBox[{
+           SuperscriptBox["\[Beta]", 
+            RowBox[{"\[Alpha]", "+", "1"}]], 
+           RowBox[{"\[CapitalGamma]", "(", 
+            RowBox[{"\[Alpha]", "+", "1"}], ")"}]}]], 
+         SuperscriptBox["t", "\[Alpha]"], 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{"-", "x"}], "/", "\[Beta]"}]], 
+         StyleBox["dt",
+          FontSlant->"Italic"]}]}]}],
+      TraditionalForm], "."}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4374858827311172`*^9, 3.437485883350117*^9}}],
+
+Cell["\<\
+The integral on the right is that of a \[CapitalGamma](\[Alpha]+1, \[Beta]) \
+density; hence it reduces to 1. Therefore,\
+\>", "Text",
+ CellChangeTimes->{{3.437485898641117*^9, 3.437485898647117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    StyleBox["X",
+     FontSlant->"Italic"], "]"}], " ", "=", "  ", 
+   RowBox[{
+    RowBox[{"\[Beta]", "\[CenterDot]", 
+     FormBox[
+      FractionBox[
+       RowBox[{"\[CapitalGamma]", "(", 
+        RowBox[{"\[Alpha]", "+", "1"}], ")"}], 
+       RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]],
+      TraditionalForm]}], " ", "=", " ", 
+    RowBox[{"\[Beta]", "\[CenterDot]", 
+     RowBox[{
+      FormBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"\[Alpha]\[CapitalGamma]", "(", "\[Alpha]", ")"}], 
+         RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]], "=", 
+        "\[Alpha]\[Beta]"}],
+       TraditionalForm], "."}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437485905096117*^9, 3.437485905449117*^9}}],
+
+Cell[TextData[{
+ "(b) We leave ",
+ StyleBox["the proof of this part ",
+  FontColor->GrayLevel[0]],
+ "as Exercise 3.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4291146145615997`*^9, 3.4291146205716*^9}, 
+   3.4291187020176*^9, {3.4374852659541173`*^9, 3.437485269523117*^9}}],
+
+Cell[TextData[{
+ "\tThe next result on sums of independent gamma random variables is crucial \
+to much of statistical inference and applied probability.  It says that if \
+the random variables share the same \[Beta] parameter, then the sum also has \
+the gamma distribution.  This will yield a very fundamental property of the \
+Poisson process in ",
+ StyleBox["Chapter 6",
+  FontColor->GrayLevel[0]],
+ ", and it will loom large in the study of inference on the normal variance \
+parameter in Section 4.6. "
+}], "Text",
+ CellChangeTimes->{{3.4291146900025997`*^9, 3.4291147097486*^9}, {
+  3.4291187347005997`*^9, 3.4291187528126*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ". (a) The moment-generating function of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", 
+    RowBox[{"(", 
+     RowBox[{"\[Alpha]", ",", "\[Beta]"}], ")"}]}], TraditionalForm]]],
+ " distribution is"
+}], "Text",
+ CellChangeTimes->{{3.437485927713117*^9, 3.437485927716117*^9}, 
+   3.438186209505*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["M",
+     FontSlant->"Italic"], "(", 
+    StyleBox["t",
+     FontSlant->"Italic"], ")"}], " ", "=", " ", 
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    FormBox[
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["e", 
+        StyleBox["tX",
+         FontSlant->"Italic"]], "]"}], " ", "=", " ", 
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"\[Beta]", " ", "t"}]}], ")"}], "\[Alpha]"]]}],
+     TraditionalForm], " "}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437485927713117*^9, 3.437485933530117*^9}}],
+
+Cell[TextData[{
+ "(b) If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", " ", "\[Ellipsis]", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " are independent random variables with, respectively, \[CapitalGamma](",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Alpha]", "1"], ",", "\[Beta]"}], ")"}], ",", " ", 
+    RowBox[{"\[CapitalGamma]", "(", 
+     RowBox[{
+      SubscriptBox["\[Alpha]", "2"], ",", "\[Beta]"}], ")"}], ",", 
+    "\[Ellipsis]", " ", ",", " ", 
+    RowBox[{"\[CapitalGamma]", "(", 
+     RowBox[{
+      SubscriptBox["\[Alpha]", "n"], ",", "\[Beta]"}], ")"}]}], 
+   TraditionalForm]]],
+ " distributions, then"
+}], "Text",
+ CellChangeTimes->{
+  3.4291147228816*^9, {3.437485952317117*^9, 3.4374859523231173`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["Y",
+    FontSlant->"Italic"], " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "n"], 
+      SubscriptBox["X", "i"]}], "\[Tilde]", " ", 
+     RowBox[{"\[CapitalGamma]", "(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["\[Alpha]", "1"], "+", 
+        SubscriptBox["\[Alpha]", "2"], "+", "\[CenterEllipsis]", "+", 
+        SubscriptBox["\[Alpha]", "n"]}], ",", "\[Beta]"}], ")"}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437485958903117*^9, 3.437485959422117*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ". (a) The m.g.f. is"
+}], "Text",
+ CellChangeTimes->{{3.4374859730971174`*^9, 3.4374859731041174`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "(", "t", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     UnderoverscriptBox["\[Integral]", "0", "\[Infinity]"], 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{"t", " ", "x"}]], "\[CenterDot]", 
+       FractionBox["1", 
+        RowBox[{
+         SuperscriptBox["\[Beta]", "\[Alpha]"], 
+         RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]}]]}], 
+      SuperscriptBox["x", 
+       RowBox[{"\[Alpha]", "-", "1"}]], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", "x"}], "/", "\[Beta]"}]], " ", "d", " ", "x"}]}], "=", 
+    RowBox[{
+     UnderoverscriptBox["\[Integral]", "0", "\[Infinity]"], 
+     RowBox[{
+      FractionBox["1", 
+       RowBox[{
+        SuperscriptBox["\[Beta]", "\[Alpha]"], 
+        RowBox[{"\[CapitalGamma]", "(", "\[Alpha]", ")"}]}]], 
+      SuperscriptBox["x", 
+       RowBox[{"\[Alpha]", "-", "1"}]], 
+      SuperscriptBox["e", 
+       RowBox[{"-", 
+        RowBox[{"x", "(", 
+         RowBox[{
+          RowBox[{"1", "/", "\[Beta]"}], " ", "-", " ", "t"}], ")"}]}]], " ", 
+      "d", " ", "x"}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4374859794151173`*^9, 3.437485980280117*^9}}],
+
+Cell[TextData[{
+ "In the integral on the right, for fixed ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " we make the change in parameter \[Delta] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Beta]", "/", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"\[Beta]", " ", "t"}]}], ")"}]}], TraditionalForm]]],
+ ". Notice that ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"\[Delta]", "/", "\[Beta]"}], "=", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"\[Beta]", " ", "t"}]}], ")"}]}]}],
+    FontColor->GrayLevel[0]], TraditionalForm]]],
+ " and 1/\[Delta] = 1/\[Beta] ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ ". Then,"
+}], "Text",
+ CellChangeTimes->{
+  3.4291147305506*^9, {3.4291148230626*^9, 3.4291148504156*^9}, {
+   3.437485991561117*^9, 3.437485991565117*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{" ", 
+        RowBox[{"M", 
+         RowBox[{"(", "t", ")"}]}]}], "=", 
+       RowBox[{
+        FractionBox["1", 
+         SuperscriptBox["\[Beta]", "\[Alpha]"]], "\[CenterDot]", 
+        RowBox[{
+         SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+         RowBox[{
+          FractionBox["1", 
+           RowBox[{"\[CapitalGamma]", 
+            RowBox[{"(", "\[Alpha]", ")"}]}]], 
+          SuperscriptBox["x", 
+           RowBox[{"\[Alpha]", "-", "1"}]], 
+          SuperscriptBox["e", 
+           RowBox[{
+            RowBox[{"-", "x"}], "/", "\[Delta]"}]], 
+          StyleBox["dx",
+           FontSlant->"Italic"]}]}]}]},
+      {" ", "=", 
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["\[Delta]", "\[Alpha]"], 
+         SuperscriptBox["\[Beta]", "\[Alpha]"]], "\[CenterDot]", 
+        RowBox[{
+         SubsuperscriptBox["\[Integral]", "0", "\[Infinity]"], 
+         RowBox[{
+          FractionBox["1", 
+           RowBox[{
+            SuperscriptBox["\[Delta]", "\[Alpha]"], "\[CapitalGamma]", 
+            RowBox[{"(", "\[Alpha]", ")"}]}]], 
+          SuperscriptBox["x", 
+           RowBox[{"\[Alpha]", "-", "1"}]], 
+          SuperscriptBox["e", 
+           RowBox[{
+            RowBox[{"-", "x"}], "/", "\[Delta]"}]], 
+          StyleBox["dx",
+           FontSlant->"Italic"]}]}]}]},
+      {" ", "=", 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          FractionBox["\[Delta]", "\[Beta]"], ")"}], "\[Alpha]"], "=", 
+        FractionBox["1", 
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"1", "-", 
+             RowBox[{"\[Beta]", " ", "t"}]}], ")"}], "\[Alpha]"], "."}]]}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437485999371117*^9, 3.437485999759117*^9}}],
+
+Cell[TextData[{
+ "(b) The m.g.f. of the sum ",
+ StyleBox["Y",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4291149403576*^9, 3.4291149414276*^9}, {
+  3.437486010251117*^9, 3.4374860102571173`*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubscriptBox["M", "Y"], 
+      RowBox[{"(", "t", ")"}]}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox["e", 
+        RowBox[{"t", 
+         RowBox[{"(", 
+          RowBox[{
+           SubscriptBox["X", "1"], "+", "\[CenterEllipsis]", "+", 
+           SubscriptBox["X", "n"]}], ")"}]}]], "]"}], " ", "=", " ", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["e", 
+          RowBox[{
+           StyleBox["t",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           SubscriptBox[
+            StyleBox["X",
+             FontSlant->"Italic"], "1"]}]], "\[CenterDot]", 
+         SuperscriptBox["e", 
+          RowBox[{
+           StyleBox["t",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           SubscriptBox[
+            StyleBox["X",
+             FontSlant->"Italic"], "2"]}]]}], "\[CenterEllipsis]", " ", 
+        SuperscriptBox["e", 
+         RowBox[{
+          StyleBox["t",
+           FontSlant->"Italic"], 
+          StyleBox[" ",
+           FontSlant->"Italic"], 
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], "n"]}]]}], "]"}]}]}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437486016128117*^9, 3.437486016503117*^9}, {
+  3.438186349368*^9, 3.438186356238*^9}}],
+
+Cell[TextData[{
+ "By independence of the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ "'s and part (a), this becomes"
+}], "Text",
+ CellChangeTimes->{{3.437486026396117*^9, 3.437486026412117*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubscriptBox["M", "Y"], 
+      RowBox[{"(", "t", ")"}]}], " ", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           StyleBox["t",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           SubscriptBox[
+            StyleBox["X",
+             FontSlant->"Italic"], "1"]}]], "]"}], "\[CenterDot]", 
+        RowBox[{
+         StyleBox["E",
+          FontSlant->"Plain"], "[", 
+         SuperscriptBox["e", 
+          RowBox[{
+           StyleBox["t",
+            FontSlant->"Italic"], 
+           StyleBox[" ",
+            FontSlant->"Italic"], 
+           SubscriptBox[
+            StyleBox["X",
+             FontSlant->"Italic"], "2"]}]], "]"}]}], "\[CenterEllipsis]", " ", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        SuperscriptBox["e", 
+         RowBox[{
+          StyleBox["t",
+           FontSlant->"Italic"], 
+          StyleBox[" ",
+           FontSlant->"Italic"], 
+          SubscriptBox[
+           StyleBox["X",
+            FontSlant->"Italic"], "n"]}]], "]"}]}], " ", "=", " ", 
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"\[Beta]", " ", 
+           StyleBox["t",
+            FontSlant->"Italic"]}]}], ")"}], 
+        SubscriptBox["\[CapitalSigma]\[Alpha]", "i"]]]}]}], 
+    TraditionalForm]]]]], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437486032483117*^9, 3.437486032846117*^9}, {
+  3.4381863597200003`*^9, 3.4381863637019997`*^9}}],
+
+Cell[TextData[{
+ "which is the m.g.f. of the",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    StyleBox[
+     RowBox[{"\[CapitalGamma]", "(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["\[Alpha]", "1"], "+", 
+        SubscriptBox["\[Alpha]", "2"], "+", "\[CenterEllipsis]", "+", 
+        SubscriptBox["\[Alpha]", "n"]}], ",", "\[Beta]"}], ")"}],
+     FontColor->GrayLevel[0]]}], TraditionalForm]],
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox[" distribution.  ",
+  FontColor->GrayLevel[0]],
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4291149061236*^9, 3.4291149788036003`*^9}, {
+  3.4291188882206*^9, 3.4291188917506*^9}, {3.437485282483117*^9, 
+  3.437485284614117*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1 ",
+  FontWeight->"Bold"],
+ "At a lunch counter, the customers seat themselves, then wait for an amount \
+of time ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "1"], TraditionalForm]]],
+ " that we assume has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"1", ",", " ", "2"}], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ " distribution for their order to be taken.  Then an amount of time ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "2"], TraditionalForm]]],
+ ", assumed to be independent of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "1"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"3", ",", "2"}], ")"}], TraditionalForm]]],
+ " distributed, passes until their food arrives.  Find the mean and variance \
+of the total time taken from initial arrival to delivery of the food order, \
+and find the probability that this total time is at least 9 minutes. "
+}], "Text",
+ CellChangeTimes->{{3.4291189362506*^9, 3.4291189769736*^9}, {
+  3.4291190080926*^9, 3.4291191083006*^9}, {3.4291191487796*^9, 
+  3.4291192618026*^9}}],
+
+Cell[TextData[{
+ "\tThe mean time until the food arrives is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["T", "1"], "+", 
+      SubscriptBox["T", "2"]}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SubscriptBox["T", "1"], "]"}], "+", 
+      RowBox[{
+       StyleBox["E",
+        FontSlant->"Plain"], "[", 
+       SubscriptBox["T", "2"], "]"}]}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"1", "\[CenterDot]", "2"}], "+", 
+       RowBox[{"3", "\[CenterDot]", "2"}]}], "=", "8"}]}]}], 
+   TraditionalForm]]],
+ ", by linearity and Theorem 1(a). Because the two times are assumed to be \
+independent, Theorem 1(b) implies that"
+}], "Text",
+ CellChangeTimes->{{3.4291194068926*^9, 3.4291194147636003`*^9}, {
+  3.4291207030526*^9, 3.4291208371376*^9}, {3.4374860507771173`*^9, 
+  3.437486050780117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[{
+    Cell[BoxData[
+     FormBox[
+      RowBox[{
+       RowBox[{"Var", "(", 
+        RowBox[{
+         SubscriptBox["T", "1"], "+", 
+         SubscriptBox["T", "2"]}], ")"}], "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Var", "(", 
+          SubscriptBox["T", "1"], ")"}], "+", 
+         RowBox[{"Var", "(", 
+          SubscriptBox["T", "2"], ")"}]}], "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"1", "\[CenterDot]", 
+           SuperscriptBox["2", "2"]}], "+", 
+          RowBox[{"3", "\[CenterDot]", 
+           SuperscriptBox["2", "2"]}]}], "=", "16"}]}]}], TraditionalForm]]],
+    "."
+   }]], " "}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4291194068926*^9, 3.4291194147636003`*^9}, {
+  3.4291207030526*^9, 3.4291208371376*^9}, {3.4374860507771173`*^9, 
+  3.437486058001117*^9}}],
+
+Cell[TextData[{
+ "Since the \[Beta] parameters for the two gamma distributions agree, Theorem \
+2(b) implies that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["T", "1"], "+", 
+     SubscriptBox["T", "2"]}], "\[Tilde]", 
+    RowBox[{"\[CapitalGamma]", "(", 
+     RowBox[{
+      RowBox[{"1", "+", "3"}], ",", "2"}], ")"}]}], TraditionalForm]]],
+ ".  Thus, the probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["T", "1"], "+", 
+      SubscriptBox["T", "2"]}], "\[GreaterEqual]", "9"}], "]"}], 
+   TraditionalForm]]],
+ " is about .34, as computed below in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ".  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4291210229636*^9, 3.4291211606236*^9}, {
+  3.4291212229116*^9, 3.4291212233336*^9}, {3.4291212828626003`*^9, 
+  3.4291212834546003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"GammaDistribution", "[", 
+      RowBox[{"4", ",", "2"}], "]"}], ",", "9"}], "]"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4291211682855997`*^9, 3.4291211985736*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  How would you cope with the problem in the last example if ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "2"], TraditionalForm]]],
+ " had the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"2", ",", "3"}], ")"}], TraditionalForm]]],
+ " distribution?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4291193248436003`*^9, 3.4291193818936*^9}}],
+
+Cell["The Exponential Distribution", "Subsection",
+ FontWeight->"Bold"],
+
+Cell["\<\
+\tThe simplest member of the gamma family is also one of the most useful and \
+interesting. Taking \[Alpha] = 1 and \[Lambda] = 1/\[Beta] in the gamma \
+density formula, we get the following.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ". A random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["exponential distribution",
+  FontSlant->"Italic"],
+ " if its probability density function is"
+}], "Text",
+ CellChangeTimes->{
+  3.4291154428536*^9, {3.437486074884117*^9, 3.4374860748881173`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", 
+     RowBox[{"x", ";", "\[Lambda]"}], ")"}], "=", 
+    RowBox[{"\[Lambda]", " ", 
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"-", "\[Lambda]"}], " ", "x"}]]}]}], ",", " ", 
+   RowBox[{"x", ">", "0"}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437486081219117*^9, 3.437486081593117*^9}}],
+
+Cell[TextData[{
+ "where \[Lambda] > 0 is a constant parameter.  We abbreviate ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "\[Tilde] exp(\[Lambda])."
+}], "Text"],
+
+Cell[TextData[{
+ "\tThe related ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " object is called ExponentialDistribution[\[Lambda]].  For example, the \
+following defines the exp(\[Lambda]) p.d.f. in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4291154529606*^9, 3.4291154562785997`*^9}, 
+   3.4291234771576*^9, 3.456778818029126*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "\[Lambda]_"}], "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"ExponentialDistribution", "[", "\[Lambda]", "]"}], ",", "x"}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"g", "[", "x_", "]"}], ":=", 
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "1.5`"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"g", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.7`", ",", "3"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", ".7", "}"}], ",", "Automatic"}], "}"}]}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"g", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1.1`", ",", "4.1`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1.8`", ",", "4.1`"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", 
+        RowBox[{"1.5", 
+         SuperscriptBox["E", 
+          RowBox[{
+           RowBox[{"-", "1.5"}], "*", "1.1"}]]}]}], "}"}]}], ",", 
+     RowBox[{"AxesOrigin", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"1.1", ",", "0"}], "}"}]}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.1", ",", "1.8"}], "}"}], ",", "Automatic"}], "}"}]}]}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1.1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1.1", ",", 
+         RowBox[{"1.5", 
+          SuperscriptBox["E", 
+           RowBox[{
+            RowBox[{"-", "1.5"}], "*", "1.1"}]]}]}], "}"}]}], "}"}], "]"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"g2", ",", "g3"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g4"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3993893300403695`*^9, 3.3993893522399397`*^9}, {
+  3.4291235587326*^9, 3.4291235935836*^9}, {3.4291236365285997`*^9, 
+  3.4291236391396*^9}, {3.4291236702005997`*^9, 3.4291236783386*^9}, {
+  3.4291237788146*^9, 3.4291238913445997`*^9}, {3.4291240008496*^9, 
+  3.4291240057376003`*^9}, {3.4291240916396*^9, 3.4291243366796*^9}, {
+  3.4291243979236*^9, 3.4291244327525997`*^9}, {3.4291244779466*^9, 
+  3.4291244984126*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.27",
+  FontWeight->"Bold"],
+ " - Proportional area property of the exponential distribution "
+}], "Text",
+ CellChangeTimes->{{3.437485316376117*^9, 3.4374853219811172`*^9}, 
+   3.4374853902811174`*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe exponential distribution has a property that is a bit peculiar.  \
+Consider the picture in Figure 27",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "of the exp(1.5) density, and two typical times ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["s",
+     FontSlant->"Italic"], " ", "=", ".7"}], TraditionalForm]]],
+ " and ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " = 1.1 hence ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ " = 1.8. In the first graph, the axis origin is set at (0,0) as usual, and \
+we shade the area to the right of ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ " = .7, and on the second graph we move the axis origin to (",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ ", 0) = (1.1, 0) and shade the area to the right of ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ " = 1.8. Though the vertical scales are different, the graphs look \
+identical. A more careful way of saying this is that the share that the first \
+shaded region has of the total area of 1 appears to be the same as the share \
+that the second shaded region has of the total area to the right of ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " = 1.1. That is,"
+}], "Text",
+ CellChangeTimes->{{3.4291154853476*^9, 3.4291154856136*^9}, {
+   3.4291155644266*^9, 3.4291155722866*^9}, {3.4291236871736*^9, 
+   3.4291236912386*^9}, {3.4291237240486*^9, 3.4291237400216*^9}, 
+   3.4291246034386*^9, {3.4318782977200003`*^9, 3.4318782981*^9}, 
+   3.4374853934081173`*^9, {3.4374861045861173`*^9, 3.437486104589117*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"X", " ", ">", " ", "s"}], "]"}], "1"], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"X", " ", ">", " ", 
+         RowBox[{"t", "+", "s"}]}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"X", " ", ">", " ", "t"}], "]"}]], "."}]}], 
+    TraditionalForm]]]]], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437486110716117*^9, 3.437486111070117*^9}}],
+
+Cell[TextData[{
+ "The right side ",
+ StyleBox["of the equation above",
+  FontColor->GrayLevel[0]],
+ " is also a conditional probability, which implies that"
+}], "Text",
+ CellChangeTimes->{{3.4291156675736*^9, 3.4291156706246*^9}, {
+  3.4374861232111173`*^9, 3.437486123214117*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     StyleBox["X",
+      FontSlant->"Italic"], ">", 
+     StyleBox["s",
+      FontSlant->"Italic"]}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], ">", 
+       RowBox[{
+        StyleBox["t",
+         FontSlant->"Italic"], "+", 
+        StyleBox["s",
+         FontSlant->"Italic"]}]}], " ", "|", " ", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], ">", 
+       StyleBox["t",
+        FontSlant->"Italic"]}]}], "]"}], "."}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437486131714117*^9, 3.4374861703891172`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Verify formula (8) algebraically for an arbitrary exp(\[Lambda]) \
+distribution."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4291129826906*^9, 3.4291129841626*^9}, {
+  3.4291246503705997`*^9, 3.4291246514296*^9}}],
+
+Cell[TextData[{
+ "\tThe intuitive interpretation of equation (8) is as follows. Suppose that \
+we are waiting for our friend Godot, who will arrive at an exponentially \
+distributed time ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ".  We wait for ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " units of time and Godot does not come. Someone else comes by, and asks how \
+likely it is that it will be ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ " more time units (total time ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ ") until Godot gets here. Thus, we are asked about the conditional \
+probability on the right. We must answer the unconditional probability P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " > ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ "], which is the same as if we had just begun waiting for Godot at time \
+instant ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ ". Our waiting has done no good, probabilistically. This characteristic of \
+the exponential distribution is called ",
+ StyleBox["memorylessness",
+  FontSlant->"Italic"],
+ ". It is a great help in analyzing customer service situations in which \
+times between successive arrivals are exponentially distributed. We will have \
+more to say about this in Chapter 6. \n\tSome of the basic properties of the \
+exponential(\[Lambda]) distribution are below. Three of them",
+ StyleBox[", ",
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox["the mean, variance, and moment-generating function",
+  FontColor->GrayLevel[0]],
+ " follow directly from its representation as the \[CapitalGamma](1, 1/\
+\[Lambda]) distribution. The c.d.f. in (10) is a direct integration of the \
+exponential density. You should be sure you know how to prove all of them. "
+}], "Text",
+ CellChangeTimes->{{3.4291157502166*^9, 3.4291157621006002`*^9}, {
+   3.4291158063356*^9, 3.4291158183856*^9}, {3.4291158501415997`*^9, 
+   3.4291158957595997`*^9}, 3.4291247985036*^9, 3.4291248290306*^9, {
+   3.4291248721716003`*^9, 3.4291248730466003`*^9}, 3.4291249520586*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   StyleBox[
+    RowBox[{"If", 
+     StyleBox["X",
+      FontSlant->"Italic"]}]], "\[Tilde]", 
+   RowBox[{"exp", 
+    RowBox[{"(", "\[Lambda]", ")"}]}]}], ",", 
+  RowBox[{"then", " ", Cell[TextData[{
+    "E[",
+    StyleBox["X",
+     FontSlant->"Italic"],
+    "] = 1/\[Lambda]"
+   }]], "   ", "and", " ", Cell[TextData[Cell[BoxData[
+    StyleBox[
+     RowBox[{
+      RowBox[{"Var", 
+       RowBox[{"(", 
+        StyleBox["X",
+         FontSlant->"Italic"], ")"}]}], " ", "=", " ", 
+      RowBox[{"1", "/", 
+       SuperscriptBox["\[Lambda]", "2"]}]}],
+     FontFamily->"Times"]]]]]}]}]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4291248380036*^9, 3.4291248402026*^9}, {
+  3.4291248998585997`*^9, 3.4291249063596*^9}, {3.437486374637317*^9, 
+  3.437486403614317*^9}},
+ FontFamily->"Times"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox[
+     RowBox[{"If", 
+      StyleBox["X",
+       FontSlant->"Italic"]}]], " ", "\[Tilde]", 
+    RowBox[{"exp", 
+     RowBox[{"(", "\[Lambda]", ")"}]}]}], ",", 
+   RowBox[{
+    RowBox[{"then", " ", Cell[TextData[StyleBox["X",
+      FontSlant->"Italic"]]], " ", "has", " ", 
+     RowBox[{
+      StyleBox["c",
+       FontSlant->"Plain"], ".", 
+      StyleBox["d",
+       FontSlant->"Plain"], ".", 
+      StyleBox["f",
+       FontSlant->"Plain"], ".", " ", 
+      StyleBox["F",
+       FontSlant->"Italic"]}], 
+     RowBox[{"(", 
+      StyleBox["x",
+       FontSlant->"Italic"], ")"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], "\[LessEqual]", 
+       StyleBox["x",
+        FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+     RowBox[{"1", " ", "-", " ", 
+      SuperscriptBox[
+       StyleBox["e",
+        FontSlant->"Italic"], 
+       RowBox[{"-", 
+        StyleBox[
+         RowBox[{"\[Lambda]", 
+          StyleBox["x",
+           FontSlant->"Italic"]}]]}]]}]}]}], ",", " ", 
+   RowBox[{
+    StyleBox["x",
+     FontSlant->"Italic"], " ", ">", " ", "0"}]}], 
+  TextForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4291249167466*^9, 3.4291249371886*^9}, {
+  3.4374864149713173`*^9, 3.437486420112317*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox[
+     RowBox[{"If", 
+      StyleBox["X",
+       FontSlant->"Italic"]}]], " ", "\[Tilde]", 
+    RowBox[{"exp", 
+     RowBox[{"(", "\[Lambda]", ")"}]}]}], ",", 
+   RowBox[{
+    RowBox[{"then", " ", "the", " ", 
+     RowBox[{
+      StyleBox["m",
+       FontSlant->"Plain"], ".", 
+      StyleBox["g",
+       FontSlant->"Plain"], ".", 
+      StyleBox["f",
+       FontSlant->"Plain"], ".", " ", "of"}], " ", Cell[TextData[StyleBox["X",
+      FontSlant->"Italic"]]], "is", " ", 
+     StyleBox["M",
+      FontSlant->"Italic"], 
+     RowBox[{"(", 
+      StyleBox["t",
+       FontSlant->"Italic"], ")"}]}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox[
+       StyleBox["e",
+        FontSlant->"Italic"], 
+       StyleBox[
+        RowBox[{"t", " ", "X"}],
+        FontSlant->"Italic"]], "]"}], " ", "=", " ", 
+     FractionBox["1", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{
+         StyleBox["t",
+          FontSlant->"Italic"], "/", "\[Lambda]"}]}], ")"}]]}]}]}], 
+  TextForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4291249616256*^9, 3.4291249767066*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ " If the waiting time for service at a restaurant is exponentially \
+distributed with parameter \[Lambda] = .5/min. then the expected waiting time \
+is 1/.5 = 2 minutes, and the variance of the waiting time is 1/",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", ".5", ")"}], "2"], TraditionalForm]]],
+ "= 4 so that the standard deviation is 2 minutes also. Using the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " c.d.f. function, the probability that the waiting time will be between 1 \
+and 4 minutes is computed as:"
+}], "Text",
+ CellChangeTimes->{
+  3.4291151599876003`*^9, {3.4291250068255997`*^9, 3.4291250091776*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"F", "[", 
+    RowBox[{"x_", ",", "\[Lambda]_"}], "]"}], ":=", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"ExponentialDistribution", "[", "\[Lambda]", "]"}], ",", "x"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"F", "[", 
+   RowBox[{"4", ",", ".5"}], "]"}], "-", 
+  RowBox[{"F", "[", 
+   RowBox[{"1", ",", ".5"}], "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Of course, we would get the same result by integrating the density between 1 \
+and 4, as below.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4291250682606*^9, 3.4291250682616*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "1", "4"], 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", ".5"}], "]"}], 
+   RowBox[{"\[DifferentialD]", "x"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["  A cellular phone has a 2 year warranty so that if the phone \
+breaks prior to the end of the warranty period the owner will be paid a \
+prorated proportion of the original purchase price of $120 based upon the \
+fraction of time remaining until the 2 year mark. After 2 years, nothing will \
+be paid.  The phone breaks at an exponentially distributed time with mean 4 \
+years. Find the expected amount that the warranty will pay.  ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4291250814346*^9, 3.4291250860736*^9}, {
+   3.4291251348515997`*^9, 3.4291253277956*^9}, {3.4291254225636*^9, 
+   3.4291254699006*^9}, {3.4291257424166*^9, 3.4291257432706003`*^9}, 
+   3.4291258951326*^9}],
+
+Cell[TextData[{
+ StyleBox["\tThe warranty pays an amount ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{"120", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"2", "-", "T"}], ")"}], "/", "2"}]}]}], TraditionalForm]]],
+ " if the breaking time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "\[LessEqual]", "2"}], TraditionalForm]]],
+ " and zero otherwise.  Since the mean of 4 years is the reciprocal of the \
+exponential parameter \[Lambda], ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "\[Tilde]", 
+    RowBox[{"exp", "(", 
+     RowBox[{"1", "/", "4"}], ")"}]}], TraditionalForm]]],
+ ".  Then the expected value of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is:"
+}], "Text",
+ CellChangeTimes->{{3.4291254708266*^9, 3.4291256322636003`*^9}, {
+  3.4291259027525997`*^9, 3.4291259105706*^9}, {3.438186522847*^9, 
+  3.438186522847*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", "0", "2"], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"120", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"2", "-", "t"}], ")"}], "/", "2"}]}], ")"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "/", "4"}], ")"}], 
+    SuperscriptBox["E", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"(", 
+        RowBox[{"1", "/", "4"}], ")"}]}], "*", "t"}]], 
+    RowBox[{"\[DifferentialD]", "t"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4291256364566*^9, 3.4291257122436*^9}, {
+  3.4291257661126003`*^9, 3.4291257686896*^9}, {3.4291259143746*^9, 
+  3.4291259279656*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+The company offering the warranty will have to build a margin of at least \
+$25.57 into the purchase price in order to expect to cover their costs.  \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4291257771436*^9, 3.4291258789765997`*^9}, {
+  3.4291259468566*^9, 3.4291259488636*^9}}],
+
+Cell["Exercises 4.4", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is a random variable with the \[CapitalGamma](1.5, 1.8) distribution. \
+Evaluate:  (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "\[LessEqual]", "3"}], "]"}], TraditionalForm]]],
+ ";  (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", ">", "5"}], "]"}], TraditionalForm]]],
+ ";  (c) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"3", "\[LessEqual]", "X", "\[LessEqual]", "4"}], "]"}], 
+   TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.404168194515625*^9, 3.404168210265625*^9}, {
+  3.4291980221297235`*^9, 3.429198046282724*^9}}],
+
+Cell["\<\
+2. Use the moment-generating function of the gamma distribution in Theorem 2 \
+to derive the formulas for the mean and variance of the distribution. \
+\>", "Text"],
+
+Cell[TextData[{
+ "3. Derive the formula Var(",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ") = \[Alpha]",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Beta]", "2"], TraditionalForm]]],
+ " for the variance of a gamma random variable by direct integration."
+}], "Text"],
+
+Cell["\<\
+4. A project requires two independent phases to be completed, and the phases \
+must be performed back-to-back. Each phase completion time has the exp(4.5) \
+distribution. Find the probability that the project will not be finished by \
+time 0.5. \
+\>", "Text",
+ CellChangeTimes->{3.4291152521646*^9}],
+
+Cell["\<\
+5. Redo Exercise 4 under the assumption that the two phases may be performed \
+concurrently.\
+\>", "Text"],
+
+Cell[TextData[{
+ "6. Use calculus to show that if ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] \[CapitalGamma](2, \[Beta]) then P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[GreaterEqual] 3] is an increasing function of \[Beta]. "
+}], "Text"],
+
+Cell["\<\
+7. If we are waiting for a bus which will arrive at an exponentially \
+distributed time with mean 10 minutes, and we have already waited for 5 \
+minutes, what is the probability that we will wait at least 10 more minutes? \
+What is the expected value of the remaining time (beyond the 5 minutes we \
+have already waited) that we will wait?\
+\>", "Text",
+ CellChangeTimes->{3.4291152616506*^9}],
+
+Cell[TextData[{
+ "8. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] \[CapitalGamma](4, 1/6), find:  (a) a number ",
+ Cell[BoxData[
+  FormBox["b", TraditionalForm]]],
+ " such that P[1\[LessEqual] ",
+ StyleBox["X ",
+  FontSlant->"Italic"],
+ "\[LessEqual] ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ "] = .15;  (b) a number ",
+ Cell[BoxData[
+  FormBox["c", TraditionalForm]]],
+ " such that P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " > ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ "] = .2. "
+}], "Text",
+ CellChangeTimes->{{3.429198505895724*^9, 3.4291985124627237`*^9}, {
+   3.4291986219827237`*^9, 3.4291986598247237`*^9}, {3.429198713503724*^9, 
+   3.429198740408724*^9}, 3.429199667565724*^9, 3.433356927728448*^9}],
+
+Cell["\<\
+9.  Find the c.d.f. of the \[CapitalGamma](2, 1/\[Lambda]) distribution \
+analytically.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["10. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") Gary operates his own landscape business.  It is now 12:00 noon, \
+and he has three lawns scheduled to mow. Suppose that the amounts of time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "1"], ",", 
+    SubscriptBox["T", "2"], ","}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "3"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" (in hours) that it takes to complete the mowing jobs have \
+respectively the",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"1.5", ",", " ", "1"}], ")"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"2.5", ",", " ", "1"}], ")"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"1", ",", " ", "1"}], ")"}], TraditionalForm]]],
+ " distributions. If he has a 7:00 p.m. date and needs an hour to get ready \
+for it, what is the probability that he will be on time? Suppose that before \
+he leaves he also receives a phone call from his sister that lasts an \
+exponentially distributed amount of time with mean 10 minutes. What now is \
+the probability of being on time (if he accepts the call)?"
+}], "Text",
+ CellChangeTimes->{{3.4291152718106003`*^9, 3.4291152768636*^9}, {
+  3.429199724345724*^9, 3.429199771625724*^9}, {3.429199801746724*^9, 
+  3.4291998224297237`*^9}, {3.4291998968727236`*^9, 3.429200013586724*^9}, {
+  3.4292000504457235`*^9, 3.429200177213724*^9}, {3.4292004643967237`*^9, 
+  3.4292004680777235`*^9}, {3.4292009986627235`*^9, 3.4292010033727236`*^9}}],
+
+Cell[TextData[{
+ "11. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") For what value of \[Beta] does the \[CapitalGamma](3, \[Beta]) \
+distribution have median equal to 2?"
+}], "Text"],
+
+Cell[TextData[{
+ "12. Find a general expression for the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " percentile of the exp(\[Lambda]) distribution, i.e., a value ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "p"], TraditionalForm]]],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[LessEqual]", 
+      SubscriptBox["x", "p"]}], "]"}], "=", "p"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.429201352422724*^9, 3.4292014476937237`*^9}, 
+   3.4567788638931265`*^9}],
+
+Cell[TextData[{
+ "\tOne of the most important areas of application for the exponential \
+distribution is the ",
+ StyleBox["Poisson process",
+  FontSlant->"Italic"],
+ ". Exercises 13",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "15 preview some of the ideas that are fleshed out in Section 6.2. A \
+constructive definition of the Poisson process is that it is a collection of \
+random variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["N", "t"], ")"}], 
+    RowBox[{"t", "\[GreaterEqual]", "0"}]], TraditionalForm]]],
+ " such that for each outcome \[Omega] the function mapping time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]]],
+ " to state ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["N", "t"], "(", "\[Omega]", ")"}], TraditionalForm]]],
+ " is a step function starting at 0 and increasing by jumps of size 1 only \
+that occur at a sequence of times ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "1"], ",", 
+    SubscriptBox["T", "2"], ",", 
+    SubscriptBox["T", "3"], ",", "...", " "}], TraditionalForm]]],
+ " such that the times between jumps ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["S", "i"], "=", 
+    RowBox[{
+     SubscriptBox["T", "i"], "-", 
+     SubscriptBox["T", 
+      RowBox[{"i", "-", "1"}]]}]}], TraditionalForm]]],
+ " are independent, identically distributed exp(\[Lambda]) random variables.  \
+Here we take ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "0"], "=", "0"}], TraditionalForm]]],
+ " so that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["S", "1"], "=", 
+    SubscriptBox["T", "1"]}], TraditionalForm]]],
+ ".  The constant \[Lambda] is called the ",
+ StyleBox["rate parameter",
+  FontSlant->"Italic"],
+ " of the process. "
+}], "Text",
+ CellChangeTimes->{{3.429201783958724*^9, 3.429201845479724*^9}, {
+   3.429201890132724*^9, 3.429202125755724*^9}, {3.429202163381724*^9, 
+   3.4292021750487237`*^9}, {3.429202233349724*^9, 3.429202320125724*^9}, {
+   3.429202357006724*^9, 3.429202358843724*^9}, {3.429202553665*^9, 
+   3.429202560292*^9}, 3.4567788684381266`*^9}],
+
+Cell[TextData[{
+ StyleBox["13. If the first four times between jumps are 1.1, 2.3, 1.5, and \
+4.2, what are the first four jump times ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "1"], ",", 
+    SubscriptBox["T", "2"], ",", 
+    SubscriptBox["T", "3"], ","}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "4"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["? What are the values of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["N", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" at times .8, 2.6, 4.1, and 5.9?  What would be a reasonable \
+estimate of the rate parameter of the process?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4292024196400003`*^9, 3.429202422042*^9}, {
+  3.429202467447*^9, 3.429202489035*^9}, {3.4292025193859997`*^9, 
+  3.429202541218*^9}, {3.4292025866940002`*^9, 3.429202664316*^9}}],
+
+Cell[TextData[{
+ "14. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") What is the probability distribution of the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]]],
+ " jump time ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "n"], TraditionalForm]]],
+ "?  For a Poisson process with rate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", ".56"}], TraditionalForm]]],
+ ", find the probability that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "3"], ">", "6.1"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4292024196400003`*^9, 3.429202443474*^9}, {
+  3.429208398961*^9, 3.429208492894*^9}}],
+
+Cell[TextData[{
+ "15. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["N", "t"], "\[GreaterEqual]", "n"}], "}"}], 
+   TraditionalForm]]],
+ " is equivalent to what event involving ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "n"], TraditionalForm]]],
+ "? For a Poisson process with rate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", "2"}], TraditionalForm]]],
+ ", compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "[", 
+    RowBox[{
+     SubscriptBox["N", "3.1"], "\[GreaterEqual]", "4"}], "]"}], 
+   TraditionalForm]]],
+ " in two different ways. "
+}], "Text",
+ CellChangeTimes->{{3.4292024196400003`*^9, 3.429202446576*^9}, {
+  3.429208827683*^9, 3.4292089618570004`*^9}}],
+
+Cell["Sample Problems from Actuarial Exam P  ", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9, {3.4291117358736*^9, 3.4291117575736*^9}, 
+   3.4291121617496*^9},
+ FontWeight->"Bold",
+ FontColor->GrayLevel[0]],
+
+Cell[TextData[{
+ "16. An insurance policy reimburses dental expense, ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", up to a maximum benefit of 250. The probability density function for ",
+ StyleBox["X ",
+  FontSlant->"Italic"],
+ "is:  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], "=", 
+     RowBox[{"c", " ", 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", ".004"}], "x"}]]}]}], ",", " ", 
+    RowBox[{"x", ">", "0"}]}], TraditionalForm]]],
+ StyleBox[" ",
+  FontFamily->"SymbolMT"],
+ "where ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " is a constant. Calculate the median benefit for this policy."
+}], "Text",
+ CellChangeTimes->{{3.427822589579715*^9, 3.427822600811715*^9}, {
+   3.4278226595337152`*^9, 3.4278226732707148`*^9}, 3.427822800403715*^9, {
+   3.427843624508*^9, 3.427843732446*^9}, 3.427910365707118*^9, 
+   3.4284956897057276`*^9, {3.4284957866707277`*^9, 3.4284957956277275`*^9}, {
+   3.4284961024607277`*^9, 3.4284961395267277`*^9}, {3.428760923113*^9, 
+   3.428760925646*^9}, {3.4291115330906*^9, 3.4291115357116003`*^9}, {
+   3.4291118830256*^9, 3.4291119561286*^9}, {3.4291121649116*^9, 
+   3.4291121673066*^9}, 3.4292026968599997`*^9, {3.4292125746429996`*^9, 
+   3.429212579303*^9}, {3.4292138147130003`*^9, 3.429213815711*^9}},
+ FontColor->GrayLevel[0]],
+
+Cell[TextData[StyleBox["17. An insurance company sells two types of auto \
+insurance policies: Basic and Deluxe. The time until the next Basic Policy \
+claim is an exponential random variable with mean two days. The time until \
+the next Deluxe Policy claim is an independent exponential random variable \
+with mean three days. What is the probability that the next claim will be a \
+Deluxe Policy claim?",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.4291120380126*^9, 3.4291120473666*^9}, {
+   3.4291120882005997`*^9, 3.4291120940576*^9}, {3.4291121779466*^9, 
+   3.4291121902326*^9}, 3.4292027003*^9, {3.429212587676*^9, 
+   3.429212595087*^9}, 3.429212995658*^9}]
+},
+AutoGeneratedPackage->None,
+CellGrouping->Manual,
+WindowSize->{587, 626},
+WindowMargins->{{8, Automatic}, {Automatic, 6}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 4 Continuous Distributions"], "Header"]}, {
+   Cell[
+    TextData["4.5 Gamma Distributions"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PrintingOptions->{"PrintCellBrackets"->False,
+"PrintMultipleHorizontalPages"->False,
+"PrintRegistrationMarks"->False,
+"PrintingMargins"->{{54, 54}, {72, 72}}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 219, 6, 68, "Section"],
+Cell[789, 30, 58, 1, 41, "Subsection"],
+Cell[850, 33, 599, 14, 107, "Text"],
+Cell[1452, 49, 331, 11, 49, "Text"],
+Cell[1786, 62, 772, 25, 50, "DisplayFormulaNumbered"],
+Cell[2561, 89, 187, 5, 27, "Text"],
+Cell[2751, 96, 206, 4, 48, "Text"],
+Cell[2960, 102, 600, 19, 46, "DisplayFormulaNumbered"],
+Cell[3563, 123, 161, 3, 48, "Text"],
+Cell[3727, 128, 331, 11, 69, "Text"],
+Cell[4061, 141, 921, 24, 152, "Text"],
+Cell[4985, 167, 1197, 35, 123, "Input",
+ InitializationCell->True],
+Cell[6185, 204, 254, 8, 28, "Text"],
+Cell[6442, 214, 431, 15, 48, "Text"],
+Cell[6876, 231, 544, 16, 76, "Input",
+ InitializationCell->True],
+Cell[7423, 249, 415, 11, 111, "Text"],
+Cell[7841, 262, 2978, 84, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[10822, 348, 480, 10, 70, "Text"],
+Cell[11305, 360, 1392, 24, 235, "Text"],
+Cell[12700, 386, 1383, 37, 101, "Input"]
+}, Open  ]],
+Cell[14098, 426, 263, 5, 48, "Text"],
+Cell[14364, 433, 476, 14, 46, "DisplayFormulaNumbered"],
+Cell[14843, 449, 184, 4, 27, "Text"],
+Cell[15030, 455, 4759, 144, 110, "DisplayFormulaNumbered"],
+Cell[19792, 601, 320, 9, 48, "Text"],
+Cell[20115, 612, 610, 17, 33, "DisplayFormulaNumbered"],
+Cell[20728, 631, 498, 18, 52, "Text"],
+Cell[21229, 651, 614, 19, 75, "Input",
+ InitializationCell->True],
+Cell[21846, 672, 177, 4, 48, "Text"],
+Cell[22026, 678, 429, 18, 72, "Text"],
+Cell[22458, 698, 154, 5, 28, "Text"],
+Cell[22615, 705, 839, 26, 50, "DisplayFormula"],
+Cell[23457, 733, 276, 7, 27, "Text"],
+Cell[23736, 742, 1102, 32, 52, "DisplayFormula"],
+Cell[24841, 776, 210, 4, 27, "Text"],
+Cell[25054, 782, 851, 25, 51, "DisplayFormula"],
+Cell[25908, 809, 288, 8, 27, "Text"],
+Cell[26199, 819, 634, 12, 110, "Text"],
+Cell[26836, 833, 378, 12, 28, "Text"],
+Cell[27217, 847, 681, 23, 50, "DisplayFormulaNumbered"],
+Cell[27901, 872, 846, 26, 48, "Text"],
+Cell[28750, 900, 636, 18, 38, "DisplayFormula"],
+Cell[29389, 920, 162, 5, 28, "Text"],
+Cell[29554, 927, 1225, 35, 68, "DisplayFormula"],
+Cell[30782, 964, 890, 32, 48, "Text"],
+Cell[31675, 998, 2040, 58, 111, "DisplayFormula"],
+Cell[33718, 1058, 244, 8, 27, "Text"],
+Cell[33965, 1068, 1600, 51, 34, "DisplayFormula"],
+Cell[35568, 1121, 227, 7, 27, "Text"],
+Cell[35798, 1130, 1751, 56, 43, "DisplayFormula"],
+Cell[37552, 1188, 688, 20, 27, "Text"],
+Cell[38243, 1210, 1178, 33, 132, "Text"],
+Cell[39424, 1245, 973, 31, 69, "Text"],
+Cell[40400, 1278, 877, 26, 30, "DisplayFormula"],
+Cell[41280, 1306, 883, 28, 69, "Text"],
+Cell[42166, 1336, 602, 17, 56, "Input",
+ InitializationCell->True],
+Cell[42771, 1355, 447, 15, 69, "Text"],
+Cell[43221, 1372, 71, 1, 41, "Subsection"],
+Cell[43295, 1375, 215, 4, 45, "Text"],
+Cell[43513, 1381, 350, 12, 49, "Text"],
+Cell[43866, 1395, 396, 11, 33, "DisplayFormulaNumbered"],
+Cell[44265, 1408, 159, 5, 27, "Text"],
+Cell[44427, 1415, 387, 11, 48, "Text"],
+Cell[44817, 1428, 559, 17, 56, "Input",
+ InitializationCell->True],
+Cell[45379, 1447, 2879, 85, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[48261, 1534, 261, 7, 28, "Text"],
+Cell[48525, 1543, 1609, 45, 173, "Text"],
+Cell[50137, 1590, 677, 21, 41, "DisplayFormula"],
+Cell[50817, 1613, 281, 7, 27, "Text"],
+Cell[51101, 1622, 794, 30, 33, "DisplayFormulaNumbered"],
+Cell[51898, 1654, 289, 8, 48, "Text"],
+Cell[52190, 1664, 2044, 49, 297, "Text"],
+Cell[54237, 1715, 829, 27, 34, "DisplayFormulaNumbered"],
+Cell[55069, 1744, 1380, 48, 30, "DisplayFormulaNumbered"],
+Cell[56452, 1794, 1211, 42, 50, "DisplayFormulaNumbered"],
+Cell[57666, 1838, 710, 17, 113, "Text"],
+Cell[58379, 1857, 724, 23, 79, "Input",
+ InitializationCell->True],
+Cell[59106, 1882, 198, 4, 48, "Text"],
+Cell[59307, 1888, 522, 16, 76, "Input",
+ InitializationCell->True],
+Cell[59832, 1906, 802, 15, 111, "Text"],
+Cell[60637, 1923, 891, 28, 69, "Text"],
+Cell[61531, 1953, 983, 30, 76, "Input",
+ InitializationCell->True],
+Cell[62517, 1985, 301, 6, 48, "Text"],
+Cell[62821, 1993, 80, 2, 41, "Subsection"],
+Cell[62904, 1997, 863, 33, 45, "Text"],
+Cell[63770, 2032, 173, 3, 48, "Text"],
+Cell[63946, 2037, 266, 9, 50, "Text"],
+Cell[64215, 2048, 309, 6, 69, "Text"],
+Cell[64527, 2056, 116, 3, 48, "Text"],
+Cell[64646, 2061, 254, 8, 27, "Text"],
+Cell[64903, 2071, 403, 7, 90, "Text"],
+Cell[65309, 2080, 783, 29, 48, "Text"],
+Cell[66095, 2111, 111, 3, 27, "Text"],
+Cell[66209, 2116, 1928, 50, 173, "Text"],
+Cell[68140, 2168, 193, 6, 48, "Text"],
+Cell[68336, 2176, 612, 21, 52, "Text"],
+Cell[68951, 2199, 2161, 64, 175, "Text"],
+Cell[71115, 2265, 1006, 28, 69, "Text"],
+Cell[72124, 2295, 672, 24, 50, "Text"],
+Cell[72799, 2321, 788, 29, 48, "Text"],
+Cell[73590, 2352, 402, 7, 27, "Text"],
+Cell[73995, 2361, 1335, 34, 71, "Text"],
+Cell[75333, 2397, 680, 10, 110, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)

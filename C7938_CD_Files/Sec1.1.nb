@@ -1,0 +1,1409 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     53513,       1400]
+NotebookOptionsPosition[     50473,       1305]
+NotebookOutlinePosition[     51343,       1338]
+CellTagsIndexPosition[     51300,       1335]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+CHAPTER 1 
+ DISCRETE PROBABILITY\
+\>", "Title",
+ TextAlignment->Center,
+ FontSize->18,
+ FontWeight->"Bold"],
+
+Cell[CellGroupData[{
+
+Cell["1.1 The Cast of Characters", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tWhy study probability? All around us is uncertainty and we must \
+understand its nature in order to conduct ourselves in the world. We join the \
+shortest waiting line in hopes that it has the best chance of allowing us to \
+be served quickly.  We invest our savings in assets that we believe are most \
+likely to yield high returns.  We buy the battery that we think is most \
+likely to last the longest.  The study of probability also lets you \
+understand the mechanics of games of chance like roulette, poker, and \
+blackjack; what is predictable and what is not, what to bet on (usually \
+nothing) and what not to bet on (usually everything).  In all of these cases \
+we do not know for certain what will happen before the phenomenon is observed \
+(we don't know how much time we will wait in line, what our opponent's \
+blackjack hand will be, etc.).  But some common-sense assumptions, background \
+knowledge, or a long history of observed data from similar experiments can \
+enable us to quantify likelihoods.  Several of these examples have actually \
+given birth to significant subfields of probability or related areas of \
+study, for example, queueing theory (i.e., the study of waiting lines) and \
+mathematical finance, which are introduced in Chapter 6.   Probability also \
+provides the theoretical basis for statistics, which is the art of using data \
+obtained randomly to draw conclusions about social and scientific phenomena. \
+\n\tIn addition to all this, probability exhibits many of the aesthetically \
+appealing properties that attract people to mathematics in general. It \
+proceeds logically from a few simple axioms to build an abstract structure \
+which is straightforward, yet powerful. The cast of characters of probability \
+is both foreign and tangible, which implies that you must work a little to \
+get to know them, but there is hope in succeeding in the acquaintance.\n\t\
+This text will be somewhat different from others in the field. While the main \
+ideas of probability have not changed much in at least fifty years, the world \
+has, and learning in mathematics has changed with it.  Many things are \
+technologically possible today of which mathematics education should take \
+advantage.  This book is a living, interactive text which asks you to do \
+activities as you read carefully to help you understand and discover the \
+ideas of probability in new ways, on your own terms.  The complete text is \
+available electronically in the form of ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " notebooks, one for each section.  The notebooks are executable, so that \
+you can reenter existing commands, modify them, or write your own \
+supplemental commands to take the study in the direction you wish. You will \
+be building probability yourself in a kind of workshop, with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and your own insight and love of experimentation as your most powerful \
+tools.  I caution you against depending too much on the machine, however.  \
+Much of the time, traditional pencil, paper, and brainpower are what you need \
+most to learn.  What the computer does, however, is open up new problems, or \
+let you get new insights into concepts.  So we will be judiciously blending \
+new technology with traditionally successful pedagogy to enable you to learn \
+effectively.  Consistent themes will be the idea of taking a sample randomly \
+from a larger universe of objects in order to get information about that \
+universe, and the computer simulation of random phenomena to observe patterns \
+in many replications that speak to the properties of the phenomena. \n\tThe \
+cast of characters in probability whose personalities we will explore in \
+depth in the coming chapters include the following six principal players: (1) \
+Event; (2) Sample Space; (3) Probability Measure; (4) Random Variable; (5) \
+Distribution; and (6) Expectation.  The rest of this section will be a brief \
+intuitive introduction to these six. \n\tMost of the time we are interested \
+in assessing likelihoods of ",
+ StyleBox["events",
+  FontSlant->"Italic"],
+ ", that is, things that we might observe as we watch a phenomenon happen. \
+The event that a national chain's bid to acquire a local grocery store is \
+successful, the event that at least 10 patients arrive to an emergency room \
+between 6:00 and 7:00 AM, the event that a hand of five poker cards forms a \
+straight, the event that we hold the winning ticket in the lottery, and the \
+event that two particular candidates among several are selected for jury duty \
+are just a few examples. They share the characteristic that there is some \
+uncertain experiment, sampling process, or phenomenon whose result we do not \
+know \"now\". But there is a theoretical \"later\" at which we can observe \
+the phenomenon taking place, and decide whether the event did or didn't \
+occur.\n\tAn ",
+ StyleBox["outcome",
+  FontSlant->"Italic"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "(sometimes called a ",
+ StyleBox["simple event",
+  FontSlant->"Italic"],
+ ") is an event that cannot be broken down into some combination of other \
+events. A ",
+ StyleBox["composite event",
+  FontSlant->"Italic"],
+ " is just an event that isn't simple, that is, it has more than one outcome. \
+For instance the event that we are dealt a poker hand that makes up a \
+straight is composite because it consists of many outcomes which completely \
+specify the hand, such as 2 through 6 of hearts, 10 through ace of clubs, \
+etc. ",
+ "\n",
+ "\tThis is where the ",
+ StyleBox["sample space",
+  FontSlant->"Italic"],
+ " makes its entry: the sample space is the collection of all possible \
+outcomes of the experiment or phenomenon, that is all possible indecomposable \
+results that could happen.  For the poker hand example, the sample space \
+would consist of all possible five-card hands. In specifying sample spaces, \
+we must be clear about assumptions; for instance we might assume that the \
+order in which the cards were dealt does not matter, and we cannot receive \
+the same card twice, so that the cards are dealt without replacement."
+}], "Text",
+ CellChangeTimes->{{3.405726539125*^9, 3.405726541265625*^9}, {
+   3.4057266866875*^9, 3.40572668875*^9}, {3.405726813078125*^9, 
+   3.405726818265625*^9}, {3.405726919078125*^9, 3.4057269464375*^9}, {
+   3.405727008*^9, 3.40572701078125*^9}, {3.40572709534375*^9, 
+   3.405727099125*^9}, 3.40663666409375*^9, {3.406636694609375*^9, 
+   3.406636734453125*^9}, {3.40663678809375*^9, 3.40663683140625*^9}, {
+   3.406636960265625*^9, 3.406636978421875*^9}, {3.406637019625*^9, 
+   3.406637101421875*^9}, {3.406637150859375*^9, 3.406637178078125*^9}, {
+   3.4561543734801683`*^9, 3.456154378035368*^9}, {3.4561544489529676`*^9, 
+   3.456154452338168*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  How can you characterize the sample space for the ",
+ "grocery store",
+ " example?  Make up your own random phenomenon, informally describe the \
+sample space, and give examples of events. "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.40572726278125*^9, 3.405727265953125*^9}, 
+   3.4066372010625*^9}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  In the emergency room example above, is the event that was described an \
+outcome or a composite event?  If that event is composite, write down an \
+example of an outcome relating to that phenomenon."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.405727227765625*^9, 3.40572724078125*^9}, {
+  3.40663723284375*^9, 3.406637251484375*^9}}],
+
+Cell[TextData[{
+ "\tIn random phenomena, we need a way of measuring how likely the events are \
+to occur. This may be done by some theoretical considerations, or by \
+experience with past experiments of the same kind. A ",
+ StyleBox["probability measure",
+  FontSlant->"Italic"],
+ " assigns a likelihood, that is a number between 0 and 1, to all events. \
+Though we will have to be more subtle later, for now we can intuitively \
+consider the extremes of 0 and 1 as representing impossibility and complete \
+certainty, respectively. \n\tMuch of the time in probability problems, \
+probability measures are constructed so that the probability of an event is \
+the \"size\" of the event as a proportion of the \"size\" of the whole sample \
+space. \"Size\" may mean different things depending on the context, but the \
+two most frequent usages are cardinality, that is number of elements of a \
+set, and length (or area in two dimensions). For example, if you roll a fair \
+die once, since there are six possible faces that could land on top, the \
+sample space is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6"}], "}"}], 
+   TraditionalForm]]],
+ ". Since three of the faces are odd, it seems reasonable that the \
+probability that an odd number is rolled is 3/6. Size means length in the \
+following scenario. Suppose that a real number is to be randomly selected in \
+the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ ". This interval is the sample space for the random phenomenon. Then the \
+probability that the random real number will be in the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"1", ",", "3"}], "]"}], TraditionalForm]]],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"2", "/", "4"}], "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ ", which is the length of the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"1", ",", "3"}], "]"}], TraditionalForm]]],
+ " divided by the length of the whole sample space interval. \n\tThe first \
+two chapters will concentrate on discrete probability, in which counting the \
+number of elements in sets is very important. We will leave much of the \
+detail for later sections, except to remind you of the intuitively obvious ",
+ StyleBox["multiplication principle",
+  FontSlant->"Italic"],
+ " for counting. If outcomes of a random experiment consist of two stages, \
+then the total number of outcomes of the experiment is the number of ways the \
+first stage can occur times the number of ways that the second can occur. \
+This generalizes to multiple stage experiments. For instance, if a man has 3 \
+suits, 6 shirts, and 4 ties, and he doesn't care about color coordination and \
+the like, then he has ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"3", "\[Cross]", "6", "\[Cross]", "4"}], "=", "72"}], 
+   TraditionalForm]]],
+ " possible outfits. \n\tIt is possible to experimentally estimate a \
+probability by repeating the experiment over and over again. The probability \
+of the event can be estimated by the number of times that it occurs among the \
+replications divided by the number of replications.  Try this exercise. In \
+the ",
+ "KnoxProb7",
+ "`Utilities` package that you should have installed is a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command called \n\n\t\t\tDrawIntegerSample[a, b, n] \n \nwhich outputs a \
+sequence of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " numbers drawn at random, without reusing numbers previously in the \
+sequence, from the positive integers in the range ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", ",", " ", "...", " ", ",", " ", "b"}], TraditionalForm]]],
+ ".  (You should be sure that the package has been loaded into the \
+ExtraPackages subdirectory within the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " directory you are using on your computer.)  First execute the command to \
+load the package, then try repeating the experiment of drawing samples of two \
+numbers from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "...", " ", ",", "5"}], "}"}], TraditionalForm]]],
+ " a large number of times. I have shown one such sample below. Keep track of \
+how frequently the number 1 appears in your samples. Empirically, what is a \
+good estimate of the probability that 1 is in the random sample of size two? \
+Talk with a group of your classmates, and see if you can set up a good \
+theoretical foundation that supports your conclusion. (Try to specify the \
+sample space of the experiment.)  We will study this type of experiment more \
+carefully later in this chapter.  Incidentally, recall that ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " uses braces { } to delineate sequences as well as unordered sets. We hope \
+that the context will make it clear which is meant; here the integer random \
+sample is assumed to be in sequence, so that, for example, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "3"}], "}"}], TraditionalForm]]],
+ " is different from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.403881907859375*^9, 3.405727329015625*^9, {3.40572750653125*^9, 
+   3.40572750778125*^9}, 3.4403479634972*^9, {3.4561592657334003`*^9, 
+   3.4561592684166*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.398445187289208*^9, 3.4403479711879997`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DrawIntegerSample", "[", 
+  RowBox[{"1", ",", "5", ",", "2"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398445194318838*^9, 3.3984451945531588`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3", ",", "2"}], "}"}]], "Output",
+ CellChangeTimes->{3.4403485562992*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "\tWe are halfway through our introduction of the cast of characters. Often \
+the outcomes of a random phenomenon are not just numbers. They may be \
+sequences of numbers as in our sampling experiment, or even non-numerical \
+data such as the color of an M&M that we randomly select from a bag. Yet we \
+may be interested in encoding the simple events by single numbers, or \
+extracting some single numerical characteristic from more complete \
+information. For example, if we are dealt a five card hand in poker, an \
+outcome is a full specification of all five cards, whereas we could be \
+interested only in the number of aces in the hand, which is a numerical \
+valued function of the outcome. ",
+ "Or, the sample space could consist of subjects in a medical experiment, and \
+we may be interested in the blood sugar level of a randomly selected subject.",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "Such a function for transforming outcomes to numerical values is called a ",
+ StyleBox["random variable",
+  FontSlant->"Italic"],
+ ", the fourth member of our cast of characters. Since the random variable \
+depends on the outcome, and we do not know in advance what will happen, the \
+value of the random variable is itself uncertain until after the experiment \
+has been observed. "
+}], "Text",
+ CellChangeTimes->{{3.405727568546875*^9, 3.405727625140625*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Use DrawIntegerSample again as below to draw samples of size five from a \
+population of size 50.  Suppose we are interested in the random variable \
+which gives the minimum among the members of the sample. What values of this \
+random variable do you observe in several replications?"
+}], "Text",
+ CellFrame->True]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{"outcome", "=", 
+  RowBox[{"DrawIntegerSample", "[", 
+   RowBox[{"1", ",", "50", ",", "5"}], "]"}]}], "\n", 
+ RowBox[{"X", "=", 
+  RowBox[{"Min", "[", "outcome", "]"}]}]}], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.3984452309041567`*^9, 3.398445231107235*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tThe cell below contains a command I have called SimulateMinima for \
+observing a number ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " of values of the minimum random variable from Activity 3.  Read the code \
+carefully to understand how it works. An integer sample is drawn from the set \
+{1,2,...,popsize}, and then its minimum is taken. The Table command assembles \
+a list of ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " of these minima. To get an idea of the pattern of those sample minima, we \
+plot a graph called a ",
+ StyleBox["histogram",
+  FontSlant->"Italic"],
+ " which tells the proportion of times among the ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " replications of the experiment that the sample minimum fell into each of a \
+given number of categories. The Histogram command is in the kernel in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " 7.  Its exact syntax is\n\n\t\t\tHistogram[listofdata, binspecifications, \
+barheightspecifications]\t\t\n\t\t\nwhere the latter two arguments are \
+optional. (See the help documentation, the note in the preface, and the \
+appendix on ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " commands for version 6 of ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and the KnoxProb6`Utilities` package.)  The binspecifications argument can \
+be set to be a number for a desired number of categories, or it can be set to \
+a list ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"d", " ", "w"}], "}"}], TraditionalForm]]],
+ " for a desired category width. The third argument can be set to \"Count,\" \
+\"Probability,\" or \"ProbabilityDensity,\" respectively, to force the bar \
+heights to be freqencies, relative frequencies, or relative frequencies \
+divided by category widths. One output cell is shown in Figure 1 using 100 \
+replications, six histogram rectangles, and using samples of size 5 from {1, \
+... , 50}. You should reexecute several times to see whether your \
+replications give similar histograms. Should they be identical to this one? \
+Why or why not? (If you want to suppress the list of minima and get only the \
+histogram, put a semicolon between the SimulateMinima and Histogram commands.)"
+}], "Text",
+ CellChangeTimes->{{3.403886285484375*^9, 3.403886287828125*^9}, {
+   3.4057277266875*^9, 3.405727837109375*^9}, 3.40572790109375*^9, {
+   3.4057279353125*^9, 3.405727938578125*^9}, {3.405727971484375*^9, 
+   3.40572797446875*^9}, {3.40663754340625*^9, 3.406637544078125*^9}, 
+   3.423413474328125*^9, {3.435680952724*^9, 3.4356809531540003`*^9}, 
+   3.4403479761176*^9, {3.4403480702032003`*^9, 3.4403480753199997`*^9}, {
+   3.4403481280948*^9, 3.4403482752808*^9}, {3.4403483081344*^9, 
+   3.4403485118392*^9}, {3.4561593928238*^9, 3.4561594050542*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimulateMinima", "[", 
+   RowBox[{"m_", ",", "popsize_", ",", "sampsize_"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"Min", "[", 
+     RowBox[{"DrawIntegerSample", "[", 
+      RowBox[{"1", ",", "popsize", ",", "sampsize"}], "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", "m"}], "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3984452446509886`*^9, 3.398445244854067*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"mins", "=", 
+  RowBox[{"SimulateMinima", "[", 
+   RowBox[{"100", ",", "50", ",", "5"}], "]"}]}], "\n", 
+ RowBox[{"Histogram", "[", 
+  RowBox[{"mins", ",", "6"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.398003972864873*^9, {3.3981613817868223`*^9, 3.398161391818136*^9}, {
+   3.398161439709068*^9, 3.398161460834203*^9}, 3.403879457265625*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "8", ",", "1", ",", "2", ",", "1", ",", "11", ",", "4", ",", "23", ",", "5",
+    ",", "1", ",", "17", ",", "1", ",", "3", ",", "1", ",", "4", ",", "11", 
+   ",", "2", ",", "12", ",", "13", ",", "10", ",", "9", ",", "7", ",", "4", 
+   ",", "11", ",", "1", ",", "6", ",", "5", ",", "12", ",", "2", ",", "9", 
+   ",", "3", ",", "28", ",", "12", ",", "16", ",", "7", ",", "4", ",", "3", 
+   ",", "3", ",", "6", ",", "19", ",", "1", ",", "15", ",", "4", ",", "21", 
+   ",", "1", ",", "6", ",", "26", ",", "15", ",", "11", ",", "9", ",", "2", 
+   ",", "2", ",", "8", ",", "4", ",", "1", ",", "1", ",", "4", ",", "9", ",", 
+   "9", ",", "12", ",", "5", ",", "11", ",", "7", ",", "11", ",", "31", ",", 
+   "3", ",", "7", ",", "13", ",", "19", ",", "4", ",", "8", ",", "21", ",", 
+   "11", ",", "17", ",", "10", ",", "6", ",", "5", ",", "5", ",", "16", ",", 
+   "12", ",", "5", ",", "16", ",", "9", ",", "22", ",", "2", ",", "8", ",", 
+   "13", ",", "3", ",", "3", ",", "15", ",", "6", ",", "2", ",", "6", ",", 
+   "8", ",", "22", ",", "19", ",", "1", ",", "4", ",", "13", ",", "8", ",", 
+   "4"}], "}"}]], "Output",
+ CellChangeTimes->{3.4403485563459997`*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{0, 0}, {
+             Rational[16, 3], 41}]},
+          
+          ImageSizeCache->{{15.4375, 
+           86.77678571428572}, {-120.87260496150019`, 120.1234713772982}}]},
+        StatusArea[#, 41]& ,
+        TagBoxNote->"41"],
+       StyleBox["41", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[41, {
+         GrayLevel[0]}], "Tooltip"]& ]}, {{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{
+             Rational[16, 3], 0}, {
+             Rational[32, 3], 24}]},
+          
+          ImageSizeCache->{{86.15178571428572, 
+           157.49107142857144`}, {-21.206548918583778`, 120.1234713772982}}]},
+        StatusArea[#, 24]& ,
+        TagBoxNote->"24"],
+       StyleBox["24", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[24, {
+         GrayLevel[0]}], "Tooltip"]& ]}, {{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{
+             Rational[32, 3], 0}, {16, 19}]},
+          
+          ImageSizeCache->{{156.86607142857144`, 228.20535714285717`}, {
+           8.106996976391642, 120.1234713772982}}]},
+        StatusArea[#, 19]& ,
+        TagBoxNote->"19"],
+       StyleBox["19", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[19, {
+         GrayLevel[0]}], "Tooltip"]& ]}, {{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{16, 0}, {
+             Rational[64, 3], 10}]},
+          
+          ImageSizeCache->{{227.58035714285717`, 298.9196428571429}, {
+           60.87137958734738, 120.1234713772982}}]},
+        StatusArea[#, 10]& ,
+        TagBoxNote->"10"],
+       StyleBox["10", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[10, {
+         GrayLevel[0]}], "Tooltip"]& ]}, {{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{
+             Rational[64, 3], 0}, {
+             Rational[80, 3], 4}]},
+          
+          ImageSizeCache->{{298.2946428571429, 369.6339285714286}, {
+           96.04763466131787, 120.1234713772982}}]},
+        StatusArea[#, 4]& ,
+        TagBoxNote->"4"],
+       StyleBox["4", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[4, {
+         GrayLevel[0]}], "Tooltip"]& ]}, {{}, 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+         EdgeForm[Opacity[0.7]], 
+         DynamicBox[{
+           FrontEnd`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           RectangleBox[{
+             Rational[80, 3], 0}, {32, 2}]},
+          
+          ImageSizeCache->{{369.0089285714286, 440.34821428571433`}, {
+           107.77305301930804`, 120.1234713772982}}]},
+        StatusArea[#, 2]& ,
+        TagBoxNote->"2"],
+       StyleBox["2", {
+         GrayLevel[0]}, StripOnInput -> False]],
+      Annotation[#, 
+       Style[2, {
+         GrayLevel[0]}], "Tooltip"]& ]}}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesOrigin->{0, 0},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  PlotRange->Automatic,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.1]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.440348556424*^9},
+ ImageCache->GraphicsData["CompressedBitmap", "\<\
+eJztXM1u00AQ3sZJm/5IReohnCAS4oLEhUPTuD8UKHCoAgWeoKqIWgQClT6I
+D0i8RsUhJ05w5cYxEmfegKPx/nrXWa93nU3qpFPVTjLe+b6Z2dn1rr127/ji
+9O2H44uzk+P28/PjT6dnJ5/bzz6eJ6JgAaGFH8nWbiP8PUaI7+LkP/6Jd1ji
+9v0l+aijeNBH4q8/2NGLa1w8jFBIZCGKhvEWES9mSxNpIquR30EqSrZNsl9F
+sgZKEWk5lQVRmqV8neRAPlcdDaNQNi/QO9OmgXlNPgICGkZD8mub7FcokEQQ
+xwPU50ZgtDBCw5iFJVCK1zWwHRYLXK4/SH3vk+NaaBaLhlYn0HB0yX6ZVpEw
+XY99OxOBeIiisI8GpggosLg8/mmOgAS7xWAHffq7ALbLIOTiOljhNHGUldVD
+cqffaKBDlt5Zp/HvJL41oYIyVao63tBAd3jLwRay8BdAbwlHUxUdtJwhiDnP
+YJEO91a21tOYbfsJQF0D3eWhkXLVZCWverl8oMHtsL6CylgvYYHPovCKQ7K+
+AR/eMURB9I3FUQg00CGPgtQKuY4xClL5mga3K9IrSfTIymQWAHFeUOO3W6b9
+N3M6TIG6zdspMd3cTkNesXLZTCULPClJCtr9kaipvjj/7Mi1x05pNbnByn0n
+NaWjUQk00DQwa4qMnNZEH2CAXzaoxeJYl1GkZ5I4Uw9aCiUeDSW0SOkO1KzO
+GRl0c4vqoTfFMVpD8undOPgwqeipOgwuHRUQnRwWNiq4Qf1h4y6WzHh/WY3j
+uMMjX9B3UkZWiH/9/oc3tEL2xbJVy3JU1pBlZNvYaKHm2LjFskUmS/iErOaZ
+w7fN4+Bx3/b2D4WsMYNxLmGfSPqlkfYA6Q3pXak4Tyi9HxrScdfSrY7BDDns
+DzTl1jXl2paubmhsWdeUu6mRtVLeWQ3TfcuQ3Bvf/Sca2AODTDZTJzPhgUlg
+EphUBZOIRRM05Fuv18Mbeor3y9MPhuz4C6AHeqAH+mtL76u7/9tqpV37Ad4f
+TdRJwsMd+gJUQAVU80Llq0+qgi9ABVRABVTQ8wEVUM0jFVs5lV24mLMIoDE9
+w6gF1ksN6xWwTL/AZuqWOS1TI2tzyE2iR242jU6Zv45nxHghUsIxLLYkZ/HX
+RC2ZZsrorGDrD6WlWQWLuSZkBw+8xfIpDx2OzgIPHSzAzg9smYHrnLgOsAA7
+i7DQZAEWYAEWegKABViAhZ4AYB1g9/YP1YtXf0rjCFPI/g7FcXyw2/UyRy7t
+Gg2K/XPUrpd48pj5FS7LB5j90jo9Pkwu8dUx8+MShPQCof3juq4XFAt5LR+Q
+9ctr92Sqr0p1fyzUG7PTg5e+Wq2vTgdwpohTONiYKW8AB3CqgKO0KnmQRp63
+IMXvFtOOULwDHdDJ6GRT7eotAp1q60DGzIGO9WvQTKP7PHAxW7J4yZhpzlKI
+b/E+r/L49q/MGl09lBv2phQMNrdSp8+us9g8pvSSgPUrn8rQyFVd9IqlMlXh
+/uKiUiyNFH28Ce9Vt+u51IEzDuhAloFO1XQgY0AHsgx0rMfJTUSHxnFaxt9s
+S4X2N9tiswT+R9+svURH+z5H+snUaBApt7u4N063MY1Tr3Qu5IJfwhMsSnAw
+Q5bJ4+xL3G6OksDJ1e9+u7mIgidqboaVn31NsG1ITVVd6EAKvR8ppIJcTvE4
+9WvarNf9OETd83G08B9qElPG\
+\>"]]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Figure 1.1",
+  FontWeight->"Bold"],
+ " - Sample histogram of minimum of five values from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", " ", ",", "50"}], "}"}], 
+   TraditionalForm]]]
+}], "FigureCaption",
+ CellChangeTimes->{{3.4038862931875*^9, 3.403886293375*^9}},
+ TextAlignment->Center,
+ FontFamily->"Arial"],
+
+Cell[TextData[{
+ "\tThe histogram for the sample minimum that we just saw, together with your \
+experiments, hints at a very deep idea, which is the fifth member of our \
+cast. A random variable observed many times will give a list of values that \
+follows a characteristic pattern, with some random variation. The relative \
+frequencies of occurrence (that is the number of occurrences divided by the \
+number of replications) of each possible value of the random variable, which \
+are the histogram rectangle heights, will stabilize around some theoretical \
+probability. Much as a probability measure can be put on a sample space of \
+simple events, a ",
+ StyleBox["probability",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["distribution",
+  FontSlant->"Italic"],
+ " can be put on the collection of possible values of a random variable. To \
+cite a very simple example, if 1/3 of the applicants for a job are men and \
+2/3 are women, if one applicant is selected randomly, and if we define a \
+random variable"
+}], "Text",
+ CellChangeTimes->{{3.4057281155625*^9, 3.405728120296875*^9}, {
+  3.4057282166875*^9, 3.405728234640625*^9}, {3.40663761728125*^9, 
+  3.40663764196875*^9}, {3.406637693171875*^9, 3.406637704671875*^9}, {
+  3.406637765515625*^9, 3.40663777253125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["X",
+   FontSlant->"Italic"], " ", "=", " ", 
+  FormBox[
+   RowBox[{
+    StyleBox["{",
+     SpanMaxSize->Infinity], GridBox[{
+      {
+       RowBox[{"1", "   ", "if", " ", "applicant", " ", "is", " ", 
+        StyleBox["a",
+         FontSlant->"Plain"], " ", "man"}]},
+      {
+       RowBox[{"0", "   ", "if", " ", "applicant", " ", "is", " ", 
+        StyleBox["a",
+         FontSlant->"Plain"], " ", "woman"}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}]}],
+   TraditionalForm]}]], "Equation",
+ CellChangeTimes->{
+  3.4038912485625*^9, {3.406637734703125*^9, 3.406637742921875*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "then the two possible values of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " are 1 and 0, and the probability distribution for this ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " gives probability 1/3 to value 1 and 2/3 to value 0. ",
+ "\n",
+ "\tThe last member of our cast is ",
+ StyleBox["expectation",
+  FontSlant->"Italic"],
+ " or ",
+ StyleBox["expected value",
+  FontSlant->"Italic"],
+ " of a random variable.  Its purpose is to give a single number which is an \
+average value that the random variable can take on.  But if these possible \
+values of the random variable are not equally likely, it doesn't make sense \
+to compute the average as a simple arithmetical average.  For example, \
+suppose the number of 911 emergency calls during an hour is a random variable \
+",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " whose values and probability distribution are as in the table below."
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{"value", " ", "of", " ", 
+      StyleBox["X",
+       FontSlant->"Italic"]}], "2", "4", "6", "8"},
+    {"probability", 
+     RowBox[{"1", "/", "10"}], 
+     RowBox[{"2", "/", "10"}], 
+     RowBox[{"3", "/", "10"}], 
+     RowBox[{"4", "/", "10"}]}
+   },
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+     "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}], 
+  TextForm]], "Equation"],
+
+Cell[TextData[{
+ "What could we mean by the average number of calls per hour?  The simple \
+arithmetical average of the possible values of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is (2+4+6+8)/4 = 5, but 6 and 8 are more likely than 2 and 4, so they \
+deserve more influence. In fact, the logical thing to do is to define the \
+expected value of ",
+ StyleBox["X, ",
+  FontSlant->"Italic"],
+ "denoted by E[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "], to be the weighted average of the possible values, using the \
+probabilities as weights:"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", "X", "]"}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "10"], "\[Cross]", "2"}], "+", 
+       RowBox[{
+        FractionBox["2", "10"], "\[Cross]", "4"}], "+", 
+       RowBox[{
+        FractionBox["3", "10"], "\[Cross]", "6"}], "+", 
+       RowBox[{
+        FractionBox["4", "10"], "\[Cross]", "8"}]}], " ", "=", " ", 
+      RowBox[{
+       FractionBox["60", "10"], " ", "=", " ", "6"}]}]}], 
+    TraditionalForm]]]]], TextForm]], "Equation",
+ CellChangeTimes->{{3.403891231734375*^9, 3.40389123309375*^9}}],
+
+Cell["\<\
+\tWe will be looking at all of our characters again in a more careful way \
+later, but I hope that the seeds of intuitive understanding have been \
+planted. You should reread this introductory section from time to time as you \
+progress to see how the intuition fits with the formality. \
+\>", "Text"],
+
+Cell["Exercises 1.1", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell["\<\
+1. Most state lotteries have a version of a game called Pick 3 in which you \
+win an amount, say $500, if you correctly choose three digits in order.  \
+Suppose that the price of a Pick 3 ticket is $1.  There are two possible \
+sample spaces that might be used to model the random experiment of observing \
+the outcome of the Pick 3 experiment, according to whether the information of \
+the winning number is recorded, or just the amount you won.  Describe these \
+two sample spaces clearly, give examples of outcomes for both, and describe a \
+reasonable probability measure for both. \
+\>", "Text",
+ CellChangeTimes->{{3.40663788921875*^9, 3.406637891578125*^9}}],
+
+Cell["\<\
+2. A grand jury is being selected, and there are two positions left to fill, \
+with candidates A, B, C, and D remaining who are eligible to fill them.  The \
+prosecutor decides to select a pair of people by making slips of paper with \
+each possible pair written on a slip, and then drawing one slip randomly from \
+a hat. List out all outcomes in the sample space of this random phenomenon, \
+describe a probability measure consistent with the stated assumptions, and \
+find the probability that A will serve on the grand jury.\
+\>", "Text",
+ CellChangeTimes->{{3.406637941359375*^9, 3.406637950359375*^9}}],
+
+Cell["\<\
+3. In an effort to predict performance of entering college students in a \
+beginning mathematics course on the basis of their mathematics ACT score, the \
+following data were obtained. The entries in the table give the numbers of \
+students among a group of 179 who had the indicated ACT score and the \
+indicated grade. \
+\>", "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\t", 
+   RowBox[{"Grade", "\n", 
+    RowBox[{"ACT", "   ", GridBox[{
+       {" ", 
+        StyleBox["A",
+         FontSlant->"Plain"], 
+        StyleBox["B",
+         FontSlant->"Plain"], 
+        StyleBox["C",
+         FontSlant->"Plain"], 
+        StyleBox["D",
+         FontSlant->"Plain"], 
+        StyleBox["F",
+         FontSlant->"Plain"]},
+       {"23", "2", "5", "16", "31", "3"},
+       {"24", "6", "8", "12", "15", "2"},
+       {"25", "7", "10", "15", "6", "1"},
+       {"26", "8", "15", "13", "4", "0"}
+      },
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}]}]}]}], 
+  TextForm]], "Equation"],
+
+Cell["\<\
+ (a) A student is selected randomly from the whole group. What is the \
+probability that this student has a 25 ACT and received a B?  What is the \
+probability that this student received a C?  What is the probability that \
+this student has an ACT score of 23?\
+\>", "Text",
+ CellChangeTimes->{{3.4038912781875*^9, 3.40389129496875*^9}, 
+   3.4057285551875*^9}],
+
+Cell["\<\
+ (b) A student is selected randomly from the group of students who scored 24 \
+on the ACT.  What is the probability that this student received an A?\
+\>", "Text",
+ CellChangeTimes->{{3.40389128028125*^9, 3.403891282546875*^9}}],
+
+Cell["\<\
+ (c) A student is selected randomly from the group of students who received \
+B's.  What is the probability that the student scored 23 on the ACT?  Is it \
+the same as your answer to the last question in part (a)?\
+\>", "Text",
+ CellChangeTimes->{{3.403891288125*^9, 3.403891299109375*^9}}],
+
+Cell["\<\
+4. Find the sample space for the following random experiment. Four people \
+labeled A, B, C, and D are to be separated randomly into a group of 2 people \
+and two groups of one person each.  Assume that the order in which the groups \
+are listed does not matter, only the contents of the groups.\
+\>", "Text"],
+
+Cell[TextData[{
+ "5. Consider the experiment of dealing two cards from a standard 52 card \
+deck (as in blackjack), one after another without replacing the first card.  \
+Describe the form of all outcomes, and give two examples of outcomes. What is \
+the probability of the event \"King on 1st card?\"  What is the probability \
+of the event",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "\"Queen on 2nd card?\""
+}], "Text",
+ CellChangeTimes->{{3.40572863584375*^9, 3.40572863865625*^9}, {
+  3.405728674921875*^9, 3.4057286936875*^9}, {3.406638028609375*^9, 
+  3.40663803009375*^9}, {3.4561595019146*^9, 3.4561595104166*^9}}],
+
+Cell[TextData[{
+ "6.  In the Pick 3 lottery example of Exercise 1, consider the random \
+variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " that gives the net amount you win if you buy one ticket (subtracting the \
+ticket price).  What is the probability distribution of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "? What is the expected value of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "?"
+}], "Text"],
+
+Cell[TextData[{
+ "7.  An abstract sample space has outcomes ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["e",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " as shown on the left in the figure. Each outcome has probability 1/6. A \
+random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " maps the sample space to the set {0,1} as in the diagram. What is the \
+probability distribution of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "?  What is the expected value of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "?"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"11", ",", "4"}], "}"}], ",", "2"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3", ",", "4"}], "}"}], ",", "4"}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"PointSize", "[", "0.02`", "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"11.5`", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"11.5`", ",", "5"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "4"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "5"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "6"}], "}"}], "]"}]}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "6"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "3"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "3"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"11", ",", "3"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"a", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "6"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"b", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "5"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"c", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "4"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"d", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "3"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"e", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5`", ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"0", ",", 
+        RowBox[{"{", 
+         RowBox[{"12", ",", "5"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"12", ",", "3"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{
+        RowBox[{"Style", "[", 
+         RowBox[{"X", ",", "Medium"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"8", ",", "6"}], "}"}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4"}], "}"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"10", ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398701246137578*^9, 3.398701282897085*^9}, {
+  3.3987013374024754`*^9, 3.3987014639818687`*^9}, {3.3987029363495426`*^9, 
+  3.398702947489954*^9}, {3.406638073984375*^9, 3.406638075390625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{{CircleBox[{11, 4}, 2], CircleBox[{3, 4}, 4]}, 
+   {PointSize[0.02], PointBox[{11.5, 3}], PointBox[{11.5, 5}], 
+    PointBox[{3, 1}], PointBox[{3, 2}], PointBox[{3, 3}], PointBox[{3, 4}], 
+    PointBox[{3, 5}], PointBox[{3, 6}]}, {ArrowBox[{{3, 6}, {11, 5}}], 
+    ArrowBox[{{3, 5}, {11, 5}}], ArrowBox[{{3, 4}, {11, 5}}], 
+    ArrowBox[{{3, 3}, {11, 5}}], ArrowBox[{{3, 2}, {11, 3}}], 
+    ArrowBox[{{3, 1}, {11, 3}}]}, {InsetBox["a", {2.5, 6}], 
+    InsetBox["b", {2.5, 5}], InsetBox["c", {2.5, 4}], InsetBox["d", {2.5, 3}],
+     InsetBox["e", {2.5, 2}], InsetBox["f", {2.5, 1}], InsetBox["0", {12, 5}],
+     InsetBox["1", {12, 3}], InsetBox[
+     StyleBox["X",
+      StripOnInput->False,
+      FontSize->Medium], {8, 6}]}},
+  AspectRatio->1,
+  BaseStyle->{10, FontFamily -> "Times"}]], "Output",
+ CellChangeTimes->{3.4403485564863997`*^9}]
+}, Open  ]],
+
+Cell["Exercise 7", "FigureCaption",
+ TextAlignment->Center,
+ FontFamily->"Times New Roman",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "8. Two fair coins are flipped at random and in succession.  Write the \
+sample space explicitly, and describe a reasonable probability measure on it. \
+ If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is the random variable that counts the number of heads, find the \
+probability distribution of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and compute the expected value of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ "9.  Using the data in Exercise 3, give an empirical estimate of the \
+probability distribution of the random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " that gives the ACT score of a randomly selected student.  What is the \
+expected value of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", and what is its real meaning in this context?"
+}], "Text"],
+
+Cell[TextData[{
+ "10. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  Use the DrawIntegerSample command introduced in the section to build a \
+command that draws a desired number of samples, each of a desired size, from \
+the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "popsize"}], "}"}], 
+   TraditionalForm]]],
+ ".  For each sample, the command appends the maximum number in the sample to \
+a list.  This list can be used to create a histogram of the distribution of \
+maxima.  Repeat the experiment of taking 50 random samples of size 4 from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", " ", ",", "7"}], "}"}], 
+   TraditionalForm]]],
+ " several times. Describe in words the most salient features of the \
+histograms of the maximum.  Use one of your replications to give an empirical \
+estimate of the probability distribution of the maximum. "
+}], "Text"],
+
+Cell[TextData[{
+ "11. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  The command SimulateMysteryX[m] illustrated below will simulate a \
+desired number ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " of values of a mystery random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ".  First load the ",
+ "KnoxProb7",
+ "`Utilities` package, then run the command several times using specific \
+numerical values for ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ ".  Try to estimate the probability distribution of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and its expected value."
+}], "Text",
+ CellChangeTimes->{
+  3.403879499171875*^9, {3.405728851671875*^9, 3.4057288623125*^9}, 
+   3.4403479810004*^9}],
+
+Cell[BoxData[
+ RowBox[{"SimulateMysteryX", "[", "10", "]"}]], "Input",
+ CellFrame->True],
+
+Cell[TextData[{
+ "12. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  Write a command in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " which can take as input a list of pairs ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["p", "i"], ",", " ", 
+     SubscriptBox["x", "i"]}], "}"}], TraditionalForm]]],
+ " in which a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " takes on the value ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "i"], TraditionalForm]]],
+ " with probability ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "i"], TraditionalForm]]],
+ " and return the expectation of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ".  Test your command on the random variable whose probability distribution \
+is in the table below."
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{"value", " ", "of", " ", 
+      StyleBox["X",
+       FontSlant->"Italic"]}], "0", "1", "2", "3"},
+    {"probability", 
+     RowBox[{"1", "/", "4"}], 
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"1", "/", "8"}], 
+     RowBox[{"1", "/", "8"}]}
+   },
+   GridBoxDividers->{
+    "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+     "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}], 
+  TextForm]], "Equation"],
+
+Cell[TextData[{
+ "13. Two flights are selected randomly and in sequence from a list of \
+departing flights covering a single day at an airport.  There were 100 \
+flights in the list, among which 80 departed on time, and 20 did not. Write a \
+description of the sample space of the experiment of selecting the two \
+flights, and use the multiplication principle to count how many elements the \
+sample space has.  Now let ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " be the number of flights in the sample of two that were late.  Find the \
+probability distribution of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.40663815790625*^9, 3.406638168890625*^9}, {
+  3.406638519859375*^9, 3.40663868428125*^9}}]
+},
+AutoGeneratedPackage->None,
+CellGrouping->Manual,
+WindowSize->{842, 579},
+WindowMargins->{{17, Automatic}, {Automatic, 11}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 1 Discrete Probability"], "Header"]}, {
+   Cell[
+    TextData["1.1 The Cast of Characters"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 117, 6, 118, "Title"],
+Cell[CellGroupData[{
+Cell[709, 32, 136, 4, 68, "Section"],
+Cell[848, 38, 6827, 108, 982, "Text"],
+Cell[7678, 148, 376, 10, 69, "Text"],
+Cell[8057, 160, 410, 9, 69, "Text"],
+Cell[8470, 171, 5444, 119, 712, "Text"],
+Cell[13917, 292, 196, 4, 56, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[14138, 300, 216, 5, 56, "Input",
+ InitializationCell->True],
+Cell[14357, 307, 113, 3, 35, "Output"]
+}, Open  ]],
+Cell[14485, 313, 1389, 23, 214, "Text"],
+Cell[15877, 338, 382, 8, 90, "Text"]
+}, Open  ]]
+}, Open  ]],
+Cell[16286, 350, 444, 11, 79, "Input"],
+Cell[16733, 363, 2782, 55, 359, "Text"],
+Cell[19518, 420, 665, 17, 79, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[20208, 441, 414, 10, 79, "Input",
+ InitializationCell->True],
+Cell[20625, 453, 1193, 18, 102, "Output"],
+Cell[21821, 473, 7054, 190, 306, 5224, 158, "CachedBoxData", "BoxData", \
+"Output"]
+}, Open  ]],
+Cell[28890, 666, 376, 12, 24, "FigureCaption"],
+Cell[29269, 680, 1273, 23, 152, "Text"],
+Cell[30545, 705, 747, 23, 53, "Equation"],
+Cell[31295, 730, 919, 24, 131, "Text"],
+Cell[32217, 756, 480, 15, 54, "Equation"],
+Cell[32700, 773, 557, 15, 69, "Text"],
+Cell[33260, 790, 682, 20, 46, "Equation"],
+Cell[33945, 812, 311, 5, 69, "Text"],
+Cell[34259, 819, 80, 2, 41, "Subsection"],
+Cell[34342, 823, 675, 10, 107, "Text"],
+Cell[35020, 835, 618, 9, 90, "Text"],
+Cell[35641, 846, 345, 6, 69, "Text"],
+Cell[35989, 854, 750, 24, 135, "Equation"],
+Cell[36742, 880, 371, 7, 48, "Text"],
+Cell[37116, 889, 237, 4, 48, "Text"],
+Cell[37356, 895, 300, 5, 48, "Text"],
+Cell[37659, 902, 319, 5, 69, "Text"],
+Cell[37981, 909, 630, 12, 69, "Text"],
+Cell[38614, 923, 408, 13, 48, "Text"],
+Cell[39025, 938, 709, 31, 69, "Text"],
+Cell[CellGroupData[{
+Cell[39759, 973, 5056, 156, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[44818, 1131, 870, 16, 468, "Output"]
+}, Open  ]],
+Cell[45703, 1150, 112, 3, 23, "FigureCaption"],
+Cell[45818, 1155, 452, 14, 69, "Text"],
+Cell[46273, 1171, 375, 10, 48, "Text"],
+Cell[46651, 1183, 960, 23, 110, "Text"],
+Cell[47614, 1208, 711, 24, 69, "Text"],
+Cell[48328, 1234, 88, 2, 56, "Input"],
+Cell[48419, 1238, 806, 30, 69, "Text"],
+Cell[49228, 1270, 476, 15, 54, "Equation"],
+Cell[49707, 1287, 762, 16, 90, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)
