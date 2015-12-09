@@ -1,0 +1,3728 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    125362,       3719]
+NotebookOptionsPosition[    117576,       3506]
+NotebookOutlinePosition[    118428,       3538]
+CellTagsIndexPosition[    118385,       3535]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["CHAPTER 4 \n CONTINUOUS DISTRIBUTIONS",
+ FontVariations->{"CompatibilityType"->0}]], "Title",
+ TextAlignment->Center,
+ FontSize->18,
+ FontWeight->"Bold"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "4.1 The Normal Distribution",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]]
+}], "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.426953526543124*^9, 3.426953528335124*^9}, 
+   3.426957971776124*^9},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell["\<\
+With most of the general ideas of continuous distributions in hand, we can \
+now move to a survey of some of the important continuous probability \
+distributions.  The continuous uniform distribution and the Weibull \
+distribution that we met in the last chapter are certainly two of them.  But \
+in this section we study what is perhaps the most important: the normal \
+distribution.  
+\tRecall that continuous random variables take values in subintervals of the \
+real line (ideally at least).  In many cases, those values tend to distribute \
+across the line in a roughly symmetrical hill shape, with most of the \
+observations near the center, and successively fewer as you move away from \
+the center.  Consider for example Figure 1(a), which is a scaled histogram of \
+a large set of 291 National League batting averages on August 5, 2008.  You \
+may open up the first of the two closed cells above the figure to see the \
+data that produced the plot.  The center of the distribution seems to be \
+around .270, and the great majority of the observations are between about \
+.190 and .350, that is, about .080 on either side of the center.  \
+\>", "Text",
+ CellChangeTimes->{
+  3.426952793502124*^9, {3.426952857700124*^9, 3.426952870077124*^9}, {
+   3.426957401415124*^9, 3.426957405679124*^9}, 3.426958996628124*^9, 
+   3.4269591196871243`*^9, {3.426959162704124*^9, 3.426959168217124*^9}, {
+   3.4269592058131237`*^9, 3.426959213184124*^9}, 3.4269592477541237`*^9, 
+   3.43706763788132*^9}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.399154793671875*^9, 3.441404308826533*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Arizona", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.316", ",", "0.306", ",", "0.286", ",", "0.286", ",", "0.278", ",", 
+     "0.266", ",", "0.262", ",", "0.256", ",", "0.251", ",", "0.247", ",", 
+     "0.242", ",", "0.234", ",", "0.231", ",", "0.209", ",", "0.202", ",", 
+     "0.191", ",", "0.171"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Atlanta", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.369", ",", "0.333", ",", "0.318", ",", "0.302", ",", "0.3", ",", 
+     "0.288", ",", "0.281", ",", "0.279", ",", "0.278", ",", "0.274", ",", 
+     "0.273", ",", "0.264", ",", "0.25", ",", "0.25", ",", "0.23", ",", 
+     "0.214", ",", "0.208", ",", "0.118", ",", "0.093"}], "}"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Chicago", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.378", ",", "0.315", ",", "0.295", ",", "0.291", ",", "0.289", ",", 
+     "0.289", ",", "0.289", ",", "0.281", ",", "0.279", ",", "0.277", ",", 
+     "0.275", ",", "0.27", ",", "0.242", ",", "0.231", ",", "0.222"}], 
+    "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Cincinnati", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.345", ",", "0.344", ",", "0.298", ",", "0.279", ",", "0.274", ",", 
+     "0.272", ",", "0.269", ",", "0.25", ",", "0.248", ",", "0.237", ",", 
+     "0.228", ",", "0.22", ",", "0.2", ",", "0.194", ",", "0.188", ",", 
+     "0.173", ",", "0.163"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Colorado", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.346", ",", "0.314", ",", "0.295", ",", "0.294", ",", "0.294", ",", 
+     "0.283", ",", "0.282", ",", "0.277", ",", "0.269", ",", "0.266", ",", 
+     "0.263", ",", "0.258", ",", "0.257", ",", "0.248", ",", "0.235", ",", 
+     "0.23", ",", "0.182", ",", "0.125", ",", "0.118"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Florida", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.292", ",", "0.291", ",", "0.282", ",", "0.267", ",", "0.267", ",", 
+     "0.259", ",", "0.258", ",", "0.249", ",", "0.245", ",", "0.245", ",", 
+     "0.24", ",", "0.238", ",", "0.213", ",", "0.202", ",", "0.2", ",", 
+     "0.147", ",", "0.063"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Houston", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.333", ",", "0.305", ",", "0.281", ",", "0.28", ",", "0.277", ",", 
+     "0.277", ",", "0.269", ",", "0.269", ",", "0.239", ",", "0.233", ",", 
+     "0.225", ",", "0.212", ",", "0.203", ",", "0.2", ",", "0.188", ",", 
+     "0.143", ",", "0.122"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"LosAngeles", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.366", ",", "0.31", ",", "0.3", ",", "0.296", ",", "0.295", ",", 
+     "0.295", ",", "0.282", ",", "0.28", ",", "0.279", ",", "0.274", ",", 
+     "0.257", ",", "0.254", ",", "0.25", ",", "0.248", ",", "0.228", ",", 
+     "0.212", ",", "0.208", ",", "0.19", ",", "0.161", ",", "0.159", ",", 
+     "0.116"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Milwaukee", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.314", ",", "0.312", ",", "0.298", ",", "0.285", ",", "0.281", ",", 
+     "0.28", ",", "0.278", ",", "0.25", ",", "0.245", ",", "0.241", ",", 
+     "0.229", ",", "0.227", ",", "0.225", ",", "0.223", ",", "0.2", ",", 
+     "0.143"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"NewYork", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.347", ",", "0.312", ",", "0.308", ",", "0.307", ",", "0.289", ",", 
+     "0.286", ",", "0.279", ",", "0.275", ",", "0.273", ",", "0.272", ",", 
+     "0.268", ",", "0.266", ",", "0.266", ",", "0.261", ",", "0.25", ",", 
+     "0.25", ",", "0.25", ",", "0.224", ",", "0.222", ",", "0.211", ",", 
+     "0.171", ",", "0.167", ",", "0.143"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Philadelphia", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.5", ",", "0.4", ",", "0.305", ",", "0.292", ",", "0.286", ",", "0.278",
+      ",", "0.277", ",", "0.266", ",", "0.263", ",", "0.256", ",", "0.245", 
+     ",", "0.242", ",", "0.227", ",", "0.226", ",", "0.214", ",", "0.1"}], 
+    "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Pittsburgh", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.339", ",", "0.3", ",", "0.289", ",", "0.282", ",", "0.276", ",", 
+     "0.275", ",", "0.265", ",", "0.248", ",", "0.247", ",", "0.245", ",", 
+     "0.24", ",", "0.24", ",", 
+     RowBox[{"0.2180", ".208"}], ",", "0.187", ",", "0.173", ",", "0.143"}], 
+    "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"StLouis", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.344", ",", "0.314", ",", "0.308", ",", "0.306", ",", "0.302", ",", 
+     "0.283", ",", "0.273", ",", "0.266", ",", "0.248", ",", "0.246", ",", 
+     "0.244", ",", "0.242", ",", "0.231", ",", "0.229", ",", "0.208", ",", 
+     "0.158"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SanDiego", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.375", ",", "0.297", ",", "0.287", ",", "0.285", ",", "0.279", ",", 
+     "0.273", ",", "0.255", ",", "0.251", ",", "0.246", ",", "0.235", ",", 
+     "0.228", ",", "0.214", ",", "0.213", ",", "0.207", ",", "0.202", ",", 
+     "0.179", ",", "0.176", ",", "0.138", ",", "0.125", ",", "0.118", ",", 
+     "0.067"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SanFrancisco", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.323", ",", "0.284", ",", "0.281", ",", "0.279", ",", "0.278", ",", 
+     "0.277", ",", "0.276", ",", "0.256", ",", "0.254", ",", "0.253", ",", 
+     "0.243", ",", "0.222", ",", "0.219", ",", "0.209", ",", "0.179", ",", 
+     "0.167", ",", "0.143", ",", "0.091"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Washington", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.333", ",", "0.303", ",", "0.283", ",", "0.28", ",", "0.278", ",", 
+     "0.265", ",", "0.264", ",", "0.263", ",", "0.258", ",", "0.246", ",", 
+     "0.246", ",", "0.242", ",", "0.234", ",", "0.231", ",", "0.231", ",", 
+     "0.23", ",", "0.227", ",", "0.22", ",", "0.216", ",", "0.205", ",", 
+     "0.17", ",", "0.132", ",", "0.125"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"averages", "=", 
+   RowBox[{"Join", "[", 
+    RowBox[{
+    "Arizona", ",", "Atlanta", ",", "Chicago", ",", "Cincinnati", ",", 
+     "Colorado", ",", "Florida", ",", "Houston", ",", "LosAngeles", ",", 
+     "Milwaukee", ",", "NewYork", ",", "Philadelphia", ",", "Pittsburgh", ",",
+      "StLouis", ",", "SanDiego", ",", "SanFrancisco", ",", "Washington"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SATscores", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "580", ",", "720", ",", "780", ",", "640", ",", "640", ",", "540", ",", 
+     "520", ",", "610", ",", "720", ",", "550", ",", "650", ",", "570", ",", 
+     "590", ",", "620", ",", "650", ",", "550", ",", "680", ",", "600", ",", 
+     "590", ",", "650", ",", "790", ",", "560", ",", "560", ",", "490", ",", 
+     "690", ",", "470", ",", "540", ",", "760", ",", "670", ",", "490", ",", 
+     "490", ",", "640", ",", "760", ",", "570", ",", "410", ",", "610", ",", 
+     "640", ",", "570", ",", "630", ",", "590", ",", "620", ",", "560", ",", 
+     "580", ",", "760", ",", "690", ",", "690", ",", "560", ",", "690", ",", 
+     "610", ",", "630", ",", "550", ",", "570", ",", "470", ",", "700", ",", 
+     "540", ",", "550", ",", "550", ",", "690", ",", "500", ",", "700", ",", 
+     "640", ",", "670", ",", "590", ",", "510", ",", "750", ",", "610", ",", 
+     "490", ",", "700", ",", "640", ",", "560", ",", "610", ",", "620", ",", 
+     "520", ",", "640", ",", "500", ",", "640", ",", "700", ",", "640", ",", 
+     "660", ",", "710", ",", "510", ",", "640", ",", "640", ",", "550", ",", 
+     "640", ",", "570", ",", "560", ",", "720", ",", "530", ",", "520", ",", 
+     "580", ",", "500", ",", "440", ",", "650", ",", "690", ",", "460", ",", 
+     "570", ",", "690", ",", "510", ",", "500", ",", "650", ",", "640", ",", 
+     "600", ",", "590", ",", "440", ",", "570", ",", "700", ",", "580", ",", 
+     "780", ",", "500", ",", "620", ",", "570", ",", "670", ",", "570", ",", 
+     "610", ",", "420", ",", "640", ",", "640", ",", "680", ",", "660", ",", 
+     "670", ",", "580", ",", "670", ",", "480", ",", "450", ",", "480", ",", 
+     "620", ",", "470", ",", "550", ",", "570", ",", "490", ",", "660", ",", 
+     "650", ",", "600", ",", "700", ",", "700", ",", "640", ",", "630", ",", 
+     "580", ",", "720", ",", "490", ",", "580", ",", "570", ",", "600", ",", 
+     "590", ",", "640", ",", "540", ",", "650", ",", "630", ",", "540", ",", 
+     "730", ",", "650", ",", "600", ",", "660", ",", "650", ",", "620", ",", 
+     "680", ",", "800", ",", "620", ",", "580", ",", "630", ",", "650", ",", 
+     "400", ",", "630", ",", "690", ",", "640", ",", "720"}], "}"}]}], 
+  ";"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426957294844124*^9, 3.426957390440124*^9}, {
+  3.426957440009124*^9, 3.426957537751124*^9}, {3.426957572564124*^9, 
+  3.426957602481124*^9}, {3.4269576334371243`*^9, 3.4269577278571243`*^9}, {
+  3.426957761058124*^9, 3.426957910908124*^9}, {3.426957982285124*^9, 
+  3.426958172183124*^9}, {3.426958215789124*^9, 3.426958922392124*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Histogram", "[", 
+    RowBox[{"averages", ",", 
+     RowBox[{"{", ".05", "}"}], ",", "\"\<ProbabilityDensity\>\"", ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Histogram", "[", 
+    RowBox[{"SATscores", ",", "8", ",", "\"\<ProbabilityDensity\>\""}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.39915484*^9, 3.399154858546875*^9}, {
+  3.426959024393124*^9, 3.4269590245621243`*^9}, {3.441404598316733*^9, 
+  3.441404636552333*^9}, {3.4414047175163326`*^9, 3.4414047374531326`*^9}, {
+  3.441404779183133*^9, 3.4414047794327326`*^9}, {3.4414048430339327`*^9, 
+  3.441404856465533*^9}, {3.441404975415533*^9, 3.4414050055703325`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+(a)                                                            (b) \
+\>", "Text",
+ CellChangeTimes->{{3.43721679763315*^9, 3.43721680338815*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Figure 4.1",
+  FontWeight->"Bold"],
+ " - (a) Empirical distribution of National League batting averages; ",
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "(b) Distribution of SAT scores",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721678168615*^9, 3.4372167886761503`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tObserved distributions like this are pervasive in the social and physical \
+sciences.  Another example is the data set charted in Figure 1(b).  (The \
+first closed cell above the figure contains the list of raw data.)  This time \
+167 SAT math scores for entering students at my college show the same sort of \
+distribution, with a center around 600, fewer observations near the tails, \
+and data distributed more or less symmetrically about the center (though \
+there is a small left skew, created mainly by a few observations under 450).  \
+\n\tRandom sampling gives other instances of data distributed in this hill \
+shape.  For instance, below we take random samples of size 40 from the \
+uniform(0, 2) distribution, compute the sample means for 100 such random \
+samples, and plot a histogram of the resulting sample means.  Almost all of \
+the sample means are within about .25 of the mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "1"}], TraditionalForm]]],
+ " of the uniform distribution that we sampled from.  This histogram shape is \
+no coincidence, because a theorem called the ",
+ StyleBox["Central Limit Theorem",
+  FontSlant->"Italic"],
+ ", discussed in Chapter 5, guarantees that the probability distribution of \
+the sample mean is approximately normal."
+}], "Text",
+ CellChangeTimes->{{3.426952939678124*^9, 3.426952945792124*^9}, 
+   3.426959285737124*^9, {3.43800481362372*^9, 3.4380048694057207`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "98996", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"sampmeans", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Mean", "[", 
+      RowBox[{"RandomReal", "[", 
+       RowBox[{
+        RowBox[{"UniformDistribution", "[", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "2"}], "}"}], "]"}], ",", "40"}], "]"}], "]"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "100"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"g1", "=", 
+  RowBox[{"Histogram", "[", 
+   RowBox[{"sampmeans", ",", 
+    RowBox[{"{", ".1", "}"}], ",", "\"\<ProbabilityDensity\>\""}], 
+   "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399154918890625*^9, 3.399154936609375*^9}, {
+   3.441405202582733*^9, 3.4414052176679325`*^9}, {3.441405253859933*^9, 
+   3.4414052539847326`*^9}, 3.441405289615133*^9, {3.441405401498333*^9, 
+   3.4414054111391325`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.2",
+  FontWeight->"Bold"],
+ " - Histogram of 100 sample means of size 40 from uniform(0, 2)",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721685448715*^9, 3.43721685975115*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  What is the standard deviation of the uniform(0, 2) distribution?  What \
+is the standard deviation of the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " of a random sample of size 40 from this distribution?  How many standard \
+deviations of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " does .25 represent?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{3.4269592956951237`*^9}],
+
+Cell["\<\
+\tThe probability density function that provides a good fit to distributions \
+such as the three above is the following.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  The ",
+ StyleBox["normal distribution",
+  FontSlant->"Italic"],
+ " with mean parameter \[Mu] and variance parameter ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " is the continuous distribution whose density function is"
+}], "Text",
+ CellChangeTimes->{{3.4372547447989187`*^9, 3.4372547455179186`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", "x", ")"}], "=", 
+    RowBox[{
+     FractionBox["1", 
+      SqrtBox[
+       RowBox[{"2", 
+        SuperscriptBox["\[Pi]\[Sigma]", "2"]}]]], 
+     SuperscriptBox["e", 
+      FractionBox[
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x", " ", "-", " ", "\[Mu]"}], ")"}], "2"]}], 
+       RowBox[{"2", 
+        SuperscriptBox["\[Sigma]", "2"]}]]]}]}], ",", "  ", 
+   RowBox[{"x", "\[Element]", "\[DoubleStruckCapitalR]"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437254751773918*^9, 3.4372547522189183`*^9}}],
+
+Cell[TextData[{
+ "Therefore, if ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is a normally distributed random variable (which we abbreviate as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", " ", "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"\[Mu]", ",", 
+      SuperscriptBox["\[Sigma]", "2"]}], ")"}]}], TraditionalForm]]],
+ "), then the probability that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " takes a value in the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.437254764056918*^9, 3.4372547640679183`*^9}, 
+   3.4566683309224*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"a", "\[LessEqual]", "X", "\[LessEqual]", "b"}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", "a", "b"],
+     TraditionalForm], 
+    RowBox[{
+     FormBox[
+      RowBox[{
+       FractionBox["1", 
+        SqrtBox[
+         RowBox[{"2", 
+          SuperscriptBox["\[Pi]\[Sigma]", "2"]}]]], 
+       SuperscriptBox["e", 
+        FractionBox[
+         RowBox[{"-", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"x", " ", "-", " ", "\[Mu]"}], ")"}], "2"]}], 
+         RowBox[{"2", 
+          SuperscriptBox["\[Sigma]", "2"]}]]]}],
+      TraditionalForm], "d", " ", "x"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4372547729469185`*^9, 3.437254773327918*^9}}],
+
+Cell["This area is shown in Figure 3.", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"PlotContsProb", "[", 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.001"}], ",", "\[Mu]"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "a"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "b"}], "}"}]}], "}"}], ",", "None"}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399155031125*^9, 3.39915506840625*^9}, 
+   3.441405732701933*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.3",
+  FontWeight->"Bold"],
+ " - Normal probability P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", "\[LessEqual]", "X", "\[LessEqual]", "b"}], "]"}], 
+   TraditionalForm]]],
+ " is the shaded area under normal density",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4372168933561497`*^9, 3.43721689917515*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tIn ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s kernel is the distribution object\n\n\t\t\t\tNormalDistribution[\[Mu], \
+\[Sigma]]\n\t\t\nwhich represents the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " distribution.  Note that the second argument is the standard deviation \
+\[Sigma], which is the square root of the variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  The functions PDF, CDF,  and RandomReal can therefore be applied to this \
+distribution object in the same way as before.  To illustrate, suppose that a \
+random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the normal distribution with mean \[Mu] = 0 and variance ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "="}], TraditionalForm]]],
+ " 4, hence standard deviation \[Sigma] = 2.  The commands below define the \
+density function in general and the particular c.d.f., integrate the density \
+function to find P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", "\[LessEqual]", "X", "\[LessEqual]", "2"}], "]"}], 
+   TraditionalForm]]],
+ ", then find the same probability by using the c.d.f. "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x_", ",", "\[Mu]_", ",", "\[Sigma]_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"\[Mu]", ",", "\[Sigma]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"F", "[", "x_", "]"}], ":=", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "2"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NIntegrate", "[", 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "0", ",", "2"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "2"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"F", "[", "2", "]"}], "-", 
+   RowBox[{"F", "[", "0", "]"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(If you remove the numerical evaluation function N from the last command \
+and reexecute, you will probably get a closed form that involves a function \
+called Erf, which is defined in terms of a normal integral.)\n\tBy using a \
+clever technique to change from a single to a double integral, followed by a \
+substitution, it is possible (see Exercise 3) to show that the normal density \
+in formula (1) integrates to 1 over the real line, as it should.  Here we \
+check this fact in ",
+ StyleBox["Mathematica ",
+  FontSlant->"Italic"],
+ "for the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 4) density we used above.  You should try changing the mean and \
+standard deviation parameters several times to make sure that this property \
+still holds.  "
+}], "Text",
+ CellChangeTimes->{{3.426953186682124*^9, 3.426953186840124*^9}, {
+  3.4269593101621237`*^9, 3.426959310370124*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", 
+   RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "0", ",", "2"}], "]"}], "\[ThinSpace]", 
+   RowBox[{"\[DifferentialD]", "x"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tFigure 3, as well as the density formula itself, suggests that the normal \
+density function is symmetric about its mean \[Mu].  Figure 4 gives you \
+another look. We plot in three dimensions the normal density as a function of \
+",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " and the mean \[Mu] for constant standard deviation \[Sigma] = 2.   In the \
+foreground we see the symmetry of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "2"}], ",", "2"}], "]"}], TraditionalForm]]],
+ " about \[Mu] = ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "2, and as \[Mu] increases to 2 we see the density curve cross section \
+receding into the background in such a way that its center of symmetry is \
+always at \[Mu].  "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"Plot3D", "[", 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "\[Mu]", ",", "2"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Mu]", ",", 
+     RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+   RowBox[{"PlotPoints", "\[Rule]", "30"}], ",", 
+   RowBox[{"ViewPoint", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "0.012`"}], ",", 
+      RowBox[{"-", "3.293`"}], ",", "0.779`"}], "}"}]}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<x\>\"", ",", "\"\<\[Mu]\>\"", ",", "None"}], "}"}]}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399155141875*^9, 3.399155143359375*^9}, {
+  3.404142596453125*^9, 3.404142596828125*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.4",
+  FontWeight->"Bold"],
+ " - Standard normal density as function of ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " and \[Mu]",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721693378415*^9, 3.43721693886215*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Show that the points \[Mu] \[PlusMinus] \[Sigma] are inflection points of \
+the normal density with mean \[Mu] and standard deviation \[Sigma].  (Use \
+either hand computation or ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ".)"
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tIf you think about what Activity 2 says, you will reach the conclusion that \
+the normal density curve spreads out as the standard deviation \[Sigma] \
+increases.  You may run the animation below to confirm this visually.  We fix \
+the mean at 0 and vary \[Sigma] from 1 to 4 to observe that the larger is \
+\[Sigma], the more probability weight is distributed to the tails of the \
+distribution.\
+\>", "Text",
+ CellChangeTimes->{{3.426953318128124*^9, 3.426953324641124*^9}, {
+  3.426959339610124*^9, 3.4269593610441236`*^9}, {3.427212181530738*^9, 
+  3.4272122213227377`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "0", ",", "\[Sigma]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "8"}], ",", "8"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", ".4"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Sigma]", ",", "1", ",", "4"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Top"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4269533356031237`*^9, 3.426953337321124*^9}, {
+  3.4269533736731243`*^9, 3.426953459436124*^9}, {3.456743239080694*^9, 
+  3.456743247348694*^9}, {3.456743280717094*^9, 3.4567432816842937`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  In Activity 1 we asked some questions about the scenario of taking \
+repeated random samples of size 40 from the uniform(0, 2) distribution and \
+finding their sample means.  Figure 2 was a histogram of 100 such sample \
+means.  Let us fill in the details now and see how an appropriate normal \
+distribution fits the data.\n\tThe mean of the uniform(0, 2) distribution is \
+1, and the variance is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"2", "-", "0"}], ")"}], "2"], "/", "12"}], " ", "=", " ", 
+    RowBox[{"1", "/", "3."}], " "}], TraditionalForm]]],
+ " Recall that if ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " is the mean of a random sample of size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " from a distribution whose mean is \[Mu] and whose variance is ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ", then the expected value of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " is also \[Mu] and the variance of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "/", "n"}], TraditionalForm]]],
+ ".  So in our situation, ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " has mean 1 and variance (1/3)/40 = 1/120, hence, its standard deviation is \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SqrtBox[
+     RowBox[{"1", "/", "120"}]], "\[TildeTilde]", ".09"}], TraditionalForm]]],
+ ".  The observed maximum distance of data points from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "1"}], TraditionalForm]]],
+ " of about .25 that we noted in Figure 3 translates into a distance of \
+around 3 standard deviations of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ ".  Now we superimpose the graph of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"1", ",", " ", 
+     RowBox[{"1", "/", "120"}]}], ")"}], TraditionalForm]]],
+ " density function on the histogram of Figure 3.  Figure 5 shows a fairly \
+good fit, even with our small sample size of 40, and only 100 repetitions of \
+the experiment.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.426954435336124*^9, 3.4269544353381243`*^9}, 
+   3.456668740126*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "1", ",", 
+       SqrtBox[
+        FractionBox["1", "120"]]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.75", ",", "1.25"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"g1", ",", "g2", ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0.75", ",", "1", ",", "1.25"}], "}"}], ",", 
+      "Automatic"}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399155199578125*^9, 3.399155213328125*^9}, {
+  3.441406116149933*^9, 3.441406123466333*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.5",
+  FontWeight->"Bold"],
+ " - ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(1, 1/120) density and histogram of 100 sample means of size 40 from \
+uniform(0, 2)",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721700146415*^9, 3.43721700767715*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Use the RandomReal command to simulate 1000 observations from the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) distribution, and plot a scaled histogram of this sample together \
+with the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) density.  "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4269544488711243`*^9, 3.426954449460124*^9}, {
+  3.426959396435124*^9, 3.4269593984571238`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Assume that demands for a manufactured item are normally distributed with \
+unknown mean and variance. Suppose that there are fixed costs of $10,000 plus \
+a cost of $5 per item to manufacture them.  If the plan is to sell the items \
+for $10 apiece, estimate the net profit and the probability of breaking even \
+if a historical random sample of demands is as follows:"
+}], "Text",
+ CellChangeTimes->{{3.426954463918124*^9, 3.426954499725124*^9}, {
+   3.4269545408571243`*^9, 3.4269545635561237`*^9}, {3.4272131547817373`*^9, 
+   3.427213296858738*^9}, {3.4272133327747374`*^9, 3.427213439603738*^9}, 
+   3.427213638728738*^9, 3.4566687638380003`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"demands", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "1844", ",", "1845", ",", "2299", ",", "2229", ",", "2143", ",", "2133", 
+     ",", "2476", ",", "1539", ",", "2152", ",", "2344", ",", "2017", ",", 
+     "2016"}], "}"}]}], ";"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272134513037376`*^9, 3.4272134655077376`*^9}, {
+  3.4272135538457375`*^9, 3.4272136052887373`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tThe total cost of manufacture for ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " items is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"10000", "+", 
+    RowBox[{"5", "x"}]}], TraditionalForm]]],
+ ", and the revenue for selling these ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " items is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"10", "x"}], TraditionalForm]]],
+ ". So the net profit is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"10", "x"}], "-", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"5", "x"}], "+", "10000"}], ")"}]}], "=", 
+    RowBox[{
+     RowBox[{"5", "x"}], "-", "10000"}]}], TraditionalForm]]],
+ ".  The breakeven point is where net profit is zero, which happens at the \
+point ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "2000"}], TraditionalForm]]],
+ ". But demands are random, so if ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is the random variable that models the number of items demanded, we can \
+assume that ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " is normally distributed, but we are not given the mean and standard \
+deviation parameters of the distribution. Let us use the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ "of the twelve observed random sample values to estimate \[Mu]. "
+}], "Text",
+ CellChangeTimes->{{3.426954463918124*^9, 3.426954499725124*^9}, {
+  3.4269545408571243`*^9, 3.4269545635561237`*^9}, {3.4272131547817373`*^9, 
+  3.427213296858738*^9}, {3.4272133327747374`*^9, 3.427213439603738*^9}, {
+  3.4272136197417374`*^9, 3.4272136259037375`*^9}, {3.4272137642587376`*^9, 
+  3.4272140094497375`*^9}, {3.4272140468887377`*^9, 3.4272140493177376`*^9}, {
+  3.4272141389537373`*^9, 3.4272141728187375`*^9}, {3.4272144805577374`*^9, 
+  3.427214491891738*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"Mean", "[", "demands", "]"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272141794897375`*^9, 3.4272142007327375`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The random profit is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"5", "X"}], "-", "10000"}], TraditionalForm]]],
+ ", and by linearity of expectation we see that the expected profit ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"5", "X"}], "-", "10000"}], "]"}], TraditionalForm]]],
+ " is approximately:"
+}], "Text",
+ CellChangeTimes->{{3.427214238898738*^9, 3.4272143179337378`*^9}, {
+  3.4273886083638*^9, 3.4273886412008*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"5", "*", "2086"}], "-", "10000"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272143010297375`*^9, 3.4272143423367376`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "With a selling price of $10 per item, this particular venture is not a \
+great money-maker. To find the break-even probability we will also have to \
+estimate the variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " and corresponding standard deviation \[Sigma]. We can estimate ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " by the ",
+ StyleBox["sample variance",
+  FontSlant->"Italic"],
+ ", which is an average squared deviation of the data values from the sample \
+mean.  The exact formula for the sample variance is"
+}], "Text",
+ CellChangeTimes->{{3.427214238898738*^9, 3.4272142921317377`*^9}, {
+  3.4272144138737373`*^9, 3.4272144532627373`*^9}, {3.4272145051057377`*^9, 
+  3.4272145522127376`*^9}, {3.4272145891397376`*^9, 3.4272146009947376`*^9}, {
+  3.4273886700788*^9, 3.4273886760558*^9}, {3.4372548262909184`*^9, 
+  3.437254826292918*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FormBox[
+    RowBox[{
+     SuperscriptBox["S", "2"], "=", 
+     FractionBox["1", 
+      RowBox[{"n", "-", "1"}]]}],
+    TraditionalForm], 
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "1"}], "n"],
+     TraditionalForm], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["X", "i"], "-", 
+       OverscriptBox["X", "_"]}], ")"}], "2"]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437254832832918*^9, 3.4372548332659187`*^9}}],
+
+Cell[TextData[{
+ "The so-called ",
+ StyleBox["sample standard deviation",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["S",
+  FontSlant->"Italic"],
+ " is the square root ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"S", "=", 
+    SqrtBox[
+     SuperscriptBox["S", "2"]]}], TraditionalForm]]],
+ "of the sample variance, and serves as an estimate of \[Sigma]",
+ StyleBox[".  Mathematica",
+  FontSlant->"Italic"],
+ " can compute these statistics by the functions"
+}], "Text"],
+
+Cell["Variance[datalist]      and      StandardDeviation[datalist]", "Text",
+ TextAlignment->Center],
+
+Cell["\<\
+which are contained in the kernel.  Here are the sample variance and standard \
+deviation for our list of demands.\
+\>", "Text",
+ CellChangeTimes->{{3.4273887203378*^9, 3.4273887215768003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Variance", "[", "demands", "]"}], ",", 
+    RowBox[{"StandardDeviation", "[", "demands", "]"}]}], "}"}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272146638477373`*^9, 3.4272146795887375`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tRounding to the nearest integer, we estimate \[Sigma] by 256. The event \
+of breaking even (or better) is the event that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[GreaterEqual]", "2000"}], TraditionalForm]]],
+ ".  With our estimates of \[Mu] and \[Sigma] we can compute:"
+}], "Text",
+ CellChangeTimes->{{3.4272147088837376`*^9, 3.427214780096738*^9}, {
+  3.4272148385987377`*^9, 3.4272148606667376`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{"X", " ", "\[GreaterEqual]", " ", "2000"}], "]"}], "="}], "*)"}],
+   "\[IndentingNewLine]", 
+  RowBox[{"N", "[", 
+   RowBox[{"(", 
+    RowBox[{"1", "-", 
+     RowBox[{"CDF", "[", 
+      RowBox[{
+       RowBox[{"NormalDistribution", "[", 
+        RowBox[{"2086", ",", "256"}], "]"}], ",", "2000"}], "]"}]}], ")"}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272148773897376`*^9, 3.4272149327457376`*^9}, {
+  3.4380054080707207`*^9, 3.4380054093297205`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+As we have seen before, a large portion of the time a random variable will \
+take on a value within 2 standard deviations of its mean, and so we expect \
+the demand for the item to be within 2(256) = 512 of the true mean demand, \
+estimated by the sample mean of 2086.  Here are the profits for the demands \
+that are 2 standard deviations below and 2 standard deviations above the \
+estimated mean: \
+\>", "Text",
+ CellChangeTimes->{{3.4272147088837376`*^9, 3.427214780096738*^9}, {
+  3.4272148385987377`*^9, 3.4272148606667376`*^9}, {3.4272149763337374`*^9, 
+  3.4272149957777376`*^9}, {3.4272150320647373`*^9, 3.4272150967777376`*^9}, {
+  3.4272151307967377`*^9, 3.4272151612937374`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"5", "*", 
+     RowBox[{"(", 
+      RowBox[{"2086", "-", 
+       RowBox[{"2", "*", "256"}]}], ")"}]}], "-", "10000"}], ",", 
+   RowBox[{
+    RowBox[{"5", "*", 
+     RowBox[{"(", 
+      RowBox[{"2086", "+", 
+       RowBox[{"2", "*", "256"}]}], ")"}]}], "-", "10000"}]}], "}"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4272143010297375`*^9, 3.4272143423367376`*^9}, {
+  3.4272151659587374`*^9, 3.427215196662738*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+With high probability, the profit will be between -$2130 and $2990. \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4272147088837376`*^9, 3.427214780096738*^9}, {
+  3.4272148385987377`*^9, 3.4272148606667376`*^9}, {3.4272149763337374`*^9, 
+  3.4272149957777376`*^9}, {3.4272150320647373`*^9, 3.4272150839297376`*^9}, {
+  3.427215206490738*^9, 3.4272152364477377`*^9}}],
+
+Cell[TextData[{
+ "\tWe have been calling the two parameters of the normal distribution by the \
+names \"mean\" and \"variance,\" but we have not yet justified that this is \
+what they are.  Here are ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " computations of the integrals that would define the mean and variance of \
+the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) distribution.  The second integral is actually ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    SuperscriptBox["X", "2"], "]"}], TraditionalForm]]],
+ ", but this is the same as the variance in light of the fact that the first \
+integral shows that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}], "=", "0"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4566688559091997`*^9, 3.4566688577967997`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"\[Mu]", "=", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", 
+    RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+   RowBox[{"x", "*", 
+    FractionBox["1", 
+     SqrtBox[
+      RowBox[{"2", "\[Pi]"}]]], "*", 
+    SuperscriptBox["E", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["x", "2"]}], "/", "2"}]], 
+    RowBox[{"\[DifferentialD]", "x"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"sigsq", "=", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", 
+    RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+   RowBox[{
+    SuperscriptBox["x", "2"], "*", 
+    FractionBox["1", 
+     SqrtBox[
+      RowBox[{"2", "\[Pi]"}]]], "*", 
+    SuperscriptBox["E", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["x", "2"]}], "/", "2"}]], 
+    RowBox[{"\[DifferentialD]", "x"}]}]}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "As expected, the mean is the same as the parameter \[Mu], that is 0, and \
+the variance is ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ " = 1.  You should try to integrate by hand to check these results; it will \
+help to note that the first integrand is an odd function and the second one \
+is an even function.   We now state and prove the general result."
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is a random variable with the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") distribution, then"
+}], "Text",
+ CellChangeTimes->{{3.4372548565209184`*^9, 3.4372548565219183`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    StyleBox["X",
+     FontSlant->"Italic"], "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Mu]", "  ", "and", "  ", 
+     RowBox[{"Var", "(", 
+      StyleBox["X",
+       FontSlant->"Italic"], ")"}]}], "=", 
+    SuperscriptBox["\[Sigma]", "2"]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437254863167918*^9, 3.4372548635229187`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  To show that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}], "=", "\[Mu]"}], TraditionalForm]]],
+ ", it is enough to show that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "-", "\[Mu]"}], "]"}], "=", "0"}], TraditionalForm]]],
+ ".  This expectation is"
+}], "Text",
+ CellChangeTimes->{{3.4372548764279184`*^9, 3.4372548764309187`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[Cell[TextData[Cell[BoxData[
+      FormBox[
+       RowBox[{
+        UnderoverscriptBox["\[Integral]", 
+         RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"x", "-", "\[Mu]"}], ")"}], "\[CenterDot]", 
+          FractionBox["1", 
+           SqrtBox[
+            RowBox[{"2", 
+             SuperscriptBox["\[Pi]\[Sigma]", "2"]}]]]}], 
+         SuperscriptBox["e", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{"x", "-", "\[Mu]"}], ")"}], "2"]}], "/", "2"}], 
+           SuperscriptBox["\[Sigma]", "2"]}]], "d", " ", "x"}]}], 
+       TraditionalForm]]]]], TraditionalForm]]]]], " "}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372548764279184`*^9, 3.4372548820019183`*^9}}],
+
+Cell[TextData[{
+ "The substitution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"x", "-", "\[Mu]"}], ")"}], "/", "\[Sigma]"}]}], 
+   TraditionalForm]]],
+ " changes the integral to"
+}], "Text",
+ CellChangeTimes->{{3.426954846818124*^9, 3.426954861323124*^9}, 
+   3.4272123046127377`*^9, {3.4372548976549187`*^9, 3.4372548976579185`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[Sigma]", "\[CenterDot]", 
+   RowBox[{
+    UnderoverscriptBox["\[Integral]", 
+     RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+    RowBox[{
+     StyleBox["z",
+      FontSlant->"Italic"], 
+     FractionBox["1", 
+      SqrtBox[
+       RowBox[{"2", "\[Pi]"}]]], 
+     SuperscriptBox[
+      StyleBox["e",
+       FontSlant->"Italic"], 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["z", "2"]}], "/", "2"}]], " ", 
+     StyleBox["d",
+      FontSlant->"Italic"], " ", 
+     StyleBox["z",
+      FontSlant->"Italic"], " "}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.426954846818124*^9, 3.426954861323124*^9}, 
+   3.4272123046127377`*^9, {3.4372548976549187`*^9, 3.4372549036879187`*^9}}],
+
+Cell[TextData[{
+ "which equals zero from above, because it is a constant times the expected \
+value of a ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) random variable.  For the second part, to show that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Var", "(", "X", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"X", "-", "\[Mu]"}], ")"}], "2"], "]"}], "=", 
+     SuperscriptBox["\[Sigma]", "2"]}]}], TraditionalForm]]],
+ " it is enough to show that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"X", "-", "\[Mu]"}], ")"}], "2"], "/", 
+     SuperscriptBox["\[Sigma]", "2"]}], "]"}], TraditionalForm]]],
+ " = 1.  The expectation on the left is"
+}], "Text",
+ CellChangeTimes->{{3.4372549169619184`*^9, 3.437254916964918*^9}, {
+  3.43800544989272*^9, 3.4380054531577206`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   UnderoverscriptBox["\[Integral]", 
+    RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+   RowBox[{
+    FractionBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["x",
+         FontSlant->"Italic"], "-", "\[Mu]"}], ")"}], "2"], 
+     SuperscriptBox["\[Sigma]", "2"]], 
+    FractionBox["1", 
+     SqrtBox[
+      RowBox[{"2", 
+       SuperscriptBox["\[Pi]\[Sigma]", "2"]}]]], 
+    SuperscriptBox[
+     StyleBox["e",
+      FontSlant->"Italic"], 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           StyleBox["x",
+            FontSlant->"Italic"], "-", "\[Mu]"}], ")"}], "2"]}], "/", "2"}], 
+      SuperscriptBox["\[Sigma]", "2"]}]], 
+    StyleBox["d",
+     FontSlant->"Italic"], 
+    StyleBox[" ",
+     FontSlant->"Italic"], 
+    StyleBox["x",
+     FontSlant->"Italic"], " "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372549169619184`*^9, 3.4372549243079185`*^9}}],
+
+Cell[TextData[{
+ "Again we make the substitution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"x", "-", "\[Mu]"}], ")"}], "/", "\[Sigma]"}]}], 
+   TraditionalForm]]],
+ " to get"
+}], "Text",
+ CellChangeTimes->{{3.4372549420999184`*^9, 3.437254942103918*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   UnderoverscriptBox["\[Integral]", 
+    RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+   RowBox[{
+    SuperscriptBox["z", "2"], 
+    FractionBox["1", 
+     SqrtBox[
+      RowBox[{"2", "\[Pi]"}]]], 
+    SuperscriptBox[
+     StyleBox["e",
+      FontSlant->"Italic"], 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["z", "2"]}], "/", "2"}]], " ", 
+    StyleBox["d",
+     FontSlant->"Italic"], 
+    StyleBox[" ",
+     FontSlant->"Italic"], 
+    StyleBox["z",
+     FontSlant->"Italic"]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372549478339186`*^9, 3.4372549482279186`*^9}}],
+
+Cell["\<\
+As mentioned above, it can be verified that this integral equals 1, which \
+completes the proof.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4372170962641497`*^9, 3.43721710235315*^9}}],
+
+Cell[TextData[{
+ "\tThe next theorem, usually called the ",
+ StyleBox["standardization theorem",
+  FontSlant->"Italic"],
+ " for normal random variables, shows that by subtracting the mean from a \
+general ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", " ", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " random variable and dividing by the standard deviation, we manage to \
+center and rescale the random variable in such a way that it is still \
+normally distributed, but the new mean is 0 and the new variance is 1.  The ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) distribution therefore occupies an important role in probability \
+theory and applications, and it is given the special name of the ",
+ StyleBox["standard normal distribution",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.427212322924738*^9, 3.427212331400738*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ".   If the random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") distribution, then the random variable defined by"
+}], "Text",
+ CellChangeTimes->{{3.437254966985918*^9, 3.4372549669899187`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"Z", "=", 
+   FormBox[
+    FractionBox[
+     RowBox[{"X", "-", "\[Mu]"}], "\[Sigma]"],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4372549737869186`*^9, 3.4372549741649184`*^9}}],
+
+Cell[TextData[{
+ "has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) distribution."
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  We will use an important technique that will be discussed systematically \
+in Section 4.3, called the ",
+ StyleBox["cumulative distribution function",
+  FontSlant->"Italic"],
+ " method.  In it we write an expression for the c.d.f. of the transformed \
+random variable, take advantage of the known distribution of the original \
+random variable to express that c.d.f. conveniently, and then differentiate \
+it to get the density of the transformed variable.\n\tThe c.d.f. of ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ " can be written as"
+}], "Text",
+ CellChangeTimes->{{3.4372550066949186`*^9, 3.4372550066989183`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["F", "Z"], "(", "z", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"Z", "\[LessSlantEqual]", "z"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"X", "-", "\[Mu]"}], "\[Sigma]"], "\[LessSlantEqual]", "z"}], 
+      "]"}], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessSlantEqual]", 
+       RowBox[{"\[Mu]", "+", 
+        RowBox[{"\[Sigma]", " ", "z"}]}]}], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4372550135299187`*^9, 3.4372550139149184`*^9}}],
+
+Cell[TextData[{
+ "But we know that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") distribution.  If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"G", "(", "x", ")"}], TraditionalForm]]],
+ " is the c.d.f. of that distribution, then formula (6) shows that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["F", "Z"], "(", "z", ")"}], "=", 
+    RowBox[{"G", "(", 
+     RowBox[{"\[Mu]", "+", 
+      RowBox[{"\[Sigma]", " ", "z"}]}], ")"}]}], TraditionalForm]]],
+ ".  Differentiating, the density of ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4372550251289186`*^9, 3.4372550251339183`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "Z"], "(", "z", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["F", "Z"], "\[Prime]"], "(", "z", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["G", "\[Prime]"], "(", 
+       RowBox[{"\[Mu]", "+", 
+        RowBox[{"\[Sigma]", " ", "z"}]}], ")"}], " ", "\[Sigma]"}], "=", 
+     RowBox[{
+      RowBox[{"g", "(", 
+       RowBox[{"\[Mu]", "+", 
+        RowBox[{"\[Sigma]", " ", "z"}]}], ")"}], " ", "\[Sigma]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372550313619184`*^9, 3.4372550317819185`*^9}}],
+
+Cell[TextData[{
+ "where ",
+ StyleBox["g",
+  FontSlant->"Italic"],
+ " is the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") density function.  Substituting into formula (1) we obtain"
+}], "Text",
+ CellChangeTimes->{{3.437255051740918*^9, 3.4372550517429185`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "Z"], "(", "z", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"g", "(", 
+      RowBox[{"\[Mu]", "+", 
+       RowBox[{"\[Sigma]", " ", "z"}]}], ")"}], " ", "\[Sigma]"}], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", 
+         SuperscriptBox["\[Pi]\[Sigma]", "2"]}]]], 
+      SuperscriptBox["e", 
+       FractionBox[
+        RowBox[{"-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"\[Mu]", "+", 
+            RowBox[{"\[Sigma]", " ", "z"}], " ", "-", " ", "\[Mu]"}], ")"}], 
+          "2"]}], 
+        RowBox[{"2", 
+         SuperscriptBox["\[Sigma]", "2"]}]]], " ", "\[Sigma]"}], "=", 
+     RowBox[{
+      FractionBox["1", 
+       SqrtBox[
+        RowBox[{"2", "\[Pi]"}]]], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["z", "2"]}], "/", "2"}]]}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437255057667918*^9, 3.4372550580529184`*^9}}],
+
+Cell[TextData[{
+ "which is the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) density.  Thus, Z is standard normal.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.43721712567415*^9, 3.43721712882215*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "   Use the c.d.f. technique of the proof of Theorem 2 to try to show a \
+converse result: If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Z", "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"0", ",", "1"}], ")"}]}], TraditionalForm]]],
+ " then the random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{
+     RowBox[{"\[Sigma]", " ", "Z"}], "+", "\[Mu]"}]}], TraditionalForm]]],
+ " has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") distribution."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ "  It has been a tradition in probability and statistics to go on at some \
+length about standardizing normal random variables, and then to use tables of \
+the standard normal c.d.f. to find numerical answers to probability \
+questions.  The availability of technology that can quickly give such \
+numerical answers without recourse to standardization has reduced the \
+necessity for doing this, but I cannot resist the temptation to show a couple \
+of quick example computations.  \n\tSuppose that the National League batting \
+averages in the introductory discussion are indeed normally distributed. Let \
+us estimate their mean and variance by the sample mean and sample variance of \
+the list of averages."
+}], "Text",
+ CellChangeTimes->{{3.426955097189124*^9, 3.426955114075124*^9}, {
+  3.426959454909124*^9, 3.426959455972124*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"\[Mu]", "=", 
+  RowBox[{"Mean", "[", "averages", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"sigsq", "=", 
+  RowBox[{"Variance", "[", "averages", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"\[Sigma]", "=", 
+  SqrtBox["sigsq"]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Rounding to three significant digits, we are assuming that a generic \
+randomly selected batting average ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(.249, .00338) distribution, so the values of \[Mu] and \[Sigma] will be \
+taken to be .249 and .0582, respectively.  What is the probability that this \
+random batting average exceeds .300?  \n\tStandardizing by subtracting the \
+mean and dividing by the standard deviation yields:"
+}], "Text",
+ CellChangeTimes->{{3.426959465208124*^9, 3.426959504223124*^9}, {
+  3.4372550842969184`*^9, 3.437255084299918*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", ">", ".300"}], "]"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"X", "-", "\[Mu]"}], "\[Sigma]"], ">", 
+      FractionBox[
+       RowBox[{".300", "-", "\[Mu]"}], "\[Sigma]"]}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"Z", ">", 
+       FractionBox[
+        RowBox[{".300", "-", ".249"}], ".0582"]}], "]"}], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"Z", ">", ".876"}], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372550913059187`*^9, 3.437255091707918*^9}}],
+
+Cell[TextData[{
+ "Thus we have converted a non-standard normal probability involving ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " to a standard normal probability involving ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ ".  Now many statistical tables of the standard normal c.d.f. are set up to \
+give, for various values of ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ ", the area under the standard normal density that is shaded in Figure 6(a), \
+which is the probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", "z"}], "]"}], 
+   TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "2"}], "}"}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "0.001`"}], ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "\"\<z\>\""}], "}"}]}], "}"}], ",", "None"}], 
+       "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0.876"}], "}"}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "0.001`"}], ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0.876`", ",", "\"\<.876\>\""}], "}"}]}], "}"}], ",", 
+        "None"}], "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"8", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399155363109375*^9, 3.399155385921875*^9}, {
+  3.426959628149124*^9, 3.426959640751124*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a) Shaded area =  P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", "z"}], "]"}], 
+   TraditionalForm]]],
+ "\t     (b) Shaded area =  P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", ".876"}], 
+    "]"}], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721718824615*^9, 3.43721719406715*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Figure 4.6",
+  FontWeight->"Bold"],
+ " - Standard normal probabilities",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.43721715933615*^9, 3.4372171647161503`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "Such a table would tell us that the area in Figure 6(b), which is P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", ".876"}], 
+    "]"}], TraditionalForm]]],
+ ", is .3095.  How do we find P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"Z", ">", ".876"}], "]"}], TraditionalForm]]],
+ " from this?  Because of the symmetry of the standard normal density about \
+0, the area entirely to the right of 0 must be exactly .5.  This breaks up \
+into the shaded area in Figure 6(b) plus the unshaded area to the right of \
+.876.  Thus, .5 = .3095 + P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"Z", ">", ".876"}], "]"}], TraditionalForm]]],
+ "; hence, P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"Z", ">", ".876"}], "]"}], TraditionalForm]]],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{".5", "-", ".3095"}], "=", ".1905"}], TraditionalForm]]],
+ ".  To obtain this result from ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " is easier.  We can either call for the complement of the standard normal \
+c.d.f. at .876:"
+}], "Text",
+ CellChangeTimes->{{3.426959667170124*^9, 3.426959673731124*^9}, {
+   3.426959715691124*^9, 3.426959806093124*^9}, 3.4566689003536*^9}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", "1"}], "]"}], ",", ".876"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4269598093791237`*^9, 3.426959809807124*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+or before standardizing we can ask for the complement of the normal c.d.f. \
+with \[Mu] = .249 and \[Sigma] = .0582 at the point .300:\
+\>", "Text",
+ CellChangeTimes->{{3.4272124673027377`*^9, 3.4272124740807376`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{".249", ",", ".0582"}], "]"}], ",", ".300"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426959836274124*^9, 3.4269598510741243`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+(The slight difference in the numerical answers is due to the fact that the \
+argument .876 in the first call to the standard normal c.d.f. was rounded.) 
+\tAs a second example computation, what is the probability that a randomly \
+selected batting average is between .244 and .249?  Standardizing, we obtain\
+\>", "Text",
+ CellChangeTimes->{{3.426959869642124*^9, 3.4269598956151237`*^9}, {
+  3.426959946634124*^9, 3.4269599474041243`*^9}, {3.4372551130159187`*^9, 
+  3.4372551130189185`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{".244", "\[LessSlantEqual]", "X", "\[LessSlantEqual]", ".249"}], 
+    "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      FractionBox[
+       RowBox[{".244", "-", ".249"}], ".0582"], "\[LessSlantEqual]", "Z", 
+      "\[LessSlantEqual]", 
+      FractionBox[
+       RowBox[{".249", "-", ".249"}], ".0582"]}], "]"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{"-", ".086"}], "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", 
+      "0"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4372551189219184`*^9, 3.4372551192789183`*^9}}],
+
+Cell[TextData[{
+ "Most standard normal tables do not give probabilities for intervals that \
+lie to the left of 0, so you would usually not be able to read this off \
+directly.  But again by symmetry (refer to Figure 6(a)) the area between ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ ".086 and 0 equals the area between 0 and .086, which can be read from the \
+standard normal table, or computed in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " as follows.  (Why are we subtracting .5 from this c.d.f. value to obtain \
+the probability?)"
+}], "Text",
+ CellChangeTimes->{
+  3.426955351465124*^9, {3.426960048762124*^9, 3.426960057382124*^9}, {
+   3.426960105685124*^9, 3.426960173347124*^9}, {3.4272125204347377`*^9, 
+   3.4272125516217375`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"0", ",", "1"}], "]"}], ",", "0.086"}], "]"}], "-", 
+  ".5"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426959836274124*^9, 3.4269598510741243`*^9}, {
+  3.4269602122061243`*^9, 3.4269602708051243`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Again, with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " we have no need for tables or for standardizing in this kind of \
+computation, because we can compute the original probability by subtracting \
+c.d.f. values directly:"
+}], "Text",
+ CellChangeTimes->{
+  3.426955351465124*^9, {3.426960048762124*^9, 3.426960057382124*^9}, {
+   3.426960105685124*^9, 3.426960133730124*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{".249", ",", ".0582"}], "]"}], ",", ".249"}], "]"}], "-", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{".249", ",", ".0582"}], "]"}], ",", ".244"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.426960289667124*^9, 3.426960317852124*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Again the small difference between the two answers is due to the rounding of \
+.086.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.426955460790124*^9, 3.4269554607911243`*^9}, {
+  3.426960340583124*^9, 3.426960346453124*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "  Suppose that a standard normal table gives the probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", "1.20"}], 
+     "]"}], "=", ".3849"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", ".42"}], 
+     "]"}], "=", ".1628"}], TraditionalForm]]],
+ ".  Use the symmetry of the normal density to find both ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"-", "1.20"}], "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", 
+     ".42"}], "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Z", ">", 
+     RowBox[{"-", ".42"}]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.404144114625*^9, 3.404144154453125*^9}, 
+   3.4269603590081244`*^9}],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  By no means is it irrelevant to know about standardization in the era of \
+widely available technology.  Standardization gives us the ability to make \
+very general statements about normal densities based on properties of the \
+standard normal density.  For instance, there is a rule of thumb called the \
+\"68-95 rule\" which says that roughly 68% of the area under a normal curve \
+lies within one standard deviation of the mean, and 95% of the area lies \
+within two standard deviations of the mean.  Let us see where this rule comes \
+from.",
+ "\n",
+ "\tLet ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " be a general ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], ")"}], TraditionalForm]]],
+ " random variable.  Now the area under the normal curve with these \
+parameters that is within one standard deviation of the mean is exactly the \
+probability"
+}], "Text",
+ CellChangeTimes->{{3.437255143655918*^9, 3.4372551436599183`*^9}, 
+   3.4566689548288*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"\[Mu]", "-", "\[Sigma]"}], "\[LessSlantEqual]", "X", 
+     "\[LessSlantEqual]", 
+     RowBox[{"\[Mu]", "+", "\[Sigma]"}]}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"\[Mu]", "-", "\[Sigma]", "-", "\[Mu]"}], "\[Sigma]"], 
+      "\[LessSlantEqual]", 
+      FractionBox[
+       RowBox[{"X", "-", "\[Mu]"}], "\[Sigma]"], "\[LessSlantEqual]", 
+      FractionBox[
+       RowBox[{"\[Mu]", "+", "\[Sigma]", "-", "\[Mu]"}], "\[Sigma]"]}], "]"}],
+     "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", 
+      "1"}], "]"}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4372551516659184`*^9, 3.437255152075918*^9}}],
+
+Cell[TextData[{
+ "and the standard normal probability on the far right does not depend on the \
+particular values of \[Mu] and \[Sigma].  ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " computes this probability as:"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "1"}], "]"}], "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", 
+     RowBox[{"-", "1"}]}], "]"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+By a standardization entirely similar to the one in formula (7),\
+\>", "Text",
+ CellChangeTimes->{{3.4372551764899187`*^9, 3.4372551764919186`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"\[Mu]", "-", 
+      RowBox[{"2", "\[Sigma]"}]}], "\[LessSlantEqual]", "X", 
+     "\[LessSlantEqual]", 
+     RowBox[{"\[Mu]", "+", 
+      RowBox[{"2", "\[Sigma]"}]}]}], "]"}], "=", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"-", "2"}], "\[LessSlantEqual]", "Z", "\[LessSlantEqual]", "2"}],
+     "]"}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4372551823699183`*^9, 3.4372551827389183`*^9}}],
+
+Cell["and the probability on the right is", "Text"],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "2"}], "]"}], "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", 
+     RowBox[{"-", "2"}]}], "]"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.404144194640625*^9, 3.404144195734375*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["Thus, the \"68-95\" rule.  \[FilledSquare]", "Text",
+ CellChangeTimes->{{3.426955449799124*^9, 3.426955449800124*^9}}],
+
+Cell[TextData[{
+ StyleBox["\t",
+  FontColor->RGBColor[1, 0, 0]],
+ StyleBox["Our last example involves an alternative graphical check to see \
+whether a data set may reasonably be considered to be a random sample from a \
+normal distribution. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.43542880654*^9, 3.4354288175290003`*^9}, {
+  3.43706359131832*^9, 3.4370636502433195`*^9}, {3.43706403074532*^9, 
+  3.43706403845632*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ ". The ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " ",
+ StyleBox["percentile",
+  FontSlant->"Italic"],
+ " of the probability distribution of a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is the point ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "p"], TraditionalForm]]],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[LessEqual]", 
+      SubscriptBox["x", "p"]}], "]"}], "=", "p"}], TraditionalForm]]],
+ ".  (a) Find a general relationship between the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["p", "th"], " "}], TraditionalForm]]],
+ "percentile ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "p"], TraditionalForm]]],
+ " of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"\[Mu]", ",", 
+     SuperscriptBox["\[Sigma]", "2"]}], ")"}], TraditionalForm]]],
+ " distribution and the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " percentile ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["z", "p"], TraditionalForm]]],
+ " of the standard normal distribution.  Then (b), defining the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["i", "th"], TraditionalForm]]],
+ " smallest member ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", 
+    RowBox[{"(", "i", ")"}]], TraditionalForm]]],
+ " of a random sample ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "\[Ellipsis]", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " as the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " ",
+ StyleBox["percentile of the sample",
+  FontSlant->"Italic"],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"i", "/", 
+     RowBox[{"(", 
+      RowBox[{"n", "+", "1"}], ")"}]}]}], TraditionalForm]]],
+ ", discuss what a plot of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", 
+    RowBox[{"(", "i", ")"}]], TraditionalForm]]],
+ " vs. ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["z", "p"], TraditionalForm]]],
+ " would look like if the random sample came from some normal distribution. \
+(A plot of the pairs ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["z", "p"], ",", 
+     SubscriptBox["X", 
+      RowBox[{"(", "i", ")"}]]}], ")"}], TraditionalForm]]],
+ " described in part (b) is called a ",
+ StyleBox["normal scores",
+  FontSlant->"Italic"],
+ ", or ",
+ StyleBox["normal quantile",
+  FontSlant->"Italic"],
+ " plot.)"
+}], "Text",
+ CellChangeTimes->{{3.43706366987132*^9, 3.43706367216932*^9}, {
+   3.4370638076553197`*^9, 3.43706381166432*^9}, {3.43706410819732*^9, 
+   3.43706411858832*^9}, {3.43706418865232*^9, 3.43706451441632*^9}, 
+   3.43706820726832*^9, {3.4566689899912*^9, 3.4566689902720003`*^9}}],
+
+Cell[TextData[{
+ "\t(a) By standardizing in the defining equation for the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " percentile of a distribution, we get"
+}], "Text",
+ CellChangeTimes->{{3.43706366987132*^9, 3.43706367216932*^9}, {
+  3.4370638076553197`*^9, 3.43706381166432*^9}, {3.43706410819732*^9, 
+  3.43706411858832*^9}, {3.43706418865232*^9, 3.4370645573653197`*^9}, {
+  3.43706462940732*^9, 3.4370646294113197`*^9}, {3.43706483530432*^9, 
+  3.43706483604632*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"p", "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[LessEqual]", 
+      SubscriptBox["x", "p"]}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"Z", "\[LessEqual]", 
+       FractionBox[
+        RowBox[{
+         SubscriptBox["x", "p"], "-", "\[Mu]"}], "\[Sigma]"]}], "]"}], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"Z", "\[LessEqual]", 
+       SubscriptBox["z", "p"]}], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.43706463244232*^9, 3.4370646816153197`*^9}}],
+
+Cell[TextData[{
+ "Thus, since the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " percentile of the standard normal distribution is clearly a unique value, \
+we must have that"
+}], "Text",
+ CellChangeTimes->{{3.43706366987132*^9, 3.43706367216932*^9}, {
+  3.4370638076553197`*^9, 3.43706381166432*^9}, {3.43706410819732*^9, 
+  3.43706411858832*^9}, {3.43706418865232*^9, 3.4370645628093195`*^9}, {
+  3.43706471404132*^9, 3.4370647530363197`*^9}, {3.4370648689203196`*^9, 
+  3.43706486892632*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FormBox[
+    RowBox[{
+     SubscriptBox["z", "p"], "=", 
+     FractionBox[
+      RowBox[{
+       SubscriptBox["x", "p"], "-", "\[Mu]"}], "\[Sigma]"]}],
+    TraditionalForm], "."}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.43706488083632*^9, 3.4370648812533197`*^9}}],
+
+Cell[TextData[{
+ "(b) We leave unproved the intuitively reasonable fact that the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"i", "/", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"n", "+", "1"}], ")"}], "th"]}]}], TraditionalForm]]],
+ " percentile of the random sample should estimate the corresponding \
+percentile ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "p"], TraditionalForm]]],
+ " of the distribution being sampled from.  That is, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"(", "i", ")"}]], "\[TildeTilde]", 
+    SubscriptBox["x", "p"]}], TraditionalForm]]],
+ ".  But by formula (9) above, if the sample was taken from a normal \
+distribution, then ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "p"], TraditionalForm]]],
+ " is in turn related to the standard normal percentile by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "p"], "=", 
+    RowBox[{"\[Mu]", "+", 
+     RowBox[{"\[Sigma]", " ", 
+      SubscriptBox["z", "p"]}]}]}], TraditionalForm]]],
+ ".  Hence we have ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", 
+     RowBox[{"(", "i", ")"}]], "\[TildeTilde]", 
+    RowBox[{"\[Mu]", "+", 
+     RowBox[{"\[Sigma]", " ", 
+      SubscriptBox["z", "p"]}]}]}], TraditionalForm]]],
+ ".  A normal quantile plot should show an approximately linear relationship \
+between the standard normal percentiles and the ordered sample values, whose \
+slope is roughly \[Sigma], and whose y-intercept is roughly \[Mu].  \n\tLet \
+us illustrate this conclusion in three ways: (1) for a simulated sample that \
+does come from a normal distribution; (2) for a simulated sample that does \
+not; and (3) for a real data set, specifically the SAT scores from the start \
+of this section. In the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " input cell below, we first initialize the random seed, and then we create  \
+random samples of size 30 from the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", 
+     SuperscriptBox["2", "2"]}], ")"}], TraditionalForm]]],
+ " and the uniform",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "4"}], ",", "4"}], ")"}], TraditionalForm]]],
+ " distribution and sort them into increasing order. "
+}], "Text",
+ CellChangeTimes->{{3.4370647902903194`*^9, 3.43706483945032*^9}, {
+   3.43706490380432*^9, 3.43706516853232*^9}, {3.43706522322632*^9, 
+   3.43706522323732*^9}, {3.4370653111323195`*^9, 3.4370653352603197`*^9}, {
+   3.43706580997832*^9, 3.43706595995632*^9}, 3.43706664166232*^9, 
+   3.4370683730403194`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "17351", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"normsample", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"RandomReal", "[", 
+      RowBox[{"NormalDistribution", "[", 
+       RowBox[{"0", ",", "2"}], "]"}], "]"}], ",", 
+     RowBox[{"{", "30", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"sortednormsample", "=", 
+   RowBox[{"Sort", "[", "normsample", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"unifsample", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"RandomReal", "[", 
+      RowBox[{"UniformDistribution", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "4"}], ",", "4"}], "}"}], "]"}], "]"}], ",", 
+     RowBox[{"{", "30", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"sortedunifsample", "=", 
+   RowBox[{"Sort", "[", "unifsample", "]"}]}], ";"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399154918890625*^9, 3.399154936609375*^9}, {
+   3.43706541840232*^9, 3.4370654199053197`*^9}, {3.43706562632032*^9, 
+   3.4370658035263195`*^9}, 3.43706600139332*^9, 3.4370665726553197`*^9, {
+   3.4370666082573195`*^9, 3.43706664836732*^9}, 3.4370666866873198`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Next we use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s Quantile[distribution, p] command to create a list of the standard \
+normal percentiles for probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"p", "=", 
+     RowBox[{"i", "/", 
+      RowBox[{"(", 
+       RowBox[{"30", "+", "1"}], ")"}]}]}], ",", 
+    RowBox[{"i", "=", "1"}], ",", "2", ",", "...", " ", ",", "30"}], 
+   TraditionalForm]]],
+ " to pair up with the sorted values. This command, as suggested by its name, \
+returns the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "th"], TraditionalForm]]],
+ " percentile of the given named distribution. The Transpose command forms \
+the ordered pairs, which we then ListPlot for both the normal and uniform \
+case. "
+}], "Text",
+ CellChangeTimes->{{3.43706601093332*^9, 3.4370661537173195`*^9}, {
+  3.4370663132403197`*^9, 3.4370663134533195`*^9}, {3.43706638569532*^9, 
+  3.4370664137933197`*^9}, {3.43800594382172*^9, 3.4380059465297203`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"normquants", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Quantile", "[", 
+      RowBox[{
+       RowBox[{"NormalDistribution", "[", 
+        RowBox[{"0", ",", "1"}], "]"}], ",", 
+       RowBox[{"i", "/", "31"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "30"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"normpairs", "=", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{"normquants", ",", "sortednormsample"}], "}"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"unifpairs", "=", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{"normquants", ",", "sortedunifsample"}], "}"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"normplotnorm", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"normpairs", ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["z", "p"], ",", 
+        "\"\<\!\(\*SubscriptBox[\(X\), \((i)\)]\)\>\""}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"normplotunif", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"unifpairs", ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["z", "p"], ",", 
+        "\"\<\!\(\*SubscriptBox[\(U\), \((i)\)]\)\>\""}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"normplotnorm", ",", "normplotunif"}], "}"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.43706617070632*^9, 3.4370663664153194`*^9}, {
+  3.43706648800232*^9, 3.43706649646832*^9}, {3.4370666547763195`*^9, 
+  3.43706665789632*^9}, {3.4370685477623196`*^9, 3.4370686222733197`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["(a)                                        (b) ", "Text",
+ CellChangeTimes->{{3.4370668068473196`*^9, 3.43706683159332*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Figure 4.7",
+  FontWeight->"Bold"],
+ " - (a) Normal scores plot for simulated ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", 
+     SuperscriptBox["2", "2"]}], ")"}], TraditionalForm]]],
+ " sample; (b) Normal scores plot for simulated ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"unif", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "4"}], ",", "4"}], ")"}]}], TraditionalForm]]],
+ " sample"
+}], "Text",
+ CellChangeTimes->{{3.4370667136153197`*^9, 3.4370667825623198`*^9}, 
+   3.43706709708132*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "The difference is rather subtle, and is further clouded by the occurrence \
+of an outlying value of more than 6 in the simulated normal random sample. In \
+part (a) of Figure 7, note that except for this extreme value, the points are \
+relatively linear with a slope of around 2, and an intercept of around 0, as \
+predicted by our analysis. Part (b) shows the normal scores plot for a sample \
+from the uniform distribution with a roughly equivalent range of values. Note \
+that there is curvature reminiscent of the cube root graph, or the inverse \
+tangent graph.  This can be explained by the fact that the standard normal \
+percentiles increase quickly away from the origin, and slowly near the \
+origin, owing to the heavy distribution of probability weight near 0. But the \
+uniform percentiles will increase at a constant rate throughout the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", "4"}], ",", "4"}], "]"}], TraditionalForm]]],
+ ". So the rate at which the uniform percentiles change with respect to the \
+normal percentiles will be greatest near zero, and will be smaller on the \
+tails, as the simulated sample bears out. \n\tThe main benefit of normal \
+scores plots, however, is to diagnose departures from normality in unknown \
+data sets. Figure 1(b) was a histogram of a set of 167 SAT scores that were \
+entered as the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " list SATscores. The histogram seemed to suggest that a normal distribution \
+of scores was reasonable to assume.  Let us construct a normal scores plot \
+and check this. Below we use the same approach to construct the plot. First \
+we sort the scores, next we table the 167 percentiles with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"i", "/", 
+     RowBox[{"(", 
+      RowBox[{"167", "+", "1"}], ")"}]}]}], TraditionalForm]]],
+ " of the standard normal distribution, then we transpose the quantiles and \
+sorted scores to a list of pairs, and finally we ListPlot that data. "
+}], "Text",
+ CellChangeTimes->{{3.43706684480332*^9, 3.43706700527232*^9}, {
+  3.43706707494832*^9, 3.43706711252032*^9}, {3.43706714334332*^9, 
+  3.43706720585532*^9}, {3.43706724790932*^9, 3.4370673285663195`*^9}, {
+  3.43706736921632*^9, 3.43706749806532*^9}, {3.43706753197132*^9, 
+  3.43706757216732*^9}, {3.43706765273732*^9, 3.4370677654833198`*^9}, {
+  3.43706797554132*^9, 3.43706807684632*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sortedSAT", "=", 
+   RowBox[{"Sort", "[", "SATscores", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"normquants167", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Quantile", "[", 
+      RowBox[{
+       RowBox[{"NormalDistribution", "[", 
+        RowBox[{"0", ",", "1"}], "]"}], ",", 
+       RowBox[{"i", "/", "168"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "167"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"datapoints", "=", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{"normquants167", ",", "sortedSAT"}], "}"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"datapoints", ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["z", "p"], ",", 
+      "\"\<\!\(\*SubscriptBox[\(X\), \((i)\)]\)\>\""}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.43706760562732*^9, 3.43706760871932*^9}, {
+  3.4370676846583195`*^9, 3.43706769104732*^9}, {3.43706778767232*^9, 
+  3.43706788706832*^9}, {3.4370686352623196`*^9, 3.43706863672532*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 4.8",
+  FontWeight->"Bold"],
+ " - Normal scores plot for SAT scores"
+}], "Text",
+ CellChangeTimes->{{3.4370667136153197`*^9, 3.4370667825623198`*^9}, 
+   3.43706709708132*^9, {3.4370679434443197`*^9, 3.43706795844932*^9}},
+ TextAlignment->Center],
+
+Cell["\<\
+The linearity here is quite good, so we should have very little discomfort \
+about the assumption of normality.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.43706809299632*^9, 3.43706809487932*^9}, {
+  3.43706815626532*^9, 3.4370681932953196`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 6",
+  FontWeight->"Bold"],
+ "  Use the graph in Figure 8 to visually estimate the mean and standard \
+deviation of the distribution of SAT scores, and then calculate the sample \
+mean and standard deviation in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.404144114625*^9, 3.404144154453125*^9}, 
+   3.4269603590081244`*^9, {3.4370682244933195`*^9, 3.43706827793632*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 4.1", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The list below consists of 110 Nielsen television ratings of primetime \
+shows for the CBS, NBC, ABC, and Fox networks selected from the time period \
+of July 7",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "July 11, 2008. Does the distribution of ratings seem approximately normal?  \
+Regardless of the apparent normality or lack of it, estimate the normal \
+parameters, and superimpose the corresponding density function on a scaled \
+histogram of the ratings."
+}], "Text",
+ CellChangeTimes->{{3.4269554927651243`*^9, 3.426955497384124*^9}, 
+   3.426960442602124*^9, {3.4273891948958*^9, 3.4273892317088003`*^9}, {
+   3.4273896379068003`*^9, 3.4273896380978003`*^9}, {3.4273898099997997`*^9, 
+   3.4273898254708*^9}, 3.4566690534676*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ratings", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "5.8", ",", "6.4", ",", "7.0", ",", "7.9", ",", "7.2", ",", "6.9", ",", 
+     "3.5", ",", "3.5", ",", "5.9", ",", "4.5", ",", "5.6", ",", "5.7", ",", 
+     "2.9", ",", "3.4", ",", "3.3", ",", "3.6", ",", "3.7", ",", "4.2", ",", 
+     "4.1", ",", "4.5", ",", "4.7", ",", "5.4", ",", "5.7", ",", "6.4", ",", 
+     "4.2", ",", "3.6", ",", "4.5", ",", "4.7", ",", "5.6", ",", "6.2", ",", 
+     "5.0", ",", "5.6", ",", "4.4", ",", "4.3", ",", "4.9", ",", "4.9", ",", 
+     "7.5", ",", "8.2", ",", "5.0", ",", "4.7", ",", "3.0", ",", "3.6", ",", 
+     "5.2", ",", "5.5", ",", "2.7", ",", "2.6", ",", "2.6", ",", "2.9", ",", 
+     "4.0", ",", "4.5", ",", "4.7", ",", "5.2", ",", "4.9", ",", "5.1", ",", 
+     "5.7", ",", "6.1", ",", "3.1", ",", "3.0", ",", "4.3", ",", "4.5", ",", 
+     "3.4", ",", "3.0", ",", "5.1", ",", "5.6", ",", "5.7", ",", "5.8", ",", 
+     "2.2", ",", "2.1", ",", "2.1", ",", "2.3", ",", "3.7", ",", "3.9", ",", 
+     "6.1", ",", "6.2", ",", "6.5", ",", "6.8", ",", "3.9", ",", "3.7", ",", 
+     "2.4", ",", "2.3", ",", "3.1", ",", "3.0", ",", "3.2", ",", "3.5", ",", 
+     "4.0", ",", "4.7", ",", "5.2", ",", "5.3", ",", "2.1", ",", "2.0", ",", 
+     "2.2", ",", "2.4", ",", "3.3", ",", "3.8", ",", "3.6", ",", "3.8", ",", 
+     "4.3", ",", "4.5", ",", "5.3", ",", "5.4", ",", "2.9", ",", "3.3", ",", 
+     "4.2", ",", "4.7", ",", "4.5", ",", "4.3", ",", "1.7", ",", "1.9", ",", 
+     "2.1", ",", "2.3"}], "}"}]}], ";"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4273889243858*^9, 3.4273889933157997`*^9}, {
+   3.4273890243817997`*^9, 3.4273891011438*^9}, 3.4273891623668003`*^9, {
+   3.4273893098788*^9, 3.4273894705158*^9}, {3.4273895032468*^9, 
+   3.4273895774958*^9}, {3.4273896410288*^9, 3.4273897196247997`*^9}, 
+   3.4273897501588*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "2.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The data below are unemployment rates (in %) in a sample of 65 Illinois \
+counties in June, 2008.  Does the distribution of unemployment rates seem \
+approximately normal?  Estimate the normal parameters, and superimpose the \
+corresponding density function on a scaled histogram of the unemployment \
+rates."
+}], "Text",
+ CellChangeTimes->{{3.426955523393124*^9, 3.4269555352541237`*^9}, {
+  3.4273900706577997`*^9, 3.4273901230948*^9}, {3.4273906561588*^9, 
+  3.4273907018598003`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"unemployment", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "5.4", ",", "7.1", ",", "8.5", ",", "9.0", ",", "6.6", ",", "6.6", ",", 
+     "7.0", ",", "8.0", ",", "7.1", ",", "7.1", ",", "6.0", ",", "7.6", ",", 
+     "7.4", ",", "7.6", ",", "7.6", ",", "7.2", ",", "5.7", ",", "6.5", ",", 
+     "6.0", ",", "8.2", ",", "8.4", ",", "8.2", ",", "7.1", ",", "6.2", ",", 
+     "6.7", ",", "6.2", ",", "7.0", ",", "6.4", ",", "5.5", ",", "6.2", ",", 
+     "6.7", ",", "6.4", ",", "5.5", ",", "5.5", ",", "7.1", ",", "6.6", ",", 
+     "6.4", ",", "5.2", ",", "8.7", ",", "7.5", ",", "6.4", ",", "5.4", ",", 
+     "6.5", ",", "8.4", ",", "6.3", ",", "5.7", ",", "6.5", ",", "6.2", ",", 
+     "7.6", ",", "5.6", ",", "6.5", ",", "6.9", ",", "7.0", ",", "6.5", ",", 
+     "8.3", ",", "7.6", ",", "6.5", ",", "7.4", ",", "6.5", ",", "8.1", ",", 
+     "7.4", ",", "7.0", ",", "5.7", ",", "7.8", ",", "6.9"}], "}"}]}], 
+  ";"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.4269604230291243`*^9, {3.4273901302688*^9, 3.4273902804138002`*^9}, {
+   3.4273903745708*^9, 3.4273904581928*^9}, {3.4273904891998*^9, 
+   3.4273906071338*^9}, {3.4273906382488003`*^9, 3.4273906599308*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "3.  Show that the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) density integrates to 1 over all of \[DoubleStruckCapitalR]; \
+therefore, it is a good density. (Hint: To show that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     UnderoverscriptBox["\[Integral]", 
+      RowBox[{"-", "\[Infinity]"}], "\[Infinity]"], 
+     RowBox[{
+      RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}], "=", "1"}], 
+   TraditionalForm]]],
+ " it is enough to show that the square of the integral is one.  Then express \
+the square of the integral as an iterated two-fold integral, and change to \
+polar coordinates.)"
+}], "Text",
+ CellChangeTimes->{3.4372552413579187`*^9, 3.4566690799096003`*^9}],
+
+Cell[TextData[{
+ "4.  Show that the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") density function is symmetric about \[Mu]."
+}], "Text"],
+
+Cell[TextData[{
+ "5.  Use calculus to show that the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") density function reaches its maximum value at \[Mu], and compute that \
+maximum value. "
+}], "Text",
+ CellChangeTimes->{3.426960376367124*^9, 3.43706830948132*^9}],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Recall that if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", 
+    RowBox[{"..", " ", "."}], ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " is a random sample of size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", then the sample variance is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     RowBox[{
+      SuperscriptBox["S", "2"], "=", 
+      FractionBox["1", 
+       RowBox[{"n", "-", "1"}]]}],
+     TraditionalForm], 
+    RowBox[{
+     FormBox[
+      UnderoverscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "n"],
+      TraditionalForm], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["X", "i"], "-", 
+        OverscriptBox["X", "_"]}], ")"}], "2"]}]}], TraditionalForm]]],
+ ".   Simulate 100 samples of size 20 from the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(0, 1) distribution, the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(2, 1) distribution, and the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(4, 1) distribution and, in each case, sketch a histogram of the 100 \
+observed values of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ ".  Discuss the dependence of the empirical distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ " on the value of \[Mu].  Conduct a similar experiment and discuss the \
+dependence of the empirical distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ " on the value of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  "
+}], "Text",
+ CellChangeTimes->{3.4269603804051237`*^9, 3.4370683120923195`*^9, 
+  3.4566690890824003`*^9}],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " or tables) If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is a ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(\[Mu], ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ") random variable, compute  (a)  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"X", "-", "\[Mu]"}], "<", "\[Sigma]"}], "]"}], TraditionalForm]]],
+ ";  (b)  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"X", "-", "\[Mu]"}], "<", 
+     RowBox[{"2", "\[Sigma]"}]}], "]"}], TraditionalForm]]],
+ ";  (c)  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"X", "-", "\[Mu]"}], "<", 
+     RowBox[{"3", "\[Sigma]"}]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{3.426960385020124*^9}],
+
+Cell[TextData[{
+ "8.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " or tables) Suppose that compression strengths of human tibia bones are \
+normally distributed with mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", " ", "=", "15.3"}], TraditionalForm]]],
+ " (units of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"kg", "/", 
+    SuperscriptBox["mm", "2"]}], TraditionalForm]]],
+ " \[Cross] 1000) and standard deviation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sigma]", " ", "=", "2.0"}], TraditionalForm]]],
+ ".  Among four independently sampled tibia bones, what is the probability \
+that at least three have strengths of 17.0 or better?"
+}], "Text"],
+
+Cell[TextData[{
+ "9.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " or tables) Assume that in a certain area the distribution of household \
+incomes can be approximated by a normal distribution with mean $30,000 and \
+standard deviation $6000.  If five households are sampled at random, what is \
+the probability that all will have incomes of $24,000 or less?"
+}], "Text",
+ CellChangeTimes->{3.426960389113124*^9}],
+
+Cell[TextData[{
+ "10.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  Simulate 500 values of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Z", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"X", "-", "\[Mu]"}], ")"}], "/", "\[Sigma]"}]}], 
+   TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"\[Mu]", ",", " ", 
+      SuperscriptBox["\[Sigma]", "2"]}], ")"}]}], TraditionalForm]]],
+ " for several cases of the parameters \[Mu] and \[Sigma].  For each \
+simulation, superimpose a scaled histogram of observed ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " values and a graph of the standard normal density curve.  What do you see, \
+and why should you have expected to see it? "
+}], "Text"],
+
+Cell[TextData[{
+ "11.  Suppose that a table of the standard normal distribution tells you \
+that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessEqual]", "Z", "\[LessEqual]", "1.15"}], "]"}], "=", 
+    ".3749"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessEqual]", "Z", "\[LessEqual]", "2.46"}], "]"}], "=", 
+    ".4931"}], TraditionalForm]]],
+ ".  Find (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1.15", "\[LessEqual]", "Z", "\[LessEqual]", "2.46"}], "]"}], 
+   TraditionalForm]]],
+ ";  (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"-", "1.15"}], "\[LessEqual]", "Z", "\[LessEqual]", "2.46"}], 
+    "]"}], TraditionalForm]]],
+ ";  (c) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Z", ">", "2.46"}], "]"}], TraditionalForm]]],
+ ";  (d) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Z", "<", 
+     RowBox[{"-", "1.15"}]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{3.426960393352124*^9}],
+
+Cell[TextData[{
+ "12.  Assume that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the ",
+ StyleBox["N",
+  FontSlant->"Italic"],
+ "(1.8, ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["0.7", "2"], TraditionalForm]]],
+ ") distribution.  Without using ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " or tables, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1.65", "\[LessEqual]", "X", "\[LessEqual]", "1.85"}], "]"}], 
+   TraditionalForm]]],
+ " if a table of the standard normal distribution tells you that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessEqual]", "Z", "\[LessEqual]", ".07"}], "]"}], "=", 
+    ".0279"}], TraditionalForm]]],
+ StyleBox[" and ", "DisplayFormula"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"0", "\[LessEqual]", "Z", "\[LessEqual]", ".21"}], "]"}], "=", 
+    ".0832"}], TraditionalForm]]],
+ StyleBox[".", "DisplayFormula"]
+}], "Text"],
+
+Cell[TextData[{
+ "13.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") For each of 200 simulated random samples of size 50 from the uniform(4, \
+6) distribution, compute the sample mean.  Then plot a scaled histogram of \
+the sample mean together with an appropriate normal density that you expect \
+to be the best fitting one to the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ ".  Repeat the simulation for the Weibull(2, 30) distribution that we \
+encountered in Example 3 of Section 3.3. "
+}], "Text",
+ CellChangeTimes->{3.426960400670124*^9, 3.4370683194183197`*^9}],
+
+Cell["\<\
+14.  Suppose that the times people spend being served at a post office window \
+are approximately normal with mean 1.5 minutes and variance .16 minutes.  \
+What are the probabilities that:
+(a) a service requires either more than 1.9 minutes or less than 1.1 minutes?
+(b) a service requires between .7 minutes and 2.3 minutes?\
+\>", "Text"],
+
+Cell[TextData[{
+ "15.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The ",
+ StyleBox["deciles",
+  FontSlant->"Italic"],
+ " of the probability distribution of a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " are the points ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", ".1"], ",", 
+    SubscriptBox["x", ".2"], ",", 
+    SubscriptBox["x", ".3"], ",", " ", "...", " ", ",", " ", 
+    SubscriptBox["x", ".9"]}], TraditionalForm]]],
+ " such that\n\n\t\t ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", 
+       SubscriptBox["x", ".1"]}], "]"}], "=", ".1"}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", 
+       SubscriptBox["x", ".2"]}], "]"}], "=", ".2"}], ",", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", 
+       SubscriptBox["x", ".3"]}], "]"}], "=", ".3"}]}], TraditionalForm]]],
+ ", \n \n etc.  Find the deciles of the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"N", "(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ " distribution."
+}], "Text",
+ CellChangeTimes->{3.426960408573124*^9, 3.43706832994332*^9}],
+
+Cell["\<\
+16. (a) Produce a normal scores plot for 40 simulated values from the \
+Weibull(2,3) distribution.  Does it appear to be about linear? (b) Produce a \
+normal scores plot for the unemployment data in Exercise 2.  Are you \
+confident in an assumption of normality?\
+\>", "Text",
+ CellChangeTimes->{
+  3.4269604118321238`*^9, 3.43706833589632*^9, 3.43706866132932*^9, {
+   3.43706875150432*^9, 3.43706885048032*^9}, {3.4370689221963196`*^9, 
+   3.4370689371303196`*^9}}],
+
+Cell[TextData[{
+ StyleBox["17. ",
+  FontColor->GrayLevel[0]],
+ "(",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")",
+ StyleBox[" Suppose that an insurance company determines that the \
+distribution of claim sizes on their auto insurance policies is normal with \
+mean 1200 and standard deviation 300.  When a claim is submitted, the company \
+pays the difference between the amount claimed and the \"deductible\" amount \
+listed on the particular policy. Half of the company's policies have \
+deductible amounts of $250, 1/4 have $500 deductibles, and the remaining 1/4 \
+have $1000 deductibles.  What is the expected payout of a random claim?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.426955841731124*^9, 3.426955959509124*^9}, {
+   3.4269561769631243`*^9, 3.426956221965124*^9}, {3.4273915121238003`*^9, 
+   3.4273915768938*^9}, {3.4273916259368*^9, 3.4273916860048*^9}, {
+   3.4273928581526003`*^9, 3.4273928629616003`*^9}, 3.43706833860632*^9}],
+
+Cell[TextData[{
+ StyleBox["18. ",
+  FontColor->GrayLevel[0]],
+ "(",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " or tables)",
+ StyleBox[" The rate of return on investment is defined as (final value ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ StyleBox[" initial value)/(initial value). Suppose that the rate of return \
+on a particular investment is normal with mean .10 and standard deviation .2. \
+ Find: (a) the probability that the investment loses money; (b) the \
+probability that an investment of $1000 has a final value of at least $1050.  \
+",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.426955963316124*^9, 3.426955966819124*^9}, {
+   3.426956027415124*^9, 3.426956143587124*^9}, {3.4273917203098*^9, 
+   3.4273918310188*^9}, {3.4273928541345997`*^9, 3.4273928549286003`*^9}, 
+   3.4370683443873196`*^9, {3.45666919744*^9, 3.4566692026348*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{592, 619},
+WindowMargins->{{9, Automatic}, {Automatic, 14}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 4 Continuous Distributions"], "Header"]}, {
+   Cell[
+    TextData["4.1 The Normal Distribution"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 177, 4, 118, "Title"],
+Cell[CellGroupData[{
+Cell[769, 30, 292, 10, 68, "Section"],
+Cell[1064, 42, 1508, 23, 297, "Text"],
+Cell[2575, 67, 478, 12, 56, "Input",
+ InitializationCell->True],
+Cell[3056, 81, 9240, 192, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[12299, 275, 1220, 30, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[13522, 307, 179, 4, 27, "Text"],
+Cell[13704, 313, 315, 10, 49, "Text"],
+Cell[14022, 325, 1454, 24, 318, "Text"],
+Cell[15479, 351, 1232, 34, 189, "Input",
+ InitializationCell->True],
+Cell[16714, 387, 234, 7, 28, "Text"],
+Cell[16951, 396, 529, 16, 94, "Text"],
+Cell[17483, 414, 144, 3, 48, "Text"],
+Cell[17630, 419, 413, 12, 51, "Text"],
+Cell[18046, 433, 646, 20, 69, "DisplayFormulaNumbered"],
+Cell[18695, 455, 645, 22, 53, "Text"],
+Cell[19343, 479, 852, 28, 71, "DisplayFormulaNumbered"],
+Cell[20198, 509, 47, 0, 27, "Text"],
+Cell[20248, 511, 1285, 41, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[21536, 554, 378, 13, 28, "Text"],
+Cell[21917, 569, 1316, 35, 265, "Text"],
+Cell[23236, 606, 1201, 37, 145, "Input",
+ InitializationCell->True],
+Cell[24440, 645, 901, 18, 193, "Text"],
+Cell[25344, 665, 586, 17, 74, "Input",
+ InitializationCell->True],
+Cell[25933, 684, 794, 20, 131, "Text"],
+Cell[26730, 706, 1118, 32, 123, "Input",
+ InitializationCell->True],
+Cell[27851, 740, 268, 10, 28, "Text"],
+Cell[28122, 752, 333, 10, 90, "Text"],
+Cell[28458, 764, 590, 10, 110, "Text"],
+Cell[29051, 776, 1075, 28, 101, "Input",
+ InitializationCell->True],
+Cell[30129, 806, 2470, 73, 322, "Text"],
+Cell[32602, 881, 1011, 30, 133, "Input",
+ InitializationCell->True],
+Cell[33616, 913, 303, 11, 49, "Text"],
+Cell[33922, 926, 472, 14, 90, "Text"],
+Cell[34397, 942, 718, 12, 111, "Text"],
+Cell[35118, 956, 727, 19, 79, "Input",
+ InitializationCell->True],
+Cell[35848, 977, 1842, 52, 154, "Text"],
+Cell[37693, 1031, 490, 13, 70, "Input",
+ InitializationCell->True],
+Cell[38186, 1046, 526, 17, 60, "Text"],
+Cell[38715, 1065, 478, 13, 70, "Input",
+ InitializationCell->True],
+Cell[39196, 1080, 955, 21, 142, "Text"],
+Cell[40154, 1103, 555, 20, 72, "DisplayFormulaNumbered"],
+Cell[40712, 1125, 462, 17, 98, "Text"],
+Cell[41177, 1144, 100, 1, 33, "Text"],
+Cell[41280, 1147, 204, 4, 60, "Text"],
+Cell[41487, 1153, 598, 17, 98, "Input",
+ InitializationCell->True],
+Cell[42088, 1172, 430, 9, 86, "Text"],
+Cell[42521, 1183, 877, 26, 126, "Input",
+ InitializationCell->True],
+Cell[43401, 1211, 701, 11, 137, "Text"],
+Cell[44105, 1224, 800, 24, 98, "Input",
+ InitializationCell->True],
+Cell[44908, 1250, 384, 7, 33, "Text"],
+Cell[45295, 1259, 914, 27, 143, "Text"],
+Cell[46212, 1288, 1148, 37, 160, "Input",
+ InitializationCell->True],
+Cell[47363, 1327, 429, 9, 115, "Text"],
+Cell[47795, 1338, 387, 15, 36, "Text"],
+Cell[48185, 1355, 454, 15, 41, "DisplayFormulaNumbered"],
+Cell[48642, 1372, 545, 20, 61, "Text"],
+Cell[49190, 1394, 945, 26, 66, "DisplayFormula"],
+Cell[50138, 1422, 388, 12, 33, "Text"],
+Cell[50529, 1436, 752, 23, 83, "DisplayFormula"],
+Cell[51284, 1461, 1006, 32, 125, "Text"],
+Cell[52293, 1495, 1021, 35, 83, "DisplayFormula"],
+Cell[53317, 1532, 309, 11, 33, "Text"],
+Cell[53629, 1545, 639, 22, 83, "DisplayFormula"],
+Cell[54271, 1569, 204, 4, 60, "Text"],
+Cell[54478, 1575, 911, 22, 196, "Text"],
+Cell[55392, 1599, 415, 15, 62, "Text"],
+Cell[55810, 1616, 259, 7, 58, "DisplayFormulaNumbered"],
+Cell[56072, 1625, 103, 5, 33, "Text"],
+Cell[56178, 1632, 682, 15, 165, "Text"],
+Cell[56863, 1649, 761, 25, 58, "DisplayFormulaNumbered"],
+Cell[57627, 1676, 789, 29, 88, "Text"],
+Cell[58419, 1707, 654, 20, 33, "DisplayFormula"],
+Cell[59076, 1729, 356, 13, 36, "Text"],
+Cell[59435, 1744, 1051, 35, 86, "DisplayFormula"],
+Cell[60489, 1781, 218, 7, 33, "Text"],
+Cell[60710, 1790, 661, 25, 115, "Text"],
+Cell[61374, 1817, 900, 15, 242, "Text"],
+Cell[62277, 1834, 591, 16, 130, "Input",
+ InitializationCell->True],
+Cell[62871, 1852, 632, 14, 163, "Text"],
+Cell[63506, 1868, 815, 28, 58, "DisplayFormula"],
+Cell[64324, 1898, 678, 21, 112, "Text"],
+Cell[65005, 1921, 2421, 75, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[67429, 1998, 471, 16, 33, "Text"],
+Cell[67903, 2016, 207, 7, 35, "Text"],
+Cell[68113, 2025, 1296, 37, 190, "Text"],
+Cell[69412, 2064, 576, 16, 70, "Input",
+ InitializationCell->True],
+Cell[69991, 2082, 228, 4, 60, "Text"],
+Cell[70222, 2088, 583, 16, 70, "Input",
+ InitializationCell->True],
+Cell[70808, 2106, 504, 8, 112, "Text"],
+Cell[71315, 2116, 773, 24, 58, "DisplayFormula"],
+Cell[72091, 2142, 764, 16, 137, "Text"],
+Cell[72858, 2160, 634, 18, 70, "Input",
+ InitializationCell->True],
+Cell[73495, 2180, 406, 10, 86, "Text"],
+Cell[73904, 2192, 718, 20, 98, "Input",
+ InitializationCell->True],
+Cell[74625, 2214, 242, 5, 33, "Text"],
+Cell[74870, 2221, 1174, 42, 112, "Text"],
+Cell[76047, 2265, 1107, 28, 275, "Text"],
+Cell[77157, 2295, 958, 29, 86, "DisplayFormulaNumbered"],
+Cell[78118, 2326, 235, 6, 60, "Text"],
+Cell[78356, 2334, 689, 21, 98, "Input",
+ InitializationCell->True],
+Cell[79048, 2357, 158, 3, 33, "Text"],
+Cell[79209, 2362, 587, 18, 41, "DisplayFormulaNumbered"],
+Cell[79799, 2382, 51, 0, 33, "Text"],
+Cell[79853, 2384, 755, 22, 98, "Input",
+ InitializationCell->True],
+Cell[80611, 2408, 124, 1, 33, "Text"],
+Cell[80738, 2411, 444, 10, 60, "Text"],
+Cell[81185, 2423, 2937, 108, 242, "Text"],
+Cell[84125, 2533, 510, 11, 62, "Text"],
+Cell[84638, 2546, 689, 23, 55, "DisplayFormula"],
+Cell[85330, 2571, 530, 12, 62, "Text"],
+Cell[85863, 2585, 330, 10, 55, "DisplayFormulaNumbered"],
+Cell[86196, 2597, 2613, 71, 393, "Text"],
+Cell[88812, 2670, 1514, 40, 291, "Input",
+ InitializationCell->True],
+Cell[90329, 2712, 1004, 26, 140, "Text"],
+Cell[91336, 2740, 2087, 60, 373, "Input",
+ InitializationCell->True],
+Cell[93426, 2802, 154, 2, 33, "Text"],
+Cell[93583, 2806, 576, 20, 66, "Text"],
+Cell[94162, 2828, 2455, 43, 527, "Text"],
+Cell[96620, 2873, 1484, 42, 236, "Input",
+ InitializationCell->True],
+Cell[98107, 2917, 280, 7, 35, "Text"],
+Cell[98390, 2926, 266, 5, 60, "Text"],
+Cell[98659, 2933, 471, 12, 112, "Text"],
+Cell[CellGroupData[{
+Cell[99155, 2949, 80, 2, 51, "Subsection"],
+Cell[99238, 2953, 858, 18, 163, "Text"],
+Cell[100099, 2973, 2166, 38, 428, "Input",
+ InitializationCell->True],
+Cell[102268, 3013, 566, 12, 112, "Text"],
+Cell[102837, 3027, 1515, 30, 291, "Input",
+ InitializationCell->True],
+Cell[104355, 3059, 717, 19, 142, "Text"],
+Cell[105075, 3080, 232, 9, 36, "Text"],
+Cell[105310, 3091, 356, 11, 62, "Text"],
+Cell[105669, 3104, 1828, 65, 183, "Text"],
+Cell[107500, 3171, 986, 42, 62, "Text"],
+Cell[108489, 3215, 664, 20, 118, "Text"],
+Cell[109156, 3237, 424, 9, 112, "Text"],
+Cell[109583, 3248, 772, 25, 118, "Text"],
+Cell[110358, 3275, 1363, 54, 86, "Text"],
+Cell[111724, 3331, 1091, 41, 88, "Text"],
+Cell[112818, 3374, 629, 14, 140, "Text"],
+Cell[113450, 3390, 349, 6, 137, "Text"],
+Cell[113802, 3398, 1325, 47, 163, "Text"],
+Cell[115130, 3447, 477, 9, 86, "Text"],
+Cell[115610, 3458, 975, 19, 190, "Text"],
+Cell[116588, 3479, 948, 22, 137, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

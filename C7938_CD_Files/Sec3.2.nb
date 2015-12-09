@@ -1,0 +1,5135 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    155557,       5126]
+NotebookOptionsPosition[    145430,       4864]
+NotebookOutlinePosition[    146243,       4895]
+CellTagsIndexPosition[    146200,       4892]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["3.2 Continuous Random Variables and Distributions", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.426691899275343*^9, 3.426691899775343*^9}, {
+  3.4267012731603427`*^9, 3.4267012755123425`*^9}},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "Next we would like to study the notion of random variables in the \
+continuous setting.  Random variables, as we know, attach a numerical value \
+to the outcome of a random phenomenon. In the discrete case we used the \
+probability mass function to characterize the likelihood ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"p", "(", "x", ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "=", "x"}], "]"}]}], TraditionalForm]]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "that a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " takes on each of its possible states ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ".  Then for subsets ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of the state space ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", "
+}], "Text",
+ CellChangeTimes->{{3.426691734348343*^9, 3.4266917479903426`*^9}, 
+   3.4266929562583427`*^9, 3.4267012828903427`*^9, 3.4267017689903426`*^9, {
+   3.436981651751027*^9, 3.4369816517610273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "\[Element]", "B"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      UnderscriptBox["\[Sum]", 
+       RowBox[{"x", "\[Element]", "B"}]],
+      TraditionalForm], 
+     RowBox[{"p", "(", "x", ")"}]}], "=", 
+    RowBox[{
+     FormBox[
+      UnderscriptBox["\[Sum]", 
+       RowBox[{"x", "\[Element]", "B"}]],
+      TraditionalForm], 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "=", "x"}], "]"}], " "}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981657601027*^9, 3.4369816581030273`*^9}}],
+
+Cell[TextData[{
+ "\tThe continuous case will come out similarly, with an integral replacing \
+the discrete sum.  But why are we concerned with continuous random variables? \
+ There are many interesting experiments which give rise to measurement \
+variables that are inherently continuous, that is, they take values in \
+intervals on the line rather than at finitely many discrete points.  For \
+instance, the pressure on an airplane wing, the amount of yield in a chemical \
+reaction, the measurement error in an experimental determination of the speed \
+of light, and the time until the first customer arrives to a store are just a \
+few among many examples of continuous variables.  To make predictions about \
+them, and to understand their central tendency and spread, we must have a way \
+of modeling their probability laws. \n\tWe have already set up the machinery \
+to characterize the probability distribution of a continuous random variable \
+in Section 3.1: ",
+ StyleBox["integration of a continuous function (thought of as a density of \
+probability) over a set is the means for calculating the probability of that \
+set.",
+  FontColor->GrayLevel[0]],
+ "  But now we consider ",
+ StyleBox["probability",
+  FontColor->GrayLevel[0]],
+ " density functions on the state spaces ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " of random variables rather than on the sample spaces \[CapitalOmega].  \
+From here on, \[CapitalOmega] will be pushed to the background.  "
+}], "Text",
+ CellChangeTimes->{{3.4266918147293425`*^9, 3.4266918894883423`*^9}, {
+   3.4266919232073426`*^9, 3.4266919440313425`*^9}, 3.4267012998073425`*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  A random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " with state space ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"E", "\[Subset]", "\[DoubleStruckCapitalR]"}], TraditionalForm]]],
+ " is said to have the ",
+ StyleBox["probability density function",
+  FontSlant->"Italic"],
+ " (abbr. p.d.f.) ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ "  if, for all Borel subsets ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ", "
+}], "Text",
+ CellChangeTimes->{
+  3.4266919651823425`*^9, 3.426701342867343*^9, {3.4369816737760267`*^9, 
+   3.436981673784027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "\[Element]", "B"}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderscriptBox["\[Integral]", "B"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436981680067027*^9, 3.436981680703027*^9}}],
+
+Cell[TextData[{
+ "In order for the axioms of probability to be satisfied, to be a valid \
+density function ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " must be non-negative and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FormBox[
+     UnderscriptBox["\[Integral]", "E"],
+     TraditionalForm], " ", 
+    RowBox[{
+     RowBox[{"f", "(", "x", ")"}], " ", "d", " ", "x"}]}], TraditionalForm]]],
+ " = 1. Figure 7 gives the geometric meaning of formula (1). The probability \
+that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " will fall into set ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " is the area under the density curve on the subset ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of the real axis. "
+}], "Text",
+ CellChangeTimes->{{3.4266919881023426`*^9, 3.4266919993053427`*^9}, {
+  3.426692034829343*^9, 3.4266920358353424`*^9}, {3.4267013514603424`*^9, 
+  3.4267013533713427`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.399046676861602*^9, 3.441236222965535*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.5`", ",", "1.5`"}], "}"}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0.5`", ",", "1.5`"}], "}"}], ",", "None"}], "}"}]}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "\"\<f(x)\>\""}], "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"PlotContsProb", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "x", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "3"}], ",", 
+       RowBox[{"-", "0.7`"}]}], "}"}], ",", 
+     RowBox[{"Ticks", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"-", "0.7`"}], "}"}], ",", "None"}], "}"}]}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "\"\<f(x)\>\""}], "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990467051977777`*^9, 3.3990467519078255`*^9}, {
+  3.40406746140625*^9, 3.40406747728125*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.7",
+  FontWeight->"Bold"],
+ " - Shaded area is P",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"X", "\[Element]", 
+     RowBox[{"[", 
+      RowBox[{".5", ",", " ", "1.5"}], "]"}]}], "]"}], TraditionalForm]]],
+ "           ",
+ StyleBox["Figure 3.8",
+  FontWeight->"Bold"],
+ StyleBox[" - Shaded area is ",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"F", "(", 
+      RowBox[{"-", ".7"}], ")"}], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", 
+       RowBox[{"-", ".7"}]}], "]"}]}],
+    FontWeight->"Plain"], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980232784027*^9, 3.436980238471027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe ",
+ StyleBox["cumulative distribution function",
+  FontSlant->"Italic"],
+ " of a continuous random variable will be prominently featured from here on. \
+ The definition of the c.d.f. ",
+ StyleBox["F",
+  FontSlant->"Italic"],
+ " is the same as it was before, though now it is computed as an integral:"
+}], "Text",
+ CellChangeTimes->{
+  3.436980256468027*^9, {3.436981701555027*^9, 3.436981701561027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"F", "(", "x", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[LessEqual]", "x"}], "]"}], "=", 
+    RowBox[{
+     FormBox[
+      UnderoverscriptBox["\[Integral]", 
+       RowBox[{"-", "\[Infinity]"}], "x"],
+      TraditionalForm], 
+     RowBox[{
+      RowBox[{"f", "(", "t", ")"}], " ", "d", " ", "t"}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4369817083670273`*^9, 3.436981708771027*^9}}],
+
+Cell[TextData[{
+ "It totals all probability weight to the left of and including point ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "  (see Figure 8). By the Fundamental Theorem of Calculus, differentiating \
+both sides of (2) with respect to ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " gives the relationship"
+}], "Text",
+ CellChangeTimes->{{3.4266924028713427`*^9, 3.426692403388343*^9}, {
+  3.4267013867533426`*^9, 3.4267013926273427`*^9}, {3.436981719329027*^9, 
+  3.4369817193350267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    FormBox[
+     SuperscriptBox["F", "\[Prime]"],
+     TraditionalForm], "(", "x", ")"}], "=", 
+   RowBox[{"f", "(", "x", ")"}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436981726627027*^9, 3.436981726984027*^9}}],
+
+Cell["\<\
+Thus, the c.d.f. also characterizes the probability distribution of a \
+continuous random variable, since if it is given then the density function is \
+determined.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  From calculus, the differential equation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FormBox[
+      SuperscriptBox["F", "\[Prime]"],
+      TraditionalForm], "(", "x", ")"}], "=", 
+    RowBox[{"f", "(", "x", ")"}]}], TraditionalForm]]],
+ " only determines ",
+ StyleBox["F",
+  FontSlant->"Italic"],
+ " up to an additive constant, given ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ ".  In our setting, what further conditions are present which guarantee that \
+each density ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " has exactly one c.d.f.?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\t",
+ StyleBox["From past work we know one named continuous density function so \
+far:",
+  FontColor->GrayLevel[0]],
+ StyleBox[" the continuous uniform density on [a,b]",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" has value ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "/", 
+    RowBox[{"(", 
+     RowBox[{"b", "-", "a"}], ")"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" on the interval ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", and vanishes outside the interval.",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "For example, if ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is the continuous uniform density on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ ", then"
+}], "Text",
+ CellChangeTimes->{{3.4266930202863426`*^9, 3.4266931519823427`*^9}, {
+  3.436981742134027*^9, 3.4369817421430273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "x", ")"}], "=", " ", 
+   RowBox[{"{", GridBox[{
+      {
+       RowBox[{"1", "/", "4"}], 
+       RowBox[{
+        RowBox[{"if", " ", "x"}], "\[Element]", 
+        RowBox[{"[", 
+         RowBox[{"0", ",", "4"}], "]"}]}]},
+      {"0", "otherwise"}
+     }]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981748439027*^9, 3.436981748811027*^9}}],
+
+Cell[TextData[StyleBox["and hence the associated c.d.f. is",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.4266931848313427`*^9, 3.4266931949553423`*^9}, {
+  3.436981761027027*^9, 3.436981761036027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"F", "(", "x", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      UnderoverscriptBox["\[Integral]", "0", "x"],
+      TraditionalForm], " ", 
+     RowBox[{
+      FormBox[
+       FractionBox["1", "4"],
+       TraditionalForm], "d", " ", "t"}]}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       FractionBox["1", "4"],
+       TraditionalForm], "x", "  ", "if", " ", "x"}], "\[Element]", 
+     RowBox[{"[", 
+      RowBox[{"0", ",", "4"}], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981768692027*^9, 3.436981769065027*^9}}],
+
+Cell[TextData[{
+ "For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "<", "0"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", "x", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", "x"}], "]"}], "=", "0"}]}], 
+   TraditionalForm]]],
+ ", and for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"x", ">", "4"}], ",", " ", 
+    RowBox[{
+     RowBox[{"F", "(", "x", ")"}], "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"X", "\[LessEqual]", "x"}], "]"}], "=", "1"}]}]}], 
+   TraditionalForm]]],
+ ", since ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " must take a value in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ ".  The graphs of the density and c.d.f. are shown in Figure 9.  Note \
+according to (3) that the density at each point ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " is the slope of the c.d.f. graph at that ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4266924536733427`*^9, 3.426692454178343*^9}, {
+  3.4267014330963426`*^9, 3.4267014354313426`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"x", "<", "0"}], ",", "0", ",", 
+     RowBox[{"0", "\[LessEqual]", "x", "\[LessEqual]", "4"}], ",", 
+     FractionBox["1", "4"], ",", 
+     RowBox[{"x", ">", "4"}], ",", "0"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"F", "[", "x_", "]"}], ":=", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"x", "<", "0"}], ",", "0", ",", 
+     RowBox[{"0", "\[LessEqual]", "x", "\[LessEqual]", "4"}], ",", 
+     RowBox[{"0.25`", " ", "x"}], ",", 
+     RowBox[{"x", ">", "4"}], ",", "1"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"f", "[", "x", "]"}], ",", 
+     RowBox[{"F", "[", "x", "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "1"}], ",", "5"}], "}"}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Thickness", "[", "0.01`", "]"}], ",", 
+      RowBox[{"Thickness", "[", "0.005`", "]"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399046819346347*^9, 3.3990468223753567`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.9",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "- Uniform(0,4) density (bold), and c.d.f. (light)",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980271846027*^9, 3.436980278501027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\t",
+ StyleBox["Mathematica'",
+  FontSlant->"Italic"],
+ "s kernel contains definitions of many of the most common continuous \
+distributions that we will use in this chapter and the next.  The only one \
+that we are acquainted with at this point is \n\n\t\t\t\tUniform \
+Distribution[{a, b}]\n\t\t\t\nwhich is the continuous uniform distribution on \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ ".  As in the discrete case, the functions"
+}], "Text",
+ CellChangeTimes->{{3.4266932604493427`*^9, 3.4266932993213425`*^9}, {
+  3.4267014788773427`*^9, 3.4267014868893423`*^9}}],
+
+Cell["\t\t\tPDF[distribution, x]     and     CDF[distribution, x]", "Text",
+ CellChangeTimes->{{3.4266932604493427`*^9, 3.4266932993213425`*^9}, {
+  3.4267014788773427`*^9, 3.4267014992683425`*^9}}],
+
+Cell[TextData[{
+ "can be applied to distribution objects.  PDF returns the density function, \
+CDF returns the cumulative distribution function, and ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " is the desired argument of each function.\n\tFor example, for the uniform \
+distribution on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "4"}], "]"}], TraditionalForm]]],
+ " we can define the density and c.d.f. as follows:"
+}], "Text",
+ CellChangeTimes->{{3.4266932604493427`*^9, 3.4266932993213425`*^9}, {
+  3.4267014788773427`*^9, 3.4267015270233426`*^9}, {3.4378492110319276`*^9, 
+  3.437849218495928*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "4"}], "}"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"F", "[", "x_", "]"}], ":=", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "4"}], "}"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.404067506453125*^9, 3.404067507625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Then we can calculate a probability like ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "\[Element]", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", ",", "3"}]}], "]"}]}], "]"}], TraditionalForm]]],
+ " in either of two ways in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "; by integrating the density from 1 to 3, or by computing "
+}], "Text",
+ CellChangeTimes->{{3.4378492418869276`*^9, 3.4378492418889275`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1", "<", "X", "\[LessEqual]", "3"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", "3"}], "]"}], "-", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", "1"}], "]"}]}], "=", 
+    RowBox[{
+     RowBox[{"F", "(", "3", ")"}], "-", 
+     RowBox[{
+      RowBox[{"F", "(", "1", ")"}], "."}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{3.4378492418869276`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "1", "3"], 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], 
+   RowBox[{"\[DifferentialD]", "x"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"F", "[", "3", "]"}], "-", 
+  RowBox[{"F", "[", "1", "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  If we simulate large random samples from a continuous uniform \
+distribution, will a histogram of the data show the same flatness as the \
+density function?\n\tConsider for instance the uniform distribution on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "10"}], "]"}], TraditionalForm]]],
+ ".  Let us simulate 100 values from this distribution using the RandomReal",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "command, and plot a histogram of the result with 10 rectangles.  Two \
+replications of this experiment are shown in Figure 10."
+}], "Text",
+ CellChangeTimes->{{3.4266924971963425`*^9, 3.426692498159343*^9}, {
+  3.4266933450573425`*^9, 3.4266933461703424`*^9}, {3.4267015436933427`*^9, 
+  3.4267015543603425`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"SeedRandom", "[", "63471", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"uniflist1", "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "10"}], "}"}], "]"}], ",", "100"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"uniflist2", "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "10"}], "}"}], "]"}], ",", "100"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Histogram", "[", 
+     RowBox[{"uniflist1", ",", "10"}], "]"}], ",", 
+    RowBox[{"Histogram", "[", 
+     RowBox[{"uniflist2", ",", "10"}], "]"}]}], "}"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990469215038433`*^9, 3.399046946157872*^9}, {
+  3.3990469971838765`*^9, 3.3990470034076624`*^9}, {3.40406752009375*^9, 
+  3.404067521421875*^9}, {3.441236383740135*^9, 3.441236389153335*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.10",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "- Two simulations of 100 uniform(0,10) observations",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980305537027*^9, 3.436980310068027*^9}},
+ TextAlignment->Center],
+
+Cell["\<\
+\tBecause the distribution of probability is uniform, we expect to see 1/10th \
+of the observations in each category, but in repeated runs it is typical to \
+see a variation of relative frequencies ranging from a low of around .05 to a \
+high of around .15.  The moral of the story is that you should not expect \
+histograms of random samples to look exactly like the density functions, \
+although if there are drastic departures of data from the density, one should \
+suspect that the density is not appropriate for the population being sampled \
+from.  Do the next activity to study the effect of increasing the sample \
+size.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4266925162223425`*^9, 3.4266925180753427`*^9}, {
+  3.4266935193913426`*^9, 3.4266935213833427`*^9}, {3.4267015798783426`*^9, 
+  3.4267015836693425`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Do several more simulations like the one above, changing the sample size \
+to 200, 500, and then 1000 sample values.  What do you observe?  Do you see \
+any changes if you change the distribution to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"uniform", "(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Consider the triangular density function sketched in Figure 11.  (It \
+could be appropriate for example to model the distribution of a random \
+variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " that records the amount of roundoff error in the computation of interest \
+correct to the nearest cent, where ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is measured in cents and takes values between negative and positive half a \
+cent.)  Verify that this function is a valid density and find a piecewise \
+defined formula for its cumulative distribution function. "
+}], "Text",
+ CellChangeTimes->{{3.4266925342343426`*^9, 3.426692534730343*^9}, {
+  3.4267015932353425`*^9, 3.4267015955283422`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"x", "<", 
+      RowBox[{"-", "0.5`"}]}], ",", "0", ",", 
+     RowBox[{
+      RowBox[{"-", "0.5`"}], "\[LessEqual]", "x", "<", "0"}], ",", 
+     RowBox[{
+      RowBox[{"4", " ", "x"}], "+", "2"}], ",", 
+     RowBox[{"0", "\[LessEqual]", "x", "<", "0.5`"}], ",", 
+     RowBox[{"2", "-", 
+      RowBox[{"4", " ", "x"}]}], ",", 
+     RowBox[{"x", "\[GreaterEqual]", "0.5`"}], ",", "0"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"f", "[", "x", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", 
+     RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990470246559396`*^9, 3.399047025032682*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.11",
+  FontWeight->"Bold"],
+ StyleBox[" - A triangular density function",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980339364027*^9, 3.436980344600027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tFrom the graph, ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is clearly non-negative on its state space ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", ".5"}], ",", ".5"}], "]"}], TraditionalForm]]],
+ " and its formula is"
+}], "Text",
+ CellChangeTimes->{{3.436981797343027*^9, 3.436981797345027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "x", ")"}], "=", 
+   RowBox[{
+    StyleBox["{",
+     SpanMaxSize->Infinity], GridBox[{
+      {
+       RowBox[{"2", "+", 
+        RowBox[{"4", "x"}]}], 
+       RowBox[{"   ", 
+        RowBox[{
+         RowBox[{"if", " ", "-", ".5"}], "\[LessEqual]", "x", "\[LessEqual]", 
+         "0"}]}]},
+      {
+       RowBox[{"2", "-", 
+        RowBox[{"4", "x"}]}], 
+       RowBox[{
+        RowBox[{"if", "  ", "0"}], "<", "x", "\[LessEqual]", ".5"}]},
+      {"0", "otherwise"}
+     }], " "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981797343027*^9, 3.4369818040700274`*^9}}],
+
+Cell[TextData[{
+ "The area under ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " corresponding to all of the state space is the area of the triangle, which \
+is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "/", "2"}], ")"}], "\[CenterDot]", "1", "\[CenterDot]", 
+     "2"}], "=", "1"}], TraditionalForm]]],
+ ".  Therefore ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is a valid density function.  For values of ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " between ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ ".5 and 0 the c.d.f. is"
+}], "Text",
+ CellChangeTimes->{{3.436981814925027*^9, 3.436981814939027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"F", "(", "x", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      UnderoverscriptBox["\[Integral]", 
+       RowBox[{"-", ".5"}], "x"],
+      TraditionalForm], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"2", "+", 
+        RowBox[{"4", "t"}]}], " ", ")"}], "d", " ", "t"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"2", "t"}], "+", 
+       RowBox[{"2", 
+        SuperscriptBox["t", "2"]}]}], 
+      FormBox[
+       SubsuperscriptBox["|", 
+        RowBox[{"-", ".5"}], "x"],
+       TraditionalForm]}], "=", 
+     FormBox[
+      RowBox[{
+       RowBox[{"2", 
+        SuperscriptBox["x", "2"]}], "+", 
+       RowBox[{"2", "x"}], "+", 
+       FractionBox["1", "2"]}],
+      TraditionalForm]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981821409027*^9, 3.436981821850027*^9}}],
+
+Cell[TextData[{
+ "Notice that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", "0", ")"}], "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ ", which is appropriate because the density is symmetric about 0, and \
+therefore half of its overall probability of 1 lies to the left of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]]],
+ ".  For values of ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " between 0 and .5,"
+}], "Text",
+ CellChangeTimes->{{3.4369818318420267`*^9, 3.436981831851027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"F", "(", "x", ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{
+       FractionBox["1", "2"], "+", 
+       UnderoverscriptBox["\[Integral]", "0", "x"]}],
+      TraditionalForm], 
+     RowBox[{"(", 
+      RowBox[{"2", "-", 
+       RowBox[{"4", "t"}]}], " ", ")"}], "d", " ", "t"}], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "2"], "+", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"2", "t"}], "-", 
+         RowBox[{"2", 
+          SuperscriptBox["t", "2"]}]}], 
+        FormBox[
+         SubsuperscriptBox["|", "0", "x"],
+         TraditionalForm]}], ")"}]}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "2"}], 
+       SuperscriptBox["x", "2"]}], "+", 
+      RowBox[{"2", "x", 
+       FormBox[
+        RowBox[{"+", 
+         FractionBox["1", "2"]}],
+        TraditionalForm]}]}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436981839465027*^9, 3.436981839904027*^9}}],
+
+Cell[TextData[{
+ "The final form for ",
+ StyleBox["F",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.436981859409027*^9, 3.4369818594150267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"F", "(", "x", ")"}], "=", 
+   RowBox[{
+    StyleBox["{",
+     SpanMaxSize->Infinity], GridBox[{
+      {"0", "if", 
+       RowBox[{"x", "<", 
+        RowBox[{"-", ".5"}]}]},
+      {
+       RowBox[{
+        RowBox[{"2", 
+         SuperscriptBox["x", "2"]}], "+", 
+        RowBox[{"2", "x"}], "+", 
+        FractionBox["1", "2"]}], 
+       RowBox[{"if", " "}], 
+       RowBox[{
+        RowBox[{"-", ".5"}], "\[LessEqual]", "x", "<", "0"}]},
+      {
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "2"}], 
+         SuperscriptBox["x", "2"]}], "+", 
+        RowBox[{"2", "x", 
+         FormBox[
+          RowBox[{"+", 
+           FractionBox["1", "2"]}],
+          TraditionalForm]}]}], "if", 
+       RowBox[{"0", "\[LessEqual]", "x", "<", ".5"}]},
+      {"1", "if", 
+       RowBox[{"x", "\[GreaterEqual]", ".5"}]}
+     }], "    "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4369818661430273`*^9, 3.436981866562027*^9}}],
+
+Cell[TextData[{
+ "In the interest rounding example then, the probability that the rounding \
+error is between ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ ".2 and .2 is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", ".2", ")"}], "-", 
+    RowBox[{"F", "(", 
+     RowBox[{"-", ".2"}], ")"}]}], TraditionalForm]]],
+ ". This turns out to be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{".82", "-", ".18"}], "=", ".64"}], TraditionalForm]]],
+ " after calculation.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4266935044193425`*^9, 3.4266935044203424`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ "  The ",
+ StyleBox["Weibull distribution",
+  FontSlant->"Italic"],
+ " is a familiar one in reliability theory, because it is used as a model for \
+the distribution of lifetimes.  It depends on two parameters called \[Alpha] \
+and \[Beta], which control the graph of its density function. The state space \
+of a Weibull random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is the half line ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"0", ",", "\[Infinity]"}]}], ")"}], TraditionalForm]]],
+ ", and the formula for the c.d.f. is"
+}], "Text",
+ CellChangeTimes->{{3.4266939077713423`*^9, 3.426693914966343*^9}, {
+   3.4266939702123423`*^9, 3.4266939792783422`*^9}, 3.4267016372323427`*^9, {
+   3.4369818806180267`*^9, 3.436981880621027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"F", "(", "x", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"X", "\[LessEqual]", "x"}], "]"}], "=", 
+     RowBox[{"1", "-", 
+      SuperscriptBox["e", 
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x", "/", "\[Beta]"}], ")"}], "\[Alpha]"]}]]}]}]}], ",", 
+   "   ", 
+   RowBox[{"x", " ", "\[GreaterEqual]", "0", " "}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4266939077713423`*^9, 3.426693914966343*^9}, {
+   3.4266939702123423`*^9, 3.4266939792783422`*^9}, 3.4267016372323427`*^9, {
+   3.4369818806180267`*^9, 3.4369818872490273`*^9}}],
+
+Cell[TextData[{
+ StyleBox["\tMathematica'",
+  FontSlant->"Italic"],
+ "s syntax for this distribution is"
+}], "Text",
+ CellChangeTimes->{{3.4267016511083426`*^9, 3.4267016511103425`*^9}}],
+
+Cell["\t\t\tWeibullDistribution[\[Alpha], \[Beta]]", "Text",
+ CellChangeTimes->{{3.4267016511083426`*^9, 3.4267016613523426`*^9}}],
+
+Cell[TextData[{
+ "Below we construct the density and c.d.f. functions, and plot the two \
+together in the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Alpha]", "=", "2"}], ",", 
+    RowBox[{"\[Beta]", "=", "3"}]}], TraditionalForm]]],
+ ".  Again as in formula (3), the density graph is clearly the derivative \
+graph of the c.d.f. "
+}], "Text",
+ CellChangeTimes->{{3.4267016511083426`*^9, 3.4267016668943424`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"g", "[", 
+    RowBox[{"x_", ",", "\[Alpha]_", ",", "\[Beta]_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"WeibullDistribution", "[", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"G", "[", 
+    RowBox[{"x_", ",", "\[Alpha]_", ",", "\[Beta]_"}], "]"}], ":=", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"WeibullDistribution", "[", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"g", "[", 
+      RowBox[{"x", ",", "2", ",", "3"}], "]"}], ",", 
+     RowBox[{"G", "[", 
+      RowBox[{"x", ",", "2", ",", "3"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "8"}], "}"}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Thickness", "[", "0.01`", "]"}], ",", 
+      RowBox[{"Thickness", "[", "0.005`", "]"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990471303550606`*^9, 3.399047142767542*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.12",
+  FontWeight->"Bold"],
+ " - ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Weibull", "(", 
+    RowBox[{"2", ",", "3"}], ")"}], TraditionalForm]]],
+ " p.d.f. (bold), c.d.f. (light)",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980410418027*^9, 3.436980415113027*^9}},
+ TextAlignment->Center],
+
+Cell["\<\
+In the electronic version of the text, you can experiment with various \
+combinations of parameter values \[Alpha] and \[Beta] using the Manipulate \
+command below to see the effect on the Weibull density (see also Exercise 8).\
+\>", "Text",
+ CellChangeTimes->{{3.426693937935343*^9, 3.4266939608443427`*^9}, {
+  3.4266940060173426`*^9, 3.4266940677983427`*^9}, {3.4267017082103424`*^9, 
+  3.4267017192683425`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"g", "[", 
+      RowBox[{"x", ",", "\[Alpha]", ",", "\[Beta]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "8"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1.6"}], "}"}]}], ",", 
+     RowBox[{"AxesOrigin", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Alpha]", ",", "1", ",", "4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Beta]", ",", "1", ",", "4"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.3990471303550606`*^9, 3.399047142767542*^9}, {
+  3.426693698968343*^9, 3.4266937707653427`*^9}, {3.4266938075973425`*^9, 
+  3.4266938468463426`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tIf the lifetimes (in thousands of miles) of auto shock absorbers of a \
+particular kind have a Weibull distribution with parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Alpha]", "=", "2"}], ",", " ", 
+    RowBox[{"\[Beta]", "=", "30"}]}], TraditionalForm]]],
+ ", then for example the proportion of them that last at least 30,000 miles \
+is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[GreaterEqual]", "30"}], "]"}], "=", 
+    RowBox[{"1", "-", 
+     RowBox[{"F", "(", "30", ")"}]}]}], TraditionalForm]]],
+ ", which is about 37%, as shown below.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{
+  3.4267017321813426`*^9, {3.436980439531027*^9, 3.436980440554027*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"F", "[", "x_", "]"}], ":=", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"WeibullDistribution", "[", 
+      RowBox[{"2", ",", "30"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"F", "[", "30", "]"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Find the equation of the Weibull density function in general.  Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to plot it in the case where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Alpha]", "=", "2"}], ",", " ", 
+    RowBox[{"\[Beta]", "=", "30"}]}], TraditionalForm]]],
+ " as in the last example, and write a short paragraph about the shape and \
+location of the density, and what the graph implies about the distribution of \
+shock absorber lifetimes. "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{3.426701739808343*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Joint, Marginal, and Conditional Distributions", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "In this subsection we carry over the ideas of joint, marginal, and \
+conditional probability distributions from discrete to continuous \
+probability.  The adaptation is straightforward.  In addition, we take \
+another look at independence of random variables. \n\tTo characterize the \
+joint distribution of two continuous random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", we combine the ideas of the single variable density function and the two \
+variable discrete probability mass function."
+}], "Text",
+ CellChangeTimes->{3.426701762440343*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ".  Random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are said to have ",
+ StyleBox["joint probability density function",
+  FontSlant->"Italic"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], TraditionalForm]]],
+ " if for any Borel subset ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[DoubleStruckCapitalR]", "2"], TraditionalForm]]],
+ ","
+}], "Text",
+ CellChangeTimes->{{3.436981917462027*^9, 3.4369819174670267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"X", ",", "Y"}], ")"}], "\[Element]", "B"}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderscriptBox["\[Integral]", "B"],
+     TraditionalForm], 
+    RowBox[{"\[Integral]", " ", 
+     RowBox[{
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y"}], ")"}], " ", "d", " ", "x", " ", "d", " ", 
+      "y"}]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436981923412027*^9, 3.436981923719027*^9}}],
+
+Cell[TextData[{
+ "\tThe most familiar case of (5) occurs when ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " is a rectangular set, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"B", "=", 
+    RowBox[{
+     RowBox[{"[", 
+      RowBox[{"a", ",", "b"}], "]"}], "\[Cross]", 
+     RowBox[{"[", 
+      RowBox[{"c", ",", "d"}], "]"}]}]}], TraditionalForm]]],
+ ".  Then (5) reduces to:"
+}], "Text",
+ CellChangeTimes->{{3.4369819348090267`*^9, 3.4369819348160267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"a", "\[LessEqual]", "X", "\[LessEqual]", "b"}], ",", " ", 
+     RowBox[{"c", "\[LessEqual]", "Y", "\[LessEqual]", "d"}]}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", "a", "b"],
+     TraditionalForm], 
+    RowBox[{
+     FormBox[
+      UnderoverscriptBox["\[Integral]", "c", "d"],
+      TraditionalForm], 
+     RowBox[{
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y"}], ")"}], " ", "d", " ", "y", " ", "d", " ", 
+      "x"}]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436981941281027*^9, 3.4369819417420273`*^9}}],
+
+Cell[TextData[{
+ "For more complicated Borel subsets of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[DoubleStruckCapitalR]", "2"], TraditionalForm]]],
+ ", the techniques of multivariable calculus can be brought to bear to find \
+the proper limits of integration.  One final comment before we do an example \
+computation: the extension of (5) and (6) to more than two jointly \
+distributed random variables is simple.  For ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", " ", 
+    SubscriptBox["X", "2"], ",", " ", "...", " ", ",", " ", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ ", the density ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " becomes a function of the ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "-tuple (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "1"], ",", " ", 
+    SubscriptBox["x", "2"], ",", " ", "...", " ", ",", " ", 
+    SubscriptBox["x", "n"]}], TraditionalForm]]],
+ ") and the integral is an ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "-fold iterated integral.  We will not deal with this situation very often, \
+except in the case where the random variables are independent, where the \
+integral becomes a product of single integrals. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  Consider the experiment of randomly sampling a pair of numbers ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " from the continuous uniform ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ " distribution.  Suppose we record the pair ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"U", ",", "V"}], ")"}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "=", 
+    RowBox[{"min", "(", 
+     RowBox[{"X", ",", "Y"}], ")"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"V", "=", 
+    RowBox[{"max", "(", 
+     RowBox[{"X", ",", "Y"}], ")"}]}], TraditionalForm]]],
+ ". First let us look at a simulation of many replications of this \
+experiment. Then we will pose a theoretical model for the joint distribution \
+of ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " and ask some questions about them. ",
+ "\n",
+ "\tThe next ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command is straightforward.  Given the distribution to be sampled from and \
+the number of pairs to produce, it repeatedly simulates an ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", then a ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", and then appends the min and max of the two to a list, which is plotted.  "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimPairs", "[", 
+   RowBox[{"dist_", ",", "numpairs_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"X", ",", "Y", ",", "UVlist"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"UVlist", "=", 
+      RowBox[{"{", "}"}]}], ";", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"X", "=", 
+         RowBox[{"RandomReal", "[", "dist", "]"}]}], ";", 
+        RowBox[{"Y", "=", 
+         RowBox[{"RandomReal", "[", "dist", "]"}]}], ";", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"UVlist", ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Min", "[", 
+             RowBox[{"X", ",", "Y"}], "]"}], ",", 
+            RowBox[{"Max", "[", 
+             RowBox[{"X", ",", "Y"}], "]"}]}], "}"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "numpairs"}], "}"}]}], "]"}], ";", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"UVlist", ",", 
+       RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"u", ",", "v"}], "}"}]}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"PointSize", "[", "0.02`", "]"}], "}"}]}]}], "]"}]}]}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990472447162037`*^9, 3.399047253848463*^9}, {
+  3.3990480312237005`*^9, 3.39904806007286*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+\tHere is a sample run of SimPairs; in the e-version of the text you should \
+try running it again a few times, and increasing the number of pairs to see \
+that this run is typical. \
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"SimPairs", "[", 
+  RowBox[{
+   RowBox[{"UniformDistribution", "[", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1"}], "}"}], "]"}], ",", "500"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.404057681234375*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.13",
+  FontWeight->"Bold"],
+ " - 500 simulated sorted uniform",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ " pairs",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980506057027*^9, 3.436980511241027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tNotice that points seem to be randomly spread out within the triangle \
+whose vertices are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "0"}], ")"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "1"}], ")"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"1", ",", "1"}], ")"}], TraditionalForm]]],
+ ", which is described by the inequalities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+   "0", "\[LessEqual]", "u", "\[LessEqual]", "v", "\[LessEqual]", "1"}], 
+   TraditionalForm]]],
+ ".  No particular region appears to be favored over any other. A moment's \
+thought about how ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " are defined shows that indeed both can take values in the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", but the minimum ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " must be less than or equal to the maximum ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ "; hence the state space of the pair ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"U", ",", "V"}], ")"}], TraditionalForm]]],
+ " is the aforementioned triangle. But both of the data points from which \
+this pair originated were uniformly distributed on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", which combined with the empirical evidence of Figure 13 suggests to us \
+that a good model for the joint distribution of ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " would be a constant density over the triangle.  In order for that density \
+to integrate to 1, its value must be 1 divided by the area of the triangle, \
+i.e., 1/(1/2) = 2.  So we model the joint density of ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " as"
+}], "Text",
+ CellChangeTimes->{{3.4266926295143423`*^9, 3.4266926322713423`*^9}, {
+  3.4267018648723426`*^9, 3.4267018684533424`*^9}, {3.436981965438027*^9, 
+  3.436981965447027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", 
+    RowBox[{"u", ",", "v"}], ")"}], "=", 
+   RowBox[{
+    RowBox[{"2", "   ", "if", "  ", "0"}], "\[LessEqual]", "u", 
+    "\[LessEqual]", "v", "\[LessEqual]", "1", " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4266926295143423`*^9, 3.4266926322713423`*^9}, {
+  3.4267018648723426`*^9, 3.4267018684533424`*^9}, {3.436981965438027*^9, 
+  3.436981971774027*^9}}],
+
+Cell[TextData[{
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "=", " ", "0"}], TraditionalForm]]],
+ " otherwise.  (We will deal with the problem of finding the distribution of \
+transformed random variables analytically later in the book.)\n\tWe can ask, \
+for example, for the probability that the larger of the two sampled values is \
+at least 1/2.  This is written as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"V", "\[GreaterEqual]", ".5"}], "]"}], TraditionalForm]]],
+ " and is computed by integrating the joint density ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " over the shaded region in Figure 14.  The easiest way to do this is to \
+integrate first on ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ ", with fixed ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ " between .5 and 1, and ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " ranging from 0 to ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ ".  (You could also integrate on ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ " first, but that would require splitting the integral on ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " into two parts, since the boundaries for ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ " change according to whether ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " is less than .5 or not.)"
+}], "Text",
+ CellChangeTimes->{{3.426692659270343*^9, 3.4266926602393427`*^9}, {
+  3.426701883659343*^9, 3.426701889867343*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  UnderoverscriptBox["\[Integral]", ".5", "1"], 
+  RowBox[{
+   UnderoverscriptBox["\[Integral]", "0", "v"], " ", 
+   RowBox[{"2", " ", 
+    RowBox[{"\[DifferentialD]", "u"}], " ", 
+    RowBox[{"\[DifferentialD]", "v"}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Polygon", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0.5`", ",", "0.5`"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"G1", "=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"g1", ",", "g2", ",", 
+     RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"u", ",", "v"}], "}"}]}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Polygon", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0.5`", ",", "1"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"G2", "=", 
+   RowBox[{"Show", "[", 
+    RowBox[{"g3", ",", "g4", ",", 
+     RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"u", ",", "v"}], "}"}]}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", 
+        RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], "}"}]}]}],
+     "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"G1", ",", "G2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990473126768446`*^9, 3.399047370214382*^9}, {
+  3.39904809647701*^9, 3.3990480988603373`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.14",
+  FontWeight->"Bold"],
+ StyleBox[" - Region of integration for P",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"V", "\[GreaterEqual]", ".5"}], "]"}], TraditionalForm]],
+  FontWeight->"Plain"],
+ "     ",
+ StyleBox["Figure 3.15",
+  FontWeight->"Bold"],
+ StyleBox[" - Region of integration for P",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{"[", 
+     RowBox[{"V", ">", 
+      RowBox[{"2", "U"}]}], "]"}],
+    FontWeight->"Plain"], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4369805506440268`*^9, 3.4369805558490267`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tAs another example, let us find the probability that the maximum exceeds \
+twice the minimum, i.e., ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"V", ">", 
+     RowBox[{"2", "U"}]}], "]"}], TraditionalForm]]],
+ ".  The boundary line ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"v", "=", 
+    RowBox[{"2", "u"}]}], TraditionalForm]]],
+ " for the inequality cuts through the state space as shown in Figure 15, and \
+the solution of the inequality is the shaded area.  This time the limits of \
+integration are easy regardless of the order you use.  Here we integrate ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ " first, from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"2", "u"}], TraditionalForm]]],
+ " to 1, then ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " from 0 to .5.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4266926939883423`*^9, 3.4266926949063425`*^9}, {
+  3.426701914855343*^9, 3.4267019187083426`*^9}, {3.4369805921240273`*^9, 
+  3.436980598420027*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  UnderoverscriptBox["\[Integral]", "0", ".5"], 
+  RowBox[{
+   UnderoverscriptBox["\[Integral]", 
+    RowBox[{"2", "u"}], "1"], " ", 
+   RowBox[{"2", " ", 
+    RowBox[{"\[DifferentialD]", "v"}], " ", 
+    RowBox[{"\[DifferentialD]", "u"}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "   Give geometric rather than calculus based arguments to calculate the two \
+probabilities in Example 4."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tMarginal probability density functions are defined in the continuous case \
+much as marginal p.m.f.'s are in the discrete case.  Instead of summing the \
+joint mass function, we integrate the joint density over one of the variables.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 3",
+  FontWeight->"Bold"],
+ ".  Let ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " be continuous random variables with joint density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], TraditionalForm]]],
+ ".  The ",
+ StyleBox["marginal density function",
+  FontSlant->"Italic"],
+ " of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4369819933080273`*^9, 3.436981993312027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"p", "(", "x", ")"}], "=", 
+   RowBox[{
+    SubscriptBox["\[Integral]", 
+     SubscriptBox["E", "y"]], " ", 
+    RowBox[{
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", "y"}], ")"}], " ", "d", " ", "y", " "}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4369819933080273`*^9, 3.436982000363027*^9}}],
+
+Cell[TextData[{
+ "where the integral is taken over all ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " states that are possible for the given ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ".  ",
+ StyleBox["(We may integrate over the entire state space ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "y"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" under the understanding that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["f", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" may vanish for some ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["y", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" values, depending on ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".)",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "Similarly the ",
+ StyleBox["marginal density",
+  FontSlant->"Italic"],
+ " of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " is "
+}], "Text",
+ CellChangeTimes->{{3.4266952176133423`*^9, 3.4266952740493426`*^9}, 
+   3.426695311968343*^9, {3.4266953606163425`*^9, 3.4266953627473426`*^9}, {
+   3.436982014284027*^9, 3.4369820142900267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"q", "(", "y", ")"}], "=", 
+   RowBox[{
+    SubscriptBox["\[Integral]", 
+     SubscriptBox["E", "x"]], " ", 
+    RowBox[{
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", "y"}], ")"}], " ", "d", " ", "x"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436982020664027*^9, 3.436982021062027*^9}}],
+
+Cell[TextData[{
+ "where the integral is taken over all ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " states that are possible for the given ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ "."
+}], "Text"],
+
+Cell[TextData[{
+ "\tNotice that the marginal densities completely characterize the individual \
+probability distributions of the two random variables.  For example, the \
+probability that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " lies in a Borel subset ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of its state space is"
+}], "Text",
+ CellChangeTimes->{{3.436982036171027*^9, 3.4369820361760273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "\[Element]", "B"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{"X", "\[Element]", "B"}], ",", 
+      RowBox[{"Y", "\[Element]", 
+       FormBox[
+        SubscriptBox["E", "y"],
+        TraditionalForm]}]}], "]"}], " ", "=", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       UnderscriptBox["\[Integral]", "B"],
+       TraditionalForm], 
+      RowBox[{
+       FormBox[
+        UnderscriptBox["\[Integral]", 
+         SubscriptBox["E", "y"]],
+        TraditionalForm], 
+       RowBox[{
+        RowBox[{"f", "(", 
+         RowBox[{"x", ",", "y"}], ")"}], " ", "d", " ", "y", " ", "d", " ", 
+        "x"}]}]}], " ", "=", " ", 
+     RowBox[{
+      FormBox[
+       UnderscriptBox["\[Integral]", "B"],
+       TraditionalForm], " ", 
+      RowBox[{
+       RowBox[{"p", "(", "x", ")"}], " ", "d", " ", "x", " "}]}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982036171027*^9, 3.436982043685027*^9}}],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "y"], TraditionalForm]]],
+ " is the state space of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ".  You can do a similar derivation for ",
+ StyleBox["Y ",
+  FontSlant->"Italic"],
+ StyleBox["to conclude that",
+  FontColor->GrayLevel[0]],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"Y", "\[Element]", "B"}], "]"}], "=", 
+    RowBox[{
+     FormBox[
+      UnderscriptBox["\[Integral]", "B"],
+      TraditionalForm], " ", 
+     RowBox[{
+      RowBox[{"q", "(", "y", ")"}], " ", "d", " ", "y"}]}]}], 
+   TraditionalForm]]],
+ ".  So, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "(", "x", ")"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "(", "y", ")"}], TraditionalForm]]],
+ " are the probability density functions of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " in the one-variable sense.\n\tIn Example 4, for instance, where the joint \
+density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"u", ",", "v"}], ")"}], TraditionalForm]]],
+ " was constantly equal to 2 on the triangle, the marginal density of the \
+smaller sampled value ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.426695377869343*^9, 3.4266954626483426`*^9}, {
+  3.426701958275343*^9, 3.4267019622293425`*^9}, {3.4369820671510267`*^9, 
+  3.4369820671580267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"p", "(", "u", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       UnderoverscriptBox["\[Integral]", "u", "1"],
+       TraditionalForm], " ", 
+      RowBox[{"2", " ", "d", " ", "v"}]}], "=", 
+     RowBox[{"2", 
+      RowBox[{"(", 
+       RowBox[{"1", "-", "u"}], ")"}]}]}]}], ",", "  ", 
+   RowBox[{"0", "\[LessEqual]", "u", "\[LessEqual]", "1", " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.426695377869343*^9, 3.4266954626483426`*^9}, {
+  3.426701958275343*^9, 3.4267019622293425`*^9}, {3.4369820671510267`*^9, 
+  3.436982074013027*^9}}],
+
+Cell[TextData[{
+ "and the marginal density of the larger sampled value ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4369820830520267`*^9, 3.436982083060027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"q", "(", "v", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       UnderoverscriptBox["\[Integral]", "0", "v"],
+       TraditionalForm], " ", 
+      RowBox[{"2", " ", "d", " ", "u"}]}], "=", 
+     RowBox[{"2", "v"}]}]}], ",", "  ", 
+   RowBox[{"0", "\[LessEqual]", "v", "\[LessEqual]", "1"}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982089612027*^9, 3.436982090023027*^9}}],
+
+Cell[TextData[{
+ StyleBox["(Why does it make intuitive sense that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" should be a decreasing function and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["q", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" an increasing function?)",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4266955312603426`*^9, 3.4266955675123425`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "   Let ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " have a joint density of the form"
+}], "Text",
+ CellChangeTimes->{{3.436982112293027*^9, 3.436982112298027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", 
+     RowBox[{"x", ",", "y"}], ")"}], "=", 
+    RowBox[{"c", "(", 
+     RowBox[{
+      SuperscriptBox["x", "2"], "+", 
+      SuperscriptBox["y", "2"]}], ")"}]}], ",", "  ", "x", ",", 
+   RowBox[{"y", "\[Element]", " ", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982123682027*^9, 3.436982124307027*^9}}],
+
+Cell[TextData[{
+ StyleBox["and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "=", " ", "0"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" otherwise. ",
+  FontColor->GrayLevel[0]],
+ " Find the two marginal densities, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"X", ">", 
+      RowBox[{"1", "/", "2"}]}], ",", 
+     RowBox[{"Y", ">", 
+      RowBox[{"1", "/", "2"}]}]}], "]"}], TraditionalForm]]],
+ ", and find both ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", ">", 
+     RowBox[{"1", "/", "2"}]}], "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Y", ">", 
+     RowBox[{"1", "/", "2"}]}], "]"}], TraditionalForm]]],
+ ". \n\tFirst, the coefficient ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " must be found such that the double integral of ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " over the rectangle ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}], "\[Cross]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}]}], TraditionalForm]]],
+ " is 1, so that ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is a valid joint density.  We have"
+}], "Text",
+ CellChangeTimes->{
+  3.4266956834633427`*^9, {3.436982134995027*^9, 3.436982134998027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"1", "=", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{
+       FormBox[
+        UnderoverscriptBox["\[Integral]", "0", "1"],
+        TraditionalForm], 
+       FormBox[
+        UnderoverscriptBox["\[Integral]", "0", "1"],
+        TraditionalForm]}],
+      TraditionalForm], " ", 
+     FormBox[
+      RowBox[{"c", "(", 
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}],
+      TraditionalForm], " ", "d", " ", "y", " ", "d", " ", "x"}], " ", "=", 
+    " ", 
+    RowBox[{
+     StyleBox["c",
+      FontSlant->"Italic"], 
+     FormBox[
+      RowBox[{
+       FormBox[
+        UnderoverscriptBox["\[Integral]", "0", "1"],
+        TraditionalForm], 
+       FormBox[
+        UnderoverscriptBox[
+         RowBox[{"\[Integral]", "("}], "0", "1"],
+        TraditionalForm]}],
+      TraditionalForm], " ", 
+     FormBox[
+      RowBox[{
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}],
+      TraditionalForm], "d", " ", "y", " ", "d", " ", "x", " "}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{
+  3.4266956834633427`*^9, {3.436982134995027*^9, 3.4369821421060266`*^9}}],
+
+Cell[TextData[{
+ "hence ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " is the reciprocal of the last double integral.  We compute this integral \
+below in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "."
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "0", "1"], 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", "0", "1"], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["x", "2"], "+", 
+      SuperscriptBox["y", "2"]}], ")"}], "\[ThinSpace]", 
+    RowBox[{"\[DifferentialD]", "x"}], "\[ThinSpace]", 
+    RowBox[{"\[DifferentialD]", "y"}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Therefore ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"c", "=", 
+    RowBox[{"3", "/", "2"}]}], TraditionalForm]]],
+ ". ",
+ StyleBox["In Figure 16",
+  FontColor->GrayLevel[0]],
+ " is a graph of the joint density function.  If we repeatedly sampled from \
+this joint density, the data points that we would see would be more numerous \
+as we move farther away from the origin.  "
+}], "Text",
+ CellChangeTimes->{{3.4266957021013427`*^9, 3.4266957086943426`*^9}, {
+  3.4267020226293426`*^9, 3.426702023874343*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+   RowBox[{"1.5", "*", 
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["x", "2"], "+", 
+      SuperscriptBox["y", "2"]}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Plot3D", "[", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"x", ",", "y"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"y", ",", "0", ",", "1"}], "}"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "\"\<f(x,y)\>\""}], "}"}]}]}], "]"}], 
+  "\t\t"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4040577245625*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.16",
+  FontWeight->"Bold"],
+ StyleBox["  - Joint density ",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", "y"}], ")"}], "=", 
+     RowBox[{
+      FractionBox["3", "2"], 
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}]}]}],
+    FontWeight->"Plain"], TraditionalForm]]],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980635005027*^9, 3.436980639443027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe marginal density of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.436982156649027*^9, 3.436982156653027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"p", "(", "x", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox["3", "2"], 
+       RowBox[{
+        FormBox[
+         UnderoverscriptBox["\[Integral]", "0", "1"],
+         TraditionalForm], 
+        SuperscriptBox["x", "2"]}]}], "+", 
+      RowBox[{
+       SuperscriptBox["y", "2"], "d", " ", "y"}]}], " ", "=", 
+     RowBox[{
+      RowBox[{
+       FractionBox["3", "2"], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           SuperscriptBox["x", "2"], "y"}], "+", 
+          FractionBox[
+           SuperscriptBox["y", "3"], "3"]}], 
+         SubsuperscriptBox["|", "0", "1"]}], ")"}]}], " ", "=", " ", 
+      RowBox[{
+       FormBox[
+        FractionBox["3", "2"],
+        TraditionalForm], 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["x", "2"], "+", 
+         FractionBox["1", "3"]}], ")"}]}]}]}]}], ",", " ", 
+   RowBox[{"x", "\[Element]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982156649027*^9, 3.436982163774027*^9}}],
+
+Cell[TextData[{
+ "and by symmetry the marginal of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " has the same form,"
+}], "Text",
+ CellChangeTimes->{{3.436982173487027*^9, 3.4369821734930267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"q", "(", "y", ")"}], "=", " ", 
+    RowBox[{
+     FormBox[
+      FractionBox["3", "2"],
+      TraditionalForm], 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["y", "2"], "+", 
+       FractionBox["1", "3"]}], ")"}]}]}], ",", " ", 
+   RowBox[{"y", "\[Element]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982179701027*^9, 3.436982180047027*^9}}],
+
+Cell[TextData[{
+ "We compute the requested probabilities in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " below, by appropriately integrating the joint and marginal densities. "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{
+      RowBox[{"X", " ", ">", " ", 
+       FractionBox["1", "2"]}], ",", 
+      RowBox[{"Y", " ", ">", " ", 
+       FractionBox["1", "2"]}]}], "]"}], " ", "="}], " ", "*)"}], " ", 
+  "\[IndentingNewLine]", "  ", 
+  RowBox[{
+   FractionBox["3", "2"], "*", 
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", 
+     RowBox[{"1", "/", "2"}], "1"], 
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", 
+      RowBox[{"1", "/", "2"}], "1"], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}], "\[ThinSpace]", 
+      RowBox[{"\[DifferentialD]", "x"}], "\[ThinSpace]", 
+      RowBox[{"\[DifferentialD]", "y"}]}]}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.436980661688027*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{"X", " ", ">", " ", 
+      FractionBox["1", "2"]}], "]"}], " ", "="}], " ", "*)"}], "  ", 
+  "\[IndentingNewLine]", " ", 
+  RowBox[{
+   FractionBox["3", "2"], "*", 
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", 
+     RowBox[{"1", "/", "2"}], "1"], 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", 
+       RowBox[{"1", "/", "3"}]}], ")"}], 
+     RowBox[{"\[DifferentialD]", "x"}]}]}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4369806630400267`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The probability that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", ">", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ " is also 11/16, since ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " have the same distribution.  Notice that since (11/16)(11/16) \[NotEqual] \
+7/16, the joint probability that both random variables exceed 1/2 does not \
+factor into the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", ">", 
+      RowBox[{"1", "/", "2"}]}], "]"}], "\[CenterDot]", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"Y", ">", 
+      RowBox[{"1", "/", "2"}]}], "]"}]}], TraditionalForm]]],
+ ".  Thus, the event that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " exceeds 1/2 is not independent of the event that ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " exceeds 1/2.  We will explore independence of two continuous random \
+variables more thoroughly in a few more paragraphs.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4266958069603424`*^9, 3.4266958069623423`*^9}}],
+
+Cell[TextData[{
+ "\tIn the case where there are more than two jointly distributed random \
+variables, the marginal distribution of each of them is obtained by \
+integrating the joint density over all possible values of all random \
+variables in the group other than the one you are computing the marginal \
+p.d.f. for.  For example, if ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ " have joint density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y", ",", "z"}], ")"}], TraditionalForm]]],
+ " then the marginal density of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " would be"
+}], "Text",
+ CellChangeTimes->{{3.436982204267027*^9, 3.436982204271027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"q", "(", "y", ")"}], "=", 
+   RowBox[{
+    SubscriptBox["\[Integral]", 
+     SubscriptBox["E", "z"]], 
+    RowBox[{
+     SubscriptBox["\[Integral]", 
+      SubscriptBox["E", "x"]], " ", 
+     RowBox[{
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y", ",", "z"}], ")"}], " ", "d", " ", "x", " ", "d",
+       " ", "z", " "}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982204267027*^9, 3.4369822113270273`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "  Carefully formulate the notion of a joint marginal distribution of a \
+subgroup of a larger group of jointly distributed random variables.  Write an \
+integral expression for the joint marginal density of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " when random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["W",
+  FontSlant->"Italic"],
+ " have a joint density function ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tThere is an analogue of the idea of a conditional distribution of one \
+random variable given another in the world of continuous random variables \
+too.  Remember that for discrete random variables, the expression\
+\>", "Text",
+ CellChangeTimes->{{3.4369822235330267`*^9, 3.4369822235400267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"q", "(", 
+    RowBox[{"y", "|", "x"}], ")"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"Y", "=", 
+      RowBox[{
+       RowBox[{"y", "|", "X"}], "=", "x"}]}], "]"}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{"Y", "=", "y"}], ",", 
+        RowBox[{"X", "=", "x"}]}], "]"}], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"X", "=", "x"}], "]"}]], " ", "=", " ", 
+     FractionBox[
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y"}], ")"}], 
+      RowBox[{"p", "(", "x", ")"}]]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4369822300520267`*^9, 3.436982230444027*^9}}],
+
+Cell[TextData[{
+ "made perfect sense from basic definitions of probability.  When ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are continuous random variables with joint density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], TraditionalForm]]],
+ ", the ratio of probabilities in the third ",
+ StyleBox["expression",
+  FontColor->GrayLevel[0]],
+ " above no longer makes sense, because both numerator and denominator are 0. \
+ But the ratio of joint density function to marginal density function in the \
+fourth term does make sense, and we will take that as our definition of the \
+conditional density, by analogy with the discrete case.  (Actually, in \
+Exercise 23 you will be led to make a better argument for the legitimacy of \
+this definition by taking a conditional c.d.f. as the starting point.)"
+}], "Text",
+ CellChangeTimes->{{3.4266959118133426`*^9, 3.4266959385223427`*^9}, {
+  3.4267020590353427`*^9, 3.426702060244343*^9}, {3.4267021003023424`*^9, 
+  3.4267021039233427`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 4",
+  FontWeight->"Bold"],
+ ".  Let ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " be continuous random variables with joint density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], TraditionalForm]]],
+ ".  Denote by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "(", "x", ")"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "(", "y", ")"}], TraditionalForm]]],
+ " the marginal density functions of ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["Y", TraditionalForm]]],
+ ", respectively.  Then the ",
+ StyleBox["conditional density of Y given ",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", "x"}], TraditionalForm]]],
+ " is given by"
+}], "Text",
+ CellChangeTimes->{{3.436982246587027*^9, 3.436982246594027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"q", "(", 
+    RowBox[{"y", "|", "x"}], ")"}], "=", 
+   FormBox[
+    FractionBox[
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", " ", "y"}], ")"}], 
+     RowBox[{"p", "(", "x", ")"}]],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436982251961027*^9, 3.436982252362027*^9}}],
+
+Cell[TextData[{
+ "and the ",
+ StyleBox["conditional density of X given ",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "=", "y"}], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.4369822653230267`*^9, 3.436982265331027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"p", "(", 
+    RowBox[{"x", "|", "y"}], ")"}], "=", 
+   FormBox[
+    FractionBox[
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", " ", "y"}], ")"}], 
+     RowBox[{"q", "(", "y", ")"}]],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4369822706440268`*^9, 3.436982271002027*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 6",
+  FontWeight->"Bold"],
+ "  Consider again the random variables of Example 5.  The joint density is"
+}], "Text",
+ CellChangeTimes->{{3.4369822831100273`*^9, 3.4369822831170273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", 
+     RowBox[{"x", ",", "y"}], ")"}], "=", 
+    RowBox[{
+     FractionBox["3", "2"], 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", 
+       SuperscriptBox["y", "2"]}], ")"}]}]}], ",", "  ", "x", ",", 
+   RowBox[{"y", "\[Element]", " ", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982289306027*^9, 3.436982289921027*^9}}],
+
+Cell["and the two marginal densities are", "Text",
+ CellChangeTimes->{{3.436982308672027*^9, 3.4369823086760273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"p", "(", "x", ")"}], "=", " ", 
+    RowBox[{
+     FormBox[
+      FractionBox["3", "2"],
+      TraditionalForm], 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", 
+       FractionBox["1", "3"]}], ")"}]}]}], ",", " ", 
+   RowBox[{
+    RowBox[{"x", "\[Element]", 
+     RowBox[{
+      RowBox[{"[", 
+       RowBox[{"0", ",", "1"}], "]"}], " ", "and", " ", 
+      RowBox[{"q", "(", "y", ")"}]}]}], "=", " ", 
+    RowBox[{
+     FormBox[
+      FractionBox["3", "2"],
+      TraditionalForm], 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["y", "2"], "+", 
+       FractionBox["1", "3"]}], ")"}]}]}], ",", " ", 
+   RowBox[{"y", "\[Element]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}], " "}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982308672027*^9, 3.436982332503027*^9}}],
+
+Cell[TextData[{
+ "Therefore, by formula (9) the conditional density of ",
+ StyleBox["y ",
+  FontSlant->"Italic"],
+ "given ",
+ StyleBox["x ",
+  FontSlant->"Italic"],
+ "is"
+}], "Text",
+ CellChangeTimes->{{3.436982349475027*^9, 3.4369823494850273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"q", "(", 
+     RowBox[{"y", "|", "x"}], ")"}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y"}], ")"}], 
+      RowBox[{"p", "(", "x", ")"}]], " ", "=", " ", 
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}], 
+      RowBox[{
+       FormBox["",
+        TraditionalForm], 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["x", "2"], "+", 
+         FractionBox["1", "3"]}], ")"}]}]]}]}], ",", " ", 
+   RowBox[{"y", "\[Element]", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "1"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982357149027*^9, 3.436982357730027*^9}}],
+
+Cell[TextData[{
+ "\tThe density of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " does depend on what ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " value is observed.  For example, here is a plot of the marginal density of \
+",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", together with two of the conditionals, with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{"1", "/", "4"}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{"3", "/", "4"}]}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.426696087763343*^9, 3.4266960960073423`*^9}, {
+   3.4266961501913424`*^9, 3.426696157223343*^9}, {3.4266964400333424`*^9, 
+   3.426696440796343*^9}, {3.4267021221823425`*^9, 3.4267021396723423`*^9}, 
+   3.426702186506343*^9, 3.4378497176299276`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"q", "[", "y_", "]"}], ":=", 
+  RowBox[{
+   FractionBox["3", "2"], 
+   RowBox[{"(", 
+    RowBox[{
+     SuperscriptBox["y", "2"], "+", 
+     RowBox[{"1", "/", "3"}]}], ")"}]}]}], "\n", 
+ RowBox[{
+  RowBox[{"qygivenx", "[", 
+   RowBox[{"y_", ",", "x_"}], "]"}], ":=", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["x", "2"], "+", 
+    SuperscriptBox["y", "2"]}], 
+   RowBox[{
+    SuperscriptBox["x", "2"], "+", 
+    RowBox[{"1", "/", "3"}]}]]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4266963532943425`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"q", "[", "y", "]"}], ",", 
+     RowBox[{"qygivenx", "[", 
+      RowBox[{"y", ",", 
+       FractionBox["1", "4"]}], "]"}], ",", 
+     RowBox[{"qygivenx", "[", 
+      RowBox[{"y", ",", 
+       FractionBox["3", "4"]}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"y", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Thickness", "[", "0.01`", "]"}], ",", 
+      RowBox[{"Thickness", "[", "0.005`", "]"}], ",", 
+      RowBox[{"Dashing", "[", 
+       RowBox[{"{", 
+        RowBox[{"0.01`", ",", "0.01`"}], "}"}], "]"}]}], "}"}]}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399047537991372*^9, 3.3990475383638306`*^9}, {
+   3.4267021637593427`*^9, 3.4267021760823426`*^9}, 3.4267022383053427`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.17",
+  FontWeight->"Bold"],
+ "  - Marginal of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " (bold), conditional of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{"1", "/", "4"}]}], TraditionalForm]]],
+ " (thin), ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", 
+    RowBox[{"3", "/", "4"}]}], TraditionalForm]]],
+ " (dashed)",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436980698760027*^9, 3.436980703372027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "In the electronic text you can use the Manipulate command below to see how \
+the conditional density changes as ",
+ Cell[BoxData[
+  FormBox["x", TraditionalForm]]],
+ " changes."
+}], "Text",
+ CellChangeTimes->{{3.4267022607793427`*^9, 3.4267022951073427`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"q", "[", "y", "]"}], ",", 
+       RowBox[{"qygivenx", "[", 
+        RowBox[{"y", ",", "x"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "0", ",", "1"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "3"}], "}"}]}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Thickness", "[", "0.01`", "]"}], ",", 
+        RowBox[{"Dashing", "[", 
+         RowBox[{"{", 
+          RowBox[{"0.01`", ",", "0.01`"}], "}"}], "]"}]}], "}"}]}]}], "]"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.399047537991372*^9, 3.3990475383638306`*^9}, {
+  3.4266962065853424`*^9, 3.4266963006963425`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tIf we wanted to compute the probability that ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " exceeds 1/2 given an observed ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " value of 1/2,  we would integrate the conditional density of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " as follows:"
+}], "Text",
+ CellChangeTimes->{{3.436982388155027*^9, 3.436982388161027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Y", ">", 
+       RowBox[{"1", "/", "2"}]}], "|", "X"}], "=", 
+     RowBox[{"1", "/", "2"}]}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     UnderoverscriptBox["\[Integral]", 
+      RowBox[{"1", "/", "2"}], "1"],
+     TraditionalForm], "  ", 
+    RowBox[{
+     RowBox[{"q", "(", 
+      RowBox[{"y", "|", 
+       RowBox[{"1", "/", "2"}]}], ")"}], " ", "d", " ", "y"}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982394035027*^9, 3.436982394418027*^9}}],
+
+Cell[TextData[{
+ "which we can do in ",
+ StyleBox["Mathematica.  ",
+  FontSlant->"Italic"],
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.436980733488027*^9, 3.436980740482027*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", 
+   RowBox[{"1", "/", "2"}], "1"], 
+  RowBox[{
+   FractionBox[
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"1", "/", "2"}], ")"}], "2"], "+", 
+     SuperscriptBox["y", "2"]}], 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"1", "/", "2"}], ")"}], "2"], "+", 
+     RowBox[{"1", "/", "3"}]}]], "\[ThinSpace]", 
+   RowBox[{"\[DifferentialD]", "y"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 6",
+  FontWeight->"Bold"],
+ "  Referring to Example 6, compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"X", "\[Element]", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{"1", "/", "3"}], ",", 
+         RowBox[{"2", "/", "3"}]}], "]"}]}], " ", "|", " ", "Y"}], "=", 
+     RowBox[{"3", "/", "4"}]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tThe last idea that we will take up in this section is the independence of \
+continuous random variables.  Here the definition expressed by formula (6) of \
+Section 2.5 serves the purpose again without change.  We repeat it here for \
+your convenience: \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 5",
+  FontWeight->"Bold"],
+ ".  Two continuous random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are ",
+ StyleBox["independent",
+  FontSlant->"Italic"],
+ " of each other if and only if for all Borel subsets ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of their respective state spaces,"
+}], "Text",
+ CellChangeTimes->{{3.436982412797027*^9, 3.436982412803027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      StyleBox["X",
+       FontSlant->"Italic"], "\[Element]", 
+      StyleBox["A",
+       FontSlant->"Italic"]}], ",", " ", 
+     RowBox[{
+      StyleBox["Y",
+       FontSlant->"Italic"], "\[Element]", 
+      StyleBox["B",
+       FontSlant->"Italic"]}]}], "]"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["X",
+       FontSlant->"Italic"], "\[Element]", 
+      StyleBox["A",
+       FontSlant->"Italic"]}], "]"}], " ", "\[CenterDot]", " ", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["Y",
+       FontSlant->"Italic"], "\[Element]", 
+      StyleBox["B",
+       FontSlant->"Italic"]}], "]"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436982418627027*^9, 3.436982419031027*^9}}],
+
+Cell[TextData[{
+ "\tAll of the comments made in Section 2.5 about independent random \
+variables have their analogues here.  An equivalent definition of \
+independence would be P[",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " \[Element] ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " | ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Element] ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] = P[",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " \[Element] ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "] for all Borel subsets ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " such that P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Element] ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] is not zero.  ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are also independent if and only if the joint probability density function \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], TraditionalForm]]],
+ " factors into the product of the marginal densities.  In fact, ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are independent if and only if the joint c.d.f. ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", 
+     RowBox[{"x", ",", "y"}], ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{"X", "\[LessEqual]", "x"}], ",", 
+      RowBox[{"Y", "\[LessEqual]", "y"}]}], "]"}]}], TraditionalForm]]],
+ " factors into the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"X", "\[LessEqual]", "x"}], "]"}], 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"Y", "\[LessEqual]", "y"}], "]"}], "."}]}], TraditionalForm]]],
+ "  The corresponding definition of independence for many random variables \
+would amend formula (11) in the natural way: the simultaneous probability \
+that all of the random variables fall into sets is the product of the \
+marginal probabilities.  Again in the many variable context, independence is \
+equivalent to both the factorization of the joint density, and the \
+factorization of the joint c.d.f. into the product of the marginals. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 7",
+  FontWeight->"Bold"],
+ "  Show that if the joint p.d.f. of two continuous random variables factors \
+into the product of the two marginal densities, then the random variables are \
+independent."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tIndependence often arises in the following context: a ",
+ StyleBox["random sample",
+  FontSlant->"Italic"],
+ " taken in sequence and with replacement from a population represented by a \
+probability density ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is a sequence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "...", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " of independent random variables each of which has density ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ ".  Hence by what we said in the last paragraph, the joint density of the \
+random variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.436982439663027*^9, 3.436982439667027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"g", "(", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["x", "1"], ",", 
+      SubscriptBox["x", "2"], ",", "...", ",", 
+      SubscriptBox["x", "n"]}],
+     TraditionalForm], ")"}], "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{"f", "(", 
+      SubscriptBox["x", "1"], ")"}], 
+     RowBox[{"f", "(", 
+      SubscriptBox["x", "2"], ")"}], "\[CenterEllipsis]", " ", 
+     RowBox[{"f", "(", 
+      SubscriptBox["x", "n"], ")"}]}],
+    TraditionalForm], " "}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436982439663027*^9, 3.436982446694027*^9}}],
+
+Cell["Thus, ", "Text",
+ CellChangeTimes->{{3.436982457903027*^9, 3.436982457909027*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["X", "1"], "\[Element]", 
+        SubscriptBox["B", "1"]}], ",", 
+       RowBox[{
+        SubscriptBox["X", "2"], "\[Element]", 
+        SubscriptBox["B", "2"]}], ",", "...", " ", ",", 
+       RowBox[{
+        SubscriptBox["X", "n"], "\[Element]", 
+        SubscriptBox["B", "n"]}]}], "]"}], "=", 
+     RowBox[{
+      UnderscriptBox["\[Integral]", 
+       RowBox[{
+        SubscriptBox["B", "1"], "\[Times]", 
+        SubscriptBox["B", "2"], "\[Times]", "\[CenterEllipsis]", "\[Times]", 
+        SubscriptBox["B", "n"]}]], " ", 
+      RowBox[{
+       RowBox[{"g", "(", 
+        RowBox[{
+         SubscriptBox["x", "1"], ",", 
+         SubscriptBox["x", "2"], ",", "...", " ", ",", 
+         SubscriptBox["x", "n"]}], ")"}], " ", "d", " ", 
+       SubscriptBox["x", "1"], "d", " ", 
+       SubscriptBox["x", "2"], " ", "\[CenterEllipsis]", " ", "d", " ", 
+       SubscriptBox["x", "n"]}]}]},
+    {" ", "=", 
+     RowBox[{
+      UnderscriptBox["\[Integral]", 
+       SubscriptBox["B", "1"]], 
+      RowBox[{
+       RowBox[{"f", "(", 
+        SubscriptBox["x", "1"], ")"}], " ", "d", " ", 
+       SubscriptBox["x", "1"], 
+       RowBox[{
+        UnderscriptBox["\[Integral]", 
+         SubscriptBox["B", "2"]], 
+        RowBox[{
+         RowBox[{"f", "(", 
+          SubscriptBox["x", "2"], ")"}], " ", "d", " ", 
+         SubscriptBox["x", "2"], "\[CenterEllipsis]", 
+         RowBox[{
+          UnderscriptBox["\[Integral]", 
+           SubscriptBox["B", "n"]], 
+          RowBox[{
+           RowBox[{"f", "(", 
+            SubscriptBox["x", "n"], ")"}], " ", "d", " ", 
+           SubscriptBox["x", "n"]}]}]}]}]}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436982464807027*^9, 3.436982465213027*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 7",
+  FontWeight->"Bold"],
+ "  What do independent continuous random variables look like?  Example 3 \
+introduced the Weibull distribution, which was governed by two parameters, \
+\[Alpha] and \[Beta].  Figure 12  showed the graph of the density and c.d.f. \
+in the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Alpha]", "=", "2"}], ",", 
+    RowBox[{"\[Beta]", "=", "3"}]}], TraditionalForm]]],
+ ".  The density was asymmetrical, with a long right tail and a peak at \
+around 2.  First let us see what we should expect to observe if we simulate \
+random samples ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"X", ",", "Y"}], ")"}], TraditionalForm]]],
+ " of size ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "2"}], TraditionalForm]]],
+ " from the Weibull(2, 3) distribution.  We can slightly alter the earlier \
+command SimPairs to suit our needs.  The change is that instead of tabulating \
+the min and max of the raw data pair, we tabulate the raw data pair itself.  \
+The distinct calls to Random",
+ StyleBox["Real",
+  FontColor->GrayLevel[0]],
+ " should make the ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " observations in a pair independent of one another, and different pairs \
+should also be independent. "
+}], "Text",
+ CellChangeTimes->{{3.4266927876633425`*^9, 3.4266927884973426`*^9}, {
+  3.4266966960993423`*^9, 3.4266966966283426`*^9}, {3.4267023506423426`*^9, 
+  3.4267023544113426`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimPairs", "[", 
+   RowBox[{"dist_", ",", "numpairs_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"X", ",", "Y", ",", "pairlist"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"pairlist", "=", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"X", "=", 
+         RowBox[{"RandomReal", "[", "dist", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Y", "=", 
+         RowBox[{"RandomReal", "[", "dist", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"pairlist", ",", 
+          RowBox[{"{", 
+           RowBox[{"X", ",", "Y"}], "}"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "numpairs"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"pairlist", ",", 
+       RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"PointSize", "[", "0.015`", "]"}]}]}], "]"}]}]}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990476447767324`*^9, 3.3990476558256817`*^9}, 
+   3.4266967166703424`*^9, {3.4267023742943425`*^9, 3.426702399454343*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "In Figure 18 are the results of simulating 2000 such independent and \
+identically distributed ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["X", "i"], ",", 
+     SubscriptBox["Y", "i"]}], ")"}], TraditionalForm]]],
+ " pairs using the SimPairs command."
+}], "Text",
+ CellChangeTimes->{{3.4266928227733426`*^9, 3.4266928236443424`*^9}, {
+  3.426702410553343*^9, 3.4267024141443424`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"SimPairs", "[", 
+    RowBox[{
+     RowBox[{"WeibullDistribution", "[", 
+      RowBox[{"2", ",", "3"}], "]"}], ",", "2000"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"WeibullDistribution", "[", 
+      RowBox[{"2", ",", "3"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"joint", "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"f", "[", "x", "]"}], " ", 
+    RowBox[{"f", "[", "y", "]"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Plot3D", "[", 
+    RowBox[{
+     RowBox[{"joint", "[", 
+      RowBox[{"x", ",", "y"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "7"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "0", ",", "7"}], "}"}], ",", 
+     RowBox[{"PlotPoints", "\[Rule]", "30"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "\"\<\>\""}], "}"}]}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3990476793708363`*^9, 3.399047704798981*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 3.18",
+  FontWeight->"Bold"],
+ " - 2000 simulated Weibull(2, 3) pairs       ",
+ StyleBox["Figure 3.19",
+  FontWeight->"Bold"],
+ " - 2-dimensional Weibull(2, 3) joint density "
+}], "Text",
+ CellChangeTimes->{{3.436980772430027*^9, 3.436980793015027*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "The fact that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " have the same distribution shows up in the fact that the point cloud looks \
+about the same in the orientation of Figure 18 as it would if the roles of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " were interchanged and the graph was stood on its side.  The independence \
+of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " is a little harder to see, but you can pick it out by observing that \
+regardless of the vertical level, the dots spread out horizontally in about \
+the same way, with a heavy concentration of points near 2, and a few points \
+near 0 and out at large values between 6 and 8.  Similarly, regardless of the \
+horizontal position, the points spread out from bottom to top in this way.  \
+We expect this to happen because under independence, the observed value of \
+one of the variables should not affect the distribution of the other. \n\tThe \
+graph of the joint density in Figure 19 sheds even more light on this \
+phenomenon.  Our point cloud in Figure 18 is most dense exactly where the \
+joint density in Figure 19  reaches its maximum, around (2, 2).  Also the \
+point cloud is sparse where the density is low, and the long right tail \
+extending to 6 and beyond is visible in both graphs.  But the joint density \
+graph shows the independence property a little better. By examining the grid \
+lines you can see that the relative density of points in the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " direction is independent of the ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " value, and the relative density of points in the ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " direction is independent of the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " value. The identical distribution of the ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " variables is seen in Figure 19 by the fact that the cross-sections look \
+the same regardless of whether you slice the surface perpendicularly to the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "-axis or to the ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ "-axis.  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4266928778183427`*^9, 3.4266929355873423`*^9}, {
+  3.426696846409343*^9, 3.426696848664343*^9}, {3.4267024360733423`*^9, 
+  3.426702488718343*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 3.2", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ StyleBox["1.  Show that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "x", ")"}], "=", 
+    FractionBox["1", 
+     RowBox[{"\[Pi]", "(", 
+      RowBox[{"1", "+", 
+       SuperscriptBox["x", "2"]}], ")"}]]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["is a valid probability density function on ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", "\[DoubleStruckCapitalR]"}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  (It is referred to as the Cauchy density.) Then find P[ ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{"0", ",", "\[Infinity]"}]}], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" ] and P[ ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", "1"}], ",", "1"}], "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" ]. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.426545142428921*^9, 3.4265451447969213`*^9}, {
+   3.4265451828159213`*^9, 3.4265451876379213`*^9}, {3.4266968964583426`*^9, 
+   3.4266969076823425`*^9}, {3.4267001778273425`*^9, 3.4267001898863425`*^9}, 
+   3.4267025180183425`*^9}],
+
+Cell[TextData[{
+ StyleBox["2.  (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") Plot a graph of the density function ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "x", ")"}], "=", 
+    RowBox[{"c", " ", 
+     SuperscriptBox["x", "4"], 
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"-", "3"}], "x"}]]}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" on [0, \[Infinity]) for the appropriate choice of ",
+  FontColor->GrayLevel[0]],
+ StyleBox["c",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[".  Compute ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    SuperscriptBox[
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"3", ",", " ", "4"}], "]"}], " "}], "c"], "]"}], 
+   TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.426696899961343*^9, 3.4266969470633426`*^9}}],
+
+Cell["3.  Consider the function", "Text",
+ CellChangeTimes->{{3.4266969568633423`*^9, 3.426696957079343*^9}, {
+  3.426702527190343*^9, 3.4267025306623425`*^9}, {3.436982503662027*^9, 
+  3.436982503668027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "x", ")"}], "=", 
+   RowBox[{
+    StyleBox["{",
+     SpanMaxSize->Infinity], GridBox[{
+      {
+       RowBox[{"C", " ", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{"-", "k"}], " ", "x"}]]}], 
+       RowBox[{
+        RowBox[{"if", " ", "x"}], "\[GreaterEqual]", "0"}]},
+      {"0", "otherwise"}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982508997027*^9, 3.436982509331027*^9}}],
+
+Cell[TextData[{
+ "where ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " are positive constants.  Find ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ " such that ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is a valid probability density function.  Find the cumulative distribution \
+function associated to this distribution. "
+}], "Text"],
+
+Cell[TextData[{
+ "4.  Find the cumulative distribution function of the uniform distribution \
+on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ ".  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has this distribution, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", ">", 
+     FormBox[
+      FractionBox[
+       RowBox[{"a", "+", "b"}], "2"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.4266970058503428`*^9, {3.4267025353983426`*^9, 3.4267025372983427`*^9}}],
+
+Cell["\<\
+5.  For each of the following random variables, state whether it is best \
+modeled as discrete or continuous, and explain your choice.
+   (a) The error in measuring the height of a building by triangulation
+   (b) The number of New Year's Day babies born in New York City next year
+   (c) The relative humidity in Baltimore on a certain day at a certain time\
+\>", "Text",
+ CellChangeTimes->{{3.404085258203125*^9, 3.4040852634375*^9}, 
+   3.4266970142983427`*^9, {3.4267025415593424`*^9, 3.4267025440733423`*^9}}],
+
+Cell[TextData[{
+ "6.  The time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " (in days) of a server malfunction in a computer system has the probability \
+density function"
+}], "Text",
+ CellChangeTimes->{
+  3.4266970237953424`*^9, {3.4267025519423428`*^9, 3.4267025546533422`*^9}, {
+   3.436982531479027*^9, 3.436982531484027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "t", ")"}], "=", 
+   RowBox[{
+    StyleBox["{",
+     SpanMaxSize->Infinity], GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", "100"], " ", "t", " ", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{"-", "t"}], "/", "10"}]]}], 
+       RowBox[{
+        RowBox[{"if", " ", "t"}], "\[GreaterEqual]", "0"}]},
+      {"0", "otherwise"}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4369825370920267`*^9, 3.4369825374260273`*^9}}],
+
+Cell["\<\
+Verify that this is a valid density and compute the probability that the \
+malfunction occurs after the tenth day.\
+\>", "Text"],
+
+Cell[TextData[{
+ "7. The c.d.f. of a continuous random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{
+  3.4266970380813427`*^9, {3.426702560138343*^9, 3.426702561841343*^9}, {
+   3.436982546822027*^9, 3.436982546828027*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{"F", 
+      RowBox[{"(", "x", ")"}]}], "=", 
+     RowBox[{
+      StyleBox["{",
+       SpanMaxSize->Infinity], GridBox[{
+        {"0", "if", 
+         RowBox[{"x", "<", "1"}]},
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1", "/", "4"}], ")"}], " ", "x"}], "-", 
+          RowBox[{"1", "/", "4"}]}], "if", 
+         RowBox[{"1", "\[LessEqual]", "x", "<", "2"}]},
+        {
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1", "/", "2"}], ")"}], " ", "x"}], "-", 
+          RowBox[{"3", "/", "4"}]}], "if", 
+         RowBox[{"2", "\[LessEqual]", "x", "<", "3"}]},
+        {
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "/", "4"}], " ", ")"}], "x"}], "if", 
+         RowBox[{"3", "\[LessEqual]", "x", "<", "4"}]},
+        {"1", "if", 
+         RowBox[{"x", "\[GreaterEqual]", "4"}]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+          "RowsIndexed" -> {}}]}]}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982552428027*^9, 3.436982552953027*^9}}],
+
+Cell[TextData[{
+ "Find a piecewise expression for the density function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "x", ")"}], TraditionalForm]]],
+ " and graph both ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["F",
+  FontSlant->"Italic"],
+ ".  Explain why it does not matter what value you set for ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " at the break points 1, 2, 3, and 4.  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has this probability distribution, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1.5", "\[LessEqual]", "X", "\[LessEqual]", "3.5"}], "]"}], 
+   TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell[TextData[{
+ "8. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") By setting several different values for \[Alpha] and fixing \[Beta], \
+graph several versions of the Weibull(\[Alpha], \[Beta]) density ",
+ StyleBox["on the same set of axes",
+  FontColor->GrayLevel[0]],
+ ".  Describe the dependence of the density on the \[Alpha] parameter.  Do \
+the same for the \[Beta] parameter."
+}], "Text",
+ CellChangeTimes->{{3.4266936167203426`*^9, 3.4266936215233426`*^9}, 
+   3.4266970848753424`*^9, {3.426702572039343*^9, 3.4267025760693426`*^9}}],
+
+Cell["\<\
+9.  Find the location of the maximum value of the Weibull(\[Alpha], \[Beta]) \
+density in terms of \[Alpha] and \[Beta].\
+\>", "Text",
+ CellChangeTimes->{
+  3.4266970964393425`*^9, {3.4267025898933425`*^9, 3.4267025922253428`*^9}}],
+
+Cell[TextData[{
+ "10. If a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the uniform(0, 1) distribution and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "=", 
+    RowBox[{
+     RowBox[{"2", "X"}], "-", "1"}]}], TraditionalForm]]],
+ ", what possible values can ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " take on?  Find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Y", "\[LessEqual]", "y"}], "]"}], TraditionalForm]]],
+ " (i.e., the c.d.f. of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ") for all such values ",
+ StyleBox["y ",
+  FontSlant->"Italic"],
+ StyleBox["by reexpressing the inequality in terms of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".",
+  FontColor->GrayLevel[0]],
+ "  Use this to find the probability density function of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.426697111251343*^9, 3.4266971633393426`*^9}, 
+   3.426700160940343*^9, {3.4267025953523426`*^9, 3.4267025991493425`*^9}}],
+
+Cell[TextData[{
+ "11.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that the time ",
+ StyleBox["D",
+  FontSlant->"Italic"],
+ " (in years) until death of an individual who holds a new 25 year $40,000 \
+life insurance policy has the Weibull distribution with parameters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Alpha]", "=", "1.5"}], ",", " ", 
+    RowBox[{"\[Beta]", "=", "20"}]}], TraditionalForm]]],
+ ".  The policy will expire and not pay off anything if the policy holder \
+survives beyond 25 years; otherwise, if the holder dies within 25 years it \
+pays the $40,000 face value to his heirs.  What is the probability that the \
+heirs will receive the $40,000? What is the expected value of the amount that \
+the insurance company will pay?"
+}], "Text",
+ CellChangeTimes->{{3.4266971827503424`*^9, 3.4266971833933425`*^9}, {
+   3.4267026304533424`*^9, 3.4267026336553426`*^9}, 3.456592736505983*^9}],
+
+Cell[TextData[{
+ "12.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The value ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " of an investment at a certain time in the future is a random variable with \
+probability density function"
+}], "Text",
+ CellChangeTimes->{{3.4266972454393425`*^9, 3.426697245690343*^9}, {
+  3.4267026382993426`*^9, 3.4267026411663427`*^9}, {3.436982568578027*^9, 
+  3.436982568586027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", "v", ")"}], "=", 
+    RowBox[{
+     FractionBox["1", "v"], 
+     FractionBox["1", 
+      SqrtBox[
+       RowBox[{"2", "\[Pi]"}]]], 
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"log", " ", "v"}], "-", "4"}], ")"}], "2"]}], "/", 
+       "2"}]]}]}], ",", " ", 
+   RowBox[{"v", " ", ">", "0"}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982575042027*^9, 3.436982575411027*^9}}],
+
+Cell[TextData[{
+ "Find the probability that the value will be at least 40.  Find the ",
+ StyleBox["median",
+  FontSlant->"Italic"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["v", "*"], TraditionalForm]]],
+ " of the value distribution, that is, the point such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"V", "\[LessEqual]", 
+      SuperscriptBox["v", "*"]}], "]"}], "=", ".5"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4369825964850273`*^9, 3.436982598879027*^9}}],
+
+Cell[TextData[{
+ "13.  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ " are three independent uniform(0, 1) random variables, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"X", "+", "Y", "+", "Z"}], "\[LessEqual]", 
+     FormBox[
+      FractionBox["1", "2"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4266972579483423`*^9, 3.4266972582203426`*^9}, {
+  3.4267026498713427`*^9, 3.4267026526863427`*^9}}],
+
+Cell[TextData[{
+ "14.  For the random variables ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " of Example 4, find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"V", "-", "U"}], "\[GreaterEqual]", 
+     FormBox[
+      FractionBox["1", "4"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4266972740483427`*^9, 3.4266972743423424`*^9}, {
+  3.426702656334343*^9, 3.426702658400343*^9}}],
+
+Cell[TextData[{
+ "15.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " are independent uniform(",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "1, 1) random variables, build a simulator of pairs ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"W", ",", "Z"}], ")"}], TraditionalForm]]],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "=", 
+    RowBox[{"X", "-", "Y"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Z", "=", 
+    RowBox[{"X", "+", "Y"}]}], TraditionalForm]]],
+ ".  By looking at a large sample of such pairs and noting the construction \
+of ",
+ StyleBox["W",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Z",
+  FontSlant->"Italic"],
+ ", what seems to be the state space of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"W", ",", "Z"}], ")"}], TraditionalForm]]],
+ "?  Does a uniform model seem reasonable?  Use your model to find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Z", "\[GreaterEqual]", "0"}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4266973021303425`*^9, 3.4266973025663424`*^9}, {
+  3.4267026622343426`*^9, 3.426702664296343*^9}}],
+
+Cell[TextData[{
+ "16.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Two random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " have joint density"
+}], "Text",
+ CellChangeTimes->{{3.4266973228183427`*^9, 3.4266973232483425`*^9}, {
+  3.426702671534343*^9, 3.4267026736923428`*^9}, {3.4369826114330273`*^9, 
+  3.436982611438027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", 
+    RowBox[{"x", ",", "y"}], ")"}], "=", 
+   RowBox[{"{", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", "2"], 
+        SuperscriptBox["e", 
+         RowBox[{"-", "y"}]]}], 
+       RowBox[{
+        RowBox[{
+         RowBox[{"if", " ", "x"}], "\[Element]", 
+         RowBox[{"[", 
+          RowBox[{"0", ",", "2"}], "]"}]}], ",", " ", 
+        RowBox[{"y", "\[Element]", 
+         RowBox[{
+          RowBox[{"[", 
+           RowBox[{"0", ",", "\[Infinity]"}]}], ")"}]}]}]},
+      {"0", "otherwise"}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982617311027*^9, 3.436982617654027*^9}}],
+
+Cell[TextData[{
+ "Sketch the graph of this joint density, and find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"Y", ">", "X"}], "]"}], TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell[TextData[{
+ "17.  For the random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " of Exercise 16, find the marginal densities.  Can you conclude anything \
+about ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ "?"
+}], "Text",
+ CellChangeTimes->{{3.4266973391663427`*^9, 3.4266973591393423`*^9}, {
+  3.4267026787613425`*^9, 3.4267026885953426`*^9}}],
+
+Cell[TextData[{
+ "18.  For the random variables ",
+ StyleBox["U",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["V",
+  FontSlant->"Italic"],
+ " of Example 4, find the conditional densities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "(", 
+    RowBox[{"v", "|", "u"}], ")"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "(", 
+    RowBox[{"u", "|", "v"}], ")"}], TraditionalForm]]],
+ " for all ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["v",
+  FontSlant->"Italic"],
+ ".  Compute also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"V", ">", 
+       FormBox[
+        FractionBox["3", "4"],
+        TraditionalForm]}], "|", "U"}], "=", 
+     FormBox[
+      FractionBox["1", "2"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4266973723493423`*^9, 3.4266973733503428`*^9}, {
+  3.4267026927153425`*^9, 3.4267026979303427`*^9}}],
+
+Cell[TextData[{
+ "19.  Explain why the random variables ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " of Example 6 are not independent of each other.  However, is there any \
+case in which the marginal density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "(", "y", ")"}], TraditionalForm]]],
+ " equals the conditional density ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "(", 
+    RowBox[{"y", "|", "x"}], ")"}], TraditionalForm]]],
+ "?"
+}], "Text",
+ CellChangeTimes->{{3.4266974020103426`*^9, 3.4266974023023424`*^9}, {
+  3.426702703185343*^9, 3.4267027053143425`*^9}}],
+
+Cell[TextData[{
+ "20.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " have joint density of the form"
+}], "Text",
+ CellChangeTimes->{{3.426697421322343*^9, 3.4266974215613427`*^9}, {
+  3.4267027126763425`*^9, 3.4267027158173428`*^9}, {3.4369826308420267`*^9, 
+  3.436982630851027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", 
+     RowBox[{"x", ",", "y"}], ")"}], "=", 
+    FormBox[
+     FractionBox["c", 
+      RowBox[{"x", "+", "y"}]],
+     TraditionalForm]}], ",", "  ", "x", ",", 
+   RowBox[{"y", "\[Element]", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "2"}], "]"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982636939027*^9, 3.436982637352027*^9}}],
+
+Cell[TextData[{
+ "find the marginal densities of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", and compute ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Y", ">", 
+       FormBox[
+        FractionBox["5", "4"],
+        TraditionalForm]}], "|", "X"}], "=", 
+     FormBox[
+      FractionBox["3", "2"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"X", "<", 
+       FormBox[
+        FractionBox["3", "2"],
+        TraditionalForm]}], "|", "Y"}], "=", 
+     FormBox[
+      FractionBox["6", "5"],
+      TraditionalForm]}], "]"}], TraditionalForm]]],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ "21. If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", " ", 
+    SubscriptBox["X", "2"], ",", " ", 
+    RowBox[{"and", " ", 
+     SubscriptBox["X", "3"]}]}], TraditionalForm]]],
+ " are a random sample (in sequence and with replacement) from the uniform(0, \
+3) distribution, find  (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], ">", "1"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "2"], "<", "1"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3"], ">", "2"}]}], "]"}], TraditionalForm]]],
+ ";    (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"min", "(", 
+      RowBox[{
+       SubscriptBox["X", "1"], ",", 
+       SubscriptBox["X", "2"], ",", 
+       SubscriptBox["X", "3"]}], ")"}], " ", ">", "1"}], "]"}], 
+   TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.426697441183343*^9, 3.426697441414343*^9}, {
+  3.426702720001343*^9, 3.4267027241983423`*^9}}],
+
+Cell[TextData[{
+ "22.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Does the following random sample appear to have been sampled from the \
+distribution whose density function is"
+}], "Text",
+ CellChangeTimes->{{3.4266974830553427`*^9, 3.4266974832063427`*^9}, {
+  3.4267027352663426`*^9, 3.4267027378133426`*^9}, {3.436982653845027*^9, 
+  3.4369826538490267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "(", "x", ")"}], "=", 
+    FormBox[
+     RowBox[{
+      FractionBox["27", "2"], 
+      SuperscriptBox["x", "2"], 
+      SuperscriptBox["e", 
+       RowBox[{
+        RowBox[{"-", "3"}], "x"}]]}],
+     TraditionalForm]}], ",", " ", 
+   RowBox[{"x", ">", 
+    RowBox[{"0", " ", "?", " "}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4266974830553427`*^9, 3.4266974832063427`*^9}, {
+  3.4267027352663426`*^9, 3.4267027378133426`*^9}, {3.436982653845027*^9, 
+  3.436982659370027*^9}}],
+
+Cell["Use graphics to explain why or why not.", "Text"],
+
+Cell["\<\
+6.21, 3.97, 6.34, 5.31, 6.52, 4.57, 4.03, 5.99, 4.99, 5.54, 4.69, 5.09, 4.13, \
+5.32, 3.16, 4.16, 4.49, 5.88, 6.23, 7.42, 3.98, 5.29, 5.22, 6.4, 5.25, 5.75, \
+4.4, 1.25, 5.45, 3.55, 5.83, 3.48, 3.57, 4.95, 5.06, 4.55, 3.06, 5.36, 6.6, \
+4.57, 6.39, 5.61, 5.72, 4.55, 3.67, 3.79, 4.84, 6.05, 5.99, 6.37, 6.58, 4.48, \
+5.52, 5.89, 7.19, 2.9, 4.1, 5.96, 5.56, 5.6, 4.72, 6.19, 4.14, 3.76, 4.17, \
+4.13, 4.05, 6.44, 5.23, 5.88, 5.4, 7.23, 2.82, 5.05, 5.57, 4.74, 4.73, 3.78, \
+6.0, 2.7, 6.35, 4.07, 4.98, 3.81, 4.6, 4.54, 4.39, 2.85, 5.13, 5.11, 4.83, \
+4.91, 4.14, 6.19, 3.64, 4.33, 4.54, 4.55, 5.33, 4.27\
+\>", "Text"],
+
+Cell[TextData[{
+ "23.  We can take as the definition of the ",
+ StyleBox["conditional c.d.f.",
+  FontSlant->"Italic"],
+ " of ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ " given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "=", "x"}], TraditionalForm]]],
+ " the limit of"
+}], "Text",
+ CellChangeTimes->{{3.426697577723343*^9, 3.4266975782193427`*^9}, {
+  3.4267027446093426`*^9, 3.426702747770343*^9}, {3.436982673921027*^9, 
+  3.4369826739270267`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["P",
+    FontSlant->"Plain"], "[", 
+   RowBox[{
+    RowBox[{"Y", "\[LessEqual]", "y"}], "|", 
+    RowBox[{"X", "\[Element]", 
+     RowBox[{"[", 
+      RowBox[{"x", ",", 
+       RowBox[{"x", "+", 
+        RowBox[{"\[CapitalDelta]", " ", "x"}]}]}], "]"}]}]}], "]"}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4369826801950274`*^9, 3.4369826805070267`*^9}}],
+
+Cell[TextData[{
+ "as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalDelta]", " ", 
+    RowBox[{"x", " ", "\[LongRightArrow]", " ", "0"}]}], TraditionalForm]]],
+ ".  ",
+ StyleBox["The expression above is a well-defined conditional probability, \
+and the limit is ",
+  FontColor->GrayLevel[0]],
+ "conventionally written as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", 
+     RowBox[{"y", "|", "x"}], ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Y", "\[LessEqual]", "y"}], "|", "X"}], "=", "x"}], "]"}]}], 
+   TraditionalForm]]],
+ ".  Find this limit in terms of the joint and marginal densities of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["Y",
+  FontSlant->"Italic"],
+ ", and show that the derivative of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"F", "(", 
+    RowBox[{"y", "|", "x"}], ")"}], TraditionalForm]]],
+ " is the same as the conditional density function that we defined in the \
+section ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"q", "(", 
+     RowBox[{"y", "|", "x"}], ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"f", "(", 
+       RowBox[{"x", ",", "y"}], ")"}], "/", "p"}], 
+     RowBox[{"(", "x", ")"}]}]}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.4266975225573425`*^9, 3.4266975505853424`*^9}}],
+
+Cell[TextData[StyleBox["Sample Problems from Actuarial Exam P  ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9, {3.424364700859375*^9, 3.424364715375*^9}, {
+   3.42443675165625*^9, 3.424436753875*^9}, {3.424440456125*^9, 
+   3.424440463953125*^9}, {3.4244428311875*^9, 3.424442841421875*^9}, {
+   3.42449284928125*^9, 3.4244928670625*^9}, {3.4244929328125*^9, 
+   3.424492950984375*^9}, 3.424600696640625*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ StyleBox["24. A device runs until either of two components fails, at which \
+point the device stops running. The joint density function of the lifetimes \
+of the two components, both measured in hours, is ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", 
+     RowBox[{"x", ",", "y"}], ")"}], "=", 
+    FractionBox[
+     RowBox[{"x", "+", "y"}], "8"]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" for ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", "<", "x", "<", "2"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", "<", "y", "<", "2"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  What is the probability that the device fails during its first \
+hour of operation?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.424797044125*^9, 3.42479722365625*^9}, {
+   3.424799456203125*^9, 3.424799479109375*^9}, {3.4248765613125*^9, 
+   3.424876569203125*^9}, {3.424876691859375*^9, 3.42487673828125*^9}, {
+   3.424877164140625*^9, 3.4248771798125*^9}, {3.4255663009362*^9, 
+   3.4255663015432*^9}, {3.4255663568101997`*^9, 3.4255665154202003`*^9}, {
+   3.4255665553262*^9, 3.4255665710952*^9}, {3.4266976565733423`*^9, 
+   3.426697668282343*^9}, {3.426697835348343*^9, 3.4266978433473425`*^9}, {
+   3.4266978968543425`*^9, 3.4266979840083427`*^9}, 3.4267028123423424`*^9}],
+
+Cell[TextData[{
+ StyleBox["25. A company offers a basic life insurance policy to its \
+employees, as well as a supplemental life insurance policy. To purchase the \
+supplemental policy, an employee must first purchase the basic policy. Let ",
+  FontColor->GrayLevel[0]],
+ StyleBox["X ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["denote the proportion of employees who purchase the basic policy, \
+and ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["Y ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["the proportion of employees who purchase the supplemental policy. \
+Let ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["X ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["and ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["Y ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["have the joint density function ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "y"}], ")"}]}], "=", 
+    RowBox[{"2", 
+     RowBox[{"(", 
+      RowBox[{"x", "+", "y"}], ")"}]}]}], TraditionalForm]]],
+ StyleBox[" on the region where the density is positive. ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["Given that 10% of the employees buy the basic policy, what is the \
+probability that fewer than 5% buy the supplemental policy?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.424797044125*^9, 3.42479722365625*^9}, {
+  3.424797400859375*^9, 3.42479749240625*^9}, {3.424799472390625*^9, 
+  3.42479947384375*^9}, {3.424876564984375*^9, 3.42487657209375*^9}, {
+  3.4248767873125*^9, 3.42487688034375*^9}, {3.424877108828125*^9, 
+  3.424877146765625*^9}, {3.424877187984375*^9, 3.424877194078125*^9}, {
+  3.4255667627111998`*^9, 3.4255670326112003`*^9}, {3.4255670731492*^9, 
+  3.4255670915552*^9}, {3.4255695253072*^9, 3.4255695471792*^9}, {
+  3.4266976636873426`*^9, 3.4266976760643425`*^9}, {3.4266982051843424`*^9, 
+  3.426698276197343*^9}, {3.426702830185343*^9, 3.4267028544113426`*^9}}],
+
+Cell[TextData[{
+ StyleBox["26.  An insurance policy is written to cover a loss ",
+  FontColor->GrayLevel[0]],
+ StyleBox["X ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["where ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["X ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["has density function",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.424797044125*^9, 3.42479722365625*^9}, {
+   3.424797400859375*^9, 3.42479749240625*^9}, {3.424799472390625*^9, 
+   3.42479947384375*^9}, {3.424876564984375*^9, 3.42487657209375*^9}, {
+   3.4248767873125*^9, 3.42487688034375*^9}, {3.424877108828125*^9, 
+   3.424877146765625*^9}, {3.424877187984375*^9, 3.424877194078125*^9}, {
+   3.4255667627111998`*^9, 3.4255670326112003`*^9}, {3.4255670731492*^9, 
+   3.4255670915552*^9}, {3.4255695253072*^9, 3.4255695471792*^9}, {
+   3.4266976636873426`*^9, 3.4266976854293423`*^9}, {3.4266984020073423`*^9, 
+   3.426698411001343*^9}, {3.4266985146213427`*^9, 3.426698515329343*^9}, 
+   3.4267028716923428`*^9, {3.436982696489027*^9, 3.436982696494027*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", "x", ")"}], "=", 
+   TagBox[
+    StyleBox[
+     RowBox[{"{", GridBox[{
+        {
+         RowBox[{
+          FractionBox["3", "8"], 
+          SuperscriptBox["x", "2"]}], 
+         RowBox[{
+          RowBox[{"for", " ", "0"}], "\[LessEqual]", "x", "\[LessEqual]", 
+          "2"}]},
+        {"0", "otherwise"}
+       }]}],
+     ShowAutoStyles->False],
+    #& ]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436982701828027*^9, 3.436982702222027*^9}}],
+
+Cell[TextData[{
+ StyleBox["The time (in hours) to process a claim of size ",
+  FontColor->GrayLevel[0]],
+ StyleBox["x",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[", where 0 ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[LessEqual] ",
+  FontFamily->"SymbolMT",
+  FontColor->GrayLevel[0]],
+ StyleBox["x ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[LessEqual] ",
+  FontFamily->"SymbolMT",
+  FontColor->GrayLevel[0]],
+ StyleBox["2, is uniformly distributed on the interval from ",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["x ",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["to 2",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]],
+ StyleBox["x",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[". Calculate the probability that a randomly chosen claim on this \
+policy is processed in three hours or more.",
+  FontFamily->"Times New Roman",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4266984962723427`*^9, 3.4266985039983425`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{708, 593},
+WindowMargins->{{5, Automatic}, {Automatic, 7}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 3 Continuous Probability"], "Header"]}, {
+   Cell[
+    TextData["3.2 Continuous Random Variables and Distributions"], "Header"], 
+   None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 278, 6, 68, "Section"],
+Cell[848, 30, 1038, 31, 90, "Text"],
+Cell[1889, 63, 679, 24, 49, "DisplayFormula"],
+Cell[2571, 89, 1627, 28, 276, "Text"],
+Cell[4201, 119, 667, 26, 49, "Text"],
+Cell[4871, 147, 430, 14, 58, "DisplayFormulaNumbered"],
+Cell[5304, 163, 886, 28, 84, "Text"],
+Cell[6193, 193, 478, 12, 56, "Input",
+ InitializationCell->True],
+Cell[6674, 207, 2352, 71, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[9029, 280, 786, 30, 28, "Text"],
+Cell[9818, 312, 427, 11, 69, "Text"],
+Cell[10248, 325, 534, 17, 67, "DisplayFormulaNumbered"],
+Cell[10785, 344, 492, 12, 48, "Text"],
+Cell[11280, 358, 289, 8, 33, "DisplayFormulaNumbered"],
+Cell[11572, 368, 187, 4, 48, "Text"],
+Cell[11762, 374, 650, 24, 90, "Text"],
+Cell[12415, 400, 1100, 38, 69, "Text"],
+Cell[13518, 440, 417, 13, 57, "DisplayFormula"],
+Cell[13938, 455, 215, 3, 33, "Text"],
+Cell[14156, 460, 622, 21, 85, "DisplayFormula"],
+Cell[14781, 483, 1239, 47, 86, "Text"],
+Cell[16023, 532, 1492, 43, 176, "Input",
+ InitializationCell->True],
+Cell[17518, 577, 271, 9, 35, "Text"],
+Cell[17792, 588, 650, 16, 163, "Text"],
+Cell[18445, 606, 198, 2, 33, "Text"],
+Cell[18646, 610, 626, 15, 86, "Text"],
+Cell[19275, 627, 917, 29, 98, "Input",
+ InitializationCell->True],
+Cell[20195, 658, 509, 16, 60, "Text"],
+Cell[20707, 676, 633, 22, 33, "DisplayFormula"],
+Cell[21343, 700, 604, 18, 125, "Input",
+ InitializationCell->True],
+Cell[21950, 720, 820, 18, 138, "Text"],
+Cell[22773, 740, 396, 11, 70, "Input",
+ InitializationCell->True],
+Cell[23172, 753, 1267, 36, 153, "Input",
+ InitializationCell->True],
+Cell[24442, 791, 274, 9, 35, "Text"],
+Cell[24719, 802, 845, 13, 163, "Text"],
+Cell[25567, 817, 413, 12, 112, "Text"],
+Cell[25983, 831, 764, 17, 138, "Text"],
+Cell[26750, 850, 1132, 34, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[27885, 886, 240, 8, 35, "Text"],
+Cell[28128, 896, 349, 12, 33, "Text"],
+Cell[28480, 910, 644, 21, 82, "DisplayFormula"],
+Cell[29127, 933, 664, 24, 60, "Text"],
+Cell[29794, 959, 878, 31, 85, "DisplayFormula"],
+Cell[30675, 992, 541, 17, 60, "Text"],
+Cell[31219, 1011, 1002, 35, 85, "DisplayFormula"],
+Cell[32224, 1048, 165, 6, 33, "Text"],
+Cell[32392, 1056, 989, 33, 135, "DisplayFormula"],
+Cell[33384, 1091, 597, 20, 60, "Text"],
+Cell[33984, 1113, 837, 22, 113, "Text"],
+Cell[34824, 1137, 730, 21, 41, "DisplayFormulaNumbered"],
+Cell[35557, 1160, 186, 5, 33, "Text"],
+Cell[35746, 1167, 130, 1, 33, "Text"],
+Cell[35879, 1170, 430, 11, 60, "Text"],
+Cell[36312, 1183, 1471, 44, 153, "Input",
+ InitializationCell->True],
+Cell[37786, 1229, 323, 12, 35, "Text"],
+Cell[38112, 1243, 425, 7, 60, "Text"],
+Cell[38540, 1252, 1115, 30, 98, "Input"],
+Cell[39658, 1284, 793, 23, 86, "Text"],
+Cell[40454, 1309, 653, 20, 98, "Input",
+ InitializationCell->True],
+Cell[41110, 1331, 620, 17, 112, "Text"],
+Cell[CellGroupData[{
+Cell[41755, 1352, 89, 1, 51, "Subsection"],
+Cell[41847, 1355, 627, 14, 137, "Text"],
+Cell[42477, 1371, 642, 26, 63, "Text"],
+Cell[43122, 1399, 567, 18, 72, "DisplayFormulaNumbered"],
+Cell[43692, 1419, 452, 15, 60, "Text"],
+Cell[44147, 1436, 707, 21, 88, "DisplayFormulaNumbered"],
+Cell[44857, 1459, 1294, 37, 166, "Text"],
+Cell[46154, 1498, 1467, 52, 191, "Text"],
+Cell[47624, 1552, 1746, 49, 208, "Input",
+ InitializationCell->True],
+Cell[49373, 1603, 206, 4, 60, "Text"],
+Cell[49582, 1609, 555, 16, 70, "Input",
+ InitializationCell->True],
+Cell[50140, 1627, 316, 12, 35, "Text"],
+Cell[50459, 1641, 2193, 71, 241, "Text"],
+Cell[52655, 1714, 442, 11, 27, "DisplayFormula"],
+Cell[53100, 1727, 1449, 46, 152, "Text"],
+Cell[54552, 1775, 588, 17, 98, "Input",
+ InitializationCell->True],
+Cell[55143, 1794, 3204, 100, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[58350, 1896, 667, 25, 28, "Text"],
+Cell[59020, 1923, 1047, 32, 90, "Text"],
+Cell[60070, 1957, 608, 18, 99, "Input",
+ InitializationCell->True],
+Cell[60681, 1977, 201, 6, 69, "Text"],
+Cell[60885, 1985, 258, 4, 69, "Text"],
+Cell[61146, 1991, 534, 22, 49, "Text"],
+Cell[61683, 2015, 376, 11, 51, "DisplayFormulaNumbered"],
+Cell[62062, 2028, 1360, 48, 71, "Text"],
+Cell[63425, 2078, 369, 11, 49, "DisplayFormulaNumbered"],
+Cell[63797, 2091, 197, 8, 27, "Text"],
+Cell[63997, 2101, 403, 11, 48, "Text"],
+Cell[64403, 2114, 1107, 38, 63, "DisplayFormula"],
+Cell[65513, 2154, 1508, 56, 127, "Text"],
+Cell[67024, 2212, 633, 18, 71, "DisplayFormula"],
+Cell[67660, 2232, 199, 6, 27, "Text"],
+Cell[67862, 2240, 469, 14, 68, "DisplayFormula"],
+Cell[68334, 2256, 477, 14, 27, "Text"],
+Cell[68814, 2272, 276, 11, 35, "Text"],
+Cell[69093, 2285, 450, 13, 41, "DisplayFormula"],
+Cell[69546, 2300, 1462, 56, 112, "Text"],
+Cell[71011, 2358, 1217, 42, 88, "DisplayFormula"],
+Cell[72231, 2402, 221, 9, 33, "Text"],
+Cell[72455, 2413, 709, 21, 95, "Input",
+ InitializationCell->True],
+Cell[73167, 2436, 524, 14, 86, "Text"],
+Cell[73694, 2452, 1032, 33, 130, "Input",
+ InitializationCell->True],
+Cell[74729, 2487, 559, 21, 46, "Text"],
+Cell[75291, 2510, 170, 6, 33, "Text"],
+Cell[75464, 2518, 1154, 39, 88, "DisplayFormula"],
+Cell[76621, 2559, 194, 6, 33, "Text"],
+Cell[76818, 2567, 492, 16, 58, "DisplayFormula"],
+Cell[77313, 2585, 198, 5, 60, "Text"],
+Cell[77514, 2592, 1166, 36, 135, "Input",
+ InitializationCell->True],
+Cell[78683, 2630, 904, 29, 135, "Input",
+ InitializationCell->True],
+Cell[79590, 2661, 1165, 38, 137, "Text"],
+Cell[80758, 2701, 777, 24, 112, "Text"],
+Cell[81538, 2727, 486, 14, 61, "DisplayFormula"],
+Cell[82027, 2743, 681, 28, 112, "Text"],
+Cell[82711, 2773, 309, 5, 60, "Text"],
+Cell[83023, 2780, 841, 28, 63, "DisplayFormula"],
+Cell[83867, 2810, 1078, 24, 163, "Text"],
+Cell[84948, 2836, 928, 36, 87, "Text"],
+Cell[85879, 2874, 366, 11, 63, "DisplayFormulaNumbered"],
+Cell[86248, 2887, 258, 9, 33, "Text"],
+Cell[86509, 2898, 368, 11, 63, "DisplayFormulaNumbered"],
+Cell[86880, 2911, 220, 5, 28, "Text"],
+Cell[87103, 2918, 493, 15, 47, "DisplayFormula"],
+Cell[87599, 2935, 118, 1, 27, "Text"],
+Cell[87720, 2938, 894, 31, 47, "DisplayFormula"],
+Cell[88617, 2971, 250, 9, 27, "Text"],
+Cell[88870, 2982, 791, 26, 66, "DisplayFormula"],
+Cell[89664, 3010, 813, 26, 48, "Text"],
+Cell[90480, 3038, 863, 29, 118, "Input",
+ InitializationCell->True],
+Cell[91346, 3069, 1190, 34, 128, "Input",
+ InitializationCell->True],
+Cell[92539, 3105, 536, 23, 28, "Text"],
+Cell[93078, 3130, 277, 7, 48, "Text"],
+Cell[93358, 3139, 1212, 35, 123, "Input"],
+Cell[94573, 3176, 381, 12, 48, "Text"],
+Cell[94957, 3190, 612, 21, 73, "DisplayFormula"],
+Cell[95572, 3213, 188, 6, 27, "Text"],
+Cell[95763, 3221, 796, 26, 80, "Input",
+ InitializationCell->True],
+Cell[96562, 3249, 495, 19, 48, "Text"],
+Cell[97060, 3270, 278, 5, 69, "Text"],
+Cell[97341, 3277, 512, 20, 49, "Text"],
+Cell[97856, 3299, 962, 35, 33, "DisplayFormulaNumbered"],
+Cell[98821, 3336, 2323, 82, 193, "Text"],
+Cell[101147, 3420, 265, 7, 69, "Text"],
+Cell[101415, 3429, 814, 25, 90, "Text"],
+Cell[102232, 3456, 618, 19, 33, "DisplayFormulaNumbered"],
+Cell[102853, 3477, 88, 1, 27, "Text"],
+Cell[102944, 3480, 2019, 57, 88, "DisplayFormulaNumbered"],
+Cell[104966, 3539, 1519, 40, 174, "Text"],
+Cell[106488, 3581, 1661, 45, 211, "Input",
+ InitializationCell->True],
+Cell[108152, 3628, 435, 12, 48, "Text"],
+Cell[108590, 3642, 1619, 50, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[110212, 3694, 311, 9, 28, "Text"],
+Cell[110526, 3705, 2490, 63, 339, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[113053, 3773, 80, 2, 41, "Subsection"],
+Cell[113136, 3777, 1305, 41, 65, "Text"],
+Cell[114444, 3820, 1077, 39, 50, "Text"],
+Cell[115524, 3861, 209, 3, 27, "Text"],
+Cell[115736, 3866, 619, 19, 49, "DisplayFormula"],
+Cell[116358, 3887, 380, 15, 48, "Text"],
+Cell[116741, 3904, 631, 24, 60, "Text"],
+Cell[117375, 3930, 524, 8, 110, "Text"],
+Cell[117902, 3940, 329, 9, 27, "Text"],
+Cell[118234, 3951, 663, 20, 57, "DisplayFormula"],
+Cell[118900, 3973, 138, 3, 27, "Text"],
+Cell[119041, 3978, 267, 8, 27, "Text"],
+Cell[119311, 3988, 1252, 37, 108, "DisplayFormula"],
+Cell[120566, 4027, 694, 26, 69, "Text"],
+Cell[121263, 4055, 553, 12, 69, "Text"],
+Cell[121819, 4069, 241, 5, 27, "Text"],
+Cell[122063, 4076, 1095, 39, 69, "Text"],
+Cell[123161, 4117, 937, 21, 110, "Text"],
+Cell[124101, 4140, 423, 12, 48, "Text"],
+Cell[124527, 4154, 567, 19, 51, "DisplayFormula"],
+Cell[125097, 4175, 571, 19, 48, "Text"],
+Cell[125671, 4196, 622, 24, 39, "Text"],
+Cell[126296, 4222, 546, 21, 39, "Text"],
+Cell[126845, 4245, 1308, 50, 90, "Text"],
+Cell[128156, 4297, 398, 14, 27, "Text"],
+Cell[128557, 4313, 814, 25, 57, "DisplayFormula"],
+Cell[129374, 4340, 230, 9, 27, "Text"],
+Cell[129607, 4351, 452, 17, 48, "Text"],
+Cell[130062, 4370, 999, 41, 60, "Text"],
+Cell[131064, 4413, 618, 20, 48, "Text"],
+Cell[131685, 4435, 392, 14, 27, "Text"],
+Cell[132080, 4451, 420, 13, 47, "DisplayFormula"],
+Cell[132503, 4466, 844, 38, 39, "Text"],
+Cell[133350, 4506, 1087, 38, 48, "Text"],
+Cell[134440, 4546, 377, 9, 48, "Text"],
+Cell[134820, 4557, 563, 17, 58, "DisplayFormula"],
+Cell[135386, 4576, 55, 0, 33, "Text"],
+Cell[135444, 4578, 626, 9, 163, "Text"],
+Cell[136073, 4589, 451, 15, 33, "Text"],
+Cell[136527, 4606, 421, 13, 33, "DisplayFormula"],
+Cell[136951, 4621, 1363, 48, 112, "Text"],
+Cell[138317, 4671, 653, 10, 33, "Text"],
+Cell[138973, 4683, 1486, 36, 95, "Text"],
+Cell[140462, 4721, 2175, 55, 163, "Text"],
+Cell[142640, 4778, 1148, 25, 33, "Text"],
+Cell[143791, 4805, 522, 18, 71, "DisplayFormula"],
+Cell[144316, 4825, 1086, 35, 87, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

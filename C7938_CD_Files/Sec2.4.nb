@@ -1,0 +1,2023 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     63719,       2014]
+NotebookOptionsPosition[     59778,       1899]
+NotebookOutlinePosition[     60624,       1931]
+CellTagsIndexPosition[     60581,       1928]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["2.4 Poisson Distribution", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "The last member of the collection of single-variable discrete distributions \
+that we will look at is the ",
+ StyleBox["Poisson distribution",
+  FontSlant->"Italic"],
+ ".  It arises as a model for random variables that count the number of \
+occurrences of an event in a given region of space or time, such as the \
+number of users of a computer lab during a fixed time period, the number of \
+dandelions in a yard, the number of dust particles in a room, the number of \
+cars arriving to an intersection in a fixed time period, etc.  Its state \
+space is the non-negative integers ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "2", ",", "..."}], "}"}], TraditionalForm]]],
+ ", and the probability mass function that characterizes it is in formula (1) \
+below.  So, this distribution depends on a single parameter called \[Mu], \
+hence, we refer to it as the Poisson(\[Mu]) distribution.  \n\tIn the cases \
+of the other discrete distributions that we have studied, the mass function \
+of the associated random variable was derivable from primitive assumptions \
+about the randomness of an experiment.  The Poisson distribution is a bit \
+different, since it comes up as an idealization of a binomial experiment \
+whose number of trials approaches infinity while the success probability \
+becomes vanishingly small.  To see the idea, consider some event that happens \
+sporadically on a time axis, in such a way that the chance that it happens \
+during a short time interval is proportional to the length of the interval, \
+and the events that it happens in each of two disjoint time intervals are \
+independent.  Without loss of generality, let the time axis be the bounded \
+interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", and also let \[Mu] be the proportionality constant, that is, P[event \
+happens in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ "] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "(", 
+    RowBox[{"b", "-", "a"}], ")"}], TraditionalForm]]],
+ ". Then, if the time interval [0, 1] is broken up into ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " disjoint, equally sized subintervals [0, 1/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "], ",
+ Cell[BoxData[
+  FormBox["(", TraditionalForm]]],
+ "1/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", 2/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "], ...,  ((",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ ")/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", 1],"
+}], "Text",
+ CellChangeTimes->{
+  3.42487650590625*^9, {3.425126647416*^9, 3.4251266688380003`*^9}, {
+   3.4362208190825434`*^9, 3.436220819086543*^9}, 3.4564985339982*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["p",
+    FontSlant->"Italic"], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"event", " ", "happens", " ", "in", " ", "interval", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          FormBox[
+           RowBox[{"j", "-", "1"}],
+           TraditionalForm], ")"}], "/", 
+         StyleBox["n",
+          FontSlant->"Italic"]}], ",", " ", 
+        RowBox[{
+         StyleBox["j",
+          FontSlant->"Italic"], "/", 
+         StyleBox["n",
+          FontSlant->"Italic"]}]}], "]"}]}], " ", "]"}], " ", "=", " ", 
+    FormBox[
+     FractionBox["\[Mu]", "n"],
+     TraditionalForm]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4362208265475435`*^9, 3.436220827053543*^9}}],
+
+Cell[TextData[{
+ "for all subintervals.  The number of occurrences during the whole interval \
+[0,1] is the sum of the number of occurrences in the subintervals; hence it \
+has the binomial distribution with parameters ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "/", "n"}], TraditionalForm]]],
+ ".  But what do the probability masses approach as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " \[LongRightArrow] \[Infinity]?  We will proceed to argue that they \
+approach the following ",
+ StyleBox["Poisson(",
+  FontSlant->"Italic"],
+ "\[Mu]",
+ StyleBox[") p.m.f.",
+  FontSlant->"Italic"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.4362208420305433`*^9, 3.4362208420365434`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["f",
+      FontSlant->"Italic"], "(", 
+     StyleBox["x",
+      FontSlant->"Italic"], ")"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], "=", 
+       StyleBox["x",
+        FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+     FormBox[
+      FractionBox[
+       RowBox[{
+        SuperscriptBox["e", 
+         RowBox[{"-", "\[Mu]"}]], 
+        SuperscriptBox["\[Mu]", "x"]}], 
+       RowBox[{"x", "!"}]],
+      TraditionalForm]}]}], " ", ",", "  ", 
+   RowBox[{
+    StyleBox["x",
+     FontSlant->"Italic"], " ", "=", " ", "0"}], ",", " ", "1", ",", " ", "2",
+    ",", " ", "..."}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4362208528005433`*^9, 3.436220853447543*^9}}],
+
+Cell[" \tWe can write out the binomial probabilities as", "Text",
+ CellChangeTimes->{{3.4362208765355434`*^9, 3.4362208765405436`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"exactly", " ", 
+       StyleBox["x",
+        FontSlant->"Italic"], " ", "successes"}], "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {
+          RowBox[{" ", "n", " "}]},
+         {"x"}
+        }], "\[NegativeThinSpace]", ")"}], " ", 
+      FormBox[
+       SuperscriptBox["p", "x"],
+       TraditionalForm], 
+      FormBox[
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        RowBox[{"n", "-", "x"}]],
+       TraditionalForm]}]},
+    {" ", "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"n", "!"}], 
+       RowBox[{
+        RowBox[{"x", "!"}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"n", "-", "x"}], ")"}], "!"}]}]], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        FractionBox["\[Mu]", "n"], ")"}], "x"], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FractionBox["\[Mu]", "n"]}], ")"}], 
+       RowBox[{"n", "-", "x"}]]}]},
+    {" ", "=", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[Mu]", "x"], 
+       RowBox[{"x", "!"}]], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FractionBox["\[Mu]", "n"]}], ")"}], "n"], 
+      FractionBox[
+       RowBox[{
+        RowBox[{"n", "(", 
+         RowBox[{"n", "-", "1"}], ")"}], 
+        RowBox[{"\[CenterEllipsis]", "(", 
+         RowBox[{"n", "-", "x", "+", "1"}], ")"}]}], 
+       SuperscriptBox["n", "x"]], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FractionBox["\[Mu]", "n"]}], ")"}], 
+       RowBox[{"-", "x"}]]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4362208900615435`*^9, 3.4362208904905434`*^9}}],
+
+Cell[TextData[{
+ "By a standard result from calculus, the factor ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      FractionBox["\[Mu]", "n"]}], ")"}], "n"], TraditionalForm]]],
+ " approaches ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", 
+    RowBox[{"-", "\[Mu]"}]], TraditionalForm]]],
+ " as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " \[LongRightArrow] \[Infinity].  In the activity below you will analyze the \
+other factors to finish the proof that the binomial probabilities approach \
+the Poisson probabilities as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " becomes large and the success probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " becomes correspondingly small. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Show that the third and fourth factors in the bottom expression on the \
+right side of (2) approach 1 as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]]],
+ ".  You will have to deal with the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", " ", "=", " ", "0"}], TraditionalForm]]],
+ " separately.  Conclude that the binomial probability masses b(",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "; ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", \[Mu]/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ") approach the Poisson(\[Mu]) masses in formula (1) as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " approaches infinity. "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.425079575199142*^9, 3.425079588960142*^9}}],
+
+Cell[TextData[{
+ "\tIn summary, the Poisson distribution is an approximation for the binomial \
+distribution with large ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " and small ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ ", and the Poisson parameter relates to these by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{"n", " ", "p"}]}], TraditionalForm]]],
+ ".\n\t",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " has an object for the Poisson distribution, called \n\n\t\t\t\t\
+PoissonDistribution[\[Mu]]\n\t\nwhich can be used in the usual way with the \
+RandomInteger, PDF, and CDF functions.  Let us use it to see how close the \
+binomial distribution is to the Poisson distribution for large ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and small ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ". We take ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 100, \[Mu] = 4, and ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = \[Mu]/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 4/100. You will be asked to extend the investigation to other values of \
+the parameters in the exercises. First is a table of the first few values of \
+the Poisson and binomial p.m.f.'s, followed by superimposed connected list \
+plots. "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Poissonpmf", "[", "x_", "]"}], ":=", 
+   RowBox[{"N", "[", 
+    RowBox[{"PDF", "[", 
+     RowBox[{
+      RowBox[{"PoissonDistribution", "[", "4", "]"}], ",", "x"}], "]"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Binomialpmf", "[", "x_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"100", ",", ".04"}], "]"}], ",", "x"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"TableForm", "[", 
+  RowBox[{"Join", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"\"\<x\>\"", ",", "\"\<Poisson\>\"", ",", "\"\<binomial\>\""}], 
+      "}"}], "}"}], ",", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"Poissonpmf", "[", "x", "]"}], ",", 
+        RowBox[{"Binomialpmf", "[", "x", "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "0", ",", "12"}], "}"}]}], "]"}]}], "]"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.39870572144781*^9, 3.398705721900895*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Poissonlist", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"N", "[", 
+        RowBox[{"Poissonpmf", "[", "x", "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "12"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Binomiallist", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"N", "[", 
+        RowBox[{"Binomialpmf", "[", "x", "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "12"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"Poissonlist", ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"1", ",", "0", ",", "0"}], "]"}]}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"Binomiallist", ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0", ",", "1"}], "]"}]}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"g1", ",", "g2"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.39870575247628*^9, 3.39870576714684*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 2.11",
+  FontWeight->"Bold"],
+ StyleBox[" - List plots of b(100,.04) and Poisson(4) p.m.f.'s",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4362192232175436`*^9, 3.4362192348585434`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "The connected line graphs hardly differ at all and, in fact, the largest \
+absolute difference between probability masses is only around .004 which \
+takes place at ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " = 4.  "
+}], "Text",
+ CellChangeTimes->{{3.456587080988783*^9, 3.4565870863395824`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Show that the Poisson(\[Mu]) probabilities in formula (1) do define a \
+valid probability mass function.  Try to obtain a closed form for the c.d.f. \
+of the distribution. Can you do it?  (In Exercise 2 you are asked to use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to form a table of the c.d.f. for several values of \[Mu].) "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  We will suppose for this example that the number of ant colonies in a \
+small field has the Poisson distribution with parameter ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", "16"}], TraditionalForm]]],
+ ". This is reasonable if the field can be broken up into a large number of \
+equally sized pieces, each of which has the same small probability of \
+containing a colony, independent of the other pieces.  Then the probability \
+that there are at least 16 colonies is"
+}], "Text",
+ CellChangeTimes->{{3.425079772245142*^9, 3.425079779450142*^9}, {
+  3.4362209245085435`*^9, 3.4362209245105433`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     StyleBox["X",
+      FontSlant->"Italic"], "\[GreaterEqual]", "16"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{"1", " ", "-", " ", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], "\[LessEqual]", "15"}], "]"}]}], "=", 
+    RowBox[{"1", "-", 
+     RowBox[{
+      FormBox[
+       UnderoverscriptBox["\[CapitalSigma]", 
+        RowBox[{"k", "=", "0"}], "15"],
+       TraditionalForm], " ", 
+      FormBox[
+       FractionBox[
+        RowBox[{
+         SuperscriptBox["e", 
+          RowBox[{"-", "16"}]], 
+         SuperscriptBox["16", "k"]}], 
+        RowBox[{"k", "!"}]],
+       TraditionalForm], " "}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.425079772245142*^9, 3.425079779450142*^9}, {
+  3.4362209245085435`*^9, 3.4362209727575436`*^9}}],
+
+Cell[TextData[{
+ "Using ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to evaluate this probability we compute"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"PoissonDistribution", "[", "16", "]"}], ",", "15"}], "]"}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tNext, suppose that we no longer know \[Mu], but an ecology expert tells \
+us that fields have 8 or fewer ant colonies about 90% of the time.  What \
+would be a good estimate of the parameter \[Mu]?  For this value of \[Mu], P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[LessEqual] 8] = .90.  We may write P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[LessEqual] 8] as a function of \[Mu] as below, and then check several \
+values of \[Mu] in search of the one that makes this probability closest to \
+.90.  I issued a preliminary Table command to narrow the search from \[Mu] \
+values between 2 and 10 to values between 5 and 6.  The Table command below \
+shows that to the nearest tenth, \[Mu] = 5.4 is the parameter value we seek.  \
+",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.425079857554142*^9, 3.425079857556142*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"eightprob", "[", "mu_", "]"}], ":=", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"PoissonDistribution", "[", "mu", "]"}], ",", "8"}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"N", "[", 
+    RowBox[{"{", 
+     RowBox[{"mu", ",", 
+      RowBox[{"eightprob", "[", "mu", "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"mu", ",", "5", ",", "6", ",", ".1"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+\tThe parameter \[Mu] of the Poisson distribution gives complete information \
+about its first two moments, as the next theorem shows. \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] Poisson(\[Mu]), then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}], "=", "\[Mu]"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Var", 
+     RowBox[{"(", "X", ")"}]}], "=", "\[Mu]"}], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.425079878271142*^9, 3.4250799044651423`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  First, for the mean, "
+}], "Text",
+ CellChangeTimes->{{3.4362209987065434`*^9, 3.436220998709543*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      StyleBox["X",
+       FontSlant->"Italic"], "]"}], "=", 
+     RowBox[{
+      UnderoverscriptBox["\[CapitalSigma]", 
+       RowBox[{"k", "=", "0"}], "\[Infinity]"], " ", 
+      RowBox[{"k", "\[CenterDot]", 
+       FormBox[
+        FractionBox[
+         RowBox[{
+          SuperscriptBox["e", 
+           RowBox[{"-", "\[Mu]"}]], 
+          SuperscriptBox["\[Mu]", "k"]}], 
+         RowBox[{"k", "!"}]],
+        TraditionalForm]}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{"-", "\[Mu]"}]], "\[CenterDot]", "\[Mu]", "\[CenterDot]", 
+       UnderoverscriptBox["\[CapitalSigma]", 
+        RowBox[{"k", "=", "1"}], "\[Infinity]"]}], " ", 
+      FormBox[
+       FractionBox[
+        SuperscriptBox["\[Mu]", 
+         RowBox[{"k", "-", "1"}]], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"k", "-", "1"}], ")"}], "!"}]],
+       TraditionalForm]}]},
+    {" ", "=", 
+     RowBox[{
+      SuperscriptBox["e", 
+       RowBox[{"-", "\[Mu]"}]], "\[CenterDot]", "\[Mu]", "\[CenterDot]", 
+      SuperscriptBox["e", "\[Mu]"]}]},
+    {" ", "=", "\[Mu]"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4362210062385435`*^9, 3.4362210066255436`*^9}}],
+
+Cell[TextData[{
+ "The first line is just the definition of expected value.  In the second \
+line we note that the ",
+ StyleBox["k ",
+  FontSlant->"Italic"],
+ "= 0 term is just equal to 0 and can be dropped, after which we cancel ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " with the ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " in ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "! in the bottom, and then remove two common factors ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["e", 
+     RowBox[{"-", "\[Mu]"}]], "\[CenterDot]", "\[Mu]"}], TraditionalForm]]],
+ ".  Changing variables to say ",
+ StyleBox["j ",
+  FontSlant->"Italic"],
+ "= ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "-", "1"}], TraditionalForm]]],
+ " we see that the series in line 2 is just the Taylor series expansion of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "\[Mu]"], TraditionalForm]]],
+ ". \n\tTo set up the computation of the variance, we first compute E[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "(", 
+    RowBox[{"X", "-", "1"}], ")"}], TraditionalForm]]],
+ "] similarly to the above computation."
+}], "Text",
+ CellChangeTimes->{{3.436221018676543*^9, 3.4362210186795435`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], 
+       StyleBox["(",
+        FontSlant->"Italic"], 
+       RowBox[{
+        StyleBox["X",
+         FontSlant->"Italic"], 
+        StyleBox["-",
+         FontSlant->"Italic"], 
+        StyleBox["1",
+         FontSlant->"Plain"]}], 
+       StyleBox[")",
+        FontSlant->"Italic"]}], "]"}], "=", 
+     RowBox[{
+      UnderoverscriptBox["\[CapitalSigma]", 
+       RowBox[{"k", "=", "0"}], "\[Infinity]"], " ", 
+      RowBox[{"k", "\[CenterDot]", 
+       RowBox[{"(", 
+        RowBox[{"k", "-", "1"}], ")"}]}], 
+      FormBox[
+       FractionBox[
+        RowBox[{
+         SuperscriptBox["e", 
+          RowBox[{"-", "\[Mu]"}]], 
+         SuperscriptBox["\[Mu]", "k"]}], 
+        RowBox[{"k", "!"}]],
+       TraditionalForm]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["e", 
+        RowBox[{"-", "\[Mu]"}]], "\[CenterDot]", 
+       SuperscriptBox["\[Mu]", "2"], "\[CenterDot]", 
+       UnderoverscriptBox["\[CapitalSigma]", 
+        RowBox[{"k", "=", "2"}], "\[Infinity]"]}], " ", 
+      FormBox[
+       FractionBox[
+        SuperscriptBox["\[Mu]", 
+         RowBox[{"k", "-", "2"}]], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"k", "-", "2"}], ")"}], "!"}]],
+       TraditionalForm]}]},
+    {" ", "=", 
+     RowBox[{
+      SuperscriptBox["e", 
+       RowBox[{"-", "\[Mu]"}]], "\[CenterDot]", 
+      SuperscriptBox["\[Mu]", "2"], "\[CenterDot]", 
+      SuperscriptBox["e", "\[Mu]"]}]},
+    {" ", "=", 
+     SuperscriptBox["\[Mu]", "2"]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436221030763543*^9, 3.4362210312905436`*^9}}],
+
+Cell["\<\
+You are asked to complete the computation in the next activity.  \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4362192740575438`*^9, 3.436219276428543*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  By expanding the expression E[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "(", 
+    RowBox[{"X", "-", "1"}], ")"}], TraditionalForm]]],
+ "] in the proof of Theorem 1 and using the computational formula for the \
+variance, finish the proof.  "
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tSince \[Mu] is both the mean and the variance of the Poisson(\[Mu]) \
+distribution, as \[Mu] grows we would expect to see the probability weight \
+shifting to the right and spreading out.  In Figure 12 we see a connected \
+list plot of the probability mass function for three Poisson distributions \
+with parameters 2 (leftmost), 5 (middle), and 8 (rightmost), and this \
+dependence on \[Mu] is evident. We also see increasing symmetry as \[Mu] \
+increases. \
+\>", "Text",
+ CellChangeTimes->{{3.425080140820142*^9, 3.425080150375142*^9}, 
+   3.425127045281*^9, {3.436287450242*^9, 3.436287455283*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "mu_"}], "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"PoissonDistribution", "[", "mu", "]"}], ",", "x"}], 
+   "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"massfn1", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "2"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "10"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"massfn2", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "5"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "12"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"massfn3", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "8"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "15"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"massfn1", ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Thickness", "[", "0.01`", "]"}]}], ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"massfn2", ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Thickness", "[", "0.005`", "]"}]}], ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"massfn3", ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"GrayLevel", "[", "0.5`", "]"}]}], ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2", ",", "g3"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3987058481552067`*^9, 3.3987058620914574`*^9}, {
+  3.398706071931673*^9, 3.3987060852897654`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 2.12",
+  FontWeight->"Bold"],
+ StyleBox[" - Poisson p.m.f.'s, parameters 2, 5, and 8",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4362193080445433`*^9, 3.4362193182275434`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[StyleBox["\tIn the electronic notebook,  you can run the input \
+cell below to produce an animation of the Poisson mass functions with \
+parameters ranging from 2 through 8 to observe the shift to the right. ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.425080105225142*^9, 3.4250801083811417`*^9}, {
+  3.425127063781*^9, 3.425127168929*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "mu_"}], "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"PoissonDistribution", "[", "mu", "]"}], ",", "x"}], 
+   "]"}]}], "\n", 
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"f", "[", 
+          RowBox[{"x", ",", "mu"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "15"}], "}"}]}], "]"}], ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"mu", ",", "2", ",", "8"}], "}"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.3987058481552067`*^9, 3.3987058620914574`*^9}, {
+  3.398706071931673*^9, 3.3987060852897654`*^9}, {3.4250800893931417`*^9, 
+  3.425080092571142*^9}, {3.4251268233450003`*^9, 3.425126931514*^9}, {
+  3.4251269779960003`*^9, 3.425126983547*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[CellGroupData[{
+
+Cell["Poisson Processes", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tProbably the most important instance of the Poisson distribution is in \
+the study of what is called the ",
+ StyleBox["Poisson process",
+  FontSlant->"Italic"],
+ ". A Poisson process records the cumulative number of occurrences of some \
+phenomenon as time increases. Therefore, such a process is not just a single \
+random variable, but a family of random variables (",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ") indexed by a variable ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " usually thought of as time.  We interpret ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " as the number of occurrences of the phenomenon in [0, ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ "].  ",
+ StyleBox["A family of random variables such as this is called generically a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["stochastic process",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[".  We will cover stochastic processes in more detail, and also say \
+more about the Poisson process, in Chapter 6.",
+  FontColor->GrayLevel[0]],
+ "\n\tSince occurrences happen singly and randomly, and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " counts the total number of them, if for a fixed experimental outcome \
+\[Omega] we plot ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ "(\[Omega]) as a function of ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " we get a non-decreasing step function starting at 0, which jumps by \
+exactly 1 at the random times ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "1"], TraditionalForm]]],
+ "(\[Omega]), ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "2"], TraditionalForm]]],
+ "(\[Omega]), ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "3"], TraditionalForm]]],
+ "(\[Omega]), ... of occurrence of the phenomenon. Such a function, called a ",
+ StyleBox["sample path",
+  FontSlant->"Italic"],
+ " of the process, is shown in Figure 13, for the case where the first three \
+jumps occur at times ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["T", "1"], "=", "1.2"}], ",", 
+    RowBox[{
+     SubscriptBox["T", "2"], "=", "2.0"}], ",", 
+    RowBox[{
+     SubscriptBox["T", "3"], "=", "3.4"}]}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.425080223261142*^9, 3.425080297356142*^9}, {
+   3.4250803403591423`*^9, 3.425080341213142*^9}, 3.456587112719183*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"X", "[", "t_", "]"}], ":=", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"t", "<", "1.2`"}], ",", "0", ",", 
+     RowBox[{"1.2`", "\[LessEqual]", "t", "<", "2.`"}], ",", "1", ",", 
+     RowBox[{"2.`", "\[LessEqual]", "t", "<", "3.4`"}], ",", "2", ",", 
+     RowBox[{"t", "\[GreaterEqual]", "3.4`"}], ",", "3"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"PlotStepFunction", "[", 
+  RowBox[{
+   RowBox[{"X", "[", "t", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", "0", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1.2`", ",", "2.`", ",", "3.4`"}], "}"}], ",", 
+   RowBox[{"DotSize", "\[Rule]", "0.02`"}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", 
+      RowBox[{"-", "0.1`"}]}], "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "0.1`"}], ",", "3"}], "}"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"8", ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398705891682556*^9, 3.39870590988405*^9}, {
+  3.4362875825030003`*^9, 3.436287583475*^9}, {3.436287678031*^9, 
+  3.4362876928599997`*^9}, {3.440929580892087*^9, 3.4409295814536867`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 2.13",
+  FontWeight->"Bold"],
+ StyleBox[" - Sample path of a Poisson process",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4362193548335433`*^9, 3.4362193630145435`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tBy our earlier discussion of the domain of application of the Poisson \
+distribution, it is reasonable to assume that as long as the probability of \
+an occurrence in a short interval is proportional to the length of the \
+interval, and the numbers of occurrences on disjoint intervals are \
+independent, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " should have a Poisson distribution.  \n\tWhat should be the parameter of \
+this Poisson distribution? Let \[Lambda] be the expected number of \
+occurrences per unit time, i.e., ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", 
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["X", "1"], "]"}]}], TraditionalForm]]],
+ ". In a time interval of length ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " such as [0, ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ "] we should expect \[Lambda]\[CenterDot]",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ " occurrences. Thus, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["X", "t"], "]"}], "=", 
+    RowBox[{"\[Lambda]", " ", "t"}]}], TraditionalForm]]],
+ " and since the expected value of a Poisson random variable is the same as \
+its parameter, it makes sense that  ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " \[Tilde] Poisson(\[Lambda] ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ "). The constant \[Lambda] is called the ",
+ StyleBox["rate of the process",
+  FontSlant->"Italic"],
+ ".\n\tAll of this can be put on a rigorous footing, but we will not do that ",
+ StyleBox["until later",
+  FontColor->GrayLevel[0]],
+ ". After we study a continuous distribution called the ",
+ StyleBox["exponential distribution",
+  FontSlant->"Italic"],
+ ", we will be able to define a Poisson process constructively, by supposing \
+that the times between successive occurrences ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "n"], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"-", " "}]}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", 
+    RowBox[{"n", "-", "1"}]], TraditionalForm]]],
+ " are independent and have a common exponential distribution.  For now \
+though, we will simply assume that certain situations generate a Poisson \
+process, which means a family ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    FormBox[
+     SubscriptBox["X", "t"],
+     TraditionalForm], ")"}], TraditionalForm]]],
+ " of random variables for which ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " has the Poisson(\[Lambda]",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ ") distribution and whose sample paths are as in Figure 13. "
+}], "Text",
+ CellChangeTimes->{{3.425080380993142*^9, 3.425080682858142*^9}, {
+  3.42512733452*^9, 3.425127342524*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Many examples of Poisson processes revolve around service situations, \
+where the occurrence times are arrival times of customers.  Give some \
+examples of such situations, and discuss what the underlying assumptions must \
+be in order that a Poisson process is a good model for the cumulative number \
+of customers as a function of time. "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  Suppose that cars travelling on an expressway arrive to a toll station \
+according to a Poisson process with rate \[Lambda] = 5 per minute. Thus, we \
+are assuming that the numbers of cars arriving in disjoint time intervals are \
+independent, and the probability of an arrival in a short time interval is \
+proportional to the length of the interval.  Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ " be the total number of cars in [0, ",
+ StyleBox["t",
+  FontSlant->"Italic"],
+ "].  Find: (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "2"], ">", " ", "8"}], "]"}], TraditionalForm]]],
+ ";  (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], "<", "5"}], " ", "|", " ", 
+     RowBox[{
+      SubscriptBox["X", ".5"], ">", "2"}]}], "]"}], TraditionalForm]]],
+ "; (c) assuming that \[Lambda] is no longer known, find the largest possible \
+arrival rate \[Lambda] such that the probability of 8 or more arrivals in the \
+first minute is no more than .1.  \n\tTo answer question (a), we note that \
+since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", "5"}], TraditionalForm]]],
+ " and the time interval is 2 minutes, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ " \[Tilde] Poisson(10); hence by complementation of the c.d.f., the \
+probability is"
+}], "Text",
+ CellChangeTimes->{{3.4250807697271423`*^9, 3.425080850442142*^9}, {
+  3.436221076046543*^9, 3.4362210833245435`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"PoissonDistribution", "[", "10", "]"}], ",", "8"}], "]"}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "It is therefore about 67% likely that more than 8 cars will come in two \
+minutes, which is intuitively reasonable given the average arrival rate of 5 \
+per minute.  ",
+ "\n",
+ "\tFor question (b), we have that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " \[Tilde] Poisson(5) and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", ".5"], TraditionalForm]]],
+ " \[Tilde] Poisson(2.5). In order for both ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{"{", 
+       SubscriptBox["X", ".5"]}],
+      TraditionalForm], " ", ">", " ", "2"}], "}"}], TextForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      FormBox[
+       RowBox[{"{", 
+        SubscriptBox["X", "1"]}],
+       TraditionalForm], " ", "<", " ", "5"}], "}"}], " "}], TextForm]]],
+ "to occur, either ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], ".5"], "=", " ", "3"}], TextForm]]],
+ " or ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], ".5"], " ", "=", " ", "4"}], TextForm]]],
+ ", in which case the number of arrivals in [.5, 1] is determined. Thus,"
+}], "Text",
+ CellChangeTimes->{{3.4362210969245434`*^9, 3.4362210969295435`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     StyleBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         FormBox[
+          SubscriptBox["X", "1"],
+          TraditionalForm], "<", "5"}], " ", "|", " ", 
+        RowBox[{
+         FormBox[
+          SubscriptBox["X", ".5"],
+          TraditionalForm], ">", "2"}]}], "]"}],
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}], 
+     StyleBox["=",
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}], 
+     StyleBox[
+      FractionBox[
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         FormBox[
+          SubscriptBox["X", "1"],
+          TraditionalForm], " ", "<", " ", 
+         RowBox[{"5", " ", "\[Intersection]", 
+          FormBox[
+           RowBox[{" ", 
+            SubscriptBox["X", ".5"]}],
+           TraditionalForm]}], " ", ">", " ", "2"}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         FormBox[
+          RowBox[{" ", 
+           SubscriptBox["X", ".5"]}],
+          TraditionalForm], " ", ">", " ", "2"}], "]"}]],
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}]},
+    {
+     StyleBox[" ",
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}], 
+     StyleBox["=",
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}], 
+     StyleBox[
+      FractionBox[
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          RowBox[{
+           SubscriptBox["X", ".5"], "=", " ", "3"}], ",", " ", 
+          RowBox[{
+           RowBox[{
+            SubscriptBox["X", "1"], " ", "-", " ", 
+            SubscriptBox["X", ".5"]}], " ", "\[LessEqual]", " ", "1"}]}], 
+         "]"}], " ", "+", " ", 
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          RowBox[{
+           SubscriptBox["X", ".5"], " ", "=", " ", "4"}], ",", " ", 
+          RowBox[{
+           RowBox[{
+            SubscriptBox["X", "1"], " ", "-", " ", 
+            SubscriptBox["X", ".5"]}], " ", "=", " ", "0"}]}], "]"}]}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         FormBox[
+          RowBox[{" ", 
+           SubscriptBox["X", ".5"]}],
+          TraditionalForm], " ", ">", " ", "2"}], "]"}]],
+      GridBoxOptions->{
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}}}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4362211187645435`*^9, 3.4362211478895435`*^9}}],
+
+Cell[TextData[{
+ "Now the random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], "1"], " ", "-", " ", 
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], ".5"]}], TextForm]]],
+ " in the numerator of the last expression is the number of arrivals in the \
+time interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{".5", ",", "1"}]}], "]"}], TraditionalForm]]],
+ ", which is independent of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", ".5"], TraditionalForm]]],
+ ", the number of arrivals in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", " ", ".5"}], "]"}], TraditionalForm]]],
+ ".  The intersection probabilities in the numerator therefore factor into \
+the product of the individual event probabilities.  But also, we may think of \
+restarting the Poisson process at time .5, after which it still satisfies the \
+Poisson process hypotheses so that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], "1"], " ", "-", " ", 
+    SubscriptBox[
+     StyleBox["X",
+      FontSlant->"Italic"], ".5"]}], TextForm]]],
+ " has the same distribution as ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", ".5"], TraditionalForm]]],
+ ", which is Poisson(2.5).  By these observations, we are left to compute"
+}], "Text",
+ CellChangeTimes->{{3.4362211570545435`*^9, 3.4362211570575438`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  StyleBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      RowBox[{
+       FormBox[
+        SubscriptBox["X", "1"],
+        TraditionalForm], "<", "5"}], " ", "|", " ", 
+      RowBox[{
+       FormBox[
+        SubscriptBox["X", ".5"],
+        TraditionalForm], ">", "2"}]}], "]"}], " ", "=", " ", 
+    FractionBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox["X", ".5"], "=", "3"}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], 
+        StyleBox["[",
+         GridBoxOptions->{
+         GridBoxAlignment->{
+          "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}}], 
+        RowBox[{
+         SubscriptBox["X", ".5"], "\[LessEqual]", "1"}], "]"}]}], " ", "+", 
+      " ", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox["X", ".5"], " ", "=", " ", "4"}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], 
+        StyleBox["[",
+         GridBoxOptions->{
+         GridBoxAlignment->{
+          "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}}], 
+        RowBox[{
+         SubscriptBox["X", ".5"], " ", "=", " ", "0"}], "]"}]}]}], 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       FormBox[
+        RowBox[{" ", 
+         SubscriptBox["X", ".5"]}],
+        TraditionalForm], " ", ">", " ", "2"}], "]"}]]}],
+   GridBoxOptions->{
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4362211640095434`*^9, 3.4362211752025433`*^9}}],
+
+Cell[TextData[{
+ "In ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ", this is the following:"
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f", "[", "x_", "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"PoissonDistribution", "[", "2.5", "]"}], ",", "x"}], 
+   "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"F", "[", "x_", "]"}], ":=", 
+  RowBox[{"CDF", "[", 
+   RowBox[{
+    RowBox[{"PoissonDistribution", "[", "2.5", "]"}], ",", "x"}], 
+   "]"}]}], "\n", 
+ FractionBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "[", "3", "]"}], "*", 
+    RowBox[{"F", "[", "1", "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"f", "[", "4", "]"}], "*", 
+    RowBox[{"f", "[", "0", "]"}]}]}], 
+  RowBox[{"1", "-", 
+   RowBox[{"F", "[", "2", "]"}]}]]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tFor part (c), we now know only that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " \[Tilde] Poisson(\[Lambda] \[CenterDot] 1).  The probability of 8 or more \
+arrivals is the same as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "1"],
+       TraditionalForm], " ", "\[LessEqual]", " ", "7"}], "]"}]}], 
+   TraditionalForm]]],
+ ", and we would like this probability to be less than or equal to .1.  We \
+can define the target probability as a function of \[Lambda], and then \
+compute it for several values of \[Lambda].  A preliminary Table command \
+narrows the search to values of \[Lambda] in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"4", ",", "5"}], "]"}], TraditionalForm]]],
+ ".  The Table command below indicates that the desired rate \[Lambda] is \
+around 4.6.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4362193962015433`*^9, 3.4362193962025433`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"prob", "[", "lambda_", "]"}], ":=", 
+   RowBox[{"1", "-", 
+    RowBox[{"CDF", "[", 
+     RowBox[{
+      RowBox[{"PoissonDistribution", "[", "lambda", "]"}], ",", "7"}], 
+     "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"lambda", ",", 
+     RowBox[{"N", "[", 
+      RowBox[{"prob", "[", "lambda", "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"lambda", ",", "4", ",", "5", ",", ".1"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 2.4", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  Assume that the number of starfish ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " in an ocean region has the Poisson(20) distribution.  Find (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", "=", "20"}], "]"}], TraditionalForm]]],
+ "; (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"X", ">", "20"}], "]"}], TraditionalForm]]],
+ "; (c) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{"\[Mu]", "-", "\[Sigma]"}], "<", "X", "<", 
+     RowBox[{"\[Mu]", "+", "\[Sigma]"}]}], "]"}], TraditionalForm]]],
+ ", where \[Mu] and \[Sigma] are the mean and standard deviation of the \
+distribution of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ "2.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to form a table of cumulative probabilities ",
+ StyleBox["F",
+  FontSlant->"Italic"],
+ "(",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ") = P[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[LessEqual] ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "] for each of the four Poisson distributions with parameters \[Mu] = 1, 2, \
+3, and 4.  For all distributions, begin at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "0"}], TraditionalForm]]],
+ " and end at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "=", "10"}], TraditionalForm]]],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ "3.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that the sample 3, 2, 4, 3, 4, 5, 6, 2 comes from a \
+Poisson(\[Mu]) distribution.  What value of \[Mu] makes this sample most \
+likely to have occurred?  ",
+ StyleBox["(Justify your answer well.)",
+  FontColor->GrayLevel[0]],
+ " Compare this value of \[Mu] to the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.425081251927142*^9, 3.4250812581821423`*^9}}],
+
+Cell["\<\
+4.  Find the third moment about 0 for the Poisson(\[Mu]) distribution.\
+\>", "Text"],
+
+Cell[TextData[{
+ "5.  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] Poisson(\[Mu]), find an expression for the expectation: E[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"X", "(", 
+     RowBox[{"X", "-", "1"}], ")"}], 
+    RowBox[{"(", 
+     RowBox[{"X", "-", "2"}], ")"}], 
+    RowBox[{"\[CenterEllipsis]", "(", 
+     RowBox[{"X", "-", "k"}], ")"}]}], TraditionalForm]]],
+ "]."
+}], "Text"],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write a function of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " that finds the largest absolute difference between the values of the b(",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ",",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") probability mass function and the Poisson(",
+ StyleBox["np",
+  FontSlant->"Italic"],
+ ") mass function, among states ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " = 0, 1, 2, ... , ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ".  Use it to study the change in the maximum absolute difference for fixed ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = 1/10 as values of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " increase from 20 to 100 in multiples of 10.  Similarly, fix ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 200 and study the maximum absolute difference as ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " takes on the values 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1/10."
+}], "Text"],
+
+Cell["\<\
+7. Suppose that the number of traffic tickets issued during a week in a \
+particular region has the Poisson distribution with mean 10. Find the \
+probability that the number of tickets next week will be at least 2 standard \
+deviations below the average.\
+\>", "Text",
+ CellChangeTimes->{{3.425081179886142*^9, 3.425081199779142*^9}, {
+  3.425127554513*^9, 3.425127604538*^9}, {3.425128038068*^9, 
+  3.4251281025480003`*^9}, {3.4251283514300003`*^9, 3.425128354723*^9}}],
+
+Cell["\<\
+8.  If the number of defects in a length of drywall has the Poisson \
+distribution, and it is estimated that the proportion with no defects is .3, \
+estimate the proportion with either 1 or 2 defects.\
+\>", "Text"],
+
+Cell[TextData[{
+ "9.  If (",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ") is a Poisson process with rate 2/min., find the probability that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ " exceeds its mean by at least 2 standard deviations.  "
+}], "Text"],
+
+Cell["\<\
+10.  Suppose that customer arrivals to a small jewelry store during a \
+particular period in the day form a Poisson process with rate 12/hr.  (a) \
+Find the probability that there will be more than 12 customers in a \
+particular hour; (b) Given that there are more than 12 customers in the first \
+hour, find the probability that there will be more than 15 customers in that \
+hour.  \
+\>", "Text"],
+
+Cell["\<\
+11.  If outside line accesses from within a local phone network form a \
+Poisson process with rate 1/min., find the joint probability that the \
+cumulative number of accesses is equal to 2 at time 1 minute, 3 at time 2 \
+minutes, and 5 at time 3 minutes.\
+\>", "Text"],
+
+Cell[TextData[{
+ "12.  Find a general expression for P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "s"], TraditionalForm]]],
+ " = ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " \[Intersection] ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", 
+    RowBox[{"t", "+", "s"}]], TraditionalForm]]],
+ " = ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "] for a Poisson process (",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]]],
+ ") of rate \[Lambda]."
+}], "Text"],
+
+Cell[TextData[{
+ "13.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that emergency 911 calls come in to a station according to a \
+Poisson process with unknown rate \[Lambda] per hour.  Find the value of \
+\[Lambda] that is most likely to have resulted in a stream of calls at times: \
+ .1, .3, .6, 1.0, 1.1, 1.4, 1.8, 2.0, 2.2, 2.3, 2.8, 3.6. (Hint: consider the \
+numbers of calls in successive intervals of length .5: [0, .5], (.5, 1.0], \
+... .)"
+}], "Text",
+ CellChangeTimes->{{3.4291174924105997`*^9, 3.4291174926036*^9}, {
+  3.4348362418271184`*^9, 3.4348362428281183`*^9}}],
+
+Cell[TextData[StyleBox["Sample Problems from Actuarial Exam P  ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9, {3.424364700859375*^9, 3.424364715375*^9}, {
+   3.42443675165625*^9, 3.424436753875*^9}, {3.424440456125*^9, 
+   3.424440463953125*^9}, {3.4244428311875*^9, 3.424442841421875*^9}, {
+   3.42449284928125*^9, 3.4244928670625*^9}, {3.4244929328125*^9, 
+   3.424492950984375*^9}, 3.424600696640625*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[StyleBox["14. An actuary has discovered that policyholders are \
+three times as likely to file two claims as to file four claims. If the \
+number of claims filed has a Poisson distribution, what is the variance of \
+the number of claims filed?",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.424797044125*^9, 3.42479722365625*^9}, {
+   3.424799456203125*^9, 3.424799479109375*^9}, {3.4248765613125*^9, 
+   3.424876569203125*^9}, {3.424876691859375*^9, 3.42487673828125*^9}, {
+   3.424877164140625*^9, 3.4248771798125*^9}, 3.4251281301429996`*^9, 
+   3.4291175805945997`*^9}],
+
+Cell[TextData[StyleBox["15. A baseball team has scheduled its opening game \
+for April 1. If it rains on April 1, the game is postponed and will be played \
+on the next day that it does not rain. The team purchases insureance against \
+rain. The policy will pay $1000 for each day, up to 2 days, that the opening \
+game is postponed. The insurance company determines that the number of \
+consecutive days of rain beginning on April 1 is a Poisson random variable \
+with mean .6. What is the standard deviation of the amount the insurance \
+company will have to pay?",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.424797044125*^9, 3.42479722365625*^9}, {
+   3.424797400859375*^9, 3.42479749240625*^9}, {3.424799472390625*^9, 
+   3.42479947384375*^9}, {3.424876564984375*^9, 3.42487657209375*^9}, {
+   3.4248767873125*^9, 3.42487688034375*^9}, {3.424877108828125*^9, 
+   3.424877146765625*^9}, {3.424877187984375*^9, 3.424877194078125*^9}, 
+   3.425128141576*^9, 3.4291175831745996`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{646, 667},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 2 Discrete Distributions"], "Header"]}, {
+   Cell[
+    TextData["2.4 Poisson Distribution"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 134, 4, 68, "Section"],
+Cell[704, 28, 2797, 70, 401, "Text"],
+Cell[3504, 100, 834, 27, 44, "DisplayFormula"],
+Cell[4341, 129, 776, 25, 90, "Text"],
+Cell[5120, 156, 883, 30, 49, "DisplayFormulaNumbered"],
+Cell[6006, 188, 135, 1, 27, "Text"],
+Cell[6144, 191, 1964, 66, 115, "DisplayFormulaNumbered"],
+Cell[8111, 259, 749, 25, 102, "Text"],
+Cell[8863, 286, 827, 27, 111, "Text"],
+Cell[9693, 315, 1266, 38, 235, "Text"],
+Cell[10962, 355, 1346, 41, 167, "Input",
+ InitializationCell->True],
+Cell[12311, 398, 1642, 48, 211, "Input",
+ InitializationCell->True],
+Cell[13956, 448, 263, 8, 28, "Text"],
+Cell[14222, 458, 315, 8, 48, "Text"],
+Cell[14540, 468, 437, 10, 111, "Text"],
+Cell[14980, 480, 674, 14, 91, "Text"],
+Cell[15657, 496, 960, 32, 51, "DisplayFormula"],
+Cell[16620, 530, 131, 5, 27, "Text"],
+Cell[16754, 537, 474, 15, 56, "Input",
+ InitializationCell->True],
+Cell[17231, 554, 861, 17, 152, "Text"],
+Cell[18095, 573, 482, 15, 56, "Input",
+ InitializationCell->True],
+Cell[18580, 590, 561, 17, 56, "Input",
+ InitializationCell->True],
+Cell[19144, 609, 159, 3, 48, "Text"],
+Cell[19306, 614, 519, 21, 28, "Text"],
+Cell[19828, 637, 165, 5, 28, "Text"],
+Cell[19996, 644, 1451, 45, 121, "DisplayFormula"],
+Cell[21450, 691, 1179, 38, 131, "Text"],
+Cell[22632, 731, 1889, 62, 126, "DisplayFormula"],
+Cell[24524, 795, 174, 4, 27, "Text"],
+Cell[24701, 801, 340, 11, 69, "Text"],
+Cell[25044, 814, 613, 10, 110, "Text"],
+Cell[25660, 826, 2383, 73, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[28046, 901, 255, 8, 28, "Text"],
+Cell[28304, 911, 371, 5, 48, "Text"],
+Cell[28678, 918, 1221, 34, 101, "Input"],
+Cell[CellGroupData[{
+Cell[29924, 956, 60, 1, 41, "Subsection"],
+Cell[29987, 959, 2466, 72, 256, "Text"],
+Cell[32456, 1033, 1695, 46, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[34154, 1081, 247, 8, 28, "Text"],
+Cell[34404, 1091, 2892, 86, 339, "Text"],
+Cell[37299, 1179, 437, 9, 111, "Text"],
+Cell[37739, 1190, 1703, 48, 194, "Text"],
+Cell[39445, 1240, 473, 15, 56, "Input",
+ InitializationCell->True],
+Cell[39921, 1257, 1331, 48, 110, "Text"],
+Cell[41255, 1307, 3301, 102, 80, "DisplayFormula"],
+Cell[44559, 1411, 1463, 46, 131, "Text"],
+Cell[46025, 1459, 1923, 63, 78, "DisplayFormula"],
+Cell[47951, 1524, 112, 5, 41, "Text"],
+Cell[48066, 1531, 921, 31, 188, "Input",
+ InitializationCell->True],
+Cell[48990, 1564, 1066, 30, 140, "Text"],
+Cell[50059, 1596, 823, 26, 122, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50919, 1627, 80, 2, 63, "Subsection"],
+Cell[51002, 1631, 857, 32, 75, "Text"],
+Cell[51862, 1665, 685, 29, 75, "Text"],
+Cell[52550, 1696, 527, 15, 110, "Text"],
+Cell[53080, 1713, 94, 2, 41, "Text"],
+Cell[53177, 1717, 410, 15, 41, "Text"],
+Cell[53590, 1734, 1089, 41, 171, "Text"],
+Cell[54682, 1777, 480, 8, 107, "Text"],
+Cell[55165, 1787, 224, 4, 75, "Text"],
+Cell[55392, 1793, 316, 10, 75, "Text"],
+Cell[55711, 1805, 408, 7, 140, "Text"],
+Cell[56122, 1814, 278, 5, 107, "Text"],
+Cell[56403, 1821, 483, 21, 41, "Text"],
+Cell[56889, 1844, 601, 12, 140, "Text"],
+Cell[57493, 1858, 653, 10, 41, "Text"],
+Cell[58149, 1870, 600, 9, 75, "Text"],
+Cell[58752, 1881, 998, 14, 171, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

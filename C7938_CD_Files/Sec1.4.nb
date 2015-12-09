@@ -1,0 +1,2604 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     85316,       2595]
+NotebookOptionsPosition[     79266,       2423]
+NotebookOutlinePosition[     80126,       2456]
+CellTagsIndexPosition[     80083,       2453]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["1.4 Random Sampling", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tIn this section we focus on a particular kind of random experiment that \
+we have glimpsed before",
+ StyleBox[": ",
+  FontColor->RGBColor[1, 0, 0]],
+ "sampling randomly from a universal set.  In so doing, we are led to the \
+area of mathematics known as ",
+ StyleBox["combinatorics",
+  FontSlant->"Italic"],
+ ", the study of counting.  The reason why combinatorics and random sampling \
+are so important is that one of a statistician's best tools for obtaining \
+information about a population inexpensively and reliably is by taking a \
+random sample from it, ",
+ "as opposed to a comprehensive census",
+ ".  \n\tThere are several main types of sampling situations, depending on \
+whether the objects being sampled are taken in sequence or just in a batch, \
+and whether the objects are replaced as sampling proceeds, and so become \
+eligible to be sampled again, or the sampling is done without replacement. "
+}], "Text",
+ CellChangeTimes->{{3.40708315484375*^9, 3.407083169375*^9}, {
+  3.407083204828125*^9, 3.40708321396875*^9}, {3.4072456145625*^9, 
+  3.407245616046875*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Sampling in Sequence Without Replacement", "Subsection",
+ CellChangeTimes->{3.407083246375*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tIf the order in which sampled items are taken matters and sampling is \
+done without replacing previously sampled items, then the sample is a ",
+ StyleBox["permutation",
+  FontSlant->"Italic"],
+ ". In the following discussion let there be ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " objects in the universe and suppose the sample is to be of size ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ".  We can utilize the command KPermutations[list, k] (see Section 1.2) in \
+the ",
+ "KnoxProb7",
+ "`Utilities` package to display all of the permutations.  Here for example \
+are the permutations of 2 objects chosen from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], 
+   TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{3.407083268328125*^9, 3.440456965067137*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{"KPermutations", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], ",", "2"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.3984358218936377`*^9, 3.4404569716659365`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The same package also contains the command\n\n\t\t\t\t\
+RandomKPermutation[list, k] \n\nwhich randomly selects a permutation of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " elements from the given list, as shown below. "
+}], "Text",
+ CellChangeTimes->{{3.42350106240625*^9, 3.423501075640625*^9}}],
+
+Cell[BoxData[
+ RowBox[{"RandomKPermutation", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], ",", "3"}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tDo the following activity to begin the problem of finding the number of \
+permutations of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Without utilizing ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ", how many permutations of 1 object from ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " are there?  Now use KPermutations to count the permutations of 2 objects \
+from 2, 2 objects from 3, 2 from 4, 2 from 5, and 2 from 6.  Can you detect a \
+pattern and speculate about the number of permutations of 2 objects from ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ "? "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.407083302328125*^9, 3.407083312359375*^9}}],
+
+Cell[TextData[{
+ "\tIt is not hard to find the number of permutations of 2 objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " mathematically, and the line of reasoning carries over to permutations of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ". Let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["P", 
+    RowBox[{"n", ",", "k"}]], TraditionalForm]]],
+ " denote this number of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "-permutations. To determine a unique 2-permutation, you must pick the first \
+sampled item, which can be done in ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " ways, and then the second, which can be done in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ " ways.  The result is therefore ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "(", 
+    RowBox[{"n", "-", "1"}], ")"}], TraditionalForm]]],
+ " by the multiplication principle.  Here is the general theorem, which can \
+be proved similarly (see Exercise 4)."
+}], "Text",
+ CellChangeTimes->{3.423912150640625*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  The number of ways of selecting ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects in sequence and without replacement from a population of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " objects is"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  SubscriptBox[
+   StyleBox["P",
+    FontSlant->"Italic"], 
+   RowBox[{
+    StyleBox["n",
+     FontSlant->"Italic"], ",", 
+    StyleBox["k",
+     FontSlant->"Italic"]}]], 
+  StyleBox["=",
+   FontWeight->"Plain",
+   FontSlant->"Plain",
+   FontTracking->"Plain",
+   FontVariations->{"Outline"->False,
+   "Shadow"->False,
+   "Underline"->False}], 
+  RowBox[{
+   RowBox[{
+    StyleBox["n",
+     FontSlant->"Italic"], 
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", 
+      StyleBox["1",
+       FontWeight->"Plain",
+       FontSlant->"Plain",
+       FontTracking->"Plain",
+       FontVariations->{"Outline"->False,
+       "Shadow"->False,
+       "Underline"->False}]}], ")"}], 
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", 
+      StyleBox["2",
+       FontWeight->"Plain",
+       FontSlant->"Plain",
+       FontTracking->"Plain",
+       FontVariations->{"Outline"->False,
+       "Shadow"->False,
+       "Underline"->False}]}], ")"}], "\[CenterEllipsis]", 
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", 
+      StyleBox["k",
+       FontSlant->"Italic"], 
+      StyleBox["+",
+       FontWeight->"Plain",
+       FontSlant->"Plain",
+       FontTracking->"Plain",
+       FontVariations->{"Outline"->False,
+       "Shadow"->False,
+       "Underline"->False}], 
+      StyleBox["1",
+       FontWeight->"Plain",
+       FontSlant->"Plain",
+       FontTracking->"Plain",
+       FontVariations->{"Outline"->False,
+       "Shadow"->False,
+       "Underline"->False}]}], ")"}]}], " ", 
+   StyleBox["=",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontTracking->"Plain",
+    FontVariations->{"Outline"->False,
+    "Shadow"->False,
+    "Underline"->False}], " ", 
+   FractionBox[
+    RowBox[{
+     StyleBox["n",
+      FontSlant->"Italic"], 
+     StyleBox["!",
+      FontWeight->"Plain",
+      FontSlant->"Plain",
+      FontTracking->"Plain",
+      FontVariations->{"Outline"->False,
+      "Shadow"->False,
+      "Underline"->False}]}], 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       StyleBox["n",
+        FontSlant->"Italic"], "-", 
+       StyleBox["k",
+        FontSlant->"Italic"]}], ")"}], 
+     StyleBox["!",
+      FontWeight->"Plain",
+      FontSlant->"Plain",
+      FontTracking->"Plain",
+      FontVariations->{"Outline"->False,
+      "Shadow"->False,
+      "Underline"->False}]}]]}]}]], "DisplayFormulaNumbered",
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "!=", 
+    RowBox[{
+     RowBox[{"n", "(", 
+      RowBox[{"n", "-", "1"}], ")"}], 
+     RowBox[{"(", 
+      RowBox[{"n", "-", "2"}], ")"}], 
+     RowBox[{"\[CenterEllipsis]2", "\[CenterDot]", "1"}]}]}], 
+   TraditionalForm]]],
+ ".  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.435430920566*^9, 3.43543092684*^9}},
+ FontWeight->"Plain"],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  In the example above of selecting 2 objects randomly in sequence and \
+without replacement from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], 
+   TraditionalForm]]],
+ ", what is the probability that the sample will not include ",
+ Cell[BoxData[
+  FormBox["d", TraditionalForm]]],
+ " nor ",
+ Cell[BoxData[
+  FormBox["e", TraditionalForm]]],
+ "?"
+}], "Text",
+ CellChangeTimes->{{3.407263112796875*^9, 3.407263134390625*^9}, {
+  3.407263174078125*^9, 3.407263246765625*^9}}],
+
+Cell[TextData[{
+ "\tThe size of the sample space is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"n", "(", "\[CapitalOmega]", ")"}], "=", 
+    RowBox[{
+     RowBox[{"5", "\[CenterDot]", "4"}], "=", "20"}]}], TraditionalForm]]],
+ " by Theorem 1. To count the number of outcomes in the event that the sample \
+includes neither ",
+ Cell[BoxData[
+  FormBox["d", TraditionalForm]]],
+ " nor ",
+ Cell[BoxData[
+  FormBox["e", TraditionalForm]]],
+ ", note that in this case the sample must be drawn from the subset ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c"}], "}"}], TraditionalForm]]],
+ ".  There are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"3", "\[CenterDot]", "2"}], "=", "6"}], TraditionalForm]]],
+ " ways of drawing such a sample, again by Theorem 1.  Therefore, the \
+probability of this event is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"6", "/", "20"}], "=", ".3"}], TraditionalForm]]],
+ ". ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{
+  3.4072632509375*^9, {3.40726384240625*^9, 3.407264017421875*^9}, {
+   3.435430943344*^9, 3.4354309433450003`*^9}, 3.456338801777919*^9}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  A hand of blackjack is dealt in sequence and without replacement so that \
+the first card is face down and the second is face up. The hand is referred \
+to as a blackjack hand if it contains an ace and a face card, that is, a \
+king, queen, or jack. Let us find the probability of being dealt a blackjack. "
+}], "Text",
+ CellChangeTimes->{{3.4072631363125*^9, 3.4072631408125*^9}, {
+  3.407263265921875*^9, 3.40726337034375*^9}}],
+
+Cell[TextData[{
+ "\tThe sample space is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"x", ",", "y"}], ")"}], ":", "x"}], ",", 
+      RowBox[{
+       RowBox[{"y", "  ", "are", " ", "cards", " ", "and", " ", "x"}], 
+       "\[NotEqual]", "y"}]}], "}"}]}], TraditionalForm]]],
+ ".  Since there are 52 cards in an ordinary deck, the size of the sample \
+space is "
+}], "Text",
+ CellChangeTimes->{{3.40726337215625*^9, 3.4072635550625*^9}, 
+   3.407263658640625*^9, 3.407264100375*^9}],
+
+Cell[BoxData[Cell[TextData[{
+  StyleBox["n",
+   FontSlant->"Italic"],
+  "(\[CapitalOmega]) = 52",
+  "\[CenterDot]51"
+ }]]], "Equation",
+ CellChangeTimes->{{3.407263567203125*^9, 3.407263641609375*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "by Theorem 1. There are two disjoint cases making up the event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"{", 
+     RowBox[{"hand", " ", "is", " ", 
+      StyleBox["a",
+       FontSlant->"Plain"], " ", "blackjack"}], "}"}]}], TraditionalForm]]],
+ ", namely, the cards are dealt in the order ace, face card or they are in \
+the order face card, ace.  The number of outcomes in the event ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " is therefore the total"
+}], "Text",
+ CellChangeTimes->{{3.407263619328125*^9, 3.40726367459375*^9}, {
+  3.407264130203125*^9, 3.40726413715625*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"n", "(", "A", ")"}], "=", 
+   RowBox[{
+    RowBox[{"4", "\[CenterDot]", "12"}], "+", 
+    RowBox[{"12", "\[CenterDot]", "4"}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.40726367921875*^9, 3.40726369946875*^9}}],
+
+Cell["\<\
+since there are 4 aces and 12 face cards in the deck. Hence the probability \
+of a blackjack is about .036, as below.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.40726371859375*^9, 3.4072637345625*^9}, {
+  3.407263810921875*^9, 3.40726382815625*^9}, {3.4407069070368*^9, 
+  3.4407069240078*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  FractionBox[
+   RowBox[{
+    RowBox[{"4", "*", "12"}], "+", 
+    RowBox[{"12", "*", "4"}]}], 
+   RowBox[{"52", "*", "51"}]], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.40726374190625*^9, 3.40726377521875*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ " Recall the command called DrawIntegerSample[a, b, k] in the ",
+ "KnoxProb7",
+ "`Utilities` package which presumes that the universe being sampled from is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", 
+     RowBox[{"a", "+", "1"}], ",", " ", "...", " ", ",", " ", "b"}], "}"}], 
+   TraditionalForm]]],
+ ".  By default it will select a random permutation from this space, but you \
+can also include the option Ordered->False to sample without regard to order \
+(see the next subsection) and/or the option Replacement->True to draw a \
+sample with replacement.  We can use this command to study aspects of drawing \
+random samples more deeply, in the way that we looked at the minimum of the \
+sampled values in Section 1.1.  Exercise 7 asks you to explore the average of \
+the sample members.  Here is a similar experiment on the ",
+ StyleBox["range",
+  FontSlant->"Italic"],
+ " of the data, that is, the largest value minus the smallest. \n\tFor \
+instance, if 10 numbers are randomly selected from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "50"}], "}"}], TraditionalForm]]],
+ " and the sample elements turn out to be 42, 30, 2, 45, 27, 6, 15, 31, 29, \
+and 40, then the range is 45 ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " 2 = 43.  The command below initializes an empty list of ranges, then for a \
+desired number of replications, it draws a new sample, computes the range, \
+and appends this new range to the list of ranges. The final list of ranges is \
+returned."
+}], "Text",
+ CellChangeTimes->{{3.403890203609375*^9, 3.4038902403125*^9}, {
+   3.4071073314375*^9, 3.407107332078125*^9}, {3.40726310425*^9, 
+   3.407263108765625*^9}, 3.423912220765625*^9, 3.440456975799937*^9, {
+   3.456338864590919*^9, 3.4563388717719193`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimulateRange", "[", 
+   RowBox[{"numreps_", ",", "a_", ",", "b_", ",", "sampsize_"}], "]"}], ":=", 
+  "\n", "\t", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"thesample", ",", "rangelist", ",", "i", ",", "newrange"}], 
+     "}"}], ",", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"rangelist", "=", 
+      RowBox[{"{", "}"}]}], ";", "\n", "\t\t", 
+     RowBox[{"Do", "[", " ", "\[IndentingNewLine]", "       ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"thesample", "=", 
+         RowBox[{"DrawIntegerSample", "[", 
+          RowBox[{"a", ",", "b", ",", "sampsize"}], "]"}]}], ";", "\n", 
+        "\t     ", 
+        RowBox[{"newrange", "=", 
+         RowBox[{
+          RowBox[{"Max", "[", "thesample", "]"}], "-", 
+          RowBox[{"Min", "[", "thesample", "]"}]}]}], ";", "\n", "\t     ", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"rangelist", ",", "newrange"}], "]"}]}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "numreps"}], "}"}]}], "]"}], ";", "\n", 
+     "\t\t", "rangelist"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398439298837765*^9, 3.3984393291973343`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Below is one run of the command for 100 replications of a sample of 10 \
+integers from the first 50.  You should try sampling again a few times.  You \
+will see that the histogram is rather consistent in its shape: it is \
+asymmetrical with a longer left tail than right tail, it has a tall peak in \
+the mid 40's, which is probably about where the average range is located, and \
+a very high percentage of the time the range is at least 30.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.403890337265625*^9, 3.403890337546875*^9}, {
+  3.435430965429*^9, 3.4354309654300003`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "124", "]"}], ";"}], "\n", 
+ RowBox[{"ranges", "=", 
+  RowBox[{"SimulateRange", "[", 
+   RowBox[{"100", ",", "1", ",", "50", ",", "10"}], "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.39843934015053*^9, 3.398439340525532*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Histogram", "[", 
+  RowBox[{"ranges", ",", "10"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.403890376328125*^9, 3.40389041040625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Figure 1.7",
+ StyleBox[" - Histogram of ranges",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.4038905214375*^9, 3.40389052175*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ " ",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "In a random sample of given size, with what likelihood does each individual \
+appear in the sample?  Recall we asked this question in Section 1.1 about a \
+sample of two numbers from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ ".  If the universe being sampled from is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "...", ",", "n"}], "}"}]}], 
+   TraditionalForm]]],
+ ", and a sample of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " individuals is drawn in sequence and without replacement, then the sample \
+space is"
+}], "Text",
+ CellChangeTimes->{{3.40710743128125*^9, 3.407107432265625*^9}, {
+  3.407264521265625*^9, 3.407264525875*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[CapitalOmega]", " ", "=", " ", 
+  RowBox[{"{", 
+   RowBox[{"(", 
+    FormBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          SubscriptBox["x", "1"], ",", 
+          SubscriptBox["x", "2"], ",", " ", "\[CenterEllipsis]", " ", ",", 
+          " ", 
+          SubscriptBox["x", "k"]}], ")"}], ":", " ", 
+        RowBox[{
+         SubscriptBox["x", "i"], "\[Element]", 
+         RowBox[{"U", " ", "for", " ", "all", " ", "i"}]}]}], ",", " ", 
+       RowBox[{
+        RowBox[{"and", " ", 
+         SubscriptBox["x", "i"]}], "\[NotEqual]", 
+        RowBox[{
+         SubscriptBox["x", "j"], " ", "for", " ", "all", " ", "i"}], 
+        "\[NotEqual]", "j"}]}], "}"}],
+     TraditionalForm]}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+and by Theorem 1, the cardinality of \[CapitalOmega] is \
+\>", "Text"],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"n", " ", 
+     RowBox[{"(", "\[CapitalOmega]", ")"}]}], " ", "=", " ", 
+    FormBox[
+     RowBox[{
+      RowBox[{"n", "(", 
+       RowBox[{"n", "-", "1"}], ")"}], 
+      RowBox[{"(", 
+       RowBox[{"n", "-", "2"}], ")"}], " ", "\[CenterEllipsis]", " ", 
+      RowBox[{"(", 
+       RowBox[{"n", "-", "k", "+", "1"}], ")"}]}],
+     TraditionalForm]}], TraditionalForm]]]]]], "Equation",
+ CellChangeTimes->{{3.40710696428125*^9, 3.407106964625*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "We suppose that the randomness assumption means that all outcomes are \
+equally likely and hence the probability of an event ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " is its cardinality ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "(",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ ") divided by this ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "(\[CapitalOmega]). \n\tConsider the event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " that individual 1 is in the sample.  That individual could have been \
+sampled first, or second, or third, etc., so that ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " can be broken apart into ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " disjoint subsets"
+}], "Text",
+ CellChangeTimes->{{3.407106978796875*^9, 3.407107134328125*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], " ", "=", " ", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["B", "1"], "\[Union]", 
+      SubscriptBox["B", "2"], "\[Union]", "\[CenterEllipsis]", "\[Union]", 
+      SubscriptBox["B", "k"]}],
+     TraditionalForm]}], TraditionalForm]]]]]], "Equation",
+ CellChangeTimes->{{3.403893049296875*^9, 3.40389304965625*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "i"], TraditionalForm]]],
+ " = \"1 occurs on ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["i", "th"], TraditionalForm]]],
+ " draw.\"  Therefore, by the third axiom of probability, P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderoverscriptBox["\[CapitalSigma]", 
+     RowBox[{"i", "=", "1"}], "k"], 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["B", "i"], "]"}]}], TraditionalForm]]],
+ ".  But also, for each ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ ", "
+}], "Text",
+ CellChangeTimes->{{3.4071071874375*^9, 3.40710719203125*^9}, {
+  3.456338999903919*^9, 3.456339005552919*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    SubscriptBox[
+     StyleBox["B",
+      FontSlant->"Italic"], 
+     StyleBox["i",
+      FontSlant->"Italic"]], "]"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", "1"}], ")"}], 
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", "2"}], ")"}], " ", "\[CenterEllipsis]", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["n",
+          FontSlant->"Italic"], "-", "1"}], ")"}], "-", 
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["k",
+          FontSlant->"Italic"], "-", "1"}], ")"}], "+", "1"}], ")"}], "/", 
+     StyleBox["n",
+      FontSlant->"Italic"]}], 
+    RowBox[{"(", "\[CapitalOmega]", ")"}]}]}], TextForm]], "Equation"],
+
+Cell[TextData[{
+ "since once individual 1 is known to be in position ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ ", the rest of the positions are filled by selecting a permutation of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "-", "1"}], TraditionalForm]]],
+ " individuals from the remaining ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ ".  Therefore,"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   StyleBox["A",
+    FontSlant->"Italic"], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    FractionBox[
+     RowBox[{
+      RowBox[{"k", "(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", "1"}], ")"}], 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", "2"}], ")"}], " ", "\[CenterEllipsis]", 
+      " ", 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", 
+        StyleBox["k",
+         FontSlant->"Italic"], "+", "1"}], ")"}]}], 
+     RowBox[{
+      RowBox[{"n", "(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", "1"}], ")"}], 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", "2"}], ")"}], " ", "\[CenterEllipsis]", 
+      " ", 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "-", 
+        StyleBox["k",
+         FontSlant->"Italic"], "+", "1"}], ")"}]}]],
+    TraditionalForm], " ", "=", " ", 
+   FormBox[
+    FractionBox["k", "n"],
+    TraditionalForm]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "The same reasoning holds for every other individual in the population.  So \
+we have shown the rather intuitive result that if a sample in sequence and \
+without replacement of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is taken, every individual in the universe has an equal chance of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " of appearing in the sample. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.43543097405*^9, 3.435430974052*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Try to carry through similar reasoning to that of Example 4",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "if the sample is drawn in sequence with replacement.  Does the argument \
+break down?  If it does, try another approach (such as complementation). "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.40710737503125*^9, 3.407107375859375*^9}, {
+  3.4072645416875*^9, 3.407264545875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Sampling in a Batch without Replacement", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tNow let us look at sampling without replacement when the order in which \
+sample values are drawn is of no consequence, i.e., the sample may as well \
+have been drawn all at once in a batch.  Most card games follow this \
+prescription, but there are some other very important situations of this type \
+too.  A sample without order or replacement of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is called a ",
+ StyleBox["combination",
+  FontSlant->"Italic"],
+ " of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " chosen from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ". \n\tRecall the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command KSubsets[list, k] in the package Combinatorica` which returns all \
+subsets of size ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " from the given list.  (This package is loaded automatically when you load ",
+ "KnoxProb7",
+ "`Utilities`.)  It therefore returns the sample space of all combinations of \
+",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " chosen from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ".  Here are the three-element combinations taken from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], 
+   TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.40389047390625*^9, 3.403890480203125*^9}, 
+   3.440456981166337*^9}],
+
+Cell[BoxData[
+ RowBox[{"KSubsets", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], ",", "3"}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Notice that there are 10 combinations of 3 elements chosen from 5.",
+ StyleBox["  ",
+  FontColor->RGBColor[1, 0, 0]],
+ "The same package has a command \n\n\t\t\t\tRandomKSubset[list, k] \n\nwhich \
+returns one such combination selected at random. Below are a couple of \
+instances, and as we would anticipate, we get a different randomly selected \
+subset the second time than the first time."
+}], "Text",
+ CellChangeTimes->{{3.4071078035625*^9, 3.407107825125*^9}, 
+   3.407107868765625*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "67653", "]"}], ";"}], "\n", 
+ RowBox[{"RandomKSubset", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], ",", "3"}], 
+  "]"}], "\n", 
+ RowBox[{"RandomKSubset", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d", ",", "e"}], "}"}], ",", "3"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\tLet us try to find a formula for ", "Text",
+ CellChangeTimes->{{3.407107934421875*^9, 3.407107937734375*^9}, {
+   3.407107983515625*^9, 3.407107998703125*^9}, 3.407108065484375*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[
+     SubscriptBox["C", 
+      RowBox[{"n", ",", "k"}]], TraditionalForm]]]]], "=", 
+   RowBox[{
+   "number", " ", "of", " ", "combinations", " ", "of", " ", Cell["k"], " ", 
+    "objects", " ", "chosen", " ", "from", " ", Cell[TextData[Cell[BoxData[
+     FormBox["n", TraditionalForm]]]]]}]}], TextForm]], "Equation",
+ CellChangeTimes->{{3.407107934421875*^9, 3.407107937734375*^9}, {
+   3.407107983515625*^9, 3.407108046890625*^9}, {3.407244345671875*^9, 
+   3.407244349484375*^9}, 3.4072668221875*^9}],
+
+Cell[TextData[{
+ "If at first ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects are selected in a batch from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", then it is possible to think of subsequently putting them into a \
+sequence.  By doing so we would create a unique permutation of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ".  The number of possible permutations is known from Theorem 1.  And it is \
+fairly easy to see that there are ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "! = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"k", "(", 
+     RowBox[{"k", "-", "1"}], ")"}], 
+    RowBox[{"(", 
+     RowBox[{"k", "-", "2"}], ")"}], 
+    RowBox[{"\[CenterEllipsis]2", "\[CenterDot]", "1"}]}], TraditionalForm]]],
+ " ways of sequencing the ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " selected objects, by the multiplication principle.  Therefore, by the \
+multiplication principle again,"
+}], "Text",
+ CellChangeTimes->{{3.407107934421875*^9, 3.407107937734375*^9}, {
+  3.407107983515625*^9, 3.407108026828125*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"#", "permutations"}], " ", "=", " ", 
+  RowBox[{"#", 
+   RowBox[{"combinations", " ", "\[CenterDot]", " ", "#"}], " ", "ways", " ", 
+   "of", " ", "sequencing", " ", "the", " ", "combination"}]}], "\n", 
+ RowBox[{"\[DoubleLongRightArrow]", " ", 
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     RowBox[{"n", ",", "k"}]], "=", 
+    RowBox[{
+     SubscriptBox["C", 
+      RowBox[{"n", ",", "k"}]], " ", "\[CenterDot]", " ", 
+     RowBox[{"k", "!"}]}]}],
+   TraditionalForm]}]}], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "If we now bring in the formula for ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["P", 
+    RowBox[{"n", ",", "k"}]], TraditionalForm]]],
+ " from Theorem 1, we have the following result. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ".  The number of combinations of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " objects selected in a batch without replacement from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is "
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox[
+    StyleBox["C",
+     FontSlant->"Italic"], 
+    RowBox[{
+     StyleBox["n",
+      FontSlant->"Italic"], ",", 
+     StyleBox["k",
+      FontSlant->"Italic"]}]], "=", 
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "!"}], 
+     RowBox[{
+      RowBox[{
+       StyleBox["k",
+        FontSlant->"Italic"], "!"}], "\[CenterDot]", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         StyleBox["n",
+          FontSlant->"Italic"], "-", 
+         StyleBox["k",
+          FontSlant->"Italic"]}], ")"}], "!"}]}]], "   ", 
+    "\[FilledSquare]"}]}], TextForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.435430985534*^9, 3.4354309897200003`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tYou may recognize ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    StyleBox["C",
+     FontSlant->"Italic"], 
+    RowBox[{
+     StyleBox["n",
+      FontSlant->"Italic"], ",", 
+     StyleBox["k",
+      FontSlant->"Italic"]}]], TextForm]]],
+ " as the same quantity as the binomial coefficient ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"n"},
+      {"k"}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " from the binomial theorem and other contexts.  This coefficient is usually \
+read as \"",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " choose ",
+ StyleBox["k,",
+  FontSlant->"Italic"],
+ "\" and we now know why.  Incidentally, ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can compute this quantity using the Binomial[n, k] function, which is in \
+the kernel."
+}], "Text",
+ CellChangeTimes->{{3.456339037219919*^9, 3.456339039196919*^9}}],
+
+Cell[BoxData[
+ RowBox[{"C6choose3", "=", 
+  RowBox[{"Binomial", "[", 
+   RowBox[{"6", ",", "3"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Check to see whether empirically the probability that a particular \
+element of the universe is sampled is dependent on the element.  For a sample \
+of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " in a batch without replacement, what does this probability seem to be?  \
+(See also Exercise 10.)  You may use the command below, which inputs the \
+population size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " (assuming the population is coded as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", " ", "n"}], "}"}], 
+   TraditionalForm]]],
+ "), the sample size ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ", the population member ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " between 1 and ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " to be checked, and the number of replications ",
+ StyleBox["numreps",
+  FontSlant->"Italic"],
+ ".  It outputs the proportion of the replications for which ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " was in the sample. "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.423912291953125*^9, 3.423912292203125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ProportionMInSample", "[", 
+   RowBox[{"n_", ",", "k_", ",", "m_", ",", "numreps_"}], "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"mcount", ",", "simsample", ",", "i"}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"mcount", "=", "0"}], ";", "    ", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"simsample", "=", 
+         RowBox[{"DrawIntegerSample", "[", 
+          RowBox[{"1", ",", "n", ",", "k", ",", 
+           RowBox[{"Ordered", "->", "False"}]}], "]"}]}], ";", "\n", "\t\t\t", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"MemberQ", "[", 
+           RowBox[{"simsample", ",", "m"}], "]"}], ",", 
+          RowBox[{"mcount", "=", 
+           RowBox[{"mcount", "+", "1"}]}], ",", "Null"}], "]"}]}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "numreps"}], "}"}]}], "]"}], ";", "\n", 
+     "\t\t", 
+     RowBox[{"mcount", "/", "numreps"}]}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ CellChangeTimes->{{3.3984395023703175`*^9, 3.3984395028546963`*^9}, {
+  3.3987654554256363`*^9, 3.3987654587692575`*^9}, {3.4404568369131365`*^9, 
+  3.440456838036337*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "  Theorem 2 is extremely useful in answering probability questions. For \
+example let us investigate whether it is reasonable to suppose that a \
+population of 1000 tax returns has no more than 20% with errors on them, if a \
+random sample of 100 returns from this population yielded 40 with errors.  \
+The proportion in the sample is twice that which is assumed for the \
+population.  Is it likely that such an anomaly could happen by chance? \n\t\
+The 20% population figure, and not 19%, 18%, or anything less than 20%, is \
+the most likely to have caused a large number of erroneous returns in the \
+sample (see Exercise 13), so we will recast the question in the following \
+way.  If there are exactly 200 among the 1000 returns that have errors, how \
+likely is it that a random sample of 100 has 40 erroneous returns or more?  \
+We say 40 ",
+ StyleBox["or more",
+  FontSlant->"Italic"],
+ " because any large number of errors, not just identically 40, gives \
+evidence against the 20% hypothesis.  If the probability of 40 or more errors \
+is quite small, then there is strong evidence in the observed data against \
+the 20% hypothesis. \n\tTheorem 2 allows us to write the probability of \
+exactly ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " erroneous returns in the sample, hence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"100", "-", "k"}], TraditionalForm]]],
+ " good returns, as "
+}], "Text",
+ CellChangeTimes->{{3.4071082185*^9, 3.40710822053125*^9}, {
+  3.407266890796875*^9, 3.407266894*^9}, {3.407266939828125*^9, 
+  3.407266939984375*^9}, {3.423912379921875*^9, 3.42391238025*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[
+     FractionBox[
+      RowBox[{
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {"200"},
+          {"k"}
+         }], "\[NegativeThinSpace]", ")"}], 
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {"800"},
+          {
+           RowBox[{"100", "-", "k"}]}
+         }], "\[NegativeThinSpace]", ")"}]}], 
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {"1000"},
+         {"100"}
+        }], "\[NegativeThinSpace]", ")"}]], TraditionalForm]]]]], ",", " ", 
+   Cell[TextData[{
+    StyleBox["k",
+     FontSlant->"Italic"],
+    " = 0, 1, 2, ... , 100"
+   }]]}], TextForm]], "Equation",
+ CellChangeTimes->{{3.407108279859375*^9, 3.4071082858125*^9}}],
+
+Cell[TextData[{
+ "This is because there are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"1000"},
+      {"100"}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " equally likely samples of size 100 in the sample space, and there are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"200"},
+      {
+       StyleBox["k",
+        FontSlant->"Italic"]}
+     }], "\[NegativeThinSpace]", ")"}], TextForm]]],
+ " ways of selecting ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " erroneous returns from the group of 200 of them, and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"800"},
+      {
+       RowBox[{"100", "-", 
+        StyleBox["k",
+         FontSlant->"Italic"]}]}
+     }], "\[NegativeThinSpace]", ")"}], TextForm]]],
+ " ways of selecting the remaining correct returns from the 800 correct \
+returns in the population. ",
+ "\n",
+ "\tWe can calculate the probability of 40 or more erroneous returns by \
+summing these numbers from 40 to 100, or equivalently by complementation, \
+summing from 0 to 39 and subtracting from 1.  We use the latter approach to \
+reduce computation. "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       RowBox[{"Binomial", "[", 
+        RowBox[{"200", ",", "k"}], "]"}], "*", 
+       RowBox[{"Binomial", "[", 
+        RowBox[{"800", ",", 
+         RowBox[{"100", "-", "k"}]}], "]"}]}], 
+      RowBox[{"Binomial", "[", 
+       RowBox[{"1000", ",", "100"}], "]"}]], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "0", ",", "39"}], "}"}]}], "]"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Since the probability is only on the order of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", 
+    RowBox[{"-", "6"}]], TraditionalForm]]],
+ ", the hypothesized 20% error rate in the population of tax returns is in \
+very serious doubt.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.435431002139*^9, 3.4354310021400003`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 6",
+  FontWeight->"Bold"],
+ "  As indicated earlier, Theorem 2 has implications of importance for card \
+players. In poker, a hand of 2-pair means that there are two cards of one \
+rank (such as 4's or 7's), two cards of a different rank, and a single card \
+that doesn't match either of the first two ranks. A hand of 3-of-a-kind \
+consists of three cards of one rank (such as 6's), and two unmatching \
+singletons (such as one king and one ace).  Which hand is rarer, and hence \
+more valuable?\n\tFor the experiment of drawing a batch of 5 cards without \
+replacement from a standard deck of 52 cards we want to compare the \
+probabilities of the 2-pair event and the 3-of-a-kind event.  The sample \
+space has ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", 
+    RowBox[{"52", ",", "5"}]], TraditionalForm]]],
+ " elements.  For the 2-pair event, to determine a unique hand we must first \
+select in no particular order two ranks for the pairs.  This can be done in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", 
+    RowBox[{"13", ",", "2"}]], TraditionalForm]]],
+ " ways, since there are 13 possible ranks 2, 3, ... , Ace.  For each rank we \
+must select two of the suits (hearts, diamonds, clubs, or spades) from among \
+the four possible suits to determine the exact content of the pairs.  Then we \
+must select a final card to fill the hand from among the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"52", "-", "4", "-", "4"}], TraditionalForm]]],
+ " = 44 cards left in the deck which do not match our selected ranks.  Thus, \
+the following is the number of 2-pair hands:"
+}], "Text",
+ CellChangeTimes->{{3.40710836590625*^9, 3.407108368515625*^9}, {
+  3.40726697271875*^9, 3.407266976984375*^9}}],
+
+Cell[BoxData[
+ RowBox[{"num2pairhands", "=", 
+  RowBox[{
+   RowBox[{"Binomial", "[", 
+    RowBox[{"13", ",", "2"}], "]"}], "*", 
+   RowBox[{"Binomial", "[", 
+    RowBox[{"4", ",", "2"}], "]"}], "*", 
+   RowBox[{"Binomial", "[", 
+    RowBox[{"4", ",", "2"}], "]"}], "*", "44"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+\tFor 3-of-a-kind, we must pick a rank from among the 13 for our 3-of-a-kind \
+card, then we select 3 from among the 4 suits for that rank, and then two \
+other different ranks from the 12 remaining ranks, and a suit among the four \
+possible for each of those unmatched cards. Therefore, this expression gives \
+the number of 3-of-a-kind hands:\
+\>", "Text",
+ CellChangeTimes->{3.4563391350229187`*^9}],
+
+Cell[BoxData[
+ RowBox[{"num3ofakindhands", "=", 
+  RowBox[{
+   RowBox[{"Binomial", "[", 
+    RowBox[{"13", ",", "1"}], "]"}], "*", 
+   RowBox[{"Binomial", "[", 
+    RowBox[{"4", ",", "3"}], "]"}], "*", 
+   RowBox[{"Binomial", "[", 
+    RowBox[{"12", ",", "2"}], "]"}], "*", "4", "*", "4"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Below are the two probabilities. Since the 2-pair hand is over twice as \
+likely to be dealt as the 3-of-a-kind hand, the 3-of-a-kind hand is more \
+valuable.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.435431010712*^9, 3.4354310107139997`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{"Ptwopair", ",", "P3ofkind"}], "}"}], "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"num2pairhands", "/", 
+     RowBox[{"Binomial", "[", 
+      RowBox[{"52", ",", "5"}], "]"}]}], ",", "\n", 
+    RowBox[{"num3ofakindhands", "/", 
+     RowBox[{"Binomial", "[", 
+      RowBox[{"52", ",", "5"}], "]"}]}]}], "}"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Other Sampling Situations", "Subsection",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tThere are four possible sampling scenarios that allow for the cases of \
+sequential or batch sampling and replacement or no replacement.  The two \
+scenarios in which there is no replacement have been covered.  To sample with \
+replacement but in a batch is an unusual scenario that we will not consider \
+here.  But the final possibility of sampling in sequence and with replacement \
+is an important one that deserves a few words.",
+ "\n",
+ "\tOnce again let there be ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " objects in the population and let the sample be of size ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ".  Since we can now reuse previously sampled objects, there are ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " possibilities for each of the ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " positions in the sample.  Directly from the multiplication principle there \
+are "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    StyleBox["n",
+     FontSlant->"Italic"], 
+    StyleBox["\[Cross]",
+     FontWeight->"Plain",
+     FontSlant->"Plain",
+     FontTracking->"Plain",
+     FontVariations->{"Outline"->False,
+     "Shadow"->False,
+     "Underline"->False}], 
+    StyleBox["n",
+     FontSlant->"Italic"], 
+    StyleBox["\[Cross]",
+     FontWeight->"Plain",
+     FontSlant->"Plain",
+     FontTracking->"Plain",
+     FontVariations->{"Outline"->False,
+     "Shadow"->False,
+     "Underline"->False}], "\[CenterEllipsis]", 
+    StyleBox["\[Cross]",
+     FontWeight->"Plain",
+     FontSlant->"Plain",
+     FontTracking->"Plain",
+     FontVariations->{"Outline"->False,
+     "Shadow"->False,
+     "Underline"->False}], 
+    StyleBox["n",
+     FontSlant->"Italic"]}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     StyleBox["k",
+      FontSlant->"Italic"], " ", 
+     StyleBox["times",
+      FontWeight->"Plain",
+      FontSlant->"Plain",
+      FontTracking->"Plain",
+      FontVariations->{"Outline"->False,
+      "Shadow"->False,
+      "Underline"->False}]}], ")"}]}], " ", "=", " ", 
+  SuperscriptBox[
+   StyleBox["n",
+    FontSlant->"Italic"], 
+   StyleBox["k",
+    FontSlant->"Italic"]]}]], "DisplayFormulaNumbered",
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "possible such random samples.  For example, if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "n"}], "}"}], TraditionalForm]]],
+ " is the population, the probability that the first sample object is a 3 is"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     FractionBox[
+      RowBox[{"1", "\[CenterDot]", 
+       SuperscriptBox["n", 
+        RowBox[{"k", "-", "1"}]]}], 
+      SuperscriptBox["n", "k"]], "=", 
+     FractionBox["1", "n"]}], TraditionalForm]]]]], TextForm]], "Equation",
+ CellChangeTimes->{{3.403890752234375*^9, 3.40389075278125*^9}}],
+
+Cell[TextData[{
+ "since the restriction that 3 is in position 1 means that there is just one \
+way of filling that position, and still there are ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " ways of filling each of the other ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "-", "1"}], TraditionalForm]]],
+ " positions. There is nothing special about object 3, nor is there anything \
+special about position 1.  Each population member has a probability of 1/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " of appearing in each position. \n\tThe special case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "2"}], TraditionalForm]]],
+ " comes up frequently, and will in fact be the subject of a section in \
+Chapter 2.  If there are two possibilities, call them ",
+ StyleBox["0 and 1",
+  FontColor->GrayLevel[0]],
+ ", for each of the ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " sample positions, then there are ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "k"], TraditionalForm]]],
+ " possible sequences of length ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " of these ",
+ StyleBox["0's and 1's",
+  FontColor->GrayLevel[0]],
+ ".  Try this activity, which will be very useful later. "
+}], "Text",
+ CellChangeTimes->{{3.407108670625*^9, 3.407108694515625*^9}, {
+  3.423502053296875*^9, 3.423502073375*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  How many sequences of ",
+ StyleBox["0's and 1's",
+  FontColor->GrayLevel[0]],
+ " are there such that there are exactly ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " 1's in the sample, for ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " between 0 and ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "?  First try writing down all sequences with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "=", "3"}], TraditionalForm]]],
+ " and counting how many of them have ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " 1's for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"m", "=", "0"}], ",", "1", ",", "2", ",", "3"}], 
+   TraditionalForm]]],
+ ".  Next move to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "=", "4"}], TraditionalForm]]],
+ ", and then try to generalize.  (Hint: Think what must be done to uniquely \
+determine a sequence of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " terms with ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " 1's in it.)  "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.407108712015625*^9, 3.407108724*^9}, {
+  3.40710876709375*^9, 3.40710879546875*^9}, {3.423502088328125*^9, 
+  3.423502142171875*^9}}],
+
+Cell[TextData[{
+ "\tAnother sampling situation arises in statistical experimentation in which \
+a researcher wants to split a population of subjects at random into several \
+groups, each of which will receive a different treatment. This is called ",
+ StyleBox["partitioning",
+  FontSlant->"Italic"],
+ " the test group. The random assignment of subjects to groups is done so as \
+to reduce the possibilty of systematic ",
+ StyleBox["confounding",
+  FontSlant->"Italic"],
+ ", in which members within one or more of the groups share some common \
+feature apart from the fact that they receive the same treatment. For \
+example, if all of the members of one group were over 60 years of age, and \
+all members of another were under 30 years of age, then the researcher would \
+have a hard time distinguishing whether a difference in response to treatment \
+between groups was due to the different treatments they received or due to \
+the confounding factor of age. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 7",
+  FontWeight->"Bold"],
+ "  A medical researcher wants to divide 15 healthy adult male cigarette \
+smokers numbered 1, 2, 3, ... , 15 randomly into three equally sized groups.  \
+Group 1 will be given a placebo and told that it is a drug to reduce the \
+impulse to smoke, group 2 will be given a nicotine patch, and group 3 will be \
+given nicotine gum to chew.  The intent is to let some time pass and then \
+measure the effectiveness of the smoke reduction methods, as well as other \
+physical indicators of nicotine related effects.  In how many ways can the \
+smokers be partitioned?  If after partitioning, the placebo group contains \
+subjects 1, 2, 3, 4, and 5, is there cause to doubt the efficacy of the \
+randomization procedure? \n\tThe sample space of all partitions of 15 \
+subjects into three groups has the form below, which is a triple of sets of \
+size 5 drawn from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "15"}], "}"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.407108925765625*^9, 3.407108927921875*^9}, {
+  3.423502193046875*^9, 3.4235021958125*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           SubscriptBox["x", "1"], ",", 
+           SubscriptBox["x", "2"], ",", 
+           SubscriptBox["x", "3"], ",", 
+           SubscriptBox["x", "4"], ",", 
+           SubscriptBox["x", "5"]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           SubscriptBox["x", "6"], ",", 
+           SubscriptBox["x", "7"], ",", 
+           SubscriptBox["x", "8"], ",", 
+           SubscriptBox["x", "9"], ",", 
+           SubscriptBox["x", "10"]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           SubscriptBox["x", "11"], ",", 
+           SubscriptBox["x", "12"], ",", 
+           SubscriptBox["x", "13"], ",", 
+           SubscriptBox["x", "14"], ",", 
+           SubscriptBox["x", "15"]}], "}"}]}], ")"}], ":", 
+       RowBox[{
+        SubscriptBox["x", "i"], "\[Element]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"1", ",", "2", ",", "...", ",", "15"}], "}"}], " ", "and", 
+          " ", 
+          SubscriptBox["x", "i"]}], "\[NotEqual]", " ", 
+         RowBox[{
+          SubscriptBox["x", "j"], "for", " ", "all", " ", "i"}], 
+         "\[NotEqual]", "j"}]}]}], "}"}]}], TraditionalForm]]]]], 
+  TextForm]], "Equation",
+ CellChangeTimes->{{3.403890777984375*^9, 3.4038907871875*^9}}],
+
+Cell["\<\
+This suggests a way of counting the elements in \[CapitalOmega].  First we \
+must pick a set of 5 subjects from 15 in a batch and without replacement to \
+form the placebo group.  Then from the remaining 10 subjects we sample 5 more \
+for the nicotine patch group, and finally we are forced to use the remaining \
+5 subjects for the nicotine gum group.  By the multiplication principle there \
+are \
+\>", "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"15"},
+       {"5"}
+      }], "\[NegativeThinSpace]", ")"}], 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"10"},
+       {"5"}
+      }], "\[NegativeThinSpace]", ")"}], 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"5"},
+       {"5"}
+      }], "\[NegativeThinSpace]", ")"}]}], "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox[
+      RowBox[{"15", "!"}], 
+      RowBox[{
+       RowBox[{"5", "!"}], 
+       RowBox[{"10", "!"}]}]], 
+     FractionBox[
+      RowBox[{"10", "!"}], 
+      RowBox[{
+       RowBox[{"5", "!"}], 
+       RowBox[{"5", "!"}]}]], 
+     FractionBox[
+      RowBox[{"5", "!"}], 
+      RowBox[{
+       RowBox[{"0", "!"}], 
+       RowBox[{"5", "!"}]}]]}], "=", 
+    FractionBox[
+     RowBox[{"15", "!"}], 
+     RowBox[{
+      RowBox[{"5", "!"}], 
+      RowBox[{"5", "!"}], 
+      RowBox[{"5", "!"}]}]]}]}], TextForm]], "Equation"],
+
+Cell[TextData[{
+ "elements of \[CapitalOmega]. (Notice that the rightmost factor in the \
+product of binomial coefficients is just equal to 1.)  ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " tells us how many this is:"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Binomial", "[", 
+   RowBox[{"15", ",", "5"}], "]"}], "*", 
+  RowBox[{"Binomial", "[", 
+   RowBox[{"10", ",", "5"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "If a partition is selected at random, then each outcome receives \
+probability 1/756,756 and events have probability equal to their cardinality \
+divided by 756,756.  Now the number of partitions in the set of all \
+partitions for which the placebo group is fixed at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ " can be found similarly: we must sample 5 from 10 for the patch group, and \
+we are left with a unique set of 5 for the gum group.  Thus, the probability \
+that the placebo group is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ " is "
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FractionBox[
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"10"},
+       {"5"}
+      }], "\[NegativeThinSpace]", ")"}], 
+    RowBox[{
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {"15"},
+        {"5"}
+       }], "\[NegativeThinSpace]", ")"}], 
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {"10"},
+        {"5"}
+       }], "\[NegativeThinSpace]", ")"}]}]], "=", 
+   FractionBox["1", 
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {"15"},
+       {"5"}
+      }], "\[NegativeThinSpace]", ")"}]]}], TextForm]], "Equation"],
+
+Cell["which is the following number", "Text"],
+
+Cell[BoxData[
+ RowBox[{"1", "/", 
+  RowBox[{"Binomial", "[", 
+   RowBox[{"15", ",", "5"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "There is less than a one in 3000 chance that this placebo group assignment \
+could have arisen randomly, but we should not be too hasty.  Some placebo \
+group subset must be observed, and we could say the same thing about the \
+apparently random subset ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"3", ",", "5", ",", "8", ",", "12", ",", "13"}], "}"}], 
+   TraditionalForm]]],
+ " as we did about ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ ": it is only one in 3000 likely to have come up. Should we then doubt any \
+partition we see?  The answer is not a mathematical one.  Since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ " did come up, we should look at the sampling process itself.  For instance \
+if slips of paper were put into a hat in order and the hat wasn't \
+sufficiently shaken, the low numbers could have been on top and therefore the \
+first group would tend to contain more low numbers.  If numbers are sampled \
+using a reputable random number generator on a computer, one would tend to be \
+less suspicious.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.435431025201*^9, 3.4354310252019997`*^9}}],
+
+Cell[TextData[{
+ "\tFor a population of size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " groups of sizes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["n", "1"], ",", " ", 
+    SubscriptBox["n", "2"], ",", " ", "...", " ", ",", " ", 
+    SubscriptBox["n", "k"]}], TraditionalForm]]],
+ ", you should check that the reasoning of Example 7 extends easily to yield \
+the number of partitions as "
+}], "Text",
+ CellChangeTimes->{{3.4072447535*^9, 3.40724475615625*^9}, {
+   3.423502288640625*^9, 3.42350229359375*^9}, 3.4563392533969193`*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FractionBox[
+    RowBox[{
+     StyleBox["n",
+      FontSlant->"Italic"], "!"}], 
+    RowBox[{
+     RowBox[{
+      SubscriptBox[
+       StyleBox["n",
+        FontSlant->"Italic"], "1"], "!"}], 
+     RowBox[{
+      SubscriptBox[
+       StyleBox["n",
+        FontSlant->"Italic"], "2"], "!"}], "\[CenterEllipsis]", "  ", 
+     RowBox[{
+      SubscriptBox[
+       StyleBox["n",
+        FontSlant->"Italic"], 
+       StyleBox["k",
+        FontSlant->"Italic"]], "!"}]}]], " ", "=", " ", 
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       StyleBox["n",
+        FontSlant->"Italic"]},
+      {
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          SubscriptBox[
+           StyleBox["x",
+            FontSlant->"Italic"], "1"], "  ", 
+          SubscriptBox[
+           StyleBox["x",
+            FontSlant->"Italic"], "2"]}], "  ", "..."}], 
+        SubscriptBox[
+         StyleBox["x",
+          FontSlant->"Italic"], 
+         StyleBox["k",
+          FontSlant->"Italic"]]}]}
+     }], "\[NegativeThinSpace]", ")"}], " "}], TextForm]], "Equation",
+ CellChangeTimes->{{3.42463180759375*^9, 3.42463180925*^9}}],
+
+Cell[TextData[{
+ "This expression is called the ",
+ StyleBox["multinomial coefficient",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can compute it using the function: \n\n\t        \t\tMultinomial[x1, x2, \
+..., xk]"
+}], "Text",
+ CellChangeTimes->{{3.424631830265625*^9, 3.424631923046875*^9}, {
+  3.42463201428125*^9, 3.42463201428125*^9}}],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.424631830265625*^9, 3.424631923046875*^9}, {
+  3.42463201428125*^9, 3.424632016328125*^9}}],
+
+Cell["\<\
+The computation below gives the same result as in Example 7.\t\
+\>", "Text",
+ CellChangeTimes->{{3.424631830265625*^9, 3.424631923046875*^9}, {
+  3.42463201428125*^9, 3.424632071453125*^9}, {3.424632107984375*^9, 
+  3.424632113453125*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Multinomial", "[", 
+  RowBox[{"5", ",", "5", ",", "5"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4246319444375*^9, 3.424631949921875*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tIn Exercise 18 you are asked to try to code the algorithm for a function \
+RandPartition[poplist, numgroups, sizelist], which returns a random partition \
+of the given population, with the given number of groups, whose group sizes \
+are as in the list ",
+ StyleBox["sizelist",
+  FontSlant->"Italic"],
+ ".  Again you will find the reasoning of Example 7 to be helpful."
+}], "Text",
+ CellChangeTimes->{{3.407244782140625*^9, 3.407244783296875*^9}, {
+  3.4235023045*^9, 3.423502308296875*^9}, {3.423912445140625*^9, 
+  3.423912445421875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 1.4", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell["\<\
+1.   A police lineup consists of five individuals who stand in a row in \
+random order.  Assume that all lineup members have different heights.
+   (a) How many possible lineups are there?
+   (b) Find and justify carefully the probability that the tallest lineup \
+member is in the middle position.  
+   (c) Find the probability that at least one lineup member is taller than \
+the person in the first position.\
+\>", "Text",
+ CellChangeTimes->{{3.4038911069375*^9, 3.403891114734375*^9}}],
+
+Cell["\<\
+2.  A bank machine PIN number consists of four digits.  What is the \
+probability that a randomly chosen PIN will have at least one digit that is 6 \
+or more?  (Assume that digits can be used more than once.)\
+\>", "Text"],
+
+Cell["\<\
+3.  A pushbutton combination lock entry to a vehicle consists of a five digit \
+number, such as 94470 or 53782. To gain entry to the vehicle, one pushes a \
+sequence of five buttons on the door in which two digits are assigned to each \
+button, specifically the first button is 0-1, the second is 2-3, etc.  How \
+many distinct lock combinations are there?  (Assume that digits can be used \
+more than once in a combination.)\
+\>", "Text",
+ CellChangeTimes->{{3.4238413259375*^9, 3.4238415901875*^9}}],
+
+Cell["4.  Use mathematical induction to prove Theorem 1.  ", "Text",
+ CellChangeTimes->{3.423841619953125*^9}],
+
+Cell[TextData[{
+ "5.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") (This is a famous problem called the ",
+ StyleBox["birthday problem",
+  FontSlant->"Italic"],
+ ".) There are ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " people at a party, and to liven up the evening they decide to find out if \
+anyone there has the same birthday as anyone else. Find the probability that \
+this happens, assuming that there are 365 equally likely days of the year on \
+which each person at the party could be born.  Report your answer in the form \
+of a table of such probabilities for values of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " from 15 to 35. "
+}], "Text",
+ CellChangeTimes->{3.423841624734375*^9}],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  Use DrawIntegerSample to study the distribution of the maximum sample \
+member in a batch random sample without replacement of five integers from \
+{1,2,...,40}.  Discuss the most important features of the distribution. "
+}], "Text",
+ CellChangeTimes->{3.423842025984375*^9}],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  The ",
+ StyleBox["mean",
+  FontSlant->"Italic"],
+ " of a random sample ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "...", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ " is the arithmetical average ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["X", "1"], "+", 
+      SubscriptBox["X", "2"], "+", "\[CenterEllipsis]", " ", "+", " ", 
+      SubscriptBox["X", "n"]}], ")"}], "/", "n"}], TraditionalForm]]],
+ " of the sample values.  ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can compute the sample mean with the command Mean[list].  Use \
+DrawIntegerSample to compare the spread of the distribution of sample means \
+of a sequenced random sample with replacement to that of sample means of a \
+sequenced random sample without replacement.  (By \"spread\" we mean not only \
+the distance between the largest and smallest observations, but also the \
+degree to which observed values tend to differ from the center of the \
+distribution.)  Is there a difference, and if so, is there a reasonable \
+explanation for it?   "
+}], "Text",
+ CellChangeTimes->{{3.407245068265625*^9, 3.40724507490625*^9}, 
+   3.4238420336875*^9, {3.423843263328125*^9, 3.423843411203125*^9}}],
+
+Cell[TextData[{
+ "8.  How many total subsets of a set of size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " are there?  Devise a counting approach that shows that this number is a \
+power of 2. "
+}], "Text",
+ CellChangeTimes->{3.4238420481875*^9}],
+
+Cell[TextData[{
+ "9. If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"C", "(", 
+    RowBox[{"n", ",", "k"}], ")"}], TraditionalForm]]],
+ " denotes the binomial coefficient ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{" ", "n", " "}]},
+      {"k"}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{"n", "!"}], 
+    RowBox[{
+     RowBox[{"k", "!"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"n", "-", "k"}], ")"}], "!"}]}]], TraditionalForm]]],
+ ", then prove that:\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"C", "(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"2", "n"}], "+", "1"}], ",", "0"}], ")"}], "+", 
+     RowBox[{"C", "(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"2", "n"}], "+", "1"}], ",", "1"}], ")"}], "+", 
+     RowBox[{"C", "(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"2", "n"}], "+", "1"}], ",", "2"}], ")"}], "+", 
+     "\[CenterEllipsis]", "+", 
+     RowBox[{"C", "(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"2", "n"}], "+", "1"}], ",", "n"}], ")"}]}], "=", 
+    SuperscriptBox["2", 
+     RowBox[{"2", "n"}]]}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.40710770834375*^9, 3.4071077151875*^9}, {
+   3.4072451129375*^9, 3.40724512825*^9}, 3.4238420525*^9, 
+   3.42384343746875*^9, {3.423843588546875*^9, 3.4238436021875*^9}, {
+   3.435430860266*^9, 3.435430861367*^9}}],
+
+Cell[TextData[{
+ "10.  For a random sample of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " subjects chosen from ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " in a batch without replacement, show that the probability that a \
+particular subject is in the sample is ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "/",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.423842056578125*^9, 3.42384205675*^9}}],
+
+Cell[TextData[{
+ "11.  Which of these two poker hands is more valuable: a full house (3 cards \
+of one rank and 2 cards of another) or a flush (5 cards of the same suit ",
+ StyleBox["which are not simultaneously a straight flush, that is, \
+consecutive ranks",
+  FontColor->GrayLevel[0]],
+ ")?  "
+}], "Text",
+ CellChangeTimes->{{3.40724516496875*^9, 3.407245189125*^9}, {
+   3.407245432421875*^9, 3.407245432421875*^9}, 3.423842063234375*^9}],
+
+Cell[TextData[StyleBox["12. An MP3 player user has 10 albums stored in the \
+memory of the player, consisting of respectively 9, 9, 8, 10, 8, 9, 10, 9, \
+10, and 10 songs. The user plans to make a new song playlist by choosing two \
+of the albums with 9 songs, two of the albums with 10 songs, and one of the \
+albums with 8 songs, and randomly selected two songs each from the chosen \
+albums.  Assuming that the order in which the songs are played matters, how \
+many playlists can be created?",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.42384169865625*^9, 3.4238418050625*^9}, {
+  3.423841838453125*^9, 3.423841958640625*^9}, {3.423842078296875*^9, 
+  3.423842079765625*^9}, {3.43577840922332*^9, 3.4357784201653194`*^9}}],
+
+Cell[TextData[{
+ "13.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") In Example 5, argue that the sample of 100 returns with 40 errors is more \
+likely to happen if the true proportion of erroneous returns in the \
+population is 20% than if it is some ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " < 20%. You may need ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to exhaustively check all of the possible values of ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.40724533171875*^9, 3.40724533296875*^9}, 
+   3.423842086078125*^9, {3.42384299090625*^9, 3.423843011828125*^9}}],
+
+Cell[TextData[{
+ "14.  A major cookie manufacturer has an inspection plan that determines \
+whether each carton it prepares will be shipped out for sale under its brand \
+name or will be rejected and repackaged and sold under a generic name. A \
+carton contains 50 packages of cookies, and a random sample of 10 packages \
+will be removed from the carton and carefully inspected.  If one or more \
+sample packages are found that have significant cookie breakage, the whole \
+carton will be sold as generic. \n  (a) If a particular carton has 3 bad \
+packages, what is the probability that it will be sold as generic?\n  (b) (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Under the current inspection plan, how many bad packages would be \
+necessary in the carton in order that the probability of rejecting the carton \
+should be at least 90%? \n  (c) (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  For a carton with 3 bad packages, what should the sample size be so that \
+the probability of rejecting the carton is at least 75%? "
+}], "Text",
+ CellChangeTimes->{{3.4038910859375*^9, 3.403891091625*^9}, 
+   3.423842090015625*^9}],
+
+Cell[TextData[StyleBox["15. A fair die is rolled 10 times.  Find the \
+probability that there will be at least 2 6's among the 10 rolls.",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.407245467078125*^9, 3.407245478734375*^9}, {
+  3.423842099171875*^9, 3.4238421003125*^9}, {3.423843073265625*^9, 
+  3.423843136921875*^9}}],
+
+Cell[TextData[{
+ "16.  For a partition of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " population subjects into ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " groups of sizes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["n", "1"], ",", " ", 
+    SubscriptBox["n", "2"], ",", " ", "...", " ", ",", " ", 
+    SubscriptBox["n", "k"]}], TraditionalForm]]],
+ ", find and carefully justify the probability that subject number 1 is \
+assigned to the first group. "
+}], "Text",
+ CellChangeTimes->{3.42384210340625*^9}],
+
+Cell["\<\
+17.  In how many distinguishable ways can the letters of the word Illinois be \
+arranged? \
+\>", "Text",
+ CellChangeTimes->{3.42384210978125*^9}],
+
+Cell[TextData[{
+ "18.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command RandPartition described at the end of the section."
+}], "Text",
+ CellChangeTimes->{3.423842113296875*^9}],
+
+Cell[TextData[{
+ "19.  We looked at pseudo-random number generation in Section 1.3, in which \
+a sequence of numbers ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "1"], ",", 
+    SubscriptBox["x", "2"], ",", 
+    SubscriptBox["x", "3"], ",", 
+    SubscriptBox["x", "4"], ",", "..."}], TraditionalForm]]],
+ " is generated which simulates the properties of a totally random sequence.  \
+One test for randomness that is sensitive to upward and downward trends is to \
+consider each successive pair, (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "1"], ",", 
+    SubscriptBox["x", "2"]}], TraditionalForm]]],
+ "), (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "2"], ",", 
+    SubscriptBox["x", "3"]}], TraditionalForm]]],
+ "), (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["x", "3"], ",", 
+    SubscriptBox["x", "4"]}], TraditionalForm]]],
+ "), ... and generate a sequence of symbols U (for up) or D (for down) \
+according to whether the second member of the pair is larger or smaller than \
+the first member of the pair.  A sequence such as UUUUUUUUDDDDDDD with a long \
+upward trend followed by a long downward trend would be cause for suspicion \
+of the number generation algorithm.  This example sequence has one so-called ",
+ StyleBox["run",
+  FontSlant->"Italic"],
+ " of consecutive U's followed by one ",
+ StyleBox["run",
+  FontSlant->"Italic"],
+ " of D's for a total of only 2 runs. We could diagnose potential problems \
+with our random number generator by saying that we will look at a sequence \
+such as this and reject the hypothesis of randomness if there are too few \
+runs.  For sequences that are given to have 8 U symbols and 7 D symbols, if \
+our random number generator is working well, what is the probability that \
+there will be 3 or fewer runs?  "
+}], "Text",
+ CellChangeTimes->{3.423842116*^9}],
+
+Cell[TextData[{
+ "20.  In large sampling problems, such as polling registered voters in the \
+United States, it is not only impractical to take an exhaustive census of all \
+population members, it is even impractical to itemize all of them in an \
+ordered list {1, 2, ... , ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "} so as to take a simple random sample from the list.  In such cases a \
+popular approach is to use ",
+ StyleBox["stratified",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["sampling",
+  FontSlant->"Italic"],
+ ", in which population members are classified into several main strata (such \
+as their state of residence), which may not be equally sized, and then \
+further into one or more substrata (such as their county, township, district, \
+etc.) that are nested inside the main strata.  A stratified sample is taken \
+by sampling at random a few strata, then a few substrata within it, etc. \
+until the smallest strata level is reached at which point a random sample of \
+individuals is taken from that.  \n\tHere suppose there are three main \
+strata, each with three substrata.  Each of the nine substrata will also have \
+the same number of individuals, namely 20. Two main strata will be sampled at \
+random in a batch without replacement, then in each of the sampled strata two \
+substrata will be sampled in a batch without replacement, and then four \
+individuals from each substratum will be sampled in a batch without \
+replacement to form the stratified sample.  Find the probability that the \
+first individual in the first substrata of the first stratum will be in the \
+stratified sample. Is the probability of being in the sample the same for all \
+individuals in this case? "
+}], "Text",
+ CellChangeTimes->{{3.4238421254375*^9, 3.42384212565625*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowToolbars->{},
+WindowSize->{599, 611},
+WindowMargins->{{13, Automatic}, {Automatic, 2}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 1 Discrete Probability"], "Header"]}, {
+   Cell[
+    TextData["1.4 Random Sampling"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 129, 4, 68, "Section"],
+Cell[699, 28, 1100, 21, 214, "Text"],
+Cell[CellGroupData[{
+Cell[1824, 53, 122, 2, 41, "Subsection"],
+Cell[1949, 57, 857, 23, 131, "Text"],
+Cell[2809, 82, 581, 16, 79, "Input",
+ InitializationCell->True],
+Cell[3393, 100, 315, 7, 110, "Text"],
+Cell[3711, 109, 429, 13, 56, "Input",
+ InitializationCell->True],
+Cell[4143, 124, 227, 9, 48, "Text"],
+Cell[4373, 135, 618, 17, 111, "Text"],
+Cell[4994, 154, 1079, 34, 133, "Text"],
+Cell[6076, 190, 277, 10, 49, "Text"],
+Cell[6356, 202, 2697, 101, 50, "DisplayFormulaNumbered"],
+Cell[9056, 305, 415, 16, 27, "Text"],
+Cell[9474, 323, 611, 19, 70, "Text"],
+Cell[10088, 344, 1155, 36, 110, "Text"],
+Cell[11246, 382, 495, 9, 91, "Text"],
+Cell[11744, 393, 584, 17, 48, "Text"],
+Cell[12331, 412, 233, 7, 34, "Equation"],
+Cell[12567, 421, 629, 16, 90, "Text"],
+Cell[13199, 439, 272, 7, 34, "Equation"],
+Cell[13474, 448, 314, 6, 48, "Text"],
+Cell[13791, 456, 494, 15, 74, "Input",
+ InitializationCell->True],
+Cell[14288, 473, 1891, 39, 298, "Text"],
+Cell[16182, 514, 1428, 37, 255, "Input",
+ InitializationCell->True],
+Cell[17613, 553, 596, 9, 110, "Text"],
+Cell[18212, 564, 529, 14, 79, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[18766, 582, 409, 11, 56, "Input",
+ InitializationCell->True],
+Cell[19178, 595, 215, 7, 24, "FigureCaption"]
+}, Open  ]],
+Cell[19408, 605, 925, 28, 111, "Text"],
+Cell[20336, 635, 803, 24, 36, "Equation"],
+Cell[21142, 661, 80, 2, 27, "Text"],
+Cell[21225, 665, 556, 15, 34, "Equation"],
+Cell[21784, 682, 776, 26, 110, "Text"],
+Cell[22563, 710, 459, 12, 34, "Equation"],
+Cell[23025, 724, 745, 28, 71, "Text"],
+Cell[23773, 754, 901, 33, 34, "Equation"],
+Cell[24677, 789, 398, 13, 48, "Text"],
+Cell[25078, 804, 1188, 44, 58, "Equation"],
+Cell[26269, 850, 574, 18, 90, "Text"],
+Cell[26846, 870, 466, 11, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27349, 886, 82, 1, 41, "Subsection"],
+Cell[27434, 889, 1421, 45, 214, "Text"],
+Cell[28858, 936, 419, 13, 56, "Input",
+ InitializationCell->True],
+Cell[29280, 951, 510, 10, 173, "Text"],
+Cell[29793, 963, 650, 20, 101, "Input",
+ InitializationCell->True],
+Cell[30446, 985, 189, 2, 27, "Text"],
+Cell[30638, 989, 578, 12, 37, "Equation"],
+Cell[31219, 1003, 1088, 34, 131, "Text"],
+Cell[32310, 1039, 558, 16, 58, "Equation"],
+Cell[32871, 1057, 216, 7, 29, "Text"],
+Cell[33090, 1066, 256, 10, 49, "Text"],
+Cell[33349, 1078, 957, 34, 50, "DisplayFormulaNumbered"],
+Cell[34309, 1114, 921, 32, 109, "Text"],
+Cell[35233, 1148, 369, 11, 56, "Input",
+ InitializationCell->True],
+Cell[35605, 1161, 1203, 40, 173, "Text"],
+Cell[36811, 1203, 1456, 38, 233, "Input"],
+Cell[38270, 1243, 1658, 32, 340, "Text"],
+Cell[39931, 1277, 767, 24, 74, "Equation"],
+Cell[40701, 1303, 1221, 37, 209, "Text"],
+Cell[41925, 1342, 747, 23, 141, "Input",
+ InitializationCell->True],
+Cell[42675, 1367, 359, 10, 50, "Text"],
+Cell[43037, 1379, 1741, 34, 323, "Text"],
+Cell[44781, 1415, 542, 16, 101, "Input",
+ InitializationCell->True],
+Cell[45326, 1433, 413, 7, 90, "Text"],
+Cell[45742, 1442, 555, 16, 101, "Input",
+ InitializationCell->True],
+Cell[46300, 1460, 264, 5, 48, "Text"],
+Cell[46567, 1467, 625, 19, 101, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47229, 1491, 68, 1, 41, "Subsection"],
+Cell[47300, 1494, 913, 22, 173, "Text"],
+Cell[48216, 1518, 1476, 53, 33, "DisplayFormulaNumbered"],
+Cell[49695, 1573, 278, 7, 48, "Text"],
+Cell[49976, 1582, 374, 10, 51, "Equation"],
+Cell[50353, 1594, 1304, 37, 175, "Text"],
+Cell[51660, 1633, 1194, 44, 131, "Text"],
+Cell[52857, 1679, 973, 17, 214, "Text"],
+Cell[53833, 1698, 1183, 22, 215, "Text"],
+Cell[55019, 1722, 1469, 41, 59, "Equation"],
+Cell[56491, 1765, 422, 7, 110, "Text"],
+Cell[56916, 1774, 976, 38, 55, "Equation"],
+Cell[57895, 1814, 239, 6, 48, "Text"],
+Cell[58137, 1822, 422, 13, 56, "Input",
+ InitializationCell->True],
+Cell[58562, 1837, 760, 19, 131, "Text"],
+Cell[59325, 1858, 610, 21, 94, "Equation"],
+Cell[59938, 1881, 45, 0, 27, "Text"],
+Cell[59986, 1883, 362, 11, 56, "Input",
+ InitializationCell->True],
+Cell[60351, 1896, 1343, 31, 214, "Text"],
+Cell[61697, 1929, 599, 18, 48, "Text"],
+Cell[62299, 1949, 1160, 42, 57, "Equation"],
+Cell[63462, 1993, 384, 11, 90, "Text"],
+Cell[63849, 2006, 130, 2, 27, "Text"],
+Cell[63982, 2010, 249, 5, 27, "Text"],
+Cell[64234, 2017, 414, 11, 56, "Input",
+ InitializationCell->True],
+Cell[64651, 2030, 559, 11, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[65247, 2046, 80, 2, 41, "Subsection"],
+Cell[65330, 2050, 498, 9, 152, "Text"],
+Cell[65831, 2061, 232, 4, 69, "Text"],
+Cell[66066, 2067, 511, 8, 110, "Text"],
+Cell[66580, 2077, 110, 1, 27, "Text"],
+Cell[66693, 2080, 709, 19, 131, "Text"],
+Cell[67405, 2101, 355, 8, 69, "Text"],
+Cell[67763, 2111, 1376, 36, 193, "Text"],
+Cell[69142, 2149, 246, 7, 48, "Text"],
+Cell[69391, 2158, 1494, 53, 69, "Text"],
+Cell[70888, 2213, 428, 16, 48, "Text"],
+Cell[71319, 2231, 442, 9, 69, "Text"],
+Cell[71764, 2242, 741, 10, 131, "Text"],
+Cell[72508, 2254, 630, 18, 90, "Text"],
+Cell[73141, 2274, 1151, 20, 276, "Text"],
+Cell[74295, 2296, 336, 5, 48, "Text"],
+Cell[74634, 2303, 521, 17, 48, "Text"],
+Cell[75158, 2322, 155, 4, 27, "Text"],
+Cell[75316, 2328, 258, 9, 48, "Text"],
+Cell[75577, 2339, 1879, 47, 297, "Text"],
+Cell[77459, 2388, 1779, 31, 380, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,1172 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     43208,       1163]
+NotebookOptionsPosition[     40590,       1081]
+NotebookOutlinePosition[     41470,       1114]
+CellTagsIndexPosition[     41427,       1111]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+CHAPTER 5 
+ ASYMPTOTIC THEORY\
+\>", "Title",
+ TextAlignment->Center,
+ FontSize->18,
+ FontWeight->"Bold"],
+
+Cell[CellGroupData[{
+
+Cell["5.1 Strong and Weak Laws of Large Numbers", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.430602265521344*^9, 3.430602272400344*^9}, {
+  3.430604658797344*^9, 3.430604661197344*^9}},
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tThe basic facts, concepts, and computational methods of probability have \
+mostly been covered in Chapters 1 to 4.   This short chapter will attempt to \
+set a context for our subject, by using the two most important theorems of \
+probability, the Law of Large Numbers and the Central Limit Theorem, as \
+rallying points around which we study historical development.  The final \
+chapter will continue the process of context development in a different way, \
+by examining several problem areas in applied mathematics that arose mostly \
+in the latter part of the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["20", "th"], TraditionalForm]]],
+ " century, in which probability has taken a central place.  Because our \
+focus is on history and context rather than the development of new problem \
+solving techniques, this chapter will be discursive and will have very few \
+exercises.  Yet it is an important one for you to read to complete your \
+understanding.  \n\tThe source material in this chapter comes from several \
+places: some is just part of the oral tradition, and other information has \
+come from some useful sources cited in the bibliography: Burton, Cooke, \
+Hacking, Katz, and the fine probability book by Snell.\n\tOne might say that \
+probability has always been with us, because humankind has always been \
+engaged in games of chance involving dice, cards, and other media.  According \
+to Burton (p. 415), archaeological digs of prehistoric sites frequently \
+produce examples of forerunners of today's dice called ",
+ StyleBox["astraguli",
+  FontSlant->"Italic"],
+ ", which are made from the tarsal bones of hooved animals.  There is \
+evidence in Egypt reaching as far back as 3500 B.C. that people played a \
+board game called \"Hounds and Jackals\" using these astraguli.  Dice in \
+today's form seem to have been with us since at least the early Roman empire. \
+ There and elsewhere gambling became such a problem that the authorities \
+moved to limit or outlaw it, to little avail.  Card playing was introduced \
+into Europe by contact with Eastern civilizations: Chinese, Indian, and also \
+Egyptian, and by the 1300's it had become very popular.  In fact, according \
+to Burton again (p. 417), after Johann Gutenberg printed his famous Bible in \
+1440, he immediately went to work printing cards.  \n\tFinancial problems \
+involving insurance, investment, and mortality also arose early in Western \
+history, as the merchant class developed.  Among the earliest and most common \
+such problems was the practice adopted by communities of raising public money \
+by borrowing lump sums from individuals, then agreeing to pay a lifetime \
+annuity to the lender.  In light of the importance of the problem, and its \
+dependence on knowing the likelihoods that the lender dies in a given amount \
+of time, it is strange that a theory of probability did not come about \
+earlier than it did.  These communities tended not to play the insurance game \
+very well.\n\tThe mathematician Gerolamo Cardano (1501-1576) was one of the \
+earliest to study problems of probability.  Cardano was a brilliant and \
+eccentric character: an astrologer, physician, and mathematician, who became \
+Rector of the University of Padua.  He did early work on the solution of the \
+general cubic equation, and was involved in a dispute over what part was \
+actually his work.  But for us it is most interesting that he wrote a work \
+called ",
+ StyleBox["Liber de ludo",
+  FontSlant->"Italic"],
+ ", or ",
+ StyleBox["Book on Gambling",
+  FontSlant->"Italic"],
+ ", in which among other things he introduced the idea of characterizing the \
+probability of an event as a number ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " between 0 and 1, showed understanding in the context of dice of the \
+theoretical concept of equiprobable outcomes, and anticipated that if the \
+probability of an event is ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and you perform the experiment a large number of times ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", then the event will occur about ",
+ StyleBox["n p",
+  FontSlant->"Italic"],
+ " times.  Thus, he predicted important results about binomial expectation \
+and limiting probabilities that were more fully developed by others much \
+later.  But ",
+ StyleBox["Book on Gambling",
+  FontSlant->"Italic"],
+ " was only published posthumously in 1663, by which time another very \
+important event had already happened.  \n\tIt is widely acknowledged that \
+there is a specific time and place where probability as a well-defined \
+mathematical area was born.  Blaise Pascal (1623-1662) was a prodigy who at \
+the age of 12 mastered Euclid's ",
+ StyleBox["Elements",
+  FontSlant->"Italic"],
+ ".  He was never in great health and died at the age of 39, but before that \
+he gained acclaim not only as a mathematician, but as an experimental \
+physicist, religious philosopher, and activist.  In 1654 he began a \
+correspondence with the great mathematician Pierre DeFermat (1601-1665) from \
+which probability theory came.  In those days in France, it was common for \
+noblemen to dabble in academic matters as a part of their social duties and \
+pleasures.  One Antoine Gombaud, the Chevalier de M\[EAcute]r\[EAcute], was \
+such a person.  He was acquainted with Pascal and many other intellectuals of \
+his day, and he enjoyed dicing.  The problem he posed to Pascal was how to \
+fairly divide the stakes in a game which is terminated prematurely.  For \
+instance, if a player has bet that a six will appear in eight rolls of a fair \
+die, but the game is ended after three unsuccessful trials, how much should \
+each player take away from the total stake?  Pascal reported this to Fermat, \
+and their interaction shows a clear understanding of repeated independent \
+trials, and the difference between conditional and unconditional probability. \
+ Pascal reasoned that the probability of winning on throw ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", "6"}], ")"}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"5", "/", "6"}], ")"}], 
+     RowBox[{"i", "-", "1"}]]}], TraditionalForm]]],
+ " so that adding these terms together for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"i", "=", "4"}], ",", "...", ",", "8"}], TraditionalForm]]],
+ " gives the total probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " of winning on trials 4 through 8, which is how the stake should be \
+divided: a proportion ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " to the bettor under concern and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ " to the other.  But Fermat responded that this analysis is only correct if \
+you do not know the outcome of the first three rolls.  If you do, then the \
+chance that the bettor wins on the next roll is 1/6 (note this is a \
+conditional probability), so that the bettor should take 1/6 of the stake in \
+exchange for quitting at trial 4, in fact at any trial.  Pascal was happy \
+with Fermat's analysis.  Later on as they studied independent trials \
+problems, they both noticed the importance of the binomial coefficient ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"n"},
+      {"k"}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " (not written in this notation in those days) to the computation of \
+probabilities involving independent trials.  It should be added, though \
+(Cooke (p. 201)), that combinatorics itself had its origin long before.  At \
+least as early as 300 B.C., Hindu scholars were asking such questions as how \
+many philosophical systems can be formed by taking a certain number of \
+doctrines from a larger list of doctrines, which is clearly our basic problem \
+of sampling without order or replacement.  \n\tThe second half of the \
+seventeenth century was a very fertile one for probability, as many of the \
+most famous mathematicians and scientists were making contributions.  \
+Christiaan Huygens (1629-1695) was a great Dutch scholar who wrote the first \
+book on probability: ",
+ StyleBox["De ratiociniis in ludo aleae",
+  FontSlant->"Italic"],
+ ", or ",
+ StyleBox["On Reasoning in a Dice Game",
+  FontSlant->"Italic"],
+ " that compiled and extended the results of Pascal and Fermat.  In \
+particular, Huygens developed ways to compute multinomial probabilities, and \
+crystallized the idea of expectation of a game.  But it was James Bernoulli \
+(1654-1705) who wrote the seminal work ",
+ StyleBox["Ars Conjectandi",
+  FontSlant->"Italic"],
+ " or ",
+ StyleBox["The Art of Conjecturing",
+  FontSlant->"Italic"],
+ ", released after his death in 1713, whose work would set new directions for \
+the burgeoning subject.  In ",
+ StyleBox["The Art of Conjecturing",
+  FontSlant->"Italic"],
+ ", Bernoulli set down the combinatorial underpinnings of probability in much \
+the form as they exist today.  He is not the original source of most of these \
+results, as previously mentioned, and probably benefited in this regard by \
+the work of his mentor Gottfried Wilhelm Leibniz (1646-1716), who made \
+contributions to combinatorics as well as co-inventing calculus.  But the \
+most important result to the development of probability was Bernoulli's proof \
+of a special case of the theorem that we now describe.\n\tProbability would \
+never be able to have a firm foundation without an unambiguous and \
+well-accepted definition of the probability of an event.  And, this \
+probability ought to have meaningful predictive value for future performances \
+of the experiment to which the event pertains.  One needs to know that in \
+many repetitions of the experiment, the proportion of the time that the event \
+occurs converges to the probability of the event.  This is the Law of Large \
+Numbers (a phrase coined by Simeon-Denis Poisson (1781-1840) for whom the \
+Poisson distribution is named).  \n\tThe Law of Large Numbers actually takes \
+two forms, one called the ",
+ StyleBox["Weak Law",
+  FontSlant->"Italic"],
+ " and the other called the ",
+ StyleBox["Strong Law",
+  FontSlant->"Italic"],
+ ".  Here are the modern statements of the two theorems."
+}], "Text",
+ CellChangeTimes->{{3.4381968851*^9, 3.4381968976400003`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ". (Weak Law of Large Numbers) Assume that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", 
+    SubscriptBox["X", "3"], ",", "..."}], TraditionalForm]]],
+ " is a sequence of independent and identically distributed random variables. \
+ Let"
+}], "Text",
+ CellChangeTimes->{{3.437826163275324*^9, 3.437826164814324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "n"], "=", 
+     RowBox[{
+      FractionBox["1", "n"], 
+      UnderoverscriptBox["\[CapitalSigma]", 
+       RowBox[{"i", "=", "1"}], "n"], 
+      SubscriptBox["X", "i"]}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.437826171530324*^9, 3.437826172243324*^9}}],
+
+Cell[TextData[{
+ "be the sample mean of the first ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "'s, and let \[Mu] denote the mean of the distribution of the ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "'s.  Then for any ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Epsilon]", " ", ">", " ", "0"}], TraditionalForm]]],
+ ","
+}], "Text",
+ CellChangeTimes->{
+  3.4306033852033443`*^9, {3.437826189038324*^9, 3.4378261890403237`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"|", 
+      RowBox[{
+       SubscriptBox[
+        OverscriptBox["X", "_"], "n"], "-", "\[Mu]"}], "|", 
+      RowBox[{"\[GreaterEqual]", "\[Epsilon]"}]}], "]"}], " ", 
+    "\[LongRightArrow]", " ", "0"}], "  ", "as", " ", 
+   RowBox[{
+    StyleBox["n",
+     FontSlant->"Italic"], " ", "\[LongRightArrow]", "\[Infinity]"}], "   ", 
+   "\[FilledSquare]", " "}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{
+  3.4306033852033443`*^9, {3.437826189038324*^9, 3.437826196462324*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ". (Strong Law of Large Numbers) Under the assumptions of the Weak Law of \
+Large Numbers, for all outcomes \[Omega] except possibly some in a set of \
+probability 0,"
+}], "Text",
+ CellChangeTimes->{{3.437826217111324*^9, 3.4378262171143236`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{
+       SubscriptBox[
+        OverscriptBox["X", "_"], "n"], "(", "\[Omega]", ")"}],
+      TraditionalForm], "\[LongRightArrow]", " ", "\[Mu]"}], "  ", "as", " ", 
+    RowBox[{
+     StyleBox["n",
+      FontSlant->"Italic"], " ", "\[LongRightArrow]", "\[Infinity]"}], "   ", 
+    "\[FilledSquare]"}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.437826225129324*^9, 3.4378262256463237`*^9}}],
+
+Cell[TextData[{
+ "\tBoth theorems talk about the convergence of the sequence of sample means \
+to the population mean, but the convergence modes in (1) and (2) are quite \
+different.  To illustrate the difference let us use simulation.  \n\t\
+Convergence mode (1), usually called ",
+ StyleBox["weak convergence",
+  FontSlant->"Italic"],
+ " or ",
+ StyleBox["convergence in probability",
+  FontSlant->"Italic"],
+ ", refers to an aspect of the probability distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ ".  Fixing a small \[Epsilon] > 0, as the sample size ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " gets larger, it is less and less likely for ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " to differ from \[Mu] by at least \[Epsilon].  We can show this by looking \
+at the empirical distribution of ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " for larger and larger ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", and observing that the relative frequencies above \[Mu] + \[Epsilon] and \
+below \[Mu] ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " \[Epsilon] become smaller and smaller.  Here is a command to simulate a \
+desired number of sample means for a given sample size from a given \
+distribution.  You may remember that we used the same command earlier in \
+Section 2.6.  We apply the command to sample from the uniform(0,1) \
+distribution, for which \[Mu] = .5, taking \[Epsilon] = .02 and sample sizes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "200"}], TraditionalForm]]],
+ ", 400, and 800.  "
+}], "Text",
+ CellChangeTimes->{{3.4418059486209526`*^9, 3.441805959572153*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.39940848059375*^9, 3.4418001678897247`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimulateSampleMeans", "[", 
+   RowBox[{"nummeans_", ",", "distribution_", ",", "sampsize_"}], "]"}], ":=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"Mean", "[", 
+     RowBox[{"RandomReal", "[", 
+      RowBox[{"distribution", ",", 
+       RowBox[{"{", "sampsize", "}"}]}], "]"}], "]"}], ",", 
+    RowBox[{"{", "nummeans", "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408513140625*^9, 3.399408515109375*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{"SeedRandom", "[", "18732", "]"}], "\n", 
+ RowBox[{
+  RowBox[{"list1", "=", 
+   RowBox[{"SimulateSampleMeans", "[", 
+    RowBox[{"200", ",", 
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], "]"}], ",", "200"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"list2", "=", 
+   RowBox[{"SimulateSampleMeans", "[", 
+    RowBox[{"200", ",", 
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], "]"}], ",", "400"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"list3", "=", 
+   RowBox[{"SimulateSampleMeans", "[", 
+    RowBox[{"200", ",", 
+     RowBox[{"UniformDistribution", "[", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], "]"}], ",", "800"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408530359375*^9, 3.39940855228125*^9}, {
+   3.4378262507313237`*^9, 3.4378262645603237`*^9}, 3.437826295059324*^9, 
+   3.437826376528324*^9, {3.441805634624153*^9, 3.4418056488513527`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"Histogram", "[", 
+  RowBox[{"list1", ",", 
+   RowBox[{"{", 
+    RowBox[{".4", ",", ".6", ",", ".02"}], "}"}], ",", "\"\<Probability\>\"", 
+   ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       ".44", ",", ".46", ",", ".48", ",", ".50", ",", ".52", ",", ".54", ",",
+         ".56"}], "}"}], ",", "Automatic"}], "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{".40", ",", ".60"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", ".5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{".40", ",", "0"}], "}"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408530359375*^9, 3.39940855228125*^9}, {
+   3.4378262507313237`*^9, 3.4378262645603237`*^9}, 3.437826295059324*^9, 
+   3.437826376528324*^9, {3.4418002264547243`*^9, 3.4418002344337244`*^9}, {
+   3.441800296507725*^9, 3.4418003381157246`*^9}, {3.441800517821725*^9, 
+   3.4418005655207243`*^9}, 3.4418005980447245`*^9, {3.4418006548257246`*^9, 
+   3.4418007185357246`*^9}, {3.4418008859337244`*^9, 
+   3.4418008891127243`*^9}, {3.4418054454117527`*^9, 3.441805478530553*^9}, {
+   3.441805530416153*^9, 3.441805544752553*^9}, {3.441805775070953*^9, 
+   3.441805779485753*^9}, 3.4418061058533525`*^9, 3.441806140734953*^9, {
+   3.441806178798953*^9, 3.441806179142153*^9}, 3.441806240652953*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["(a) Sample size = 200", "Text",
+ CellChangeTimes->{{3.437826301579324*^9, 3.4378263280993237`*^9}, {
+  3.441805876205753*^9, 3.4418058765177526`*^9}},
+ TextAlignment->Center],
+
+Cell[BoxData[
+ RowBox[{"Histogram", "[", 
+  RowBox[{"list2", ",", 
+   RowBox[{"{", 
+    RowBox[{".4", ",", ".6", ",", ".02"}], "}"}], ",", "\"\<Probability\>\"", 
+   ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       ".44", ",", ".46", ",", ".48", ",", ".50", ",", ".52", ",", ".54", ",",
+         ".56"}], "}"}], ",", "Automatic"}], "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{".40", ",", ".60"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", ".5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{".40", ",", "0"}], "}"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408530359375*^9, 3.39940855228125*^9}, {
+   3.4378262507313237`*^9, 3.4378262645603237`*^9}, 3.437826295059324*^9, 
+   3.437826343815324*^9, 3.441800405875725*^9, {3.4418007392337246`*^9, 
+   3.4418007496807246`*^9}, {3.441800904045725*^9, 3.4418009066887245`*^9}, {
+   3.4418055090597525`*^9, 3.4418055099177527`*^9}, {3.441805558823753*^9, 
+   3.4418055599001527`*^9}, {3.4418057907957525`*^9, 
+   3.4418057953197527`*^9}, {3.4418061143709526`*^9, 3.441806133839753*^9}, {
+   3.4418061866925526`*^9, 3.4418061907641525`*^9}, 3.4418062331181526`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["(b) Sample size = 400", "Text",
+ CellChangeTimes->{{3.4378263495663238`*^9, 3.4378263568333235`*^9}, 
+   3.441805913895353*^9},
+ TextAlignment->Center],
+
+Cell[BoxData[
+ RowBox[{"Histogram", "[", 
+  RowBox[{"list3", ",", 
+   RowBox[{"{", 
+    RowBox[{".4", ",", ".6", ",", ".02"}], "}"}], ",", "\"\<Probability\>\"", 
+   ",", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       ".44", ",", ".46", ",", ".48", ",", ".50", ",", ".52", ",", ".54", ",",
+         ".56"}], "}"}], ",", "Automatic"}], "}"}]}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{".40", ",", ".60"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", ".5"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{".40", ",", "0"}], "}"}]}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408530359375*^9, 3.39940855228125*^9}, {
+   3.4378262507313237`*^9, 3.4378262645603237`*^9}, 3.437826295059324*^9, 
+   3.437826343815324*^9, 3.4418004131577244`*^9, {3.4418007743257246`*^9, 
+   3.441800775658725*^9}, {3.441800921611725*^9, 3.4418009232727246`*^9}, {
+   3.441805580835353*^9, 3.4418055957957525`*^9}, {3.441805804570553*^9, 
+   3.441805814632553*^9}, {3.441806120720153*^9, 3.441806127506153*^9}, {
+   3.441806199687353*^9, 3.441806223165353*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["(c) Sample size = 800", "Text",
+ CellChangeTimes->{{3.4378263495663238`*^9, 3.4378263568333235`*^9}, {
+   3.437826402880324*^9, 3.437826405686324*^9}, 3.441805887609353*^9},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Figure 5.1",
+  FontWeight->"Bold"],
+ " - Weak convergence of sample means to \[Mu]",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4378259064113235`*^9, 3.437825912986324*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tIn Figure 1 the subintervals have been chosen so that the middle two \
+categories range from .48 to .52, that is, from \[Mu] ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " \[Epsilon] to \[Mu] + \[Epsilon].  The empirical proportion of sample \
+means that fall outside of this interval is the total height of the outer \
+rectangles.  You see this proportion becoming closer to 0 as the sample size \
+increases.  This is what weak convergence means.   \n\tThe mode of \
+convergence characterized by (2), usually called ",
+ StyleBox["strong",
+  FontSlant->"Italic"],
+ ", or ",
+ StyleBox["almost sure ",
+  FontSlant->"Italic"],
+ "convergence, is more straightforward.  Idealize an experiment that consists \
+of observing an infinite sequence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", 
+    SubscriptBox["X", "3"], ",", "..."}], TraditionalForm]]],
+ " of independent and identically distributed random variables.  For fixed \
+outcome \[Omega], the partial sample means ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "1"], "(", "\[Omega]", ")"}], ",", 
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "2"], "(", "\[Omega]", ")"}], ",", 
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "3"], "(", "\[Omega]", ")"}], ",", "...", 
+    " "}], TraditionalForm]]],
+ "form an ordinary sequence of numbers.  For almost every outcome, this \
+sequence of numbers converges in the calculus sense to \[Mu].  It turns out \
+that in general strong convergence of a sequence of random variables implies \
+weak convergence, but weak convergence does not imply strong convergence.  \
+Both modes of convergence occur for the sequence of partial means. \n\tWe can \
+illustrate the Strong Law using the command SimMeanSequence from Exercise 10 \
+of Section 2.6 and Example 2 of Section 3.3, which successively simulates \
+observations from a discrete distribution, updating ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " each time ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " new observations have been generated.  So we are actually just picking out \
+a subsequence of (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     OverscriptBox["X", "_"], "n"], "(", "\[Omega]", ")"}], TraditionalForm]]],
+ "), which hits every ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["m", "th"], TraditionalForm]]],
+ " sample mean, but that will let us plot the subsequence farther out than \
+the whole sequence could have been plotted.  The code for SimMeanSequence is \
+repeated in the closed cell below."
+}], "Text",
+ CellChangeTimes->{{3.43819703487*^9, 3.4381970475360003`*^9}, {
+   3.441805934674553*^9, 3.4418059377789526`*^9}, {3.441806024904953*^9, 
+   3.4418060264805527`*^9}, 3.4418060862909527`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimMeanSequence", "[", 
+   RowBox[{"distribution_", ",", "nummeans_", ",", "m_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "nextsample", ",", "meanlist", ",", "runningsum", ",", "currnumobs"}], 
+     "}"}], ",", 
+    RowBox[{
+     RowBox[{"currnumobs", "=", "0"}], ";", 
+     RowBox[{"runningsum", "=", "0"}], ";", 
+     RowBox[{"meanlist", "=", 
+      RowBox[{"{", "}"}]}], ";", 
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"currnumobs", "<", "nummeans"}], ",", 
+       RowBox[{
+        RowBox[{"nextsample", "=", 
+         RowBox[{"RandomReal", "[", 
+          RowBox[{"distribution", ",", "m"}], "]"}]}], ";", 
+        RowBox[{"currnumobs", "=", 
+         RowBox[{"currnumobs", "+", "m"}]}], ";", 
+        RowBox[{"runningsum", "=", 
+         RowBox[{"runningsum", "+", 
+          RowBox[{"Plus", "@@", "nextsample"}]}]}], ";", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"meanlist", ",", 
+          FractionBox["runningsum", "currnumobs"]}], "]"}]}]}], "]"}], ";", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"meanlist", ",", 
+       RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+       RowBox[{"BaseStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"10", ",", 
+          RowBox[{"FontFamily", "\[Rule]", "\"\<Times-Roman\>\""}]}], 
+         "}"}]}]}], "]"}]}]}], "]"}]}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399408621140625*^9, 3.399408628015625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "44937", "]"}], ";"}], "\n", 
+ RowBox[{"SimMeanSequence", "[", 
+  RowBox[{
+   RowBox[{"GammaDistribution", "[", 
+    RowBox[{"2", ",", "3"}], "]"}], ",", "2000", ",", "10"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.3994086650625*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 5.2",
+  FontWeight->"Bold"],
+ " - Strong convergence of sample means to \[Mu]",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4378259506593237`*^9, 3.437825956623324*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tThe connected list plot of sample means in Figure 2 is the result of \
+calling this command on the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalGamma]", "(", 
+    RowBox[{"2", ",", "3"}], ")"}], TraditionalForm]]],
+ " distribution, whose mean is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Mu]", "=", 
+     RowBox[{
+      RowBox[{"2", "\[CenterDot]", "3"}], "=", "6"}]}], ","}], 
+   TraditionalForm]]],
+ " to simulate every tenth member of the sequence of sample means for a total \
+of 2000 observations.  We see the sequence of means converging to 6 as the \
+Strong Law claims; however, the convergence is not necessarily rapid or \
+smooth.  "
+}], "Text",
+ CellChangeTimes->{{3.430604122528344*^9, 3.4306041294533443`*^9}, 
+   3.430604779496344*^9, 3.45695185081416*^9}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Read the code for SimulateSampleMeans and SimMeanSequence carefully to \
+make sure you see how the algorithms relate to Theorems 1 and 2.  Use these ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " commands on different probability distributions.  Feel free to change the \
+sample size and number of means.  Do your experiments confirm the conclusions \
+of the Laws of Large Numbers?  "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tIn Exercises 2 and 3 you are led through a fairly easy proof of the Weak \
+Law of Large Numbers based on a lemma called ",
+ StyleBox["Chebyshev's Inequality",
+  FontSlant->"Italic"],
+ ", which is interesting in itself.  This states that for any random variable \
+",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " with finite mean \[Mu] and variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ","
+}], "Text",
+ CellChangeTimes->{{3.437826500377324*^9, 3.437826500380324*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"|", 
+     RowBox[{"X", "-", "\[Mu]"}], "|", 
+     RowBox[{"\[GreaterEqual]", 
+      RowBox[{"k", " ", "\[Sigma]"}]}]}], "]"}], "\[LessEqual]", 
+   FractionBox["1", 
+    SuperscriptBox["k", "2"]]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4378265077183237`*^9, 3.437826508202324*^9}}],
+
+Cell[TextData[{
+ "for any ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", ">", "0"}], TraditionalForm]]],
+ ".  In words, Chebyshev's inequality says that the chance that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is more than ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " standard deviations away from its mean is no more than ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "/", 
+    SuperscriptBox["k", "2"]}], TraditionalForm]]],
+ ".  The remarkable thing about the result is that it is a bound on the tail \
+probability of the distribution that does not depend on what the distribution \
+is. \n\tThe Russian mathematician who proved the inequality is worthy of \
+special mention.  Pafnutii L'vovich Chebyshev (1821",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "1894) formally introduced the concept of random variables and their \
+expectation in their modern forms.  Besides his proof of the weak law for \
+means, he is responsible for stating the Central Limit Theorem using random \
+variables, and he was the teacher of Andrei Andreevich Markov (1856",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "1922) who introduced the dependent trials analysis that was later to bear \
+his name (see Section 6.1 on Markov chains).  \n\tJames Bernoulli proved the \
+weak law in ",
+ StyleBox["The Art of Conjecturing",
+  FontSlant->"Italic"],
+ " in the following special case.  Let the sequence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " be a sequence of what we call today independent Bernoulli random \
+variables, taking the value 1 with probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and 0 with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ ".  Then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["E",
+       FontSlant->"Plain"], "[", "X", "]"}], "=", "p"}]}], TraditionalForm]]],
+ ".  But the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["X", "_"], "=", 
+    RowBox[{
+     UnderoverscriptBox["\[CapitalSigma]", 
+      RowBox[{"i", "=", "1"}], "n"], 
+     RowBox[{
+      SubscriptBox["X", "i"], "/", "n"}]}]}], TraditionalForm]]],
+ " is just the proportion of successes in the sample.  Therefore, the \
+statement that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "["}], TraditionalForm]]],
+ "|",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["X", "_"], "n"], "-", "\[Mu]"}], "|", 
+    RowBox[{"\[GreaterEqual]", "\[Epsilon]"}]}], TraditionalForm]]],
+ "] \[LongRightArrow] 0  as ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " \[LongRightArrow]\[Infinity]  says that as we repeat the experiment more \
+and more often, the probability approaches 0 that the sample success \
+proportion differs by a fixed positive amount from the true success \
+probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ".  The convergence of the sample proportion justifies the long-run \
+frequency approach to probability, in which the probability of an event is \
+the limit of the empirical proportion.  It also is a precursor to the modern \
+theory of estimation of parameters in statistics.  \n\tThe strong law is much \
+more difficult to show than the weak law.  In fact, it was not until 1909 \
+that Emile Borel (1871",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "1956) showed the strong law for the special case of a Bernoulli sequence \
+described above.  Finally in 1929, Andrei Nikolaevich Kolmogorov (1903",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "1987) proved the general theorem.  Kolmogorov was one of the later members \
+of the great Russian school of probabilists of the late 1800's and early \
+1900's, which included Chebyshev, Markov, and Alexsandr Mikhailovich Lyapunov \
+(1857",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "1918) about whom we will hear again in the next section.  That tradition \
+has continued in the latter part of the twentieth century, as has the \
+traditional role of the French in probability theory.  "
+}], "Text",
+ CellChangeTimes->{{3.430604467253344*^9, 3.430604477444344*^9}, {
+  3.430604836583344*^9, 3.4306048658763437`*^9}, {3.45695203058416*^9, 
+  3.4569520993781595`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 5.1", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The Chevalier de M\[EAcute]r\[EAcute] also posed the following problem to \
+Pascal, which he thought implied a contradiction of basic arithmetic.  Pascal \
+expeditiously proved him wrong.  How many rolls of two dice are necessary \
+such that the probability of achieving at least one double six is greater \
+than 1/2?"
+}], "Text"],
+
+Cell[TextData[{
+ "2.  Prove Chebyshev's inequality, formula (3), for a continuous random \
+variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " with p.d.f. ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ ", mean \[Mu], and standard deviation \[Sigma].  (Hint: Write a formula for \
+the expectation of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"X", "-", "\[Mu]"}], ")"}], "2"], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["\[Sigma]", "2"], 
+      SuperscriptBox["k", "2"]}], ")"}]}], TraditionalForm]]],
+ ", and split the integral into the complementary regions of ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " values for which ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{"x", "-", "\[Mu]"}], "|", 
+    RowBox[{"\[GreaterEqual]", 
+     RowBox[{"k", " ", "\[Sigma]", " ", "and"}]}], " ", "|", 
+    RowBox[{"x", "-", "\[Mu]"}], "|", 
+    RowBox[{"<", 
+     RowBox[{"k", " ", "\[Sigma]"}]}]}], TraditionalForm]]],
+ ".)"
+}], "Text"],
+
+Cell["\<\
+3.  Use Chebyshev's inequality to prove the weak law of large numbers.\
+\>", "Text"],
+
+Cell[TextData[{
+ "4.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") To what do you think the sample variance ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["S", "2"], TraditionalForm]]],
+ " converges strongly?  Check your hypothesis by writing a command similar to \
+SimMeanSequence and running it for several underlying probability \
+distributions.  "
+}], "Text"],
+
+Cell[TextData[{
+ "5.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Is the Chebyshev bound in formula (3) a tight bound?  Investigate by \
+computing the exact value of P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{"X", "-", "\[Mu]"}], "|", 
+    RowBox[{"\[GreaterEqual]", 
+     RowBox[{"2", " ", "\[Sigma]"}]}]}], TraditionalForm]]],
+ "] and comparing to the Chebyshev bound when:\n(a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[Tilde]", 
+    RowBox[{"\[CapitalGamma]", "(", 
+     RowBox[{"3", ",", "4"}], ")"}]}], TraditionalForm]]],
+ ";  (b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[Tilde]", 
+    RowBox[{"uniform", "(", 
+     RowBox[{"0", ",", "1"}], ")"}]}], TraditionalForm]]],
+ ";  (c) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[Tilde]", 
+    RowBox[{"N", "(", 
+     RowBox[{"2", ",", "4"}], ")"}]}], TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell[TextData[{
+ "6.  Consider a sample space \[CapitalOmega] of an infinite sequence of coin \
+flips in which we record ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "i"], "=", 
+    RowBox[{
+     RowBox[{"\[PlusMinus]", "1"}], "/", 
+     SuperscriptBox["2", "i"]}]}], TraditionalForm]]],
+ " on the ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ "th trial according to whether the ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ "th trial is a head or tail, respectively.  Show that the sequence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "n"], ")"}], TraditionalForm]]],
+ " converges strongly to 0.  Show also that it converges weakly to 0."
+}], "Text"],
+
+Cell[TextData[{
+ "7.  Suppose that a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has a finite mean \[Mu] and we have an a priori estimate of its standard \
+deviation \[Sigma] \[TildeTilde] 1.6.   How large  a random sample is \
+sufficient to ensure that the sample mean ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["X", "_"], TraditionalForm]]],
+ " will estimate \[Mu] to within a tolerance of .1 with 90% probability?  "
+}], "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{614, 640},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 5  Asymptotic Theory"], "Header"]}, {
+   Cell[
+    TextData["5.1 Strong and Weak Laws of Large Numbers"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowSelection->True,
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 114, 6, 118, "Title"],
+Cell[CellGroupData[{
+Cell[706, 32, 266, 6, 68, "Section"],
+Cell[975, 40, 10316, 192, 2084, "Text"],
+Cell[11294, 234, 440, 13, 49, "Text"],
+Cell[11737, 249, 415, 13, 47, "DisplayFormula"],
+Cell[12155, 264, 469, 17, 48, "Text"],
+Cell[12627, 283, 621, 18, 33, "DisplayFormulaNumbered"],
+Cell[13251, 303, 310, 7, 49, "Text"],
+Cell[13564, 312, 507, 14, 33, "DisplayFormulaNumbered"],
+Cell[14074, 328, 1714, 43, 262, "Text"],
+Cell[15791, 373, 479, 12, 56, "Input",
+ InitializationCell->True],
+Cell[16273, 387, 787, 21, 123, "Input",
+ InitializationCell->True],
+Cell[17063, 410, 1357, 38, 189, "Input",
+ InitializationCell->True],
+Cell[18423, 450, 1787, 42, 123, "Input",
+ InitializationCell->True],
+Cell[20213, 494, 180, 3, 27, "Text"],
+Cell[20396, 499, 1645, 40, 123, "Input",
+ InitializationCell->True],
+Cell[22044, 541, 157, 3, 27, "Text"],
+Cell[22204, 546, 1557, 39, 123, "Input",
+ InitializationCell->True],
+Cell[23764, 587, 203, 3, 27, "Text"],
+Cell[23970, 592, 220, 7, 28, "Text"],
+Cell[24193, 601, 2894, 69, 450, "Text"],
+Cell[27090, 672, 1816, 49, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[28909, 723, 615, 17, 101, "Input",
+ InitializationCell->True],
+Cell[29527, 742, 222, 7, 28, "Text"],
+Cell[29752, 751, 808, 21, 110, "Text"],
+Cell[30563, 774, 489, 11, 131, "Text"],
+Cell[31055, 787, 531, 15, 71, "Text"],
+Cell[31589, 804, 420, 12, 48, "DisplayFormulaNumbered"],
+Cell[32012, 818, 4508, 118, 658, "Text"],
+Cell[CellGroupData[{
+Cell[36545, 940, 80, 2, 41, "Subsection"],
+Cell[36628, 944, 409, 9, 90, "Text"],
+Cell[37040, 955, 1003, 34, 95, "Text"],
+Cell[38046, 991, 94, 2, 27, "Text"],
+Cell[38143, 995, 375, 11, 71, "Text"],
+Cell[38521, 1008, 885, 31, 90, "Text"],
+Cell[39409, 1041, 687, 22, 93, "Text"],
+Cell[40099, 1065, 451, 11, 71, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

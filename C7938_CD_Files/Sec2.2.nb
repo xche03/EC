@@ -1,0 +1,3117 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     99665,       3108]
+NotebookOptionsPosition[     93698,       2946]
+NotebookOutlinePosition[     94585,       2979]
+CellTagsIndexPosition[     94542,       2976]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["2.2 Bernoulli and Binomial Random Variables", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tOne of the simplest discrete distributions is called the ",
+ StyleBox["Bernoulli distribution",
+  FontSlant->"Italic"],
+ ".  This arises in dichotomous situations, for example a flipped coin is \
+either heads or tails, a computer bit is either set to 1 or 0, a sampled item \
+from a population either has a certain characteristic or not, etc.  With no \
+perjorative intent we use the conventional language \"success\" and \"failure\
+\" for the two possible experimental outcomes.  A probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " is attached to the success outcome and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "=", 
+    RowBox[{"1", "-", "p"}]}], TraditionalForm]]],
+ " is attached to the failure outcome.   Using the computer bit model as our \
+template, a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is said to have the ",
+ StyleBox["Bernoulli distribution",
+  FontSlant->"Italic"],
+ " if its state space is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1"}], "}"}], TraditionalForm]]],
+ ", and its p.m.f. is as follows:"
+}], "Text",
+ CellChangeTimes->{{3.436135094135519*^9, 3.436135094139519*^9}}],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["f",
+      FontSlant->"Italic"], "(", "1", ")"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], " ", "=", " ", "1"}], "]"}], " ", "=", " ", 
+     StyleBox["p",
+      FontSlant->"Italic"]}]}], "  "}], TraditionalForm], "\n", 
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["f",
+     FontSlant->"Italic"], "(", "0", ")"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["X",
+       FontSlant->"Italic"], " ", "=", " ", "0"}], "]"}], " ", "=", " ", 
+    RowBox[{
+     StyleBox["q",
+      FontSlant->"Italic"], " ", "=", " ", 
+     FormBox[
+      RowBox[{"1", "-", "p"}],
+      TraditionalForm]}]}]}], TraditionalForm]}], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436135104535519*^9, 3.4361351050595193`*^9}}],
+
+Cell["\<\
+\tThe mean and variance of the Bernoulli distribution are easy to find.\
+\>", "Text",
+ CellChangeTimes->{{3.436135142508519*^9, 3.4361351425135193`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[Mu]", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     StyleBox["X",
+      FontSlant->"Italic"], "]"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"1", 
+       RowBox[{"(", 
+        StyleBox["p",
+         FontSlant->"Italic"], ")"}]}], " ", "+", " ", 
+      RowBox[{"0", 
+       FormBox[
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}],
+        TraditionalForm]}]}], " ", "=", " ", 
+     StyleBox["p",
+      FontSlant->"Italic"]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436135159593519*^9, 3.4361351599905195`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox["\[Sigma]", "2"], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"X", "-", "p"}], ")"}], "2"], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}], "2"], "p"}], "+", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"0", "-", "p"}], ")"}], "2"], 
+       RowBox[{"(", 
+        RowBox[{"1", "-", "p"}], ")"}]}]}], "=", 
+     RowBox[{"p", "(", 
+      RowBox[{"1", "-", "p"}], ")"}], " "}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4361351842565193`*^9, 3.4361351976245193`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Recompute the variance of the Bernoulli distribution using the \
+computational formula for variance E[",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["X", "2"], TraditionalForm]]],
+ "] ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Mu]", "2"], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  In the game of roulette, the roulette wheel has 38 slots into which a \
+ball can fall when the wheel is spun.  The slots are numbered 00, 0, 1, 2, \
+... , 36, and the numbers 0 and 00 are colored green while half of the rest \
+are colored black and the other half red. A gambler can bet $1 on a color \
+such as red, and will win $1 if that color comes up and lose the dollar that \
+was bet otherwise.  Consider a $1 bet on red. The gambler's winnings can then \
+be described as a random variable ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "=", 
+    RowBox[{
+     RowBox[{"2", "X"}], "-", "1"}]}], TraditionalForm]]],
+ ", where ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is 1 if the ball lands in a red slot and ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " = 0 if not.  Clearly ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the Bernoulli distribution. The probability of a success, that is red, \
+is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"18", "/", "38"}]}], TraditionalForm]]],
+ " if all slots are equally likely. By linearity of expectation and formula \
+(2), the expected winnings are:"
+}], "Text",
+ CellChangeTimes->{{3.436135233271519*^9, 3.436135233278519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", 
+    StyleBox["W",
+     FontSlant->"Italic"], "]"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     FormBox[
+      RowBox[{
+       RowBox[{"2", "X"}], "-", "1"}],
+      TraditionalForm], "]"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"2", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        StyleBox["X",
+         FontSlant->"Italic"], "]"}]}], " ", 
+      FormBox["-",
+       TraditionalForm], " ", "1"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"2", 
+        RowBox[{"(", 
+         FormBox[
+          FractionBox["18", "38"],
+          TraditionalForm], ")"}]}], " ", 
+       FormBox["-",
+        TraditionalForm], " ", "1"}], " ", "=", " ", 
+      RowBox[{
+       FormBox["-",
+        TraditionalForm], 
+       FormBox[
+        FractionBox["2", "38"],
+        TraditionalForm]}]}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4361352434075193`*^9, 3.4361352437685194`*^9}}],
+
+Cell["\<\
+Since the expected value is negative, this is not a good game for the \
+gambler. (What do you think are the expected winnings in 500 such bets?) The \
+winnings are variable though, specifically by the properties of variance \
+discussed in Section 2.1 together with formula (3), \
+\>", "Text",
+ CellChangeTimes->{{3.436135270548519*^9, 3.436135270552519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"Var", "(", 
+    StyleBox["W",
+     FontSlant->"Italic"], ")"}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{"Var", "(", 
+     FormBox[
+      RowBox[{
+       RowBox[{"2", "X"}], "-", "1"}],
+      TraditionalForm], ")"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"4", " ", 
+      RowBox[{"Var", "(", 
+       StyleBox["X",
+        FontSlant->"Italic"], ")"}]}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"4", 
+       RowBox[{"(", 
+        FormBox[
+         FractionBox["18", "38"],
+         TraditionalForm], ")"}], 
+       RowBox[{"(", 
+        FormBox[
+         FractionBox["20", "38"],
+         TraditionalForm], ")"}]}], " ", "=", " ", 
+      FormBox[
+       FractionBox["360", "361"],
+       TraditionalForm]}]}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436135281739519*^9, 3.436135282130519*^9}}],
+
+Cell["\<\
+Since the variance and standard deviation are high relative to the mean, for \
+the single $1 bet there is a fair likelihood of coming out ahead (exactly \
+18/38 in fact).  We will see later that this is not the case for 500 bets.  \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.424604046921875*^9, 3.42460404884375*^9}}],
+
+Cell[TextData[{
+ "\t",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s syntax for the Bernoulli distribution is "
+}], "Text"],
+
+Cell["BernoulliDistribution[p]", "DisplayFormula"],
+
+Cell[TextData[{
+ "The functions PDF, CDF, and RandomInteger can be applied to it in the way \
+described at the end of the last section.  Here for example is a short \
+program to generate a desired number of replications of the experiment of \
+spinning the roulette wheel and observing whether the color is red (R) or \
+some other color (O).  We just generate Bernoulli 0-1 observations with \
+success parameter ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = 18/38, and encode 0's as O and 1's as R. "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimulateRoulette", "[", "numreps_", "]"}], ":=", "\n", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"RandomInteger", "[", 
+        RowBox[{"BernoulliDistribution", "[", 
+         RowBox[{"18", "/", "38"}], "]"}], "]"}], "==", "1"}], ",", 
+      "\"\<R\>\"", ",", "\"\<O\>\""}], "]"}], ",", 
+    RowBox[{"{", "numreps", "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398703801588019*^9, 3.3987038109773216`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"SimulateRoulette", "[", "20", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Write a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command to simulate 500 $1 bets on red in roulette, and return the net \
+winnings.  Run the command 20 times.  How often are the net winnings positive?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tThe Bernoulli distribution is most useful as a building block for the \
+more important ",
+ StyleBox["binomial distribution",
+  FontSlant->"Italic"],
+ ", which we now describe. Instead of a single performance of a dichotomous \
+success-failure experiment, consider ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " independent repetitions (usually called ",
+ StyleBox["trials",
+  FontSlant->"Italic"],
+ ") of the experiment.  Let the random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " be defined as the total number of successes in the ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trials. Then ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has possible states ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "2", ",", "...", ",", "n"}], "}"}], 
+   TraditionalForm]]],
+ ".  To find the probability mass function of ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ", consider a particular outcome for which the number of successes is \
+exactly ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ".  For concreteness, suppose that there are ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 7 trials, and we are trying to find the probability that the number of \
+successes is ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " = 4.  One such outcome is SSFFSFS, where the four successes occur on \
+trials 1, 2, 5, and 7.  By the independence of the trials and the fact that \
+success occurs with probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " on any one trial, the probability of this particular outcome is "
+}], "Text",
+ CellChangeTimes->{{3.436135334738519*^9, 3.436135334745519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"p", "\[CenterDot]", "p", "\[CenterDot]", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", "p"}], ")"}], "\[CenterDot]", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", "p"}], ")"}], "\[CenterDot]", "p", "\[CenterDot]", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", "p"}], ")"}], "\[CenterDot]", "p"}], " ", "=", " ", 
+   RowBox[{
+    SuperscriptBox["p", "4"], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"1", "-", "p"}], ")"}], "3"]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4361353469475193`*^9, 3.436135347413519*^9}}],
+
+Cell[TextData[{
+ "By commutativity of multiplication, it is easy to see that any such outcome \
+with four successes and 3 failures has the same probability.  In general, the \
+probability of any particular ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trial sequence with exactly ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " successes is ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "k"], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+    RowBox[{"n", "-", "k"}]], TraditionalForm]]],
+ ".  How many different ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trial sequences are there that have exactly ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " successes?  A sequence is determined uniquely by sampling ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " positions from among ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " in which the S symbols are located.  By combinatorics, there are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{" ", "n", " "}]},
+      {"k"}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " such sequences.  Thus the overall probability of exactly ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " successes in ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " Bernoulli trials is the following, which defines the ",
+ StyleBox["binomial probability mass function",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.4361353789245195`*^9, 3.4361353789315195`*^9}, 
+   3.456497037388*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["f",
+      FontSlant->"Italic"], "(", 
+     StyleBox["k",
+      FontSlant->"Italic"], ")"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["X",
+        FontSlant->"Italic"], " ", "=", " ", 
+       StyleBox["k",
+        FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+     RowBox[{
+      FormBox[
+       RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+          {
+           RowBox[{" ", "n", " "}]},
+          {"k"}
+         }], "\[NegativeThinSpace]", ")"}],
+       TraditionalForm], 
+      FormBox[
+       SuperscriptBox["p", "k"],
+       TraditionalForm], 
+      FormBox[
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+        RowBox[{"n", "-", "k"}]],
+       TraditionalForm]}]}]}], "  ", ",", " ", 
+   RowBox[{
+    StyleBox["k",
+     FontSlant->"Italic"], " ", "=", " ", "0"}], ",", " ", "1", ",", " ", "2",
+    ",", " ", "...", ",", " ", 
+   StyleBox["n",
+    FontSlant->"Italic"]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.436135391580519*^9, 3.4361353919475193`*^9}}],
+
+Cell[TextData[{
+ "\tAs a shorthand to indicate that a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has a particular distribution, we use the symbol \" \[Tilde] \", and we \
+also use abbreviations to stand for some of the most common distributions and \
+their parameters.  Here, to say that ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the binomial distribution with ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trials and success probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ", we write"
+}], "Text",
+ CellChangeTimes->{{3.4361354434455194`*^9, 3.436135443451519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"X", "\[Tilde]", 
+   RowBox[{"b", " ", 
+    RowBox[{"(", 
+     RowBox[{"n", ",", "p"}], ")"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4361354641585193`*^9, 3.436135464541519*^9}}],
+
+Cell[TextData[{
+ "\tThe Bernoulli distribution is the special case of the binomial \
+distribution in which there is only ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 1 trial. Notice in (4) that in this case the state space is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1"}], "}"}], TraditionalForm]]],
+ ", and the p.m.f. formula reduces to"
+}], "Text",
+ CellChangeTimes->{{3.4361354798135195`*^9, 3.436135479818519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{"f", "(", "k", ")"}], "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+           {
+            RowBox[{" ", "1", " "}]},
+           {"k"}
+          }], "\[NegativeThinSpace]", ")"}], 
+        SuperscriptBox[
+         RowBox[{
+          SuperscriptBox["p", "k"], "(", 
+          RowBox[{"1", "-", "p"}], ")"}], "k"]}], "=", 
+       SuperscriptBox[
+        RowBox[{
+         SuperscriptBox["p", "k"], "(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        RowBox[{"1", "-", "k"}]]}]}], ",", " ", 
+     RowBox[{"k", "=", "0"}], ",", "1"}],
+    TraditionalForm], " "}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4361354798135195`*^9, 3.4361354905445194`*^9}}],
+
+Cell[TextData[{
+ "which is an equivalent form to (1).  ",
+ "\n",
+ "\t",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s binomial distribution object is"
+}], "Text"],
+
+Cell["BinomialDistribution[n, p]", "DisplayFormula"],
+
+Cell["\<\
+where the meanings of the arguments are the same as described above.  We will \
+show the use of this distribution object in the example below.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  In the roulette problem, let us try to compute the probability that the \
+gambler who bets $1 on red 500 times comes out ahead. This event happens if \
+and only if there are strictly more wins than losses among the 500 bets.  So \
+we want to compute P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "\[GreaterEqual]", "251"}], TraditionalForm]]],
+ "], or what is the same thing, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", 
+    RowBox[{"P", "[", 
+     RowBox[{"X", "\[LessEqual]", "250"}], "]"}]}], TraditionalForm]]],
+ ", where ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is the number of reds that come up.  Since ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " has the binomial distribution with ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 500 and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"18", "/", "38"}]}], TraditionalForm]]],
+ ", we can compute:"
+}], "Text",
+ CellChangeTimes->{{3.4361355095045195`*^9, 3.436135541413519*^9}}],
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"1", "-", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"500", ",", 
+       RowBox[{"18", "/", "38"}]}], "]"}], ",", "250"}], "]"}]}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+So our gambler is only around 11% likely to profit on his venture. Another \
+way to have made this computation is to add the terms of the binomial p.m.f. \
+from 251 to 500:\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"NSum", "[", 
+  RowBox[{
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"500", ",", 
+       RowBox[{"18", "/", "38"}]}], "]"}], ",", "k"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"k", ",", "251", ",", "500"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.40397482003125*^9, 3.424602486265625*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(If you execute this command you will find that it takes a good deal longer \
+than the one above using the CDF, because ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " has some special algorithms to approximate sums of special forms like the \
+binomial CDF.)  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.42460403346875*^9, 3.42460403528125*^9}}],
+
+Cell[TextData[{
+ "\tTo recap a bit, you can identify a binomial experiment from the following \
+properties: it consists of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " independent trials, and on each trial either a success (probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") or a failure (probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", "=", 
+    RowBox[{"1", "-", "p"}]}], TraditionalForm]]],
+ ") can occur.  The binomial p.m.f. in formula (4) applies to the random \
+variable that counts the total number of successes. Shifting the focus over \
+to sampling for a moment, the trials could be repeated samples of one object \
+from a population, replacing the sampled object as sampling proceeds, and \
+observing whether the object has a certain special characteristic (a success) \
+or not (a failure).  The success probability would be the proportion of \
+objects in the population that have the characteristic. One of the exercises \
+at the end of this section invites you to compare the probability that ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " sample members have the characteristic under the model just described to \
+the probability of the same event assuming sampling in a batch without \
+replacement. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to compute the probability that the gambler who bets 500 times on red in \
+roulette comes out at least $10 ahead at the end.  If the gambler plays 1000 \
+times, what is the probability that he will not show a positive profit? "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tIn Figure 8(a) is a histogram of 500 simulated values from the binomial \
+distribution with ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 10 trials and ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = 1/2.  Figure 8(b) is a histogram of the probability mass function \
+itself, which shows a similar symmetry about state 5, similar spread, and \
+similar shape.  "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], "\n", 
+ RowBox[{
+  RowBox[{"datalist", "=", 
+   RowBox[{"RandomInteger", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"10", ",", "0.5"}], "]"}], ",", "500"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"pmf", "[", "k_", "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"10", ",", "0.5"}], "]"}], ",", "k"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"states", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7",
+      ",", "8", ",", "9", ",", "10"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"probs", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"pmf", "[", "k", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "0", ",", "10"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Histogram", "[", 
+     RowBox[{"datalist", ",", "11", ",", "\"\<Probability\>\""}], "]"}], ",", 
+    RowBox[{"ProbabilityHistogram", "[", 
+     RowBox[{"states", ",", "probs"}], "]"}]}], "}"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3987039146345997`*^9, 3.398703977891195*^9}, {
+   3.4408654115158*^9, 3.4408654336521997`*^9}, 3.440865580902*^9, {
+   3.4408659602939997`*^9, 3.4408659855816*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["(a)                                                 (b) ", "Text",
+ CellChangeTimes->{{3.436136663366519*^9, 3.436136673462519*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Figure 2.8",
+  FontWeight->"Bold"],
+ StyleBox[" - (a) simulated histogram; (b) probability histogram of b(10,.5)",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.436136624975519*^9, 3.4361366372075195`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["\t",
+  FontWeight->"Bold"],
+ "The binomial mass function is always symmetric about its center when ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ " (see Exercise ",
+ StyleBox["11",
+  FontColor->GrayLevel[0]],
+ ").  In the cases ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", ">", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "<", 
+    RowBox[{"1", "/", "2"}]}], TraditionalForm]]],
+ ", respectively, the distribution is skewed left and right. (Convince \
+yourself of these facts analytically by looking at the formula for the \
+p.m.f., and intuitively by thinking about the binomial experiment itself.) \
+The command below allows you to manipulate the value of ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ " between a low value of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".1"}], TraditionalForm]]],
+ " and a high value of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".9"}], TraditionalForm]]],
+ " for the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "10"}], TraditionalForm]]],
+ " and see the effect on the histogram of the binomial mass function.  Try to \
+find the symmetric case. You should try adapting it to other values of ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " in the electronic version of the text. "
+}], "Text",
+ CellChangeTimes->{{3.40397488759375*^9, 3.40397489309375*^9}, {
+   3.42449394965625*^9, 3.424493989234375*^9}, 3.4246009489375*^9, {
+   3.424601713265625*^9, 3.42460185571875*^9}, {3.424601886703125*^9, 
+   3.42460191509375*^9}, {3.4333546107694483`*^9, 3.433354610956448*^9}, 
+   3.4361346505065193`*^9, {3.436135566351519*^9, 3.436135573564519*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"pmf", "[", 
+    RowBox[{"k_", ",", "n_", ",", "p_"}], "]"}], ":=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"n", ",", "p"}], "]"}], ",", "k"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"states", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"i", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "10"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"binprobs", "[", "p_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"pmf", "[", 
+      RowBox[{"k", ",", "10", ",", "p"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "0", ",", "10"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ProbabilityHistogram", "[", 
+    RowBox[{"states", ",", 
+     RowBox[{"binprobs", "[", "p", "]"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", ",", ".1", ",", ".9"}], "}"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3987039146345997`*^9, 3.398703977891195*^9}, {
+   3.424601006640625*^9, 3.4246010915*^9}, {3.42460115665625*^9, 
+   3.42460120153125*^9}, {3.424601454359375*^9, 3.42460145790625*^9}, {
+   3.42460150496875*^9, 3.42460151359375*^9}, {3.4246016549375*^9, 
+   3.42460166353125*^9}, 3.424799111109375*^9, 3.4408657324091997`*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\n\tWe now turn to the moments of the binomial distribution.  Think about \
+these questions: If you flip 4 fair coins, how many heads would you expect to \
+get? What if you flipped 6 fair coins? Analyze how you are coming up with \
+your guesses, that is, of what simpler things is your final answer composed?  \
+What does this mean about the expected value of the number of heads in an odd \
+number of flips, say 7? \n\tAfter the last paragraph you probably can guess \
+the formula for the mean of the binomial distribution. Compare your \
+hypothesis with the following brute force calculations of means in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ", done by summing the probability of a state, times the state, over all \
+states."
+}], "Text",
+ CellChangeTimes->{{3.40397488759375*^9, 3.40397489309375*^9}, {
+   3.42449394965625*^9, 3.424493989234375*^9}, 3.4246009489375*^9, 
+   3.4361346632115192`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BinomialPMF", "[", 
+   RowBox[{"x_", ",", "n_", ",", "p_"}], "]"}], ":=", 
+  RowBox[{"PDF", "[", 
+   RowBox[{
+    RowBox[{"BinomialDistribution", "[", 
+     RowBox[{"n", ",", "p"}], "]"}], ",", "x"}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"case", " ", "n"}], " ", "=", " ", "20"}], ",", " ", 
+    RowBox[{"p", " ", "=", " ", ".2"}]}], " ", "*)"}], "\n", 
+  RowBox[{"Sum", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BinomialPMF", "[", 
+      RowBox[{"k", ",", "20", ",", ".2"}], "]"}], "*", "k"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "0", ",", "20"}], "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"case", " ", "n"}], " ", "=", " ", "30"}], ",", " ", 
+    RowBox[{"p", " ", "=", " ", ".8"}]}], " ", "*)"}], "\n", 
+  RowBox[{"Sum", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"BinomialPMF", "[", 
+      RowBox[{"k", ",", "30", ",", ".8"}], "]"}], "*", "k"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "0", ",", "30"}], "}"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The binomial mean is of course ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[CenterDot]", "p"}], TraditionalForm]]],
+ ", which we prove in the next theorem.  We also include the formula for the \
+variance of the binomial distribution. "
+}], "Text",
+ CellChangeTimes->{3.424494051859375*^9}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] b(",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ "), then (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}], " ", "=", " ", 
+    RowBox[{"n", "\[CenterDot]", "p"}]}], TraditionalForm]]],
+ " ; (b) Var(",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ ") = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[CenterDot]", "p", "\[CenterDot]", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", "p"}], ")"}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{3.424494058953125*^9}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  (a) We may factor ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " out of the sum ",
+ StyleBox["that defines ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["E",
+     FontSlant->"Plain"], "[", "X", "]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ ", delete the ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " = 0 term (which equals 0), and cancel the common factors of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " to get"
+}], "Text",
+ CellChangeTimes->{{3.4244941024375*^9, 3.42449411359375*^9}, {
+  3.436135600347519*^9, 3.4361356003555193`*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", "X", "]"}], "=", 
+       RowBox[{
+        UnderoverscriptBox["\[CapitalSigma]", 
+         RowBox[{"k", "=", "0"}], "n"], " ", 
+        RowBox[{"k", "\[CenterDot]", 
+         RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+            {
+             RowBox[{" ", "n", " "}]},
+            {"k"}
+           }], "\[NegativeThinSpace]", ")"}]}], 
+        FormBox[
+         SuperscriptBox["p", "k"],
+         TraditionalForm], 
+        FormBox[
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+          RowBox[{"n", "-", "k"}]],
+         TraditionalForm]}]},
+      {" ", "=", 
+       RowBox[{
+        RowBox[{"n", "\[CenterDot]", "p", "\[CenterDot]", 
+         UnderoverscriptBox["\[CapitalSigma]", 
+          RowBox[{"k", "=", "1"}], "n"]}], 
+        FormBox[
+         RowBox[{
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"n", "-", "1"}], ")"}], "!"}], 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"k", "-", "1"}], ")"}], "!"}], 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"n", "-", "k"}], ")"}], "!"}]}]], 
+          SuperscriptBox["p", 
+           RowBox[{"k", "-", "1"}]]}],
+         TraditionalForm], 
+        FormBox[
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+          RowBox[{"n", "-", "k"}]],
+         TraditionalForm]}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436135610889519*^9, 3.4361356112945194`*^9}}],
+
+Cell[TextData[{
+ "Then we can change variables in the sum to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"l", "=", 
+    RowBox[{"k", "-", "1"}]}], TraditionalForm]]],
+ ", noting that in the exponent of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ " we can rewrite ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "k"}], TraditionalForm]]],
+ " as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1", "-", 
+    RowBox[{"(", 
+     RowBox[{"k", "-", "1"}], ")"}]}], TraditionalForm]]],
+ ", which reduces the sum to that of all terms of the b",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"n", "-", "1"}], ",", " ", "p"}], ")"}], TraditionalForm]]],
+ " probability mass function."
+}], "Text",
+ CellChangeTimes->{{3.424494155125*^9, 3.424494178265625*^9}, 
+   3.4246021406875*^9, {3.424602260875*^9, 3.4246023110625*^9}, {
+   3.436135628824519*^9, 3.4361356288295193`*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", "X", "]"}], "=", 
+       RowBox[{
+        RowBox[{"n", "\[CenterDot]", "p", "\[CenterDot]", 
+         UnderoverscriptBox["\[CapitalSigma]", 
+          RowBox[{"l", "=", "0"}], 
+          RowBox[{"n", "-", "1"}]]}], 
+        FormBox[
+         RowBox[{
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"n", "-", "1"}], ")"}], "!"}], 
+           RowBox[{
+            RowBox[{"l", "!"}], 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"n", "-", "k"}], ")"}], "!"}]}]], 
+          SuperscriptBox["p", "l"]}],
+         TraditionalForm], 
+        FormBox[
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+          RowBox[{"n", "-", "1", "-", "l"}]],
+         TraditionalForm]}]},
+      {" ", "=", 
+       RowBox[{"n", "\[CenterDot]", "p", "\[CenterDot]", "1"}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436135638208519*^9, 3.436135638666519*^9}}],
+
+Cell[TextData[{
+ "Since this sum equals 1, the desired formula ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[CenterDot]", "p"}], TraditionalForm]]],
+ " for the mean results."
+}], "Text",
+ CellChangeTimes->{{3.424494155125*^9, 3.424494178265625*^9}, 
+   3.4246021406875*^9, 3.4246023266875*^9}],
+
+Cell[TextData[{
+ "(b) We use the indirect strategy of computing E[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", " ", 
+    RowBox[{"(", 
+     RowBox[{"X", "-", "1"}], ")"}]}], TraditionalForm]]],
+ "] first, because this sum can be simplified very similarly to the sum above \
+for E[",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ "]. "
+}], "Text",
+ CellChangeTimes->{{3.4361356699605193`*^9, 3.436135669965519*^9}}],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"X", 
+         RowBox[{"(", 
+          RowBox[{"X", "-", "1"}], ")"}]}], "]"}], "=", 
+       RowBox[{
+        UnderoverscriptBox["\[CapitalSigma]", 
+         RowBox[{"k", "=", "0"}], "n"], " ", 
+        RowBox[{"k", "\[CenterDot]", 
+         RowBox[{"(", 
+          RowBox[{"k", "-", "1"}], ")"}], "\[CenterDot]", 
+         RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+            {
+             RowBox[{" ", "n", " "}]},
+            {"k"}
+           }], "\[NegativeThinSpace]", ")"}]}], 
+        FormBox[
+         SuperscriptBox["p", "k"],
+         TraditionalForm], 
+        FormBox[
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+          RowBox[{"n", "-", "k"}]],
+         TraditionalForm]}]},
+      {" ", "=", 
+       RowBox[{
+        RowBox[{"n", "\[CenterDot]", 
+         RowBox[{"(", 
+          RowBox[{"n", "-", "1"}], ")"}], "\[CenterDot]", 
+         SuperscriptBox["p", "2"], "\[CenterDot]", 
+         UnderoverscriptBox["\[CapitalSigma]", 
+          RowBox[{"k", "=", "2"}], "n"]}], 
+        FormBox[
+         RowBox[{
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"n", "-", "2"}], ")"}], "!"}], 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"k", "-", "2"}], ")"}], "!"}], 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"n", "-", "k"}], ")"}], "!"}]}]], 
+          SuperscriptBox["p", 
+           RowBox[{"k", "-", "2"}]]}],
+         TraditionalForm], 
+        FormBox[
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"1", " ", "-", " ", "p"}], ")"}], 
+          RowBox[{"n", "-", "k"}]],
+         TraditionalForm]}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}}], TraditionalForm]]]]], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436135684027519*^9, 3.436135684436519*^9}}],
+
+Cell[TextData[{
+ "The sum on the right adds all terms of the b",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"n", "-", "2"}], ",", " ", "p"}], ")"}], TraditionalForm]]],
+ " p.m.f., hence it equals 1. (Use the change of index ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"l", "=", 
+    RowBox[{"k", "-", "2"}]}], TraditionalForm]]],
+ " to see this.) Therefore, E[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"X", "(", 
+    RowBox[{"X", "-", "1"}], ")"}], TraditionalForm]]],
+ "] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["n",
+     FontSlant->"Italic"], "\[CenterDot]", 
+    RowBox[{"(", 
+     RowBox[{
+      StyleBox["n",
+       FontSlant->"Italic"], "-", "1"}], ")"}], "\[CenterDot]", 
+    SuperscriptBox[
+     StyleBox["p",
+      FontSlant->"Italic"], "2"]}], TextForm]]],
+ ", and we can write the left side as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     SuperscriptBox["X", "2"], "]"}], "-", 
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}]}], TraditionalForm]]],
+ ".  Finally,"
+}], "Text",
+ CellChangeTimes->{{3.42460237046875*^9, 3.424602390234375*^9}, {
+  3.436135699784519*^9, 3.436135699788519*^9}, {3.436135733552519*^9, 
+  3.4361357335585194`*^9}, {3.436195644367*^9, 3.436195670433*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"Var", 
+       RowBox[{"(", 
+        StyleBox["X",
+         FontSlant->"Italic"], ")"}]}], "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        FormBox[
+         SuperscriptBox["X", "2"],
+         TraditionalForm], "]"}], " ", 
+       FormBox["-",
+        TraditionalForm], " ", 
+       FormBox[
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           StyleBox["E",
+            FontSlant->"Plain"], "[", "X", "]"}], ")"}], "2"],
+        TraditionalForm]}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        FormBox[
+         SuperscriptBox["X", "2"],
+         TraditionalForm], "]"}], " ", 
+       FormBox["-",
+        TraditionalForm], " ", 
+       RowBox[{
+        StyleBox["E",
+         FontSlant->"Plain"], "[", 
+        StyleBox["X",
+         FontSlant->"Italic"], "]"}], " ", "+", " ", 
+       FormBox[
+        RowBox[{
+         RowBox[{
+          StyleBox["E",
+           FontSlant->"Plain"], "[", "X", "]"}], "-", " ", 
+         FormBox[
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             StyleBox["E",
+              FontSlant->"Plain"], "[", "X", "]"}], ")"}], "2"],
+          TraditionalForm]}],
+        TraditionalForm]}]},
+     {" ", "=", 
+      RowBox[{
+       FormBox[
+        RowBox[{"n", "\[CenterDot]", 
+         RowBox[{"(", 
+          RowBox[{"n", "-", "1"}], ")"}], "\[CenterDot]", 
+         SuperscriptBox["p", "2"]}],
+        TextForm], " ", "+", " ", 
+       StyleBox["np",
+        FontSlant->"Italic"], " ", 
+       FormBox["-",
+        TraditionalForm], " ", 
+       FormBox[
+        SuperscriptBox[
+         RowBox[{"(", 
+          StyleBox["np",
+           FontSlant->"Italic"], ")"}], "2"],
+        TraditionalForm], " "}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "DisplayFormula",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.4361357518675194`*^9, 
+  3.436135787727519*^9}},
+ FontFamily->"Times"],
+
+Cell["\<\
+which simplifies to the desired formula.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.436134685718519*^9, 3.436134693574519*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3  ",
+  FontWeight->"Bold"],
+ "An overnight package delivery service guarantees successful overnight \
+delivery.  If the true probability that a delivery is successfully made on \
+time is .98, in a group of 1000 packages find the mean and standard deviation \
+of the number of successful deliveries, and compute the probability that at \
+least 975 of the packages will be delivered overnight. "
+}], "Text",
+ CellChangeTimes->{{3.424602557890625*^9, 3.424602751953125*^9}, {
+  3.424602795765625*^9, 3.4246027965625*^9}, {3.424629607859375*^9, 
+  3.424629608921875*^9}}],
+
+Cell[TextData[{
+ "\tBy the formulas for the mean and variance in the last theorem, we compute \
+the mean and standard deviation of the number ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]]],
+ " of successfully delivered packages as:"
+}], "Text",
+ CellChangeTimes->{{3.4246027535625*^9, 3.4246028030625*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"\[Mu]", "=", 
+  RowBox[{"N", "[", 
+   RowBox[{"1000", "*", ".98"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"\[Sigma]", "=", 
+  RowBox[{"N", "[", 
+   SqrtBox[
+    RowBox[{"1000", "*", ".98", "*", ".02"}]], "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.42460280946875*^9, 3.424602851046875*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ " For the second question, we have that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"at", " ", "least", " ", "975", " ", "successes"}], "]"}], "=", 
+    RowBox[{"1", "-", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"no", " ", "more", " ", "than", " ", "974", " ", "successes"}], 
+      "]"}]}]}], TraditionalForm]]],
+ ", which is:"
+}], "Text",
+ CellChangeTimes->{{3.424602880859375*^9, 3.424603083828125*^9}, {
+   3.4246036264375*^9, 3.424603648046875*^9}, {3.424603680046875*^9, 
+   3.424603705640625*^9}, 3.424629399234375*^9}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"N", "[", 
+   RowBox[{"CDF", "[", 
+    RowBox[{
+     RowBox[{"BinomialDistribution", "[", 
+      RowBox[{"1000", ",", ".98"}], "]"}], ",", "974"}], "]"}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.42460280946875*^9, 3.424602851046875*^9}, {
+  3.42460309553125*^9, 3.424603125515625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\[FilledSquare]", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  We will see later that a very large proportion of the probability weight \
+for any distribution falls within 3 standard deviations (which comes out to \
+about 13 in Example 3) of the mean of the distribution. So the delivery \
+company can be fairly certain that between 967 and 993 of the packages will \
+be delivered on time overnight. Use the CDF command to find the probability \
+of this event."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.424629383953125*^9, 3.424629466921875*^9}, {
+   3.42462955496875*^9, 3.424629562671875*^9}, {3.42462967503125*^9, 
+   3.424629675921875*^9}, 3.440866146402*^9}],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  Many attempts have been made to estimate the number of planets in the \
+universe on which there is some form of life, based on some very rough \
+estimates of proportions of stars that have planetary systems, average \
+numbers of planets in those systems, the probability that a planet is \
+inhabitable, etc. These estimates use random variables that are assumed to be \
+modeled by binomial distributions.  At the time of this writing, scientists \
+are estimating that 2% of stars  have planetary systems.  Suppose that only \
+1% of those systems have a planet that is inhabitable (assume conservatively \
+that there is at most one such planet per system), and that only 1% of \
+inhabitable planets have life.  For a galaxy of, say 100 billion =",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    SuperscriptBox["10", "11"]}], TraditionalForm]]],
+ " stars, let us find the expected number of stars with a planet that bears \
+life.   \n\tConsider each star as a trial, and define a success as a star \
+with a system that includes a planet that has life.  Then there are ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", "11"], TraditionalForm]]],
+ " trials, and by the multiplication rule for conditional probability, the \
+success probability per star is"
+}], "Text",
+ CellChangeTimes->{
+  3.424494329734375*^9, {3.4244943726875*^9, 3.424494407796875*^9}, {
+   3.424602551*^9, 3.424602554171875*^9}, {3.42460356128125*^9, 
+   3.424603573453125*^9}, {3.4361358815635195`*^9, 3.436135881567519*^9}, 
+   3.4564970895232*^9}],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["p",
+     FontSlant->"Italic"], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "life", "]"}], " ", "=", " ", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+      "has", " ", "system", " ", "and", " ", "has", " ", "inhabitable", " ", 
+       "planet", " ", "and", " ", "life"}], "]"}]}]}], " "}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{"\t", 
+   RowBox[{"=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", ".02", ")"}], 
+      RowBox[{"(", ".01", ")"}], 
+      RowBox[{"(", ".01", ")"}]}], " ", "=", " ", 
+     RowBox[{"2", " ", "\[Times]", " ", 
+      FormBox[
+       SuperscriptBox["10", 
+        RowBox[{"-", "6"}]],
+       TraditionalForm]}]}]}]}], TraditionalForm]}], "DisplayFormula",
+ CellChangeTimes->{{3.436135892696519*^9, 3.436135910163519*^9}}],
+
+Cell[TextData[{
+ "Therefore, the expected value of the number of planets with life is ",
+ StyleBox["n p",
+  FontSlant->"Italic"],
+ " = 2 \[Times] ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", "5"], TraditionalForm]]],
+ " = 200,000.  Incidentally, the standard deviation of the number of planets \
+with life would be "
+}], "Text",
+ CellChangeTimes->{3.424494442171875*^9, 3.4564971230788*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[Sigma]", "=", 
+  RowBox[{"N", "[", 
+   SqrtBox[
+    RowBox[{
+     SuperscriptBox["10", "11"], "\[Times]", 
+     RowBox[{"(", 
+      RowBox[{"2", "\[Times]", 
+       SuperscriptBox["10", 
+        RowBox[{"-", "6"}]]}], ")"}], 
+     RowBox[{"(", 
+      RowBox[{"1", "-", 
+       RowBox[{"2", "\[Times]", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "6"}]]}]}], ")"}]}]], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+As mentioned in the last activity, most of the probability weight for any \
+distribution falls within 3 standard deviations of the mean.  Since 3\[Sigma] \
+is around 1300, which is a great deal less than the mean of 200,000, this \
+means that it is very likely that the number of planets with life is in the \
+vicinity of 200,000 under the assumptions in this example.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.42460375371875*^9, 3.424603765609375*^9}, {
+  3.42460401284375*^9, 3.4246040193125*^9}, {3.424629477640625*^9, 
+  3.424629496546875*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Multinomial Distribution", "Subsection",
+ CellChangeTimes->{{3.4246040770625*^9, 3.424604081640625*^9}}],
+
+Cell[TextData[{
+ "A generalization of the binomial experiment consists of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " independent trials, each of which can result in one of ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " possible categories or values.  Think of these values as ",
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]]],
+ " different types of success. Category ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " has probability ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "i"], TraditionalForm]]],
+ ", and we must have that the sum of all ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "i"], TraditionalForm]]],
+ " for ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " = 1 to ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " equals 1.  This so-called ",
+ StyleBox["multinomial experiment",
+  FontSlant->"Italic"],
+ " therefore involves ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " counting random variables ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", ... , ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "k"], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ " is the number of trials among the ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " that resulted in value ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ ". Since all of the ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " trials must result in exactly one value, the total of all of these ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ "'s must come out to ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ".   For example, consider the roll of a fair die ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "12"}], TraditionalForm]]],
+ " times in succession. On each roll, there are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "=", "6"}], TraditionalForm]]],
+ " possible faces that could come up. Random variables associated with this \
+experiment are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "1"], "=", 
+    RowBox[{"#", " ", 
+     RowBox[{"1", "'"}], 
+     StyleBox["s",
+      FontSlant->"Plain"]}]}], TraditionalForm]]],
+ " among the 12 rolls, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "2"], "=", 
+    RowBox[{"#", " ", 
+     RowBox[{"2", "'"}], 
+     StyleBox["s",
+      FontSlant->"Plain"]}]}], TraditionalForm]]],
+ " among the 12 rolls, etc. In addition to finding how these random variables \
+behave individually, we might be interested in probabilities of events \
+involving intersections, such as the event that there are at least 3 1's \
+rolled and at most 2 6's. \n\tLet us consider a somewhat smaller case with \
+unequal outcome probabilities to see the underlying idea. For a multinomial \
+experiment with 10 trials and 4 possible categories on each trial whose \
+probabilities are 1/4, 1/2, 1/8, and 1/8, let us find an expression for the ",
+ StyleBox["joint probability mass function",
+  FontSlant->"Italic"],
+ " of the category frequencies ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "4"], TraditionalForm]]],
+ " defined by"
+}], "Text",
+ CellChangeTimes->{{3.424494719109375*^9, 3.424494737625*^9}, 
+   3.4246041285*^9, {3.424604167109375*^9, 3.42460422778125*^9}, {
+   3.42460429790625*^9, 3.424604457265625*^9}, {3.424629098015625*^9, 
+   3.4246291883125*^9}, {3.42463054078125*^9, 3.424630622921875*^9}, {
+   3.424630948203125*^9, 3.424630974109375*^9}, {3.424632798703125*^9, 
+   3.42463280065625*^9}, {3.424632843*^9, 3.424632902984375*^9}, {
+   3.436136062042519*^9, 3.436136062048519*^9}, 3.4408661572908*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"f", "(", 
+    RowBox[{
+     SubscriptBox["x", "1"], ",", 
+     SubscriptBox["x", "2"], ",", 
+     SubscriptBox["x", "3"], ",", 
+     SubscriptBox["x", "4"]}], ")"}], "=", " ", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "1"], "=", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["x", "1"], " ", "\[Intersection]", " ", 
+       SubscriptBox["X", "2"]}], "=", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["x", "2"], " ", "\[Intersection]", " ", 
+        SubscriptBox["X", "3"]}], "=", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["x", "3"], " ", "\[Intersection]", 
+         SubscriptBox["X", "4"]}], "=", 
+        SubscriptBox["x", "4"]}]}]}]}], "]"}], " "}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.424494719109375*^9, 3.424494737625*^9}, 
+   3.4246041285*^9, {3.424604167109375*^9, 3.42460422778125*^9}, {
+   3.42460429790625*^9, 3.424604457265625*^9}, {3.424629098015625*^9, 
+   3.4246291883125*^9}, {3.42463054078125*^9, 3.424630622921875*^9}, {
+   3.424630948203125*^9, 3.424630974109375*^9}, {3.424632798703125*^9, 
+   3.42463280065625*^9}, {3.424632843*^9, 3.424632902984375*^9}, {
+   3.436136062042519*^9, 3.4361360810795193`*^9}}],
+
+Cell[TextData[{
+ "(It is common practice to make such intersections more readable by \
+replacing the \[Intersection] symbol by a comma.) Reasoning as in the \
+development of the binomial p.m.f., any sequence of 10 trials that contains ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "1"], TraditionalForm]]],
+ " 1's, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "2"], TraditionalForm]]],
+ " 2's, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "3"], TraditionalForm]]],
+ " 3's, and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "4"], TraditionalForm]]],
+ " 4's has probability"
+}], "Text",
+ CellChangeTimes->{
+  3.424629835859375*^9, {3.424630048453125*^9, 3.42463009421875*^9}, {
+   3.436136028285519*^9, 3.436136028290519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FormBox[
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox["1", "4"], ")"}], 
+     SubscriptBox["x", "1"]],
+    TraditionalForm], " ", 
+   FormBox[
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox["1", "2"], ")"}], 
+     SubscriptBox["x", "2"]],
+    TraditionalForm], " ", 
+   FormBox[
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox["1", "8"], ")"}], 
+     SubscriptBox["x", "3"]],
+    TraditionalForm], " ", 
+   FormBox[
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox["1", "8"], ")"}], 
+     SubscriptBox["x", "4"]],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.436136037693519*^9, 3.4361360380445194`*^9}}],
+
+Cell[TextData[{
+ "The number of such sequences is the number of ways of partitioning 10 \
+trials into ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", 
+    RowBox[{"1", " "}]], TraditionalForm]]],
+ "positions for 1's, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "2"], TraditionalForm]]],
+ " positions for 2's, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "3"], TraditionalForm]]],
+ " positions for 3's, and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "4"], TraditionalForm]]],
+ " positions for 4's.  We observed in Section 1.4 that such a partition can \
+be done in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{" ", "10", " "}]},
+      {
+       RowBox[{
+        SubscriptBox["x", "1"], " ", 
+        SubscriptBox["x", "2"], "  ", 
+        SubscriptBox["x", "3"], "  ", 
+        SubscriptBox["x", "4"]}]}
+     }], "\[NegativeThinSpace]", ")"}], TraditionalForm]]],
+ " ways. Hence, "
+}], "Text",
+ CellChangeTimes->{{3.4246312394375*^9, 3.42463129690625*^9}, {
+   3.4361360977285194`*^9, 3.4361360977355194`*^9}, 3.4408661671812*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "1"],
+       TraditionalForm], " ", "=", 
+      FormBox[
+       SubscriptBox["x", "1"],
+       TraditionalForm]}], " ", ",", 
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "2"],
+       TraditionalForm], " ", "=", 
+      FormBox[
+       SubscriptBox["x", "2"],
+       TraditionalForm]}], " ", ",", 
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "3"],
+       TraditionalForm], " ", "=", 
+      RowBox[{
+       RowBox[{
+        FormBox[
+         SubscriptBox["x", "3"],
+         TraditionalForm], 
+        FormBox[
+         RowBox[{" ", 
+          RowBox[{",", 
+           SubscriptBox["X", "4"]}]}],
+         TraditionalForm]}], " ", "=", 
+       FormBox[
+        SubscriptBox["x", "4"],
+        TraditionalForm]}]}]}], "]"}], "=", 
+   RowBox[{
+    FormBox[
+     RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+        {
+         RowBox[{" ", "10", " "}]},
+        {
+         RowBox[{
+          SubscriptBox["x", "1"], " ", 
+          SubscriptBox["x", "2"], "  ", 
+          SubscriptBox["x", "3"], "  ", 
+          SubscriptBox["x", "4"]}]}
+       }], "\[NegativeThinSpace]", ")"}],
+     TraditionalForm], 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       FractionBox["1", "4"], ")"}], 
+      SubscriptBox["x", "1"]],
+     TraditionalForm], " ", 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       FractionBox["1", "2"], ")"}], 
+      SubscriptBox["x", "2"]],
+     TraditionalForm], " ", 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       FractionBox["1", "8"], ")"}], 
+      SubscriptBox["x", "3"]],
+     TraditionalForm], " ", 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", 
+       FractionBox["1", "8"], ")"}], 
+      SubscriptBox["x", "4"]],
+     TraditionalForm]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4361361122835193`*^9, 3.436136112751519*^9}}],
+
+Cell[TextData[{
+ StyleBox["After the next example we will write the general formula for the \
+joint probability mass function of",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]]],
+ " multinomial random variables with success probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "1"], ",", 
+    SubscriptBox["p", "2"], ",", "\[Ellipsis]", " ", ",", 
+    SubscriptBox["p", "k"]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " trials. "
+}], "Text",
+ CellChangeTimes->{{3.424494688984375*^9, 3.424494703953125*^9}, {
+   3.42463040734375*^9, 3.42463050465625*^9}, 3.424631326765625*^9}],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "  In a study of the on-time performance of a bus service at a particular \
+stop, each day the categories might be: early, on time, and late, say with \
+probabilities .12, .56, and .32, respectively.  What is the probability that \
+in an eight day period the bus is early once, on time 4 times, and late 3 \
+times?  What is the probability that the bus is late at least 6 times more \
+than it is early?"
+}], "Text",
+ CellChangeTimes->{{3.424629230171875*^9, 3.424629257375*^9}, {
+   3.424629927640625*^9, 3.424629927640625*^9}, {3.42463029346875*^9, 
+   3.424630317203125*^9}, {3.42463113515625*^9, 3.424631160578125*^9}, 
+   3.4408661710344*^9}],
+
+Cell[TextData[{
+ "\tDenoting the three daily categories as E, O, and L, two of the many \
+configurations that are consistent with the requirements are:\n\n\t\tE O O O \
+O L L L\n\t\tO E O L O L L O\n\t\t\nThe probability of each such \
+configuration is clearly ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", ".12", ")"}], "1"], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", ".56", ")"}], "4"], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", ".32", ")"}], "3"], TraditionalForm]]],
+ ", by the independence of the trials.  There are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+       {
+        RowBox[{"  ", "8", "  "}]},
+       {
+        RowBox[{" ", 
+         RowBox[{"1", "  ", "4", "   ", "3"}]}]}
+      }], "\[NegativeThinSpace]", ")"}], "=", 
+    FractionBox[
+     RowBox[{"8", "!"}], 
+     RowBox[{
+      RowBox[{"1", "!"}], " ", 
+      RowBox[{"4", "!"}], " ", 
+      RowBox[{"3", "!"}]}]]}], TraditionalForm]],
+  FontFamily->"Times New Roman"],
+ " such configurations. Therefore the overall probability of exactly 1 early \
+arrival, 4 on time arrivals, and 3 late arrivals is"
+}], "Text",
+ CellChangeTimes->{{3.424629230171875*^9, 3.424629257375*^9}, {
+  3.424629927640625*^9, 3.4246299286875*^9}, {3.424631183578125*^9, 
+  3.42463118565625*^9}, {3.42463137865625*^9, 3.424631453390625*^9}, {
+  3.424631484140625*^9, 3.4246314863125*^9}, {3.436136134295519*^9, 
+  3.436136134300519*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "1"],
+       TraditionalForm], "=", "1"}], ",", " ", 
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "2"],
+       TraditionalForm], "=", "4"}], ",", " ", 
+     RowBox[{
+      FormBox[
+       SubscriptBox["X", "3"],
+       TraditionalForm], "=", "3"}]}], "]"}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     RowBox[{" ", 
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {"8"},
+         {
+          RowBox[{"1", "  ", "4", "  ", "3"}]}
+        }], "\[NegativeThinSpace]", ")"}]}],
+     TextForm], 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", ".12", ")"}], "1"],
+     TraditionalForm], 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", ".56", ")"}], "4"],
+     TraditionalForm], 
+    FormBox[
+     SuperscriptBox[
+      RowBox[{"(", ".32", ")"}], "3"],
+     TraditionalForm], "  "}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.424629230171875*^9, 3.424629257375*^9}, {
+   3.424629927640625*^9, 3.4246299286875*^9}, {3.424631183578125*^9, 
+   3.42463118565625*^9}, {3.42463137865625*^9, 3.424631453390625*^9}, {
+   3.424631484140625*^9, 3.4246314863125*^9}, 3.436136134295519*^9, {
+   3.4361361684745193`*^9, 3.436136168878519*^9}}],
+
+Cell[TextData[{
+ "Remember that ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can compute the multinomial coefficient as a function of the category \
+frequencies as Multinomial[x1, x2, ..., xk]. Hence, the desired probability \
+is "
+}], "Text",
+ CellChangeTimes->{{3.424632331875*^9, 3.42463237828125*^9}, {
+   3.424632419734375*^9, 3.424632450046875*^9}, 3.4564971552304*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Multinomial", "[", 
+   RowBox[{"1", ",", "4", ",", "3"}], "]"}], "*", ".12", "*", 
+  SuperscriptBox[
+   RowBox[{"(", ".56", ")"}], "4"], "*", 
+  SuperscriptBox[
+   RowBox[{"(", ".32", ")"}], "3"]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tFor the second question, we must itemize disjoint cases that make up the \
+event that the bus is late at least 6 times more than it is early, and then \
+add their probabilities.  Since there are only eight days in the study, the \
+possible cases are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], "=", "0"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "2"], "=", "2"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3"], "=", "6"}]}], "}"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], "=", "0"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "2"], "=", "1"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3"], "=", "7"}]}], "}"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], "=", "1"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "2"], "=", "0"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3"], "=", "7"}]}], "}"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", "1"], "=", "0"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "2"], "=", "0"}], ",", 
+     RowBox[{
+      SubscriptBox["X", "3"], "=", "8"}]}], "}"}], TraditionalForm]]],
+ ".  The total probability of the desired event is then:"
+}], "Text",
+ CellChangeTimes->{{3.4246302679375*^9, 3.42463027909375*^9}, {
+   3.424630345875*^9, 3.424630386890625*^9}, {3.424631516375*^9, 
+   3.424631716375*^9}, {3.42463247396875*^9, 3.424632497234375*^9}, {
+   3.4246330160625*^9, 3.424633016765625*^9}, 3.4408661774772*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Multinomial", "[", 
+    RowBox[{"0", ",", "2", ",", "6"}], "]"}], "*", 
+   SuperscriptBox[".12", "0"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".56", ")"}], "2"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".32", ")"}], "6"]}], "+", 
+  RowBox[{
+   RowBox[{"Multinomial", "[", 
+    RowBox[{"0", ",", "1", ",", "7"}], "]"}], "*", 
+   SuperscriptBox[".12", "0"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".56", ")"}], "1"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".32", ")"}], "7"]}], "+", 
+  RowBox[{
+   RowBox[{"Multinomial", "[", 
+    RowBox[{"1", ",", "0", ",", "7"}], "]"}], "*", 
+   SuperscriptBox[".12", "1"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".56", ")"}], "0"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".32", ")"}], "7"]}], "+", 
+  RowBox[{
+   RowBox[{"Multinomial", "[", 
+    RowBox[{"0", ",", "0", ",", "8"}], "]"}], "*", 
+   SuperscriptBox[".12", "0"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".56", ")"}], "0"], "*", 
+   SuperscriptBox[
+    RowBox[{"(", ".32", ")"}], "8"]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.424632513828125*^9, 3.424632639671875*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[" \[FilledSquare]", "Text",
+ CellChangeTimes->{{3.4246302679375*^9, 3.42463027909375*^9}, {
+  3.424630345875*^9, 3.424630386890625*^9}, {3.424631516375*^9, 
+  3.424631716375*^9}, {3.42463247396875*^9, 3.424632497234375*^9}}],
+
+Cell[TextData[{
+ "\tIn general, the ",
+ StyleBox["multinomial distribution",
+  FontSlant->"Italic"],
+ " is the joint distribution of the numbers ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", ..., ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "k"], TraditionalForm]]],
+ " of items among ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trials that belong to the categories 1, 2, ..., ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ", respectively.  If the category probabilities are ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "2"], TraditionalForm]]],
+ ", ... , ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "k"], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   UnderscriptBox["\[CapitalSigma]", "i"], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "i"], TraditionalForm]]],
+ " = 1, then the joint probability mass function is"
+}], "Text",
+ CellChangeTimes->{{3.42463311121875*^9, 3.42463312059375*^9}, {
+  3.4361361948865194`*^9, 3.4361361948915195`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{GridBox[{
+     {
+      RowBox[{
+       StyleBox["f",
+        FontSlant->"Italic"], 
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "1"], ",", " ", 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "2"], ",", " ", "...", " ", ",", " ", 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "k"]}], ")"}]}], "=", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox[
+          StyleBox["X",
+           FontSlant->"Italic"], "1"], "=", 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "1"]}], ",", " ", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["X",
+           FontSlant->"Italic"], "2"], "=", 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "2"]}], ",", " ", "...", " ", ",", " ", 
+        RowBox[{
+         SubscriptBox[
+          StyleBox["X",
+           FontSlant->"Italic"], 
+          StyleBox["k",
+           FontSlant->"Italic"]], "=", 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], 
+          StyleBox["k",
+           FontSlant->"Italic"]]}]}], "]"}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+           {
+            StyleBox["n",
+             FontSlant->"Italic"]},
+           {
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               SubscriptBox[
+                StyleBox["x",
+                 FontSlant->"Italic"], "1"], "  ", 
+               SubscriptBox[
+                StyleBox["x",
+                 FontSlant->"Italic"], "2"]}], "  ", "..."}], 
+             SubscriptBox[
+              StyleBox["x",
+               FontSlant->"Italic"], 
+              StyleBox["k",
+               FontSlant->"Italic"]]}]}
+          }], "\[NegativeThinSpace]", ")"}], 
+        SuperscriptBox[
+         SubscriptBox[
+          StyleBox["p",
+           FontSlant->"Italic"], "1"], 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "1"]], 
+        SuperscriptBox[
+         SubscriptBox[
+          StyleBox["p",
+           FontSlant->"Italic"], "2"], 
+         SubscriptBox[
+          StyleBox["x",
+           FontSlant->"Italic"], "2"]], "\[CenterEllipsis]", " ", 
+        SuperscriptBox[
+         SubscriptBox[
+          StyleBox["p",
+           FontSlant->"Italic"], 
+          StyleBox["k",
+           FontSlant->"Italic"]], 
+         StyleBox[
+          SubscriptBox["x", "k"],
+          FontSlant->"Italic"]]}], ",", "  ", Cell[TextData[Cell[BoxData[
+        FormBox[
+         RowBox[{
+          RowBox[{
+           UnderscriptBox[
+            RowBox[{"\[CapitalSigma]", " "}], 
+            StyleBox["i",
+             FontSlant->"Italic"]], 
+           StyleBox[
+            SubscriptBox["x", "i"],
+            FontSlant->"Italic"]}], " ", "=", " ", "n"}], 
+         TraditionalForm]]]]], ",", " ", Cell[TextData[Cell[BoxData[
+        FormBox[
+         RowBox[{
+          SubscriptBox["x", "i"], "\[GreaterEqual]", 
+          RowBox[{"0", " ", "for", " ", "all", " ", Cell["i",
+            FontSlant->"Italic"]}]}], TraditionalForm]]]]]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], " "}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.42463311121875*^9, 3.42463312059375*^9}, {
+  3.4361361948865194`*^9, 3.436136210495519*^9}}],
+
+Cell[TextData[{
+ "\tThe individual distributions of random variables that have the joint \
+multinomial distribution are easy to find if we go back to first principles.  \
+Consider ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " for example.  Each of the ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trials can either result in a category 1 value, or some other.  Lump \
+together all of the other categories into one category thought of as a \
+failure, and combine their probabilities into one failure probability. Thus, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " counts the number of successes in a binomial experiment with success \
+probability ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "1"], TraditionalForm]]],
+ ".  This reasoning shows that if ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ... , ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "k"], TraditionalForm]]],
+ " have the multinomial distribution with ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " trials and category probabilities ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "1"], TraditionalForm]]],
+ ", ..., ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "k"], TraditionalForm]]],
+ ", then each ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "i"], TraditionalForm]]],
+ " has the binomial distribution with parameters ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "i"], TraditionalForm]]],
+ ". In a roll of 12 fair dice in succession for example, the number of 6's \
+has the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "(", 
+    RowBox[{"12", ",", 
+     RowBox[{"1", "/", "6"}]}], ")"}], TraditionalForm]]],
+ " distribution.  The final activity of this section asks you to generalize \
+this reasoning."
+}], "Text",
+ CellChangeTimes->{
+  3.424629317515625*^9, {3.4246306605625*^9, 3.424630699234375*^9}, {
+   3.42463073721875*^9, 3.424630820515625*^9}, {3.424630882375*^9, 
+   3.4246309321875*^9}, {3.424632712734375*^9, 3.42463272940625*^9}, 
+   3.4408661856672*^9}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "  If ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "4"], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "5"], TraditionalForm]]],
+ " have the multinomial distribution with ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 20 trials and category probabilities .1, .2, .3, .2, and .2, \
+respectively, find the joint p.m.f. of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellFrame->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 2.2", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell["\<\
+1. Devise two examples other than the ones given at the start of the section \
+of random phenomena that might be modeled using Bernoulli random variables\
+\>", "Text",
+ CellChangeTimes->{3.42463330425*^9}],
+
+Cell[TextData[{
+ "2.  Explain how a random variable ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " with the b(",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") distribution can be thought of as a sum of Bernoulli(",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") random variables."
+}], "Text",
+ CellChangeTimes->{3.440866191408*^9}],
+
+Cell[TextData[{
+ "3. Find the third moment about the mean for the Bernoulli distribution with \
+parameter ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["4. The Bernoulli distribution can be generalized slightly by \
+removing the restriction that the state space is ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1"}], "}"}], TraditionalForm]]],
+ ". Consider Bernoulli distributions on state spaces ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b"}], "}"}], TraditionalForm]]],
+ ", where without loss of generality ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "<", "b"}], TraditionalForm]]],
+ ". The associated probability mass function would be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "k", ")"}], "=", "p"}], TraditionalForm]]],
+ ", if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "=", "b"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "k", ")"}], "=", 
+    RowBox[{"q", "=", 
+     RowBox[{"1", "-", "p"}]}]}], TraditionalForm]]],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "=", "a"}], TraditionalForm]]],
+ ". Then there will be a unique Bernoulli distribution for each fixed mean, \
+variance pair. In particular, given ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Sigma]", "2"], "=", 
+    RowBox[{"Var", "(", "X", ")"}]}], TraditionalForm]]],
+ ", find states ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox["b", TraditionalForm]]],
+ " that produce the desired values of \[Mu] and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[Sigma]", "2"], TraditionalForm]]],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.424493089828125*^9, 3.42449314265625*^9}, {
+   3.4246333136875*^9, 3.424633315671875*^9}, {3.42478579790625*^9, 
+   3.42478593446875*^9}, {3.424785967390625*^9, 3.424786244046875*^9}, 
+   3.424786316609375*^9, 3.4408661938571997`*^9}],
+
+Cell[TextData[{
+ StyleBox["5. ",
+  FontColor->GrayLevel[0]],
+ "(",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")",
+ StyleBox[" Referring to the roulette problem, Example 2, write a command \
+that tracks the gambler's net winnings among ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ StyleBox[" spins betting $1 on red as ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ " gets large.",
+ StyleBox[" The command should compute and list plot the net winnings per \
+spin. Run the command several times for large ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ ".  To what does the net winnings per spin seem to converge?"
+}], "Text",
+ CellChangeTimes->{{3.424493089828125*^9, 3.42449314265625*^9}, {
+   3.424493423421875*^9, 3.4244934928125*^9}, {3.4246333195625*^9, 
+   3.4246333215*^9}, {3.42478634965625*^9, 3.424786350453125*^9}, {
+   3.424786388671875*^9, 3.4247865589375*^9}, 3.4408661962595997`*^9}],
+
+Cell[TextData[{
+ "6. Suppose that the number of people among ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " who experience drowsiness when taking a certain blood pressure medication \
+has the binomial distribution with success probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = .4.  Find the probability that no more than 3 among 10 such recipients \
+of the medication become drowsy."
+}], "Text",
+ CellChangeTimes->{{3.424633330953125*^9, 3.424633332671875*^9}, 
+   3.424638372663651*^9}],
+
+Cell[TextData[{
+ "7.  Find the second moment about 0 for the b(",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") distribution."
+}], "Text",
+ CellChangeTimes->{{3.424633335703125*^9, 3.424633336234375*^9}, 
+   3.424638377475997*^9}],
+
+Cell[TextData[{
+ "8.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Suppose that in front of a hotel in a large city, successive 20 second \
+intervals constitute independent trials, in which either a single cab will \
+arrive (with probability .2), or no cabs will arrive (with probability .8).  \
+Find the probability that at least 30 cabs arrive in an hour. What is the \
+expected number of cabs to arrive in an hour? "
+}], "Text",
+ CellChangeTimes->{{3.4246333391875*^9, 3.42463333953125*^9}, 
+   3.424638381069632*^9, 3.440866202484*^9}],
+
+Cell[TextData[{
+ "9.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") The 500 Standard & Poor's companies are often used to measure the \
+performance of the stock market.  One rough index simply counts the numbers \
+of \"advances,\" i.e., those companies whose stocks either stayed the same in \
+value or rose.  The term \"declines\" is used for those companies whose \
+stocks fell in value.  If during a certain bull market period 70% of the \
+Standard & Poor's stocks are advances on average, what is the probability \
+that on a particular day there are at least 300 advances?  What are the \
+expected value and variance of the number of advances? "
+}], "Text",
+ CellChangeTimes->{{3.4246333469375*^9, 3.424633347265625*^9}, 
+   3.4246383874913015`*^9, 3.4408662054948*^9, {3.4564972178956003`*^9, 
+   3.4564972194244003`*^9}}],
+
+Cell[TextData[{
+ "10. For what value of the parameter ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " is the variance of the binomial distribution largest? (Assume that ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is fixed.)"
+}], "Text",
+ CellChangeTimes->{{3.424633350046875*^9, 3.424633350953125*^9}, 
+   3.4246383915849204`*^9, 3.4408662080220003`*^9}],
+
+Cell[TextData[{
+ "11.  Prove that when ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = .5, the p.m.f. of the binomial distribution is symmetric about ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.42463335384375*^9, 3.424633354265625*^9}, 
+   3.424638394959812*^9}],
+
+Cell[TextData[{
+ "12.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write a command in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to simulate 500 at bats of a baseball hitter whose theoretical average is \
+.300 (that is, his probability of a hit on a given at bat is .3).  Use the \
+command to simulate several such 500 at bat seasons, making note of the \
+empirical proportion of hits.  What is the expected value of the number of \
+hits, and what is the standard deviation of the batting average random \
+variable (i.e., hits/at bats)?"
+}], "Text",
+ CellChangeTimes->{{3.424633357296875*^9, 3.42463335971875*^9}, 
+   3.424638399475293*^9, 3.4408662112980003`*^9}],
+
+Cell[TextData[{
+ "13. Use linearity of expectation to devise an alternative method of proving \
+the formula ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", "X", "]"}], "=", 
+    RowBox[{"n", " ", "p"}]}], TraditionalForm]]],
+ " where ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " \[Tilde] b(",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ").  (Hint: See Exercise 2.) "
+}], "Text",
+ CellChangeTimes->{{3.424494594609375*^9, 3.42449462125*^9}, {3.4246333665*^9,
+    3.42463336709375*^9}, 3.4246384054907255`*^9}],
+
+Cell[TextData[{
+ "14.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Unscrupulous promoters have booked 55 people on a bus trip to a shopping \
+mall, knowing that the bus will only hold 52.  They are counting on the fact \
+that history indicates that on average 10% of the people who book \
+reservations do not show up for the trip.  The fine print on the reservations \
+promises a double-your-money back refund of $100 if for any reason a reserved \
+seat is not available for the ticket holder on the day of the trip.  What is \
+the probability that the promoters will have to issue at least one refund?  \
+What is the expected total refund that will be paid?"
+}], "Text",
+ CellChangeTimes->{{3.42463336925*^9, 3.42463336990625*^9}, 
+   3.4246384091156096`*^9, 3.4408662167736*^9}],
+
+Cell[TextData[{
+ "15.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A population of 100 people contains 20 who are regular consumers of a \
+certain soft drink. For a product survey, samples of size 10 are taken under \
+two procedures: (1) sampling in a batch without replacement; (2) sampling in \
+sequence with replacement.  Compute and compare the probability mass \
+functions of the number of people in the sample who are regular consumers of \
+this soft drink for the two procedures.  Compute relative differences between \
+corresponding probability masses for the two procedures for each state 0, 1, \
+2, ... , 10. (The ",
+ StyleBox["relative difference",
+  FontSlant->"Italic"],
+ " between positive numbers ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ " is the absolute difference ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{"a", "-", "b"}], "|"}], TraditionalForm]]],
+ " divided by the smaller of ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ".) "
+}], "Text",
+ CellChangeTimes->{{3.424633376046875*^9, 3.4246333766875*^9}, 
+   3.424638412849865*^9, 3.4408662192852*^9}],
+
+Cell["\<\
+16. Each day, a  woman will visit one politically oriented on line chat room \
+among four that she likes.  She is equally likely to visit chat room 1 as \
+chat room 2, and she is twice as likely to visit each of these as she is to \
+visit each of chat rooms 3 and 4. In a 4 day period, find the probability \
+that she visits chat room 1 at least 3 times. \
+\>", "Text",
+ CellChangeTimes->{{3.424494719109375*^9, 3.424494737625*^9}, {
+   3.42463337940625*^9, 3.424633385390625*^9}, 3.4246384195840244`*^9, {
+   3.4247868163125*^9, 3.42478704903125*^9}, 3.4408662216563997`*^9}],
+
+Cell[TextData[{
+ "17.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function which computes values of the multinomial probability mass \
+function (see formula (6)). The  input parameters should be a list of number \
+of desired occurrences of each of the  states ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     FormBox[
+      SubscriptBox["x", "1"],
+      TraditionalForm], ",", 
+     FormBox[
+      SubscriptBox["x", "2"],
+      TraditionalForm], ",", "...", ",", 
+     FormBox[
+      SubscriptBox["x", "k"],
+      TraditionalForm]}], "}"}], TraditionalForm]]],
+ ", the number of trials ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", and a list of multinomial probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     FormBox[
+      SubscriptBox["p", "1"],
+      TraditionalForm], ",", 
+     FormBox[
+      SubscriptBox["p", "2"],
+      TraditionalForm], ",", "...", ",", 
+     FormBox[
+      SubscriptBox["p", "k"],
+      TraditionalForm]}], "}"}], TraditionalForm]]],
+ ". Use it to find the probability that in 20 rolls of a fair die, you roll 4 \
+sixes, 7 fives, 6 fours, and 1 three. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " note: The function Multinomial will not apply directly to a sequence \
+enclosed in list braces such as the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "'s above, but if you compose Multinomial with the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function Sequence using the syntax: Multinomial[Sequence@@xlist], then the \
+list braces will be stripped off before feeding the list into Multinomial. \
+Or, just use the Factorial function to make your own version of the \
+multinomial coefficient.)"
+}], "Text",
+ CellChangeTimes->{{3.424633230265625*^9, 3.4246332454375*^9}, {
+   3.424633390015625*^9, 3.4246333906875*^9}, 3.424638427536895*^9, 
+   3.4361961015299997`*^9, 3.4408662269916*^9}],
+
+Cell[TextData[StyleBox["Sample Problems from Actuarial Exam P  ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9, {3.424364700859375*^9, 3.424364715375*^9}, {
+   3.42443675165625*^9, 3.424436753875*^9}, {3.424440456125*^9, 
+   3.424440463953125*^9}, {3.4244428311875*^9, 3.424442841421875*^9}, {
+   3.42449284928125*^9, 3.4244928670625*^9}, {3.4244929328125*^9, 
+   3.424492950984375*^9}, 3.424600696640625*^9},
+ FontWeight->"Bold"],
+
+Cell["\<\
+18. A hospital receives 1/5 of its flu vaccine shipments from Company X and \
+the remainder of its shipments from other companies. Each shipment contains a \
+very large number of vaccine vials. For Company X's shipments, 10% of the \
+vials are ineffective. For every other company, 2% of the vials are \
+ineffective. The hospital tests 30 randomly selected vials from a shipment \
+and finds that one vial is ineffective. What is the probability that this \
+shipment came from Company X?\
+\>", "Text",
+ CellChangeTimes->{{3.42459978253125*^9, 3.424599786296875*^9}, {
+   3.424599916328125*^9, 3.424600056765625*^9}, 3.42463340425*^9, 
+   3.4408662296904*^9}],
+
+Cell["\<\
+19. A large pool of adults earning their first driver's license includes 50% \
+low-risk drivers, 30% moderate-risk drivers, and 20% high-risk drivers. \
+Because these drivers have no prior driving record, an insurance company \
+considers each driver to be randomly selected from the pool. This month, the \
+insurance company writes 4 new policies for adults earning their first \
+driver's license. What is the probability that these 4 will contain at least \
+two more high-risk drivers than low-risk drivers?\
+\>", "Text",
+ CellChangeTimes->{{3.424599787265625*^9, 3.424599789984375*^9}, 
+   3.42460006084375*^9, {3.424600126484375*^9, 3.424600269203125*^9}, 
+   3.424633407484375*^9, 3.4408662318588*^9}],
+
+Cell["\<\
+20. A study is being conducted in which the health of two independent groups \
+of ten policyholders is being monitored over a one-year period of time. \
+Individual participants in the study drop out before the end of the study \
+with probability .2 (independently of the other participants).  What is the \
+probability that at least 9 participants complete the study in one of the two \
+groups, but not in both groups? \
+\>", "Text",
+ CellChangeTimes->{{3.424599794109375*^9, 3.424599795390625*^9}, {
+   3.42460043965625*^9, 3.42460056453125*^9}, {3.424633410890625*^9, 
+   3.424633411125*^9}, 3.4408662373968*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{612, 640},
+WindowMargins->{{-2, Automatic}, {Automatic, 7}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 2 Discrete Distributions"], "Header"]}, {
+   Cell[
+    TextData["2.2 Bernoulli and Binomial Random Variables"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowSelection->True,
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 153, 4, 68, "Section"],
+Cell[723, 28, 1175, 30, 173, "Text"],
+Cell[1901, 60, 977, 34, 50, "DisplayFormulaNumbered"],
+Cell[2881, 96, 163, 3, 27, "Text"],
+Cell[3047, 101, 662, 22, 33, "DisplayFormulaNumbered"],
+Cell[3712, 125, 769, 26, 33, "DisplayFormulaNumbered"],
+Cell[4484, 153, 423, 17, 71, "Text"],
+Cell[4910, 172, 1264, 33, 194, "Text"],
+Cell[6177, 207, 1112, 41, 47, "DisplayFormula"],
+Cell[7292, 250, 368, 6, 90, "Text"],
+Cell[7663, 258, 868, 30, 47, "DisplayFormula"],
+Cell[8534, 290, 337, 6, 69, "Text"],
+Cell[8874, 298, 131, 5, 27, "Text"],
+Cell[9008, 305, 50, 0, 27, "DisplayFormula"],
+Cell[9061, 307, 512, 10, 110, "Text"],
+Cell[9576, 319, 797, 22, 145, "Input",
+ InitializationCell->True],
+Cell[10376, 343, 357, 10, 56, "Input",
+ InitializationCell->True],
+Cell[10736, 355, 312, 9, 90, "Text"],
+Cell[11051, 366, 1625, 48, 235, "Text"],
+Cell[12679, 416, 585, 16, 30, "DisplayFormula"],
+Cell[13267, 434, 1561, 51, 194, "Text"],
+Cell[14831, 487, 1206, 41, 46, "DisplayFormulaNumbered"],
+Cell[16040, 530, 597, 17, 90, "Text"],
+Cell[16640, 549, 237, 6, 27, "DisplayFormula"],
+Cell[16880, 557, 448, 12, 69, "Text"],
+Cell[17331, 571, 818, 25, 46, "DisplayFormulaNumbered"],
+Cell[18152, 598, 170, 7, 48, "Text"],
+Cell[18325, 607, 52, 0, 27, "DisplayFormula"],
+Cell[18380, 609, 166, 3, 48, "Text"],
+Cell[18549, 614, 1026, 32, 111, "Text"],
+Cell[19578, 648, 534, 17, 56, "Input",
+ InitializationCell->True],
+Cell[20115, 667, 196, 4, 48, "Text"],
+Cell[20314, 673, 658, 19, 79, "Input",
+ InitializationCell->True],
+Cell[20975, 694, 382, 9, 69, "Text"],
+Cell[21360, 705, 1241, 26, 235, "Text"],
+Cell[22604, 733, 383, 10, 90, "Text"],
+Cell[22990, 745, 393, 11, 69, "Text"],
+Cell[23386, 758, 1683, 46, 233, "Input",
+ InitializationCell->True],
+Cell[25072, 806, 162, 2, 27, "Text"],
+Cell[25237, 810, 274, 8, 28, "Text"],
+Cell[25514, 820, 1765, 49, 174, "Text"],
+Cell[27282, 871, 1613, 44, 167, "Input",
+ InitializationCell->True],
+Cell[28898, 917, 934, 16, 214, "Text"],
+Cell[29835, 935, 541, 16, 79, "Input",
+ InitializationCell->True],
+Cell[30379, 953, 723, 22, 79, "Input",
+ InitializationCell->True],
+Cell[31105, 977, 723, 22, 79, "Input",
+ InitializationCell->True],
+Cell[31831, 1001, 310, 8, 48, "Text"],
+Cell[32144, 1011, 696, 30, 28, "Text"],
+Cell[32843, 1043, 692, 27, 49, "Text"],
+Cell[33538, 1072, 1882, 57, 82, "DisplayFormula"],
+Cell[35423, 1131, 924, 30, 69, "Text"],
+Cell[36350, 1163, 1296, 38, 62, "DisplayFormula"],
+Cell[37649, 1203, 295, 8, 27, "Text"],
+Cell[37947, 1213, 408, 13, 48, "Text"],
+Cell[38358, 1228, 2160, 65, 82, "DisplayFormula"],
+Cell[40521, 1295, 1320, 45, 76, "Text"],
+Cell[41844, 1342, 2271, 76, 84, "DisplayFormula"],
+Cell[44118, 1420, 147, 3, 27, "Text"],
+Cell[44268, 1425, 603, 11, 111, "Text"],
+Cell[44874, 1438, 311, 7, 48, "Text"],
+Cell[45188, 1447, 604, 17, 83, "Input",
+ InitializationCell->True],
+Cell[45795, 1466, 660, 19, 48, "Text"],
+Cell[46458, 1487, 621, 18, 56, "Input",
+ InitializationCell->True],
+Cell[47082, 1507, 31, 0, 27, "Text"],
+Cell[47116, 1509, 678, 13, 131, "Text"],
+Cell[47797, 1524, 1634, 33, 281, "Text"],
+Cell[49434, 1559, 933, 30, 52, "DisplayFormula"],
+Cell[50370, 1591, 398, 11, 50, "Text"],
+Cell[50771, 1604, 708, 23, 70, "Input",
+ InitializationCell->True],
+Cell[51482, 1629, 569, 9, 90, "Text"],
+Cell[CellGroupData[{
+Cell[52076, 1642, 110, 1, 41, "Subsection"],
+Cell[52189, 1645, 3899, 125, 339, "Text"],
+Cell[56091, 1772, 1283, 34, 27, "DisplayFormula"],
+Cell[57377, 1808, 742, 23, 69, "Text"],
+Cell[58122, 1833, 719, 27, 47, "DisplayFormula"],
+Cell[58844, 1862, 1105, 36, 88, "Text"],
+Cell[59952, 1900, 1996, 75, 71, "DisplayFormula"],
+Cell[61951, 1977, 720, 21, 69, "Text"],
+Cell[62674, 2000, 709, 13, 111, "Text"],
+Cell[63386, 2015, 1531, 42, 214, "Text"],
+Cell[64920, 2059, 1344, 44, 46, "DisplayFormula"],
+Cell[66267, 2105, 385, 9, 48, "Text"],
+Cell[66655, 2116, 530, 16, 58, "Input",
+ InitializationCell->True],
+Cell[67188, 2134, 1694, 53, 110, "Text"],
+Cell[68885, 2189, 1414, 43, 128, "Input",
+ InitializationCell->True],
+Cell[70302, 2234, 229, 3, 27, "Text"],
+Cell[70534, 2239, 1190, 44, 100, "Text"],
+Cell[71727, 2285, 3620, 115, 96, "DisplayFormulaNumbered"],
+Cell[75350, 2402, 2108, 65, 214, "Text"],
+Cell[77461, 2469, 936, 41, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78434, 2515, 80, 2, 41, "Subsection"],
+Cell[78517, 2519, 215, 4, 48, "Text"],
+Cell[78735, 2525, 368, 15, 48, "Text"],
+Cell[79106, 2542, 165, 6, 27, "Text"],
+Cell[79274, 2550, 2042, 69, 135, "Text"],
+Cell[81319, 2621, 1011, 27, 90, "Text"],
+Cell[82333, 2650, 494, 12, 90, "Text"],
+Cell[82830, 2664, 273, 10, 27, "Text"],
+Cell[83106, 2676, 551, 11, 90, "Text"],
+Cell[83660, 2689, 838, 15, 152, "Text"],
+Cell[84501, 2706, 352, 10, 48, "Text"],
+Cell[84856, 2718, 299, 10, 27, "Text"],
+Cell[85158, 2730, 689, 15, 110, "Text"],
+Cell[85850, 2747, 608, 22, 48, "Text"],
+Cell[86461, 2771, 793, 14, 152, "Text"],
+Cell[87257, 2787, 1196, 34, 173, "Text"],
+Cell[88456, 2823, 586, 9, 90, "Text"],
+Cell[89045, 2834, 1954, 58, 214, "Text"],
+Cell[91002, 2894, 653, 10, 33, "Text"],
+Cell[91658, 2906, 667, 11, 112, "Text"],
+Cell[92328, 2919, 715, 11, 112, "Text"],
+Cell[93046, 2932, 624, 10, 86, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

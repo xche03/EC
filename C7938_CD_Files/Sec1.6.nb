@@ -1,0 +1,2650 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     83914,       2641]
+NotebookOptionsPosition[     79513,       2512]
+NotebookOutlinePosition[     80394,       2545]
+CellTagsIndexPosition[     80351,       2542]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["1.6 Independence", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tThe approach to probability that we have been taking so far draws heavily \
+on random sampling and simulation.  These concepts are also very helpful in \
+understanding the subject of this section: ",
+ StyleBox["independence",
+  FontSlant->"Italic"],
+ " of events in random experiments.  For example, what is the crucial \
+difference between sampling five integers in sequence from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", " ", "...", ",", "10"}], "}"}], 
+   TraditionalForm]]],
+ " without replacement as compared to sampling them with replacement?  In the \
+no replacement scenario, once a number, say 4, is sampled, it cannot appear \
+again, and other numbers are a little more likely to appear later in the \
+sequence because 4 is no longer eligible.  When sampling with replacement, 4 \
+is just as likely to appear again later as it was the first time, and other \
+numbers also have the same likelihood of appearing, regardless of whether 4 \
+was sampled.  In this case, the occurrence of an event like: \"4 on 1st\" has \
+no effect on the probability of an event like: \"7 on 2nd.\"  This is the \
+nature of independence, and sampling with replacement permits it to happen \
+while sampling without replacement does not. \n\tAnother way to look at \
+independence involves the computation of intersection probabilities.  Take \
+the example above and use combinatorics to compute the probability that the \
+first two sampled numbers are 4 and 7.  Since we still must account for the \
+other three members of the sample, the probability of this event, assuming no \
+replacement, is"
+}], "Text",
+ CellChangeTimes->{{3.4564257094909368`*^9, 3.4564257113317366`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{"4", " ", "on", " ", "1", "st"}], ",", " ", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    FractionBox[
+     RowBox[{
+     "1", "\[CenterDot]", "1", "\[CenterDot]", "8", "\[CenterDot]", "7", 
+      "\[CenterDot]", "6"}], 
+     RowBox[{
+     "10", "\[CenterDot]", "9", "\[CenterDot]", "8", "\[CenterDot]", "7", 
+      "\[CenterDot]", "6"}]],
+    TraditionalForm], " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "10"], "\[CenterDot]", 
+      FractionBox["1", "9"]}], "=", 
+     FractionBox["1", "90"]}],
+    TraditionalForm]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["The probability of the same event, assuming replacement, is", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{"4", " ", "on", " ", "1", "st"}], ",", " ", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    FractionBox[
+     RowBox[{
+     "1", "\[CenterDot]", "1", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}], 
+     RowBox[{
+     "10", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}]],
+    TraditionalForm], " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "10"], "\[CenterDot]", 
+      FractionBox["1", "10"]}], "=", 
+     FractionBox["1", "100"]}],
+    TraditionalForm]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+which differs from the answer obtained under the assumption of no \
+replacement.  Moreover, assuming again that the sample is drawn with \
+replacement,\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"4", " ", "on", " ", "1", "st"}], "]"}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     FractionBox[
+      RowBox[{
+      "1", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+       "\[CenterDot]", "10"}], 
+      RowBox[{
+      "10", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+       "\[CenterDot]", "10"}]],
+     TraditionalForm], " ", "=", " ", 
+    FormBox[
+     FractionBox["1", "10"],
+     TraditionalForm]}]}], " ", ",", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}], "]"}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     FractionBox[
+      RowBox[{
+      "10", "\[CenterDot]", "1", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+       "\[CenterDot]", "10"}], 
+      RowBox[{
+      "10", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+       "\[CenterDot]", "10"}]],
+     TraditionalForm], " ", "=", " ", 
+    FormBox[
+     FractionBox["1", "10"],
+     TraditionalForm]}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["hence", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{"4", " ", "on", " ", "1", "st"}], ",", " ", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "10"], "\[CenterDot]", 
+       FractionBox["1", "10"]}], "="}], " "}],
+    TraditionalForm], 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{"4", " ", "on", " ", "1", "st"}], "]"}], "\[CenterDot]", 
+    RowBox[{"P", "[", 
+     RowBox[{"7", " ", "on", " ", "2", "nd"}], "]"}]}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+You should check that for sampling without replacement, the joint probability \
+does not factor into the product of individual event probabilities.
+\tFactorization can occur when three or more events are intersected as well.  \
+For instance when the sample is taken with replacement,\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{"4", " ", "on", " ", "1", "st"}], ",", " ", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}], ",", " ", 
+    RowBox[{"4", " ", "on", " ", "3", "rd"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    FractionBox[
+     RowBox[{
+     "1", "\[CenterDot]", "1", "\[CenterDot]", "1", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}], 
+     RowBox[{
+     "10", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}]],
+    TraditionalForm], " ", "=", " ", 
+   FormBox[
+    RowBox[{
+     FractionBox["1", "10"], "\[CenterDot]", 
+     FractionBox["1", "10"], "\[CenterDot]", 
+     FractionBox["1", "10"]}],
+    TraditionalForm]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"4", " ", "on", " ", "1", "st"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    FractionBox[
+     RowBox[{
+     "1", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}], 
+     RowBox[{
+     "10", "\[CenterDot]", "10", "\[CenterDot]", "10", "\[CenterDot]", "10", 
+      "\[CenterDot]", "10"}]],
+    TraditionalForm], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     FractionBox["1", "10"],
+     TraditionalForm], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"P", "[", 
+      RowBox[{"7", " ", "on", " ", "2", "nd"}], "]"}], " ", "=", " ", 
+     RowBox[{"P", "[", 
+      RowBox[{"4", " ", "on", " ", "3", "rd"}], "]"}]}]}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["Therefore,", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{"4", " ", "on", " ", "1", "st"}], ",", " ", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}], ",", " ", 
+    RowBox[{"4", " ", "on", " ", "3", "rd"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"4", " ", "on", " ", "1", "st"}], "]"}], "\[CenterDot]", 
+   RowBox[{"P", "[", 
+    RowBox[{"7", " ", "on", " ", "2", "nd"}], "]"}], "\[CenterDot]", 
+   RowBox[{"P", "[", 
+    RowBox[{"4", " ", "on", " ", "3", "rd"}], "]"}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+These three events are independent, and in fact it is easy to show that any \
+subcollection of two of the events at a time satisfies this factorization \
+condition also.
+\tHaving laid the groundwork for the concept of independence in the realm of \
+sampling, let us go back to the general situation for our definition.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  Events ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox[
+      StyleBox["B",
+       FontSlant->"Italic"], "1"], ",", 
+     SubscriptBox[
+      StyleBox["B",
+       FontSlant->"Italic"], "2"], ",", " ", 
+     RowBox[{"...", " ", 
+      SubscriptBox[
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       StyleBox["n",
+        FontSlant->"Italic"]]}]}], " "}], TextForm]]],
+ " are called ",
+ StyleBox["mutually independent",
+  FontSlant->"Italic"],
+ " if for any subcollection of them ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox[
+      StyleBox["B",
+       FontSlant->"Italic"], 
+      SubscriptBox[
+       StyleBox["i",
+        FontSlant->"Italic"], "1"]], ",", 
+     SubscriptBox[
+      StyleBox["B",
+       FontSlant->"Italic"], 
+      SubscriptBox[
+       StyleBox["i",
+        FontSlant->"Italic"], "2"]], ",", " ", 
+     RowBox[{"...", " ", 
+      SubscriptBox[
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       StyleBox[
+        SubscriptBox["i", "k"],
+        FontSlant->"Italic"]]}]}], " "}], TextForm]]],
+ ", 2 \[LessEqual] ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " \[LessEqual] ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox[
+        StyleBox["B",
+         FontSlant->"Italic"], 
+        SubscriptBox[
+         StyleBox["i",
+          FontSlant->"Italic"], "1"]], "\[Intersection]", 
+       SubscriptBox[
+        StyleBox["B",
+         FontSlant->"Italic"], 
+        SubscriptBox[
+         StyleBox["i",
+          FontSlant->"Italic"], "2"]], "\[Intersection]"}], " ", "..."}], " ",
+      "\[Intersection]", 
+     SubscriptBox[
+      StyleBox["B",
+       FontSlant->"Italic"], 
+      StyleBox[
+       SubscriptBox["i", "k"],
+       FontSlant->"Italic"]]}],
+    TextForm], "]"}], " ", "=", " ", 
+  RowBox[{"P", "[", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubscriptBox[
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       SubscriptBox[
+        StyleBox["i",
+         FontSlant->"Italic"], "1"]], "]"}], 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      SubscriptBox[
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       SubscriptBox[
+        StyleBox["i",
+         FontSlant->"Italic"], "2"]], "]"}], " ", "\[CenterEllipsis]", " ", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      SubscriptBox[
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       StyleBox[
+        SubscriptBox["i", "k"],
+        FontSlant->"Italic"]]}]}],
+    TextForm], "]"}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "In particular for two independent events ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"A", " ", "\[Intersection]", " ", "B"}], "]"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "A", "]"}], "\[CenterDot]", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "B", "]"}]}]}], TraditionalForm]]],
+ ", which means that"
+}], "Text",
+ CellChangeTimes->{3.4240379712864122`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    StyleBox["B",
+     FontSlant->"Italic"], " ", "|", " ", 
+    StyleBox["A",
+     FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"A", "\[Intersection]", "B"}], "]"}], 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "A", "]"}]], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        StyleBox["A",
+         FontSlant->"Italic"], "]"}], "\[CenterDot]", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        StyleBox["B",
+         FontSlant->"Italic"], "]"}]}], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", "A", "]"}]], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "B", "]"}]}]}],
+   TraditionalForm]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "In words, if ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are independent, then the probability of ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " does not depend on whether ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " is known to have occurred."
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  For a roll of two fair dice in sequence, check that the events ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "= \"1 on 1st\" and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ " = \"6 on 2nd\" are independent by writing out the sample space and finding \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["B", "1"], "\[Intersection]", 
+     SubscriptBox["B", "2"]}], "]"}], TraditionalForm]]],
+ ", P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "], and P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ "].  Compare P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ " | ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "] to P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ "]."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4359492645739083`*^9, 3.4359493344788165`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  Four customers arrive in sequence to a small antique store.  If they make \
+their decisions whether or not to buy something independently of one another, \
+and if they have individual likelihoods of 1/4, 1/3, 1/2, and 1/2 of buying \
+something, what is the probability that at least three of them will buy?",
+ "\n",
+ "\tThe problem solving strategy here is of the ",
+ StyleBox["divide and conquer",
+  FontSlant->"Italic"],
+ " type; ",
+ StyleBox["divide",
+  FontVariations->{"Underline"->True}],
+ " the large problem into subproblems, and ",
+ StyleBox["conquer",
+  FontVariations->{"Underline"->True}],
+ " the subproblems using independence.  First, the event that at least three \
+customers buy can be expressed as the disjoint union of five subevents, from \
+which we can write:"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"at", " ", "least", " ", "3", " ", "buy"}], "]"}], "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{"customers", " ", "1"}], ",", "2", ",", 
+         RowBox[{"3", " ", "buy", " ", "and", " ", "not", " ", "4"}]}], "]"}],
+        "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"1", ",", "2", ",", 
+         RowBox[{"4", " ", "buy", " ", "and", " ", "not", " ", "3"}]}], 
+        "]"}]}]},
+     {" ", " ", 
+      RowBox[{
+       RowBox[{"+", 
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{"1", ",", "3", ",", 
+          RowBox[{"4", " ", "buy", " ", "and", " ", "not", " ", "2"}]}], 
+         "]"}]}], "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"2", ",", "3", ",", 
+         RowBox[{"4", " ", "buy", " ", "and", " ", "not", " ", "1"}]}], 
+        "]"}]}]},
+     {" ", " ", 
+      RowBox[{"+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{"1", ",", "2", ",", "3", ",", 
+         RowBox[{"4", " ", "buy"}]}], "]"}]}]}
+    }],
+   TraditionalForm]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+Each subevent is an intersection of independent events, so by formula (1) and \
+the given individual purchase probabilities,\
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"at", " ", "least", " ", "3", " ", "buy"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   FormBox[
+    RowBox[{
+     FractionBox["1", "4"], "\[CenterDot]", 
+     FractionBox["1", "3"], "\[CenterDot]", 
+     FractionBox["1", "2"], "\[CenterDot]", 
+     FractionBox["1", 
+      RowBox[{"2", " "}]]}],
+    TraditionalForm], "+", " ", 
+   FormBox[
+    RowBox[{
+     FractionBox["1", "4"], "\[CenterDot]", 
+     FractionBox["1", "3"], "\[CenterDot]", 
+     FractionBox["1", "2"], "\[CenterDot]", 
+     FractionBox["1", "2"]}],
+    TraditionalForm], " ", "+", 
+   FormBox[
+    RowBox[{" ", 
+     RowBox[{
+      FractionBox["1", "4"], "\[CenterDot]", 
+      FractionBox["1", "2"], "\[CenterDot]", 
+      FractionBox["1", "2"], "\[CenterDot]", 
+      FractionBox["2", "3"]}]}],
+    TraditionalForm]}]}], "\n", 
+ RowBox[{"\t\t\t", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"+", " ", 
+     FormBox[
+      RowBox[{
+       FractionBox["1", "3"], "\[CenterDot]", 
+       FractionBox["1", "2"], "\[CenterDot]", 
+       FractionBox["1", "2"], "\[CenterDot]", 
+       FractionBox["3", 
+        RowBox[{"4", " "}]]}],
+      TraditionalForm]}], "+", 
+    FormBox[
+     RowBox[{" ", 
+      RowBox[{
+       FractionBox["1", "4"], "\[CenterDot]", 
+       FractionBox["1", "3"], "\[CenterDot]", 
+       FractionBox["1", "2"], "\[CenterDot]", 
+       FractionBox["1", "2"]}]}],
+     TraditionalForm]}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     FractionBox["1", "6"],
+     TraditionalForm], "  ", "\[FilledSquare]"}]}]}]}], "Equation",
+ CellChangeTimes->{3.435870723668519*^9},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  One frequently sees the notion of independence come up in the study of \
+two-way tables called ",
+ StyleBox["contingency tables",
+  FontSlant->"Italic"],
+ ", in which individuals in a population are classified according to each of \
+two characteristics.  Such a table appeared in Section 1.5 in reference to \
+the Peotone airport proposal. The first characteristic was the region in \
+which the individual lived (4 possible regions), and the second \
+characteristic was the individual's opinion about the airport issue (3 \
+possible opinions).  If one person is sampled at random from the 563 in this \
+group, you can ask whether such events as \"the sampled person is from the \
+north suburbs\" and \"the sampled person is opposed to the new airport\" are \
+independent. Using the counts in the table, we can check that ",
+ Cell[BoxData[
+  FormBox[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"north", " ", "and", " ", "opposed"}], "]"}], "\[TildeTilde]", 
+     ".0604"}],
+    TraditionalForm], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "north", "]"}], "\[TildeTilde]", ".2469"}],
+    TraditionalForm], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "opposed", "]"}], "\[TildeTilde]", ".3250"}],
+    TraditionalForm], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "north", "]"}], "\[CenterDot]", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "opposed", "]"}]}], "\[TildeTilde]", 
+    ".0803"}], TraditionalForm]]],
+ ".  So the joint probability P[north and opposed] is not equal to the \
+product of the individual probabilities P[north]\[CenterDot]P[opposed].  \
+Hence we conclude that these two events are not independent.  There may be \
+something about being from the north suburbs which changes the likelihood of \
+being opposed to the airport. (You can conjecture that north suburban people \
+might be more inclined to favor the airport, since it is not in their own \
+backyard.)  \n\tHowever, this is only a small sample from a much larger \
+population of Illinois residents.  If you want to extend the conclusion about \
+independence to the whole population of Illinois, you have the problem that \
+probabilities like .0604, .2469, etc. are only estimates of the true \
+probabilities of \"north and opposed,\" \"north,\" etc. for the experiment of \
+sampling an individual from the broader universe.  Sampling variability alone \
+could account for some departures from equality in the defining condition for \
+independence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"A", "\[Intersection]", "B"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "A", "]"}], 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", "B", "]"}]}]}], TraditionalForm]]],
+ ". We pursue this idea further in the next example.  \[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4358707318065195`*^9, 3.435870731807519*^9}, {
+  3.4564257469621367`*^9, 3.4564257556357365`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ "  Suppose that each individual in a random sample of size 80 from a \
+population can be classified according to two characteristics ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B. ",
+  FontSlant->"Italic"],
+ "There are two possible values or types for each characteristic.  Assume \
+that there are 30 people who are of type 1 for characteristic ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", 50 of type 2 for ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", and 40 each of types 1 and 2 for characteristic ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ". Draw one individual at random from the sample of 80. Find the unique \
+frequencies ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["w",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " in the table below which make events of the form \"individual is type ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " for ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "\", ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " = 1,2, independent of events of the form \"individual is type ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " for ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "\", ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " = 1,2."
+}], "Text",
+ CellChangeTimes->{{3.4240382045364122`*^9, 3.4240382189270372`*^9}, {
+  3.4241202646875*^9, 3.42412031959375*^9}}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  FormBox[GridBox[{
+     {" ", " ", " ", 
+      RowBox[{"char", " ", "B"}], " "},
+     {" ", " ", "1", "2", "total"},
+     {
+      RowBox[{"char", " ", "A"}], "1", 
+      StyleBox["x",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["y",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["30",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+     {" ", "2", 
+      StyleBox["w",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["z",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["50",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+     {" ", "total", 
+      StyleBox["40",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["40",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["80",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]}
+    }],
+   TraditionalForm]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "\tThe interesting thing in this example is that the answer ",
+ StyleBox["is",
+  FontVariations->{"Underline"->True}],
+ " unique; the sample of 80 can only come out in one way in order to make \
+characteristic ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " events independent of characteristic ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " events. Without the independence constraint, ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " could take many values, from which ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["w",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " are uniquely determined.  If ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " = 2 for instance, ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " must be 28, ",
+ StyleBox["w",
+  FontSlant->"Italic"],
+ " must be 38, and ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " must be 12 in order to produce the marginal totals in the table.  In \
+general, letting ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " be the free variable, the table entries must be:"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  FormBox[GridBox[{
+     {" ", " ", " ", 
+      RowBox[{"char", " ", "B"}], " "},
+     {" ", " ", "1", "2", "total"},
+     {
+      RowBox[{"char", " ", "A"}], "1", 
+      StyleBox["x",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox[
+       RowBox[{"30", "-", "x"}],
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["30",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+     {" ", "2", 
+      StyleBox[
+       RowBox[{"40", "-", "x"}],
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox[
+       RowBox[{"10", "+", "x"}],
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["50",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+     {" ", "total", 
+      StyleBox["40",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["40",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+      StyleBox["80",
+       GridBoxOptions->{
+       GridBoxDividers->{
+        "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]}
+    }],
+   TraditionalForm]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell["For independence, we want in addition,", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    RowBox[{
+     StyleBox["A",
+      FontSlant->"Italic"], " ", "=", " ", "1"}], ",", " ", 
+    RowBox[{
+     StyleBox["B",
+      FontSlant->"Italic"], " ", "=", " ", "1"}]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{
+     StyleBox["A",
+      FontSlant->"Italic"], " ", "=", " ", "1"}], "]"}], 
+   RowBox[{"P", "[", 
+    RowBox[{
+     StyleBox["B",
+      FontSlant->"Italic"], " ", "=", " ", "1"}], "]"}]}]}], "\n", 
+ RowBox[{"\[DoubleLongRightArrow]", " ", 
+  FormBox[
+   RowBox[{
+    FractionBox["x", "80"], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["30", "80"], "\[CenterDot]", 
+      RowBox[{
+       FractionBox["40", "80"], "\[DoubleLongRightArrow]", " ", "x"}]}], " ", 
+     "=", " ", "15"}]}],
+   TraditionalForm]}]}], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "The unique set of table entries is then ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " = 15, ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " = 15, ",
+ StyleBox["w",
+  FontSlant->"Italic"],
+ " = 25, and ",
+ StyleBox["z",
+  FontSlant->"Italic"],
+ " = 25.  You can check (see also Exercise 3) that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"A", "=", "1"}], "}"}], TraditionalForm]]],
+ " is independent of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"B", "=", "2"}], "}"}], TraditionalForm]]],
+ " for these table entries, and also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"A", "=", "2"}], "}"}], TraditionalForm]]],
+ " is independent of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"B", "=", "1"}], "}"}], TraditionalForm]]],
+ " and of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"B", "=", "2"}], "}"}], TraditionalForm]]],
+ ". ",
+ "\n",
+ "\tBut it seems a lot to expect for the data in a sample to line up so \
+perfectly if the real question of interest is whether in the whole population \
+characteristic ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " is independent of characteristic ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ". There is a well-known test in statistics for independence of \
+characteristics in contingency tables like ours, but here let us just use \
+simulation to give us an idea of the degree of variability we can expect in \
+the table.",
+ "\n",
+ "\tSuppose our sample of 80 is taken from a universe of 200 individuals, and \
+the universe is set up so that the characteristics are independent. One such \
+configuration of the universe is given by the table on the left below. Let us \
+shorten the notation a bit by using the code ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     StyleBox["A",
+      FontSlant->"Italic"], "1"}]], TraditionalForm]]],
+ " to stand for the event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " = 1, ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "1",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "1 for the event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " = 1 and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " = 1, etc.  Each individual in the sample can be of type ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "1",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "1 with probability 60/200 = .3, and similarly can be of type ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "1",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "2 with probability .3, type ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "2",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "1 with probability .2 and type ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "2",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "2 with probability .2.  A sample of size 80 would be expected to have these \
+proportions of the 80 sample members in the four categories.  The expected \
+counts in the sample are in the table on the right below; for example, the \
+expected number of ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "1",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "1 individuals in the sample is 80\[CenterDot](.3) = 24. \n"
+}], "Text",
+ CellChangeTimes->{3.456425913991337*^9}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{
+    FormBox[GridBox[{
+       {" ", " ", " ", 
+        RowBox[{"char", " ", "B"}], " "},
+       {" ", " ", "1", "2", "total"},
+       {
+        RowBox[{"char", " ", "A"}], "1", 
+        StyleBox["60",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["60",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["120",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+       {" ", "2", 
+        StyleBox["40",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["40",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["80",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+       {" ", "total", 
+        StyleBox["100",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["100",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["200",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]}
+      }],
+     TraditionalForm], "        ", 
+    FormBox[GridBox[{
+       {" ", " ", " ", 
+        RowBox[{"char", " ", "B"}], " "},
+       {" ", " ", "1", "2", "total"},
+       {
+        RowBox[{"char", " ", "A"}], "1", 
+        StyleBox["24",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["24",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["48",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+       {" ", "2", 
+        StyleBox["16",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["16",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["32",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+       {" ", "total", 
+        StyleBox["40",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["40",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+        StyleBox["80",
+         GridBoxOptions->{
+         GridBoxDividers->{
+          "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]}
+      }],
+     TraditionalForm]}], "\n", "\t\t", 
+   RowBox[{
+    StyleBox["universe",
+     FontWeight->"Bold"], "\t\t\t\t", 
+    StyleBox["sample",
+     FontWeight->"Bold"]}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "\tThe next ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function simulates a sample of a desired size (such as 80), in sequence \
+and with replacement, from the population categorized as in the universe \
+table, tallies up the frequencies in each category for the sample, and \
+presents the results in tabular format.  After initializing the counter \
+variables to zero, it selects a random number between 0 and 1, and based on \
+its value, increments one of the counters. The cutoffs used in the Which \
+function are chosen so that the category probabilities of .3, .3, .2, and .2 \
+are modeled. The marginal totals are then computed for the tabular display, \
+and the output is done. "
+}], "Text",
+ CellChangeTimes->{{3.424120464203125*^9, 3.424120474359375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimContingencyTable", "[", "sampsize_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "A1", ",", "A2", ",", "B1", ",", "B2", ",", "A1B1", ",", "A1B2", ",", 
+      "A2B1", ",", "A2B2", ",", "nextsample", ",", "i", ",", "outtable"}], 
+     "}"}], ",", 
+    RowBox[{
+     RowBox[{"A1B1", "=", "0"}], ";", 
+     RowBox[{"A1B2", "=", "0"}], ";", 
+     RowBox[{"A2B1", "=", "0"}], ";", 
+     RowBox[{"A2B2", "=", "0"}], ";", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"nextsample", "=", 
+         RowBox[{"RandomReal", "[", "]"}]}], ";", 
+        RowBox[{"Which", "[", 
+         RowBox[{
+          RowBox[{"nextsample", "<", "0.3`"}], ",", 
+          RowBox[{"A1B1", "=", 
+           RowBox[{"A1B1", "+", "1"}]}], ",", 
+          RowBox[{"0.3`", "\[LessEqual]", "nextsample", "<", "0.6`"}], ",", 
+          RowBox[{"A1B2", "=", 
+           RowBox[{"A1B2", "+", "1"}]}], ",", 
+          RowBox[{"0.6`", "\[LessEqual]", "nextsample", "<", "0.8`"}], ",", 
+          RowBox[{"A2B1", "=", 
+           RowBox[{"A2B1", "+", "1"}]}], ",", 
+          RowBox[{"0.8`", "\[LessEqual]", "nextsample", "\[LessEqual]", "1"}],
+           ",", 
+          RowBox[{"A2B2", "=", 
+           RowBox[{"A2B2", "+", "1"}]}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "sampsize"}], "}"}]}], "]"}], ";", 
+     RowBox[{"A1", "=", 
+      RowBox[{"A1B1", "+", "A1B2"}]}], ";", 
+     RowBox[{"A2", "=", 
+      RowBox[{"A2B1", "+", "A2B2"}]}], ";", 
+     RowBox[{"B1", "=", 
+      RowBox[{"A1B1", "+", "A2B1"}]}], ";", 
+     RowBox[{"B2", "=", 
+      RowBox[{"A1B2", "+", "A2B2"}]}], ";", 
+     RowBox[{"outtable", "=", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<A/B\>\"", ",", "1", ",", "2", ",", "\"\<Total\>\""}], 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "A1B1", ",", "A1B2", ",", "A1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "A2B1", ",", "A2B2", ",", "A2"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Total\>\"", ",", "B1", ",", "B2", ",", "sampsize"}], 
+         "}"}]}], "}"}]}], ";", 
+     RowBox[{"TableForm", "[", 
+      TagBox["outtable",
+       Function[BoxForm`e$, 
+        TableForm[BoxForm`e$]]], "]"}]}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3986158681044674`*^9, 3.3986158754997206`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "MissingArgumentStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+\tHere are three runs of the command. For replicability, we set the seed of \
+the random number generator. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "34567", "]"}], ";"}], "\n", 
+ RowBox[{"SimContingencyTable", "[", "80", "]"}], "\n", 
+ RowBox[{"SimContingencyTable", "[", "80", "]"}], "\n", 
+ RowBox[{"SimContingencyTable", "[", "80", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "MissingArgumentStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"A/B\"\>", "1", "2", "\<\"Total\"\>"},
+    {"1", "25", "27", "52"},
+    {"2", "14", "14", "28"},
+    {"\<\"Total\"\>", "39", "41", "80"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[0.7]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.4406997861888*^9}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"A/B\"\>", "1", "2", "\<\"Total\"\>"},
+    {"1", "21", "30", "51"},
+    {"2", "14", "15", "29"},
+    {"\<\"Total\"\>", "35", "45", "80"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[0.7]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.4406997861888*^9}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"A/B\"\>", "1", "2", "\<\"Total\"\>"},
+    {"1", "27", "25", "52"},
+    {"2", "13", "15", "28"},
+    {"\<\"Total\"\>", "40", "40", "80"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[0.7]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.4406997861888*^9}]
+}, Open  ]],
+
+Cell["\<\
+The expected numbers under the independence assumption (24's in the first row \
+and 16's in the second) are not always very close to what is observed. Try \
+running the commands again, and you will regularly find discrepancies in the \
+frequencies of at least 3 or 4 individuals. But the more important issue is \
+this. The characteristics are independent in the population, but one must be \
+rather lucky to have perfect independence in the sample. The statistical test \
+for independence of categories that we referred to above must acknowledge \
+that contingency tables from random samples have sampling variability, and \
+should reject independence only when the sample discrepancies from \
+independence are \"large enough.\"  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.403913862453125*^9, 3.403913864984375*^9}, {
+  3.4358707468585196`*^9, 3.435870746859519*^9}, {3.4564259409637365`*^9, 
+  3.4564259427889366`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  What configuration of the universe in the above example would lead to \
+independence of characteristics ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " and totals of 100 in each of ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "1, ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "2, ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "1, and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "2? Revise the SimContingencyTable command accordingly, and do a few runs \
+using sample sizes of 100 to observe the degree of variability of the table \
+entries."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 4",
+  FontWeight->"Bold"],
+ "  Electrical switches in a circuit act like gates which allow current to \
+flow or not according to whether they are closed or open, respectively.  \
+Consider a circuit as displayed in Figure 14 with three switches arranged in \
+parallel."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Graphics", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"6", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "2.2`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "1.2`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", "\n", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"A", ",", "Large"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "0.1`"}], ",", "1"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"B", ",", "Large"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"6.2`", ",", "1"}], "}"}]}], "]"}]}], "}"}], "]"}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3986151876943674`*^9, 3.3986153103245153`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "MissingArgumentStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{LineBox[{{0, 1}, {2, 1}}], LineBox[{{4, 1}, {6, 1}}], 
+   LineBox[{{2, 0}, {2, 2}}], LineBox[{{4, 0}, {4, 2}}], 
+   LineBox[{{2, 2}, {2.5, 2}}], LineBox[{{2, 1}, {2.5, 1}}], 
+   LineBox[{{2, 0}, {2.5, 0}}], LineBox[{{3, 2}, {4, 2}}], 
+   LineBox[{{3, 1}, {4, 1}}], LineBox[{{3, 0}, {4, 0}}], 
+   LineBox[{{2.5, 2}, {2.8, 2.2}}], LineBox[{{2.5, 1}, {2.8, 1.2}}], 
+   LineBox[{{2.5, 0}, {2.8, 0.2}}], InsetBox[
+    StyleBox["A",
+     StripOnInput->False,
+     FontSize->Large], {-0.1, 1}], InsetBox[
+    StyleBox["B",
+     StripOnInput->False,
+     FontSize->Large], {6.2, 1}]}]], "Output",
+ CellChangeTimes->{3.4406997862668*^9}],
+
+Cell[TextData[{
+ "Figure 1.14",
+ StyleBox[" - A parallel circuit",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.4039142658125*^9, 3.403914266109375*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Current coming from point A may reach point B if and only if at least one \
+of the switches is closed.  If the switches act independently of one another, \
+and they have probabilities ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "2"], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "3"], TraditionalForm]]],
+ " of being closed, what is the probability that current will flow?",
+ "\n",
+ "\tThis is an easy one.  The event that current will flow is the complement \
+of the event that it will not flow.  The latter happens if and only if all \
+three switches are open.  Switch ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " is open with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", 
+    SubscriptBox["p", "i"]}], TraditionalForm]]],
+ ".  Thus, by independence,"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"current", " ", "flows"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"1", " ", 
+    FormBox["-",
+     TraditionalForm], " ", 
+    RowBox[{"P", "[", 
+     RowBox[{"current", " ", 
+      RowBox[{"doesn", "'"}], "t"}], "]"}]}], " ", "=", " ", 
+   RowBox[{
+    FormBox[
+     RowBox[{"1", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FormBox[
+          SubscriptBox["p", "1"],
+          TraditionalForm]}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FormBox[
+          SubscriptBox["p", "2"],
+          TraditionalForm]}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{"1", "-", 
+         FormBox[
+          SubscriptBox["p", "3"],
+          TraditionalForm]}], ")"}], " "}]}],
+     TraditionalForm], " ", "\[FilledSquare]"}]}]}]], "Equation",
+ CellChangeTimes->{{3.4358707538685193`*^9, 3.435870755798519*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ StyleBox["Example 5",
+  FontWeight->"Bold"],
+ "  Our last example of this section again deals with simulation and \
+contingency tables.  A good pseudo-random number generator as described in \
+Section 3 ought to have the property that each pseudo-random number that is \
+generated appears to be independent of its predecessors (even though it is of \
+course a deterministic function of its immediate predecessor).  Checking for \
+validity of the generator therefore requires a check for independence of each \
+member from each other in a stream of numbers.  There are several ways to do \
+this, and here is one that is sensitive to unwanted upward or downward trends \
+in the stream of numbers.",
+ "\n",
+ "\tWe can be alerted to a possible violation of independence if some \
+property that independence implies is contradicted by the data.  For example, \
+in a stream of 40 numbers we can classify each number according to two \
+characteristics: whether it is in the first group of 20 or the second, and \
+whether it is above some fixed cutoff or below it.  If the numbers are truly \
+random and independent of one another, the group that a number is in should \
+have no effect on whether that number is above or below the cutoff.  If the \
+two-by-two contingency table that we generate in this way shows serious \
+departures from the tallies that we would expect under independence, then the \
+assumption of independence is in doubt.",
+ "\n",
+ "\tHere is a stream of 40 random integers between 1 and 20, simulated using \
+DrawIntegerSample."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "11753", "]"}], ";"}], "\n", 
+ RowBox[{"datalist", "=", 
+  RowBox[{"DrawIntegerSample", "[", 
+   RowBox[{"1", ",", "20", ",", "40", ",", 
+    RowBox[{"Replacement", "->", "True"}]}], "]"}]}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3986155023826733`*^9, 3.3986155072972403`*^9}, {
+  3.4406996968934*^9, 3.4406996976422*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "MissingArgumentStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "16", ",", "9", ",", "7", ",", "3", ",", "3", ",", "3", ",", "15", ",", 
+   "17", ",", "1", ",", "6", ",", "3", ",", "6", ",", "19", ",", "18", ",", 
+   "1", ",", "6", ",", "2", ",", "12", ",", "12", ",", "18", ",", "7", ",", 
+   "13", ",", "2", ",", "14", ",", "10", ",", "20", ",", "1", ",", "16", ",", 
+   "14", ",", "14", ",", "9", ",", "13", ",", "4", ",", "8", ",", "15", ",", 
+   "4", ",", "15", ",", "9", ",", "1", ",", "14"}], "}"}]], "Output",
+ CellChangeTimes->{3.4406997865632*^9}]
+}, Open  ]],
+
+Cell["\<\
+Among the first 20 numbers, 12 are less than or equal to 10 and 8 are greater \
+than 10. Among the second group of 20 numbers, 10 are less than or equal to \
+10 and 10 are greater.  We therefore have the following observed contingency \
+table. \
+\>", "Text",
+ CellChangeTimes->{{3.4240387925207872`*^9, 3.4240388504739122`*^9}, {
+  3.424120687265625*^9, 3.42412071596875*^9}, {3.440700044868*^9, 
+  3.4407000454608*^9}, {3.4407000856619997`*^9, 3.4407000861144*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {" ", " ", 
+     RowBox[{"size", " "}], " ", " "},
+    {" ", " ", 
+     RowBox[{"\[LessEqual]", "10"}], 
+     RowBox[{">", "10"}], "total"},
+    {"group", "1", 
+     StyleBox["12",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["8",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["20",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+    {" ", "2", 
+     StyleBox["10",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["10",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["20",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]},
+    {" ", "total", 
+     StyleBox["22",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["18",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}], 
+     StyleBox["40",
+      GridBoxOptions->{
+      GridBoxDividers->{
+       "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}}]}
+   }], TextForm]], "Equation",
+ CellChangeTimes->{{3.403914000078125*^9, 3.403914043046875*^9}, {
+  3.4407000894528*^9, 3.4407000997956*^9}}],
+
+Cell["\<\
+Equal numbers of 10 observations are to be expected in each category. \
+Interestingly, this particular table is coming very close to independence, \
+because the fact that the row totals are 20 means that the 22 and 18 \
+observations in the two columns should split about evenly between the two \
+rows, which they do.  There is very little evidence against independence in \
+this run of the experiment.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.403914097046875*^9, 3.40391410134375*^9}, {
+   3.403914154*^9, 3.403914154765625*^9}, {3.4240389431145372`*^9, 
+   3.4240389583489122`*^9}, 3.424120763453125*^9, {3.4358707654075193`*^9, 
+   3.435870765409519*^9}, {3.4407001107312*^9, 3.440700114678*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Repeat the drawing of a sample of 40 from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", " ", "...", ",", "20"}], "}"}], 
+   TraditionalForm]]],
+ " a few more times.  Do you observe many tables that are far from \
+expectations?  Try doubling the sample size to 80, and using four groups of \
+20 instead of two.  What category counts are expected?  Do you see striking \
+departures from them in your simulations?"
+}], "Text",
+ CellFrame->True],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 1.6", "Subsection",
+ TextAlignment->Center,
+ TextJustification->1,
+ LineSpacing->{1, 0},
+ FontSize->12,
+ FontWeight->"Bold"],
+
+Cell["\<\
+1.  A student guesses randomly on ten multiple choice quiz questions with \
+five alternative answers per question.  Assume that there is only one correct \
+response to each question, and the student chooses answers independently of \
+other questions.  What is the probability that the student gets no more than \
+one question right?\
+\>", "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "2.  Consider the experiment of randomly sampling a single number from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", " ", "...", ",", "10"}], "}"}], 
+   TraditionalForm]]],
+ ".  Is the event that the number is odd independent of the event that it is \
+greater than 4? "
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "3.  If ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are independent events, prove that each of the following pairs of events \
+are independent of one another: (a) ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["B", "c"], TraditionalForm]]],
+ ";  (b) ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["A", "c"], TraditionalForm]]],
+ " and ",
+ StyleBox["B;  ",
+  FontSlant->"Italic"],
+ "(c) ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["A", "c"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["B", "c"], TraditionalForm]]],
+ ".\t"
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "4.  If events ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " have positive probability and are disjoint, is it possible for them to be \
+independent?"
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "5.  Prove that if events ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["D",
+  FontSlant->"Italic"],
+ " are independent of one another, then so are the groups of events (a) ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ "; (b) ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B.",
+  FontSlant->"Italic"]
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "6.  Prove that both \[CapitalOmega] and \[EmptySet] are independent of \
+every other event ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Subset]", "\[CapitalOmega]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  Referring to Example 3, run the SimContingencyTable command a few times \
+each for sample sizes of 40, 80, and 120.  Compare the variabilities for the \
+three sample sizes."
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "8.  A sample space has six outcomes: ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["e",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ ".  Define the event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], TraditionalForm]]],
+ " and the event ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"c", ",", "d", ",", "e", ",", "f"}], "}"}], TraditionalForm]]],
+ ".  If each of ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["e",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " has probability 1/8, find probabilities on ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ " that make ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " independent events, or explain why it is impossible to do so."
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell["\<\
+9.  Three coins are flipped in succession.  
+  (a) If outcomes are equally likely, show that \"H on 1st\" is independent \
+of \"T on 2nd\" and show that \"H on 2nd\" is independent of \"T on 3rd.\" 
+  (b) Put probabilities on the sample space consistent with the assumptions \
+of independence of different flips and an unfair weighting such that tails is \
+51% likely to occur on a single flip.\
+\>", "Text",
+ CellChangeTimes->{{3.40391419375*^9, 3.403914199734375*^9}, {
+  3.456426025702937*^9, 3.4564260272629366`*^9}},
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Graphics", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"6", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "4"}], ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2"}], ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2"}], ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2"}], ",", "1.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2"}], ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.5`"}], ",", "0.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2"}], ",", "1.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.5`"}], ",", "1.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", "1.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1.5`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "2.2`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "1.2`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.8`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.5`"}], ",", "1.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.2`"}], ",", "1.7`"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.5`"}], ",", "0.5`"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1.2`"}], ",", "0.7`"}], "}"}]}], "}"}], "]"}], ",", 
+    "\n", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"A", ",", "Large"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "4.1`"}], ",", "1"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"B", ",", "Large"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"6.2`", ",", "1"}], "}"}]}], "]"}]}], "}"}], "]"}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398615611813699*^9, 3.398615685032946*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "MissingArgumentStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{LineBox[{{0, 1}, {2, 1}}], LineBox[{{4, 1}, {6, 1}}], 
+   LineBox[{{-4, 1}, {-2, 1}}], LineBox[{{2, 0}, {2, 2}}], 
+   LineBox[{{4, 0}, {4, 2}}], LineBox[{{-2, 0.5}, {-2, 1.5}}], 
+   LineBox[{{0, 0.5}, {0, 1.5}}], LineBox[{{2, 2}, {2.5, 2}}], 
+   LineBox[{{2, 1}, {2.5, 1}}], LineBox[{{2, 0}, {2.5, 0}}], 
+   LineBox[{{3, 2}, {4, 2}}], LineBox[{{3, 1}, {4, 1}}], 
+   LineBox[{{3, 0}, {4, 0}}], LineBox[{{-2, 0.5}, {-1.5, 0.5}}], 
+   LineBox[{{-2, 1.5}, {-1.5, 1.5}}], LineBox[{{-1, 0.5}, {0, 0.5}}], 
+   LineBox[{{-1, 1.5}, {0, 1.5}}], LineBox[{{2.5, 2}, {2.8, 2.2}}], 
+   LineBox[{{2.5, 1}, {2.8, 1.2}}], LineBox[{{2.5, 0}, {2.8, 0.2}}], 
+   LineBox[{{-1.5, 1.5}, {-1.2, 1.7}}], LineBox[{{-1.5, 0.5}, {-1.2, 0.7}}], 
+   InsetBox[
+    StyleBox["A",
+     StripOnInput->False,
+     FontSize->Large], {-4.1, 1}], InsetBox[
+    StyleBox["B",
+     StripOnInput->False,
+     FontSize->Large], {6.2, 1}]}]], "Output",
+ CellChangeTimes->{3.4406997867348003`*^9}],
+
+Cell[TextData[StyleBox["Exercise 10",
+ FontWeight->"Bold"]], "FigureCaption",
+ TextAlignment->Center,
+ TextJustification->0,
+ LineSpacing->{1, 3}]
+}, Open  ]],
+
+Cell[TextData[{
+ "10.  In the figure is a part of an electrical circuit as in Example 4, \
+except that two parallel groups of switches are connected in series.  Current \
+must pass through both groups of switches to flow from A to B.  If each \
+switch in the first group has probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " of being closed, each switch in the second group has probability ",
+ StyleBox["q",
+  FontSlant->"Italic"],
+ " of being closed, and the switches operate independently, find the \
+probability that current will flow from A to B."
+}], "Text",
+ PageBreakBelow->False,
+ CellChangeTimes->{{3.436032687256215*^9, 3.4360326902561765`*^9}},
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "11.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  A system has three independent components which work for a random, \
+uniformly distributed amount of time in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"10", ",", "20"}], "]"}], TraditionalForm]]],
+ " and then fail.  Each component can take on the workload of the other, so \
+the system fails when the final component dies.  Simulate 1000 such systems, \
+produce a histogram of the system failure times, and estimate the probability \
+that the system fails by time 15.  What is the exact value of that \
+probability? "
+}], "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell["\<\
+12.  In Example 4 we were able to find the probability that current flows \
+from A to B easily by complementation.  Compute the same probability again \
+without complementation. \
+\>", "Text",
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "13.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ")  In Example 5 we set up the integer sampling process so that replacement \
+occurs.  If the pseudo-random number generator behaves properly we would not \
+expect any evidence against randomness.  But the question arises: is this \
+test sensitive enough to detect real independence problems?  Try drawing \
+integer samples again, this time of 40 integers from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "80"}], "}"}], TraditionalForm]]],
+ " ",
+ StyleBox["without",
+  FontVariations->{"Underline"->True}],
+ " replacement.  Using characteristics of group (1st 20, 2nd 20) and size (40 \
+or below, more than 40), simulate some contingency tables to see whether you \
+spot any clear departures from independence.  Would you expect any?"
+}], "Text",
+ PageBreakBelow->True,
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[{
+ "14.  If events ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "1"], ",", " ", 
+    SubscriptBox["B", "2"], ",", " ", 
+    SubscriptBox["B", "3"], ",", " ", 
+    RowBox[{"and", " ", 
+     SubscriptBox["B", "4"]}]}], TraditionalForm]]],
+ " are independent, show that \n  (a) P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ " | ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "3"], TraditionalForm]]],
+ "\[Intersection]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "4"], TraditionalForm]]],
+ "] = P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "]\n  (b) P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "\[Intersection]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ " | ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "3"], TraditionalForm]]],
+ "\[Intersection]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "4"], TraditionalForm]]],
+ "] = P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "\[Intersection]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ "]\n  (c) P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "\[Union]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ " | ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "3"], TraditionalForm]]],
+ "] = P[",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "1"], TraditionalForm]]],
+ "\[Union]",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ "]"
+}], "Text",
+ CellChangeTimes->{{3.4039142246875*^9, 3.40391423346875*^9}, {
+  3.424122021796875*^9, 3.424122021796875*^9}},
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell["\<\
+15. A stock goes up or down from one day to another independently.  Each day \
+the probability that it goes up is .4.  Find the probability that in a week \
+of five trading days the stock goes up at least four times. \
+\>", "Text",
+ CellChangeTimes->{{3.424122024*^9, 3.424122026109375*^9}, {
+  3.424122140578125*^9, 3.4241222375625*^9}}],
+
+Cell[TextData[{
+ "16.  Two finite or countable families of events ",
+ StyleBox["A",
+  FontWeight->"Bold"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     FormBox[
+      SubscriptBox["A", "1"],
+      TraditionalForm], ",", 
+     FormBox[
+      SubscriptBox["A", "2"],
+      TraditionalForm], ",", "..."}], " ", "}"}], TraditionalForm]]],
+ " and  ",
+ StyleBox["B",
+  FontWeight->"Bold"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     FormBox[
+      SubscriptBox["B", "1"],
+      TraditionalForm], ",", 
+     FormBox[
+      SubscriptBox["B", "2"],
+      TraditionalForm], ",", "..."}], " ", "}"}], TraditionalForm]]],
+ " are called ",
+ StyleBox["independent",
+  FontSlant->"Italic"],
+ " if every event ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", "i"], TraditionalForm]]],
+ " \[Element] ",
+ StyleBox["A",
+  FontWeight->"Bold"],
+ " is independent of every event ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "j"], TraditionalForm]]],
+ " \[Element] ",
+ StyleBox["B",
+  FontWeight->"Bold"],
+ ".  Suppose that two dice are rolled one after the other.  Let ",
+ StyleBox["A",
+  FontWeight->"Bold"],
+ " consist of basic events of the form \"1st die = ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "\" for ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 1, 2, ..., 6, together with all unions of such basic events.  Similarly \
+let ",
+ StyleBox["B",
+  FontWeight->"Bold"],
+ " be the events that pertain to the second die.  Show that each basic event \
+in ",
+ StyleBox["A",
+  FontWeight->"Bold"],
+ " is independent of each basic event in ",
+ StyleBox["B",
+  FontWeight->"Bold"],
+ ", and use this to show that the families ",
+ StyleBox["A",
+  FontWeight->"Bold"],
+ " and ",
+ StyleBox["B",
+  FontWeight->"Bold"],
+ " are independent. "
+}], "Text",
+ CellChangeTimes->{3.424122029265625*^9},
+ TextJustification->0,
+ LineSpacing->{1, 3}],
+
+Cell[TextData[StyleBox["Sample Problem from Actuarial Exam P",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9, 3.43319229129632*^9},
+ FontWeight->"Bold"],
+
+Cell[TextData[StyleBox["17.  An actuary studying the insurance preferences of \
+automobile owners makes the following conclusions: (i) an automobile owner is \
+twice as likely to purchase collision coverage as disability coverage; (ii) \
+the event that an automobile owner purchases collision coverage is \
+independent of the event that he or she purchases disability coverage; (iii) \
+the probability that an automobile owner purchases both collision and \
+disability coverages is .15. What is the probability that an automobile owner \
+purchases neither collision nor disability coverage? ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.423928872546875*^9, 3.423928889265625*^9}, {
+   3.424010572296875*^9, 3.424010573015625*^9}, {3.4240106200625*^9, 
+   3.4240107301875*^9}, {3.4240377082082872`*^9, 3.4240377406770372`*^9}, 
+   3.42412091078125*^9, {3.424120943578125*^9, 3.424121108859375*^9}, 
+   3.4241220358125*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{593, 624},
+WindowMargins->{{8, Automatic}, {Automatic, -1}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 1 Discrete Probability"], "Header"]}, {
+   Cell[
+    TextData["1.6 Independence"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PrintingOptions->{"FirstPageHeader"->True},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 126, 4, 68, "Section"],
+Cell[696, 28, 1721, 29, 359, "Text"],
+Cell[2420, 59, 724, 23, 54, "Equation"],
+Cell[3147, 84, 75, 0, 27, "Text"],
+Cell[3225, 86, 733, 23, 54, "Equation"],
+Cell[3961, 111, 175, 4, 48, "Text"],
+Cell[4139, 117, 1094, 34, 54, "Equation"],
+Cell[5236, 153, 21, 0, 27, "Text"],
+Cell[5260, 155, 601, 19, 54, "Equation"],
+Cell[5864, 176, 307, 5, 90, "Text"],
+Cell[6174, 183, 781, 23, 54, "Equation"],
+Cell[6958, 208, 768, 23, 54, "Equation"],
+Cell[7729, 233, 26, 0, 27, "Text"],
+Cell[7758, 235, 560, 14, 34, "Equation"],
+Cell[8321, 251, 342, 6, 90, "Text"],
+Cell[8666, 259, 1284, 54, 53, "Text"],
+Cell[9953, 315, 1476, 56, 33, "DisplayFormulaNumbered"],
+Cell[11432, 373, 626, 24, 48, "Text"],
+Cell[12061, 399, 1022, 38, 51, "DisplayFormulaNumbered"],
+Cell[13086, 439, 322, 14, 48, "Text"],
+Cell[13411, 455, 1126, 44, 90, "Text"],
+Cell[14540, 501, 858, 20, 174, "Text"],
+Cell[15401, 523, 1406, 46, 74, "Equation"],
+Cell[16810, 571, 148, 3, 48, "Text"],
+Cell[16961, 576, 1632, 53, 99, "Equation"],
+Cell[18596, 631, 3448, 87, 485, "Text"],
+Cell[22047, 720, 1451, 54, 153, "Text"],
+Cell[23501, 776, 2192, 57, 113, "Equation"],
+Cell[25696, 835, 1069, 40, 131, "Text"],
+Cell[26768, 877, 2279, 60, 113, "Equation"],
+Cell[29050, 939, 54, 0, 27, "Text"],
+Cell[29107, 941, 864, 30, 76, "Equation"],
+Cell[29974, 973, 3129, 113, 401, "Text"],
+Cell[33106, 1088, 4723, 119, 144, "Equation"],
+Cell[37832, 1209, 793, 14, 173, "Text"],
+Cell[38628, 1225, 2740, 72, 387, "Input",
+ InitializationCell->True],
+Cell[41371, 1299, 131, 3, 48, "Text"],
+Cell[CellGroupData[{
+Cell[41527, 1306, 576, 15, 123, "Input",
+ InitializationCell->True],
+Cell[42106, 1323, 673, 19, 86, "Output"],
+Cell[42782, 1344, 673, 19, 86, "Output"],
+Cell[43458, 1365, 673, 19, 86, "Output"]
+}, Open  ]],
+Cell[44146, 1387, 940, 14, 193, "Text"],
+Cell[45089, 1403, 675, 26, 111, "Text"],
+Cell[45767, 1431, 315, 7, 70, "Text"],
+Cell[CellGroupData[{
+Cell[46107, 1442, 3681, 119, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[49791, 1563, 656, 14, 186, "Output"],
+Cell[50450, 1579, 219, 7, 24, "FigureCaption"]
+}, Open  ]],
+Cell[50684, 1589, 919, 28, 131, "Text"],
+Cell[51606, 1619, 951, 32, 34, "Equation"],
+Cell[52560, 1653, 1571, 26, 402, "Text"],
+Cell[CellGroupData[{
+Cell[54156, 1683, 776, 20, 123, "Input",
+ InitializationCell->True],
+Cell[54935, 1705, 535, 9, 80, "Output"]
+}, Open  ]],
+Cell[55485, 1717, 476, 8, 69, "Text"],
+Cell[55964, 1727, 2218, 57, 113, "Equation"],
+Cell[58185, 1786, 720, 11, 110, "Text"],
+Cell[58908, 1799, 540, 14, 111, "Text"],
+Cell[CellGroupData[{
+Cell[59473, 1817, 140, 5, 40, "Subsection"],
+Cell[59616, 1824, 401, 8, 90, "Text"],
+Cell[60020, 1834, 375, 11, 48, "Text"],
+Cell[60398, 1847, 728, 33, 48, "Text"],
+Cell[61129, 1882, 272, 11, 48, "Text"],
+Cell[61404, 1895, 592, 30, 48, "Text"],
+Cell[61999, 1927, 269, 9, 27, "Text"],
+Cell[62271, 1938, 310, 9, 69, "Text"],
+Cell[62584, 1949, 1273, 62, 90, "Text"],
+Cell[63860, 2013, 576, 11, 131, "Text"],
+Cell[CellGroupData[{
+Cell[64461, 2028, 5988, 197, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[70452, 2227, 981, 19, 128, "Output"],
+Cell[71436, 2248, 146, 4, 24, "FigureCaption"]
+}, Open  ]],
+Cell[71597, 2255, 707, 16, 131, "Text",
+ PageBreakBelow->False],
+Cell[72307, 2273, 671, 17, 131, "Text"],
+Cell[72981, 2292, 247, 6, 69, "Text"],
+Cell[73231, 2300, 937, 22, 173, "Text",
+ PageBreakBelow->True],
+Cell[74171, 2324, 1775, 75, 90, "Text"],
+Cell[75949, 2401, 348, 6, 69, "Text"],
+Cell[76300, 2409, 1869, 76, 160, "Text"],
+Cell[78172, 2487, 374, 6, 33, "Text"],
+Cell[78549, 2495, 936, 13, 163, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

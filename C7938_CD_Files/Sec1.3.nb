@@ -1,0 +1,2116 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     69643,       2107]
+NotebookOptionsPosition[     65370,       1978]
+NotebookOutlinePosition[     66399,       2015]
+CellTagsIndexPosition[     66356,       2012]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["1.3 Simulation", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "\tTo simulate means to reproduce the results of a real phenomenon by \
+artificial means.  We are interested here in phenomena that have a random \
+element.  What we really simulate are the outcomes of a sample space and/or \
+the states of a random variable in accordance with the probability measure or \
+distribution that we are assuming.  Computers give a fast and convenient way \
+of carrying out these sorts of simulations.\n\tThere are several reasons to \
+use simulation in problems.  Sometimes we do not yet have a good \
+understanding of a phenomenon, and observing it repeatedly may give us \
+intuition about a question related to it. In such cases, closed form \
+analytical results might be derivable, and the simulation mostly serves the \
+purpose of suggesting what to try to prove. But many times the system under \
+study is complex enough that analysis is either very difficult or impossible. \
+(Queueing problems ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " see Section 6.3 ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " are good illustrations of both situations.) Then simulation is the only \
+means of getting approximate information, and the tools of probability and \
+statistics also allow us to measure our confidence in our conclusions.  \
+Another reason to simulate is somewhat surprising. In some inherently \
+non-probabilistic problems we can use a simulated random target shooting \
+approach to gain information about physical measurements of size and shape.  \
+A simple example of such a problem solving method (traditionally called ",
+ StyleBox["Monte Carlo simulation",
+  FontSlant->"Italic"],
+ " in reference to the European gaming center) is the example on area of a \
+region in Exercise 8. \n\tI have chosen to give the subject emphasis and \
+early treatment in this book for another reason. There is more at stake for \
+you intellectually than gaining intuition about systems by observing \
+simulations.  Building an algorithm to solve a problem by simulation helps to \
+teach you about the subtle concepts of the subject of probability, such as \
+probability measures and random variables.  Thus, here and elsewhere in this \
+book I will be asking you to carefully study the details of programs I have \
+written, and to write some simulation programs in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " yourself.  You will invest some time and mental effort, but the payoff \
+will be great.\n\tWe have already experienced simulation in the form of \
+selecting ordered samples without replacement of two numbers from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ ".  In that context we looked at the empirical histogram of the minimum of \
+the two numbers.  We will treat simulations of samples again in more detail \
+in the next section. For the time being let us see how to use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s tools for generating streams of random numbers to solve problems. \n\t\
+Most of the kind of simulations that we will do are adaptations of the simple \
+process of choosing a random real number in the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ".  The word \"random\" here could be replaced by the more descriptive word \
+\"uniform,\" because the assumption will be that probability is distributed \
+uniformly through ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", with sets getting large probability only if their size is large, not \
+because they happen to be in some favored location in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ".  More precisely, we suppose that the sample space of the random \
+experiment is \[CapitalOmega] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", the collection of events \[ScriptCapitalH] consists of all subsets of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ " for which it is possible to define their length, and the probability \
+measure P gives probability to a set equal to its length. Then for instance:"
+}], "Text",
+ CellChangeTimes->{{3.40683467984375*^9, 3.406834684234375*^9}, {
+  3.406907470984375*^9, 3.406907472703125*^9}, {3.4357675086093197`*^9, 
+  3.43576750907932*^9}, {3.43577116333832*^9, 3.4357711666633196`*^9}, {
+  3.456336017537919*^9, 3.456336021079919*^9}, {3.456336110655919*^9, 
+  3.456336133768919*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", " ", 
+        RowBox[{"[", 
+         RowBox[{"0", ",", "1"}], "]"}], " ", "]"}], "=", "1"}], ",", "    ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         FractionBox["1", "2"], ",", 
+         FractionBox["3", "4"]}]}], "]"}]}], " ", "]"}], "=", 
+    FractionBox["1", "4"]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", " ", 
+     RowBox[{
+      RowBox[{"[", 
+       RowBox[{"0", ",", 
+        FractionBox["1", "4"]}], "]"}], " ", "\[Union]", " ", 
+      RowBox[{"[", 
+       RowBox[{
+        FractionBox["2", "3"], ",", "1"}], "]"}]}], " ", "]"}], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "4"], "+", 
+      FractionBox["1", "3"]}], "=", 
+     FractionBox["7", "12"]}]}], ",", "\n", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"{", 
+      FractionBox["5", "6"], "}"}], "]"}], " ", "=", " ", "0"}]}], 
+  TextForm]], "Equation"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Try to describe a uniform distribution of probability on the interval \
+[2,5].  What would be the probability associated to the event [2,3]? [9/4, \
+13/4] \[Union] (4,5]? {2.5}?"
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tIn ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s kernel there are several probability distribution objects, including one \
+for the uniform distribution, and also a means of sampling one or more random \
+numbers from a distribution. Fittingly, \n\n\t\t\t\t\
+UniformDistribution[{a,b}] \n\nis the syntax for the uniform distribution on \
+the interval [a,b], and\n\n \t\t\tRandomReal[distribution]      and    \
+RandomReal[distribution, n] \n \nreturn, respectively, one or a list of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " random numbers from the given distribution.  Here are some examples of \
+their use."
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"UniformDistribution", "[", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", "5"}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"RandomReal", "[", "dist", "]"}], "\n", 
+ RowBox[{"RandomReal", "[", "dist", "]"}], "\n", 
+ RowBox[{"RandomReal", "[", 
+  RowBox[{"dist", ",", "5"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.398177748219934*^9, 3.3981777519854627`*^9}, {
+  3.3981777851252394`*^9, 3.398177793828141*^9}}],
+
+Cell[TextData[{
+ "Notice that new random numbers in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"2", ",", "5"}], "]"}], TraditionalForm]]],
+ " are returned each time that RandomReal is called.  Incidentally, \
+RandomReal may be used with an empty argument when the distribution being \
+sampled from is the uniform distribution on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "1"}], "]"}], TraditionalForm]]],
+ ", which is what we will usually need. \n\tHow do ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " and other programs obtain such random numbers? There are several means \
+that are possible, but the most common type of random number generator is the \
+",
+ StyleBox["linear congruential generator ",
+  FontSlant->"Italic"],
+ "which we describe now. The ironic fact is that our supposedly random stream \
+of numbers is only simulated in a deterministic fashion in such a way as to \
+be indistinguishable statistically from ",
+ "a list of",
+ " truly random numbers. Because of this, the stream of numbers is called ",
+ StyleBox["pseudo-random",
+  FontSlant->"Italic"],
+ ". The algorithm is as follows. Begin with a single non-negative integer \
+called a ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ ". (Computers can use internal contents such as collections of digits in \
+their clocks as seeds, which change frequently.) To get the first \
+pseudo-random number, compute a new value of the seed by:"
+}], "Text",
+ CellChangeTimes->{{3.4068348771875*^9, 3.40683489628125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"new", " ", "value", " ", "of", " ", 
+   StyleBox["seed",
+    FontSlant->"Italic"]}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      StyleBox["multiplier",
+       FontSlant->"Italic"], " ", "\[Times]", " ", 
+      StyleBox["seed",
+       FontSlant->"Italic"]}], " ", "+", " ", 
+     StyleBox["increment",
+      FontSlant->"Italic"]}], ")"}], " ", "mod", " ", 
+   StyleBox["modulus",
+    FontSlant->"Italic"]}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "where ",
+ StyleBox["multiplier",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["increment",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ " are positive integer constants. Then, using the newly computed ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ ", return the number"
+}], "Text",
+ CellChangeTimes->{3.456336242652919*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["rand",
+   FontSlant->"Italic"], " ", "=", " ", 
+  RowBox[{
+   StyleBox["seed",
+    FontSlant->"Italic"], "/", 
+   StyleBox["modulus",
+    FontSlant->"Italic"]}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "Subsequent random numbers are found in the same way, updating ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " by formula (1) and dividing by ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ ". Notice that because the initial ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " is non-negative and all of the constants are positive, ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " will stay non-negative, which makes ",
+ StyleBox["rand",
+  FontSlant->"Italic"],
+ " \[GreaterEqual] 0 as well. And since the mod operation returns a value \
+less than ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " will be less than ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ ", hence ",
+ StyleBox["rand",
+  FontSlant->"Italic"],
+ " will be less than 1. So each pseudo-random number that we produce will lie \
+in [0, 1). \n\tNow the larger the value of ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ ", the more possible values of ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " there can be; hence, the more real numbers that can be returned when \
+formula (2) is applied. In fact, there would be exactly ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ " number of possible ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " values. But ",
+ StyleBox["modulus",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["multiplier",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["increment",
+  FontSlant->"Italic"],
+ " must be carefully chosen to take advantage of this, otherwise, the \
+sequence of pseudo-random numbers could cycle with a very small period. As a \
+simple example, if the constants were as follows:"
+}], "Text",
+ CellChangeTimes->{{3.4563362502509193`*^9, 3.456336269518919*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"new", " ", 
+   StyleBox["seed",
+    FontSlant->"Italic"]}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", " ", "\[Times]", " ", 
+      StyleBox["seed",
+       FontSlant->"Italic"]}], " ", "+", " ", "2"}], ")"}], " ", "mod", " ", 
+   "8"}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "then possible ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " values are 0, 1, 2, 3, 4, 5, 6, and 7, but it is easy to check that for \
+these seeds the new seeds are, respectively, 2, 4, 6, 0, 2, 4, 6, 0, so that \
+after the first value of ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ ", subsequent seeds can only take on one of four values. Even worse, should ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " ever equal 6, then new seeds will continue to be 6 forever, because (2 \
+\[Times] 6 + 2) mod 8 is again 6. \n\tTherefore, the choice of the constants \
+is critical to making a stream of numbers that has the appearance of \
+randomness. There is a lot of number theory involved here which we cannot \
+hope to cover. The book by Rubinstein (see References) gives an introduction. \
+ It is reported there that the values "
+}], "Text",
+ CellChangeTimes->{3.423498844203125*^9, 3.456336285145919*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"multiplier", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      RowBox[{
+       RowBox[{
+        SuperscriptBox["2", "7"], "+", "1"}], ","}],
+      TraditionalForm], "   ", "increment"}], " ", "=", " ", "1"}]}], ",", 
+  "   ", 
+  RowBox[{"modulus", " ", "=", " ", 
+   FormBox[
+    SuperscriptBox["2", "35"],
+    TraditionalForm]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "have been successful, but these are not the only choices. We can build our \
+own function similar to the RandomReal command in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to generate a list of uniform[0,1] numbers using these values as follows."
+}], "Text",
+ CellChangeTimes->{{3.406835006578125*^9, 3.406835007671875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MyRandomArray", "[", 
+   RowBox[{"initialseed_", ",", "n_"}], "]"}], ":=", "\n", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "seed", ",", "rand", ",", "thearray", ",", " ", "mult", ",", "inc", ",", 
+      "modul", ",", "i"}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"mult", "=", 
+      RowBox[{
+       SuperscriptBox["2", "7"], "+", "1"}]}], ";", "\n", "\t\t", 
+     RowBox[{"inc", " ", "=", " ", "1"}], ";", "\n", "\t\t", 
+     RowBox[{"modul", "=", 
+      SuperscriptBox["2", "35"]}], ";", "\n", "\t\t", 
+     RowBox[{"thearray", "=", 
+      RowBox[{"{", "}"}]}], ";", "\n", "\t\t", 
+     RowBox[{"seed", " ", "=", " ", "initialseed"}], ";", "\n", "\t\t", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"seed", " ", "=", " ", 
+         RowBox[{"Mod", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"mult", "*", "seed"}], "+", "inc"}], ",", "modul"}], 
+          "]"}]}], ";", "\n", "\t\t      ", 
+        RowBox[{"rand", " ", "=", 
+         RowBox[{"N", "[", " ", 
+          RowBox[{"seed", "/", "modul"}], "]"}]}], ";", "\n", "\t\t      ", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"thearray", ",", "rand"}], "]"}]}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}], ";", "\n", "\t\t", 
+     "thearray"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4404559547019367`*^9},
+ AutoStyleOptions->{"LocalVariableStyle"->None,
+ "PatternVariableStyle"->None}],
+
+Cell[TextData[{
+ "The module begins with the list of local variables used in the subsequent \
+lines, and sets the values above for the multiplier, here called ",
+ StyleBox["mult",
+  FontSlant->"Italic"],
+ ", the increment ",
+ StyleBox["inc",
+  FontSlant->"Italic"],
+ ", and the modulus ",
+ StyleBox["modul",
+  FontSlant->"Italic"],
+ ". After initializing an empty list of random numbers and setting the \
+initial value of ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " according to the input ",
+ StyleBox["initialseed",
+  FontSlant->"Italic"],
+ ", the module enters a loop. In each of the ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " passes through the loop, three things are done. The ",
+ StyleBox["seed",
+  FontSlant->"Italic"],
+ " is updated by the linear congruence relation (1), the new random number ",
+ StyleBox["rand",
+  FontSlant->"Italic"],
+ " is computed by formula (2), and then ",
+ StyleBox["rand",
+  FontSlant->"Italic"],
+ " is appended to the array of random numbers.  Here is a sample run. You \
+should try running the command again with the same initial seed to see that \
+you get the same sequence of pseudo-random numbers, then try a different \
+seed. "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"MyRandomArray", "[", 
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["2", "24"], "+", "19"}], ",", "10"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Revise the random number generating command above using the following \
+constants, taken from a popular computer science text. ",
+ "\n",
+ "\n\tmultiplier = 25173\tincrement = 13849\tmodulus = 65536",
+ "\n",
+ "\nUse the command Histogram[datalist,numrectangles] to plot a histogram of \
+50 random numbers using 4 rectangles. Do you see what you expected?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{
+  3.440455575979737*^9, {3.4407063434268*^9, 3.4407063555678*^9}}],
+
+Cell[TextData[{
+ "\tOne advantage to the pseudo-random approach is that simulation \
+experiments are reproducible. If one starts with the same seed, then the same \
+stream of random numbers will ensue, which will produce the same experimental \
+results. This is advantageous because you may want to compare the performance \
+of similar systems using the same random inputs to ensure fairness.  ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " permits this by using the command\n\n\t\t\t\tSeedRandom[n]\n \nwhich sets \
+the initial seed value as the integer ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ". If you use an empty argument to SeedRandom, it resets the seed using the \
+computer's clock time. In the sequence of commands below, the seed is set to \
+79, two random numbers are generated, then the seed is reset to 79, and the \
+same random number .624058 is returned as was returned the first time. We \
+then reset the seed \"randomly\" using the computer clock, and the first \
+random number that is returned is something other than .624058. "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "79", "]"}], ";"}], "\n", 
+ RowBox[{"RandomReal", "[", "]"}], "\n", 
+ RowBox[{"RandomReal", "[", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "79", "]"}], ";"}], "\n", 
+ RowBox[{"RandomReal", "[", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "]"}], ";"}], "\n", 
+ RowBox[{"RandomReal", "[", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  Perform a similar test with SeedRandom using a seed of 591 and requesting \
+a RandomReal[UniformDistribution[{0,1}], 5]. Reset the seed by computer clock \
+time and call for another random list of five numbers to see that different \
+random numbers are returned. "
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.403888279453125*^9, 3.4038883283125*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  It is time to build a simulation model for an actual system. A ",
+ StyleBox["random walk",
+  FontSlant->"Italic"],
+ " on the line is a random process in which at each time instant 0, 1, 2, \
+\[Ellipsis] an object occupies a point with integer coordinates shown as \
+circled numbers in Figure 5."
+}], "Text",
+ CellChangeTimes->{{3.4234990686875*^9, 3.423499068953125*^9}, {
+  3.43577180486432*^9, 3.43577180520632*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"g1", "=", 
+  RowBox[{"Graphics", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"5", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", " ", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"0", ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"1", ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"2", ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"3", ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"4", ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"5", ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"4.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"4.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"0.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"1.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"3.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"4.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4.5`", ",", "0.2`"}], "}"}]}], "]"}]}], "}"}], "]"}], 
+  " "}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3984360157386284`*^9, 3.3984361316143703`*^9}, {
+  3.398436161911439*^9, 3.3984361760677795`*^9}, {3.3984379385790596`*^9, 
+  3.398438054439176*^9}, {3.398438188924412*^9, 3.3984382701436815`*^9}, {
+  3.3984383083158007`*^9, 3.3984385303015966`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Figure 1.5",
+ StyleBox[" - Schematic diagram of a random walk",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.403888370015625*^9, 3.40388837025*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The position on the line cannot be foretold with certainty, but it \
+satisfies the condition that if the position is ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " at one time instant, then it will either be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ " with probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " or ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ " with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ " at the next time instant, as indicated by the annotated arrows in the \
+figure. Variations are possible, including allowing the object to wait at its \
+current position with some probability, enforcing boundary behavior such as \
+absorption or reflection to confine the random walk to a bounded interval, \
+and increasing the dimension of the set on which the random walk moves to 2, \
+3, or higher. Random walks have been used as models for diffusion of heat, \
+the motion of economic quantities such as stock prices, the behavior of \
+populations, and the status of competitive games among many other \
+applications, and their fascinating properties have kept probabilists busy \
+for many decades. \n\tFor our purposes suppose we are interested in \
+estimating the probability that a random walk which starts at a point ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " \[GreaterEqual] 0 reaches a point ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " \[GreaterEqual] ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " before it reaches 0. This is a famous problem called the ",
+ StyleBox["gambler's ruin problem",
+  FontSlant->"Italic"],
+ ", which really asks how likely it is that a gambler's wealth that follows a \
+random walk reaches a target level of ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " before bankruptcy. \n\tWe have an initial position ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " followed by a sequence of random positions ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ ", \[Ellipsis] . The underlying randomness is such that at each time a \
+simple random experiment determines whether the move is to the right \
+(probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ") or the left (probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ "). So to simulate the random walk we only need to be able to iteratively \
+simulate the simple experiment of adding 1 to the current position with \
+probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and subtracting 1 with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ ". We will stop when position 0 or position ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " is reached, and make note of which of the two was the final position. By \
+running such a simulation many times and observing the proportion of times \
+that the final state was ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ", we can estimate the probability that the final state is ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ". \n\tTo implement the plan in the preceding paragraph, we need a way of \
+randomly returning +1 with probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "1 with probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "-", "p"}], TraditionalForm]]],
+ ". But since we know how to simulate uniform real random numbers on [0,1], \
+and the probability of an interval is equal to its length, let's say that if \
+a simulated uniform random number is less than or equal to ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " then the result is +1, otherwise ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "1. Then we have the desired properties of motion, because"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"P", "[", 
+          RowBox[{"move", " ", "right"}], "]"}], " ", "=", " ", 
+         RowBox[{
+          RowBox[{"P", "[", " ", 
+           RowBox[{"[", 
+            RowBox[{"0", ",", " ", 
+             StyleBox["p",
+              FontSlant->"Italic"]}], "]"}], " ", "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"length", " ", "[", " ", 
+            RowBox[{"[", 
+             RowBox[{"0", ",", " ", 
+              StyleBox["p",
+               FontSlant->"Italic"]}], "]"}], " ", "]"}], " ", "=", " ", 
+           StyleBox["p",
+            FontSlant->"Italic"]}]}]}], "\n", 
+        RowBox[{
+         RowBox[{"P", "[", 
+          RowBox[{"move", " ", "left"}], "]"}], " ", "=", " ", 
+         RowBox[{"P", "[", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            StyleBox["p",
+             FontSlant->"Italic"], ",", " ", "1"}]}]}]}]}], "]"}], " ", "]"}],
+      " ", "=", " ", 
+     RowBox[{"length", "[", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["p",
+         FontSlant->"Italic"], ",", " ", "1"}]}]}]}], "]"}], " ", "]"}], " ", 
+  "=", " ", 
+  FormBox[
+   RowBox[{"1", "-", "p"}],
+   TraditionalForm]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "\tHere is a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " function that does the job. A uniform random number is selected and \
+compared to ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ". If the \[LessEqual] comparison is true, then +1 is returned, else ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ "1 is returned. So that we can simulate random walks with different ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " values, we make ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " an argument. One function call with ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = .5 is displayed; you should try a few others.  "
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"StepSize", "[", "p_", "]"}], ":=", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RandomReal", "[", "]"}], "\[LessEqual]", "p"}], ",", "1", ",", 
+    RowBox[{"-", "1"}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"LocalVariableStyle"->None,
+ "PatternVariableStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"StepSize", "[", ".5", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[TextData[{
+ "\tTo simulate the process once, we let the initial position ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " be given, as well as the right step probability ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " and the boundary point ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ". We repeatedly move by the random StepSize amount until the random walk \
+reaches 0 or ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ". The function below returns the complete list of states that the random \
+walk occupied. Look carefully at the code to see how it works. The variable ",
+ StyleBox["statelist",
+  FontSlant->"Italic"],
+ " records the current list of positions occupied by the random walk, the \
+variable ",
+ StyleBox["done",
+  FontSlant->"Italic"],
+ " becomes true when either the boundary 0 or ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " is reached, and variables ",
+ StyleBox["currstate",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["nextstate",
+  FontSlant->"Italic"],
+ " keep track of the current and next position of the random walk. (The || \
+syntax means logical \"or.\") "
+}], "Text",
+ CellChangeTimes->{{3.456336384439919*^9, 3.456336386792919*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SimulateRandomWalk", "[", 
+   RowBox[{"p_", ",", "n_", ",", "M0_"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"statelist", ",", "done", ",", "currstate", ",", "nextstate"}], 
+     "}"}], ",", "\n", "\t      ", 
+    RowBox[{
+     RowBox[{"statelist", " ", "=", " ", 
+      RowBox[{"{", "n", "}"}]}], ";", "\n", "\t      ", 
+     RowBox[{"currstate", " ", "=", " ", "n"}], ";", "\n", "\t       ", 
+     RowBox[{"done", " ", "=", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"currstate", " ", "\[LessEqual]", " ", "0"}], ")"}], " ", "||",
+        " ", 
+       RowBox[{"(", 
+        RowBox[{"currstate", " ", "\[GreaterEqual]", " ", "M0"}], ")"}]}]}], 
+     ";", "\n", "\t\t", 
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", "done", "]"}], ",", "\n", "\t\t\t   ", 
+       RowBox[{
+        RowBox[{"nextstate", "=", 
+         RowBox[{"currstate", "+", 
+          RowBox[{"StepSize", "[", "p", "]"}]}]}], ";", "\n", "\t\t\t  ", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"statelist", ",", "nextstate"}], "]"}], ";", "\n", 
+        "\t\t\t  ", 
+        RowBox[{"currstate", " ", "=", " ", "nextstate"}], ";", "\t  ", 
+        RowBox[{"done", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"currstate", " ", "\[LessEqual]", " ", "0"}], ")"}], " ", "||",
+           " ", 
+          RowBox[{"(", 
+           RowBox[{"currstate", " ", "\[GreaterEqual]", " ", "M0"}], 
+           ")"}]}]}]}]}], "]"}], ";", "\n", "\t", "statelist"}]}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3985314961796007`*^9, 3.39853153172511*^9}, {
+  3.440456131824337*^9, 3.440456140435537*^9}},
+ AutoStyleOptions->{"LocalVariableStyle"->None,
+ "PatternVariableStyle"->None}],
+
+Cell["\<\
+\tBelow is an example run of the command. We include a list plot of the \
+sequence of positions to help your understanding of the motion of the random \
+walk. You should rerun this command, changing parameters as desired to get \
+more intuition about the behavior of the random walk. A more systematic \
+investigation is suggested in Exercise 6.  We set a random seed first for \
+reproducibility, but if you are in the electronic version of the book and \
+want to see different paths of the random walk, just delete the SeedRandom \
+command. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "464758", "]"}], ";"}], "\n", 
+ RowBox[{"thewalk", "=", 
+  RowBox[{"SimulateRandomWalk", "[", 
+   RowBox[{"0.5", ",", "4", ",", "8"}], "]"}]}], "\n", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"thewalk", ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"PointSize", "[", "0.015", "]"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3985311060443993`*^9, 3.398531110698742*^9}, {
+  3.398594432609336*^9, 3.3985944332190895`*^9}, {3.4354148633866*^9, 
+  3.4354148639386*^9}, {3.4404561520887365`*^9, 3.440456154381937*^9}}],
+
+Cell[TextData[{
+ "Figure 1.6",
+ StyleBox[" - A random walk on ",
+  FontWeight->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{"[", 
+     RowBox[{"0", ",", "8"}], "]"}],
+    FontWeight->"Plain"], TraditionalForm]]]
+}], "FigureCaption",
+ CellChangeTimes->{{3.403888422578125*^9, 3.40388842275*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Roughly how would you describe the dependence of the probability that the \
+random walk reaches ",
+ Cell[BoxData[
+  FormBox["M", TraditionalForm]]],
+ " before 0 on the value of ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ "? How does it depend on the value of ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]]],
+ "? How could you use SimulateRandomWalk to check your intuition about these \
+questions?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.406836262640625*^9, 3.406836270640625*^9}}],
+
+Cell[TextData[{
+ "\tContinuing the random walk example, to estimate the probability of \
+hitting ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " before 0 we must repeat the simulation many times, with new streams of \
+random numbers. We merely take note of the last element of the simulated list \
+of positions, which will be either 0 or ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ", count the number of times ",
+ "that",
+ " it is ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ", and divide by the number of repetitions to estimate the probability. Here \
+is a command that does this. Any input values we like for ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " can be used. We also let the number of replications of the simulation be a \
+fourth argument. "
+}], "Text",
+ CellChangeTimes->{{3.406836406734375*^9, 3.406836407234375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"AbsorptionPctAtM", "[", 
+   RowBox[{"p_", ",", "n_", ",", "M0_", ",", "numreps_"}], "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "absatM", ",", "empprob", ",", "poslist", ",", "lastpos", ",", "i"}], 
+     "}"}], ",", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"absatM", "=", "0"}], ";", "\n", "\t\t", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"poslist", "=", 
+         RowBox[{"SimulateRandomWalk", "[", 
+          RowBox[{"p", ",", "n", ",", "M0"}], "]"}]}], ";", "\n", 
+        "\t\t       ", 
+        RowBox[{"lastpos", " ", "=", " ", 
+         RowBox[{"Last", "[", "poslist", "]"}]}], ";", "\n", "\t\t      ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"lastpos", " ", "==", " ", "M0"}], ",", " ", 
+          RowBox[{"absatM", "=", 
+           RowBox[{"absatM", "+", "1"}]}], ",", "Null"}], "]"}]}], ",", "\n", 
+       "\t\t\t     ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "numreps"}], "}"}]}], "]"}], ";", "\n", 
+     "\t\t", 
+     RowBox[{"empprob", "=", 
+      RowBox[{"N", "[", 
+       RowBox[{"absatM", "/", "numreps"}], "]"}]}]}]}], "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3985945728788886`*^9, 3.398594583352195*^9}, {
+  3.440456163773137*^9, 3.4404561704343367`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "The variable ",
+ StyleBox["absatM",
+  FontSlant->"Italic"],
+ ", initialized to zero, keeps track of how many times so far the walk has \
+been absorbed at ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ ". The algorithm is simple: we repeat exactly ",
+ StyleBox["numreps",
+  FontSlant->"Italic"],
+ " times the actions of simulating the list of positions (called ",
+ StyleBox["poslist",
+  FontSlant->"Italic"],
+ ") of the random walk, then pick out the last element ",
+ StyleBox["lastpos",
+  FontSlant->"Italic"],
+ ", and increment ",
+ StyleBox["absatM",
+  FontSlant->"Italic"],
+ " if necessary. For ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = .4, ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 3, and ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " = 5 here are the results of two runs of 100 simulated random walks each. "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SeedRandom", "[", "342197", "]"}], ";"}], "\n", 
+ RowBox[{"AbsorptionPctAtM", "[", 
+  RowBox[{".4", ",", "3", ",", "5", ",", "100"}], "]"}], "\n", 
+ RowBox[{"AbsorptionPctAtM", "[", 
+  RowBox[{".4", ",", "3", ",", "5", ",", "100"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[TextData[{
+ "There is good consistency in the results of our runs. About 40% of the \
+time, for these parameters, the random walk reaches ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " = 5 before it hits 0. There will be a way of finding the probability \
+exactly by analytical methods later. (See Exercise 13.)  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4038884665625*^9, 3.40388846815625*^9}, {
+  3.40683651421875*^9, 3.406836520625*^9}, {3.4357720127073197`*^9, 
+  3.43577201532532*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 1.3", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1.  For a uniform distribution on the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"a", ",", "b"}], "]"}], TraditionalForm]]],
+ " of real numbers, find the open interval probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"(", 
+     RowBox[{"c", ",", "d"}], ")"}], " ", "]"}], TraditionalForm]]],
+ ", the closed interval probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"[", 
+     RowBox[{"c", ",", "d"}], "]"}], " ", "]"}], TraditionalForm]]],
+ ", and the probability of a single point ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", " ", 
+    RowBox[{"{", "d", "}"}], " ", "]"}], TraditionalForm]]],
+ ", where ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ " < ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " < ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ " < ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.406836597078125*^9, 3.406836625546875*^9}}],
+
+Cell[TextData[{
+ "2.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Use the MyRandomArray command from the section with initial seeds of 2, \
+5, 11, and 25 to generate lists of 10 pseudo-random numbers. Look carefully \
+at your lists. (It may help to ListPlot them.)  Do the sequences appear \
+random? Where is the source of the problem, and what might be done to correct \
+it? "
+}], "Text"],
+
+Cell[TextData[{
+ "3.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write a command to simulate an outcome from a finite sample space with \
+outcomes ",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ " with probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "1"], ",", " ", 
+    SubscriptBox["p", "2"], ",", " ", 
+    SubscriptBox["p", "3"], ",", " ", 
+    SubscriptBox["p", "4"]}], TraditionalForm]]],
+ ", respectively."
+}], "Text"],
+
+Cell[TextData[{
+ "4.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Write a command to simulate a two-dimensional random walk starting at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"0", ",", "0"}], ")"}], TraditionalForm]]],
+ ". Such a random process moves on the grid of points in the plane with \
+integer coordinates such that wherever it is now, at the next instant of time \
+it moves to one of the immediately adjacent grid points: right with \
+probability ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ ", left with probability ",
+ StyleBox["l",
+  FontSlant->"Italic"],
+ ", up with probability ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ ", and down with probability ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ ", where ",
+ StyleBox["r",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["l",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["u",
+  FontSlant->"Italic"],
+ " + ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ " = 1.  "
+}], "Text"],
+
+Cell["\<\
+5.  Consider a linear congruential pseudo-random number generator whose \
+sequence of seed values satisfies the recursive relation\
+\>", "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["X", 
+    RowBox[{"n", "+", "1"}]], "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox[
+       StyleBox["aX",
+        FontSlant->"Italic"], "n"], "+", "c"}], ")"}], " ", "mod", " ", 
+    "m"}]}], TextForm]], "DisplayFormula"],
+
+Cell[TextData[{
+ "Assume that ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "p"], TraditionalForm]]],
+ " for some positive integer ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ". The generator is called ",
+ StyleBox["full period",
+  FontSlant->"Italic"],
+ " if given any initial seed all of the values 0, ... , ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "-", "1"}], TraditionalForm]]],
+ " will appear as seed values before repetition occurs. Show that if the \
+generator is full period, then ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ " must be an odd number. "
+}], "Text"],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") For the random walk with ",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ " = .3 and ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " = 6, use the AbsorptionPctAtM command in the section to try to estimate \
+the functional dependence of the probability of absorption at ",
+ StyleBox["M",
+  FontSlant->"Italic"],
+ " on the starting state ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ". "
+}], "Text"],
+
+Cell[TextData[{
+ "7.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to simulate ten samples of size 50 from the uniform distribution on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"0", ",", "10"}], "]"}], TraditionalForm]]],
+ ". Study the samples by plotting histograms with 5 rectangles of each of the \
+ten samples. How many observations do you expect in each category? Comment on \
+the consistency of the histograms from one sample to another. "
+}], "Text",
+ CellChangeTimes->{{3.406844565828125*^9, 3.406844566046875*^9}, {
+   3.40684459896875*^9, 3.406844630984375*^9}, 3.406907616*^9, {
+   3.406907646234375*^9, 3.406907735*^9}}],
+
+Cell[TextData[{
+ "8. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") While simulation is most productively used with random systems such as \
+the random walk, it is interesting to note that certain numerical \
+approximations of physical quantities like area and volume can be done by \
+Monte Carlo techniques.  Develop a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " command to approximate the area between the function ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ "(",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ") = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", 
+    RowBox[{"-", 
+     SuperscriptBox["x", "2"]}]], TraditionalForm]]],
+ " and the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "-axis on the interval [0,1], which is graphed below.  Compare the answers \
+you get from repeated simulations to a numerical integration using ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s NIntegrate command.  (Hint: The square [0,1]\[Times][0,1] contains the \
+desired area ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", and the area of the square is 1.  If you figuratively shoot a random \
+arrow at the square, it should fall into the shaded region a proportion ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " of the time. Simulate a large number of such random arrows and count the \
+proportion that fall into ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ".) "
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{"PlotContsProb", "[", 
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"-", 
+     SuperscriptBox["x", "2"]}]], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1"}], "}"}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"8", ",", 
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.398436229427496*^9, {3.3984387854594793`*^9, 3.3984388215534606`*^9}, {
+   3.398438865959995*^9, 3.3984389414761033`*^9}, {3.440455597273737*^9, 
+   3.440455597866537*^9}, 3.440455895843137*^9},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["Exercise 8", "FigureCaption",
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ "9.  Referring to Exercise 8, why would you not be able to use Monte Carlo \
+simulation to find the area bounded by the ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ "-axes, the line ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " = 1, and the curve ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " = 1/",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ "?  Could you do it for the curve ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " = 1/",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox["x"], TraditionalForm]]],
+ "?"
+}], "Text"],
+
+Cell[TextData[{
+ "10.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A ",
+ StyleBox["Galton-Watson board",
+  FontSlant->"Italic"],
+ " is a triangular grid of pegs such as the one shown, encased in plastic or \
+glass and stood on end. A large number of small marbles escape from a hole in \
+the top exactly in the middle of the board as shown, bounce from side to side \
+with equal probability as they fall down the board, and eventually land in \
+the bins in the bottom. Build a Galton-Watson simulator for the small five \
+level board shown using arbitrarily many marbles, run it several times, and \
+comment on the shape that is typically formed by the stacks of marbles that \
+gather in the bottom bins. "
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"PointSize", "[", ".02", "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "5"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "5"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "5"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"1.5", ",", "4"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"2.5", ",", "4"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3.5", ",", "4"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"4.5", ",", "4"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"5", ",", "3"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{".5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"1.5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"2.5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3.5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"4.5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"5.5", ",", "2"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"5", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"{", 
+        RowBox[{"6", ",", "1"}], "}"}], "]"}]}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Circle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"3", ",", "7.5"}], "}"}], ",", ".2"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Arrow", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "7"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "5.5"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"6", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"2", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"4", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"5", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", ".5"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"6", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"6", ",", ".5"}], "}"}]}], "}"}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g5", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{".5", ",", ".2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"1.5", ",", ".2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.5", ",", ".2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"4", ",", 
+        RowBox[{"{", 
+         RowBox[{"3.5", ",", ".2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"5", ",", 
+        RowBox[{"{", 
+         RowBox[{"4.5", ",", ".2"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"6", ",", 
+        RowBox[{"{", 
+         RowBox[{"5.5", ",", ".2"}], "}"}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4", ",", "g5"}], "}"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontWeight", "\[Rule]", "Bold"}], ",", 
+      RowBox[{"FontSize", "\[Rule]", "14"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "->", "False"}], ",", 
+   RowBox[{"AspectRatio", "->", "1"}]}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.403888659046875*^9, 3.40388867775*^9}}],
+
+Cell["Exercise 10", "FigureCaption",
+ TextAlignment->Center,
+ FontWeight->"Bold"]
+}, Open  ]],
+
+Cell[TextData[{
+ "11.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A dam on a 50-foot deep lake is operated to let its vents pass water \
+through at a constant rate so that 1 vertical inch of lake depth is vented \
+per week. The water begins at a level of 5 feet below the top of the dam. A \
+rainy season begins in which each week a random and uniformly distributed \
+depth of water between 2 and 5 inches is added to the lake.  Simulate this \
+process, and study how long it takes for the water to overflow the top of the \
+dam.  Do the simulations match your intuition and expectations about the \
+situation? "
+}], "Text"],
+
+Cell[TextData[{
+ "12.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A device uses two components in such a way that the device will no longer \
+function if either of the components wears out. Suppose that each component \
+lifetime is random and uniformly distributed on the interval ",
+ "of real numbers",
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{"10", ",", "20"}], "]"}], TraditionalForm]]],
+ ".  Write a command to simulate the lifetime of the device many times over \
+and investigate the probability law of the device lifetime empirically.  \
+About what is the average lifetime? "
+}], "Text",
+ CellChangeTimes->{{3.406844915171875*^9, 3.406844943796875*^9}}],
+
+Cell[TextData[{
+ "13. In the random walk problem it is possible to make progress toward an \
+analytical solution to the computation of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["f", "M"], "(", "i", ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+     "walk", " ", "reaches", " ", "M", " ", "before", " ", "0", "beginning", 
+      " ", "at", " ", "state", " ", "i"}], " ", "]"}]}], TraditionalForm]]],
+ " using recursion. First, solve the trivial case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "=", "2"}], TraditionalForm]]],
+ ", that is, compute intuitively ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["f", "2"], "(", "0", ")"}], ",", 
+     RowBox[{
+      SubscriptBox["f", "2"], "(", "1", ")"}], ",", 
+     RowBox[{
+      SubscriptBox["f", "2"], "(", "2", ")"}]}], "}"}], TraditionalForm]]],
+ ". Then try to extend to the case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "=", "3"}], TraditionalForm]]],
+ " by expressing each ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "3"], "(", "i", ")"}], TraditionalForm]]],
+ " in terms of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "3"], TraditionalForm]]],
+ " values for states neighboring state ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.40683631078125*^9, 3.406836321390625*^9}, {
+   3.40683652878125*^9, 3.40683654609375*^9}, {3.40691039334375*^9, 
+   3.406910468390625*^9}, {3.40691051696875*^9, 3.406910657109375*^9}, 
+   3.406995593262782*^9, {3.4070828408125*^9, 3.407082861546875*^9}, 
+   3.4357721756913195`*^9}],
+
+Cell[TextData[{
+ "14. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Two small rental car establishments in a city are such that cars rented \
+at one location may be returned to the other. Suppose that as a simplified \
+model we assume that from one week to another, at each location, a random \
+number of cars move from that location to the other location. The two \
+locations always keep at least one vehicle on hand, so the number of vehicles \
+moving out of each can be no greater than the initial inventory level minus \
+1. Write a function in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " that takes as arguments the initial car inventory levels of each location \
+and the number of time steps to simulate. This program should simulate \
+successive inventory levels of each location, and return the list of \
+inventory levels for location 1.  Use it to examine both time trends and the \
+distribution of inventory levels in scenarios in which the initial inventory \
+levels are equal and in which they are drastically unequal.  In the latter \
+scenario, do the inventory levels seem to equalize, and if so how many time \
+steps does it take? "
+}], "Text",
+ CellChangeTimes->{{3.4068363313125*^9, 3.406836336703125*^9}, {
+  3.406844957859375*^9, 3.406844998296875*^9}, {3.406908989546875*^9, 
+  3.406908993078125*^9}, {3.4070722949375*^9, 3.4070723191875*^9}, {
+  3.407072351921875*^9, 3.407072414640625*^9}, {3.40707245715625*^9, 
+  3.40707277959375*^9}, {3.40708291959375*^9, 3.40708292359375*^9}, {
+  3.40708296384375*^9, 3.407082980546875*^9}}],
+
+Cell[TextData[{
+ "15. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Consider again the gambler's ruin problem with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".4"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "3"}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "=", "5."}], TraditionalForm]]],
+ " Use simulation to estimate the probability distribution of the number of \
+steps it takes the random walk to reach one of the boundary states.  "
+}], "Text",
+ CellChangeTimes->{{3.40690860653125*^9, 3.406908646609375*^9}, {
+  3.4069090015*^9, 3.40690900303125*^9}, {3.406909055015625*^9, 
+  3.40690920025*^9}, {3.407082891796875*^9, 3.407082891796875*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowSize->{659, 517},
+WindowMargins->{{6, Automatic}, {Automatic, 2}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 1 Discrete Probability"], "Header"]}, {
+   Cell[
+    TextData["1.3 Simulation"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PrintingOptions->{"PrintCellBrackets"->False,
+"PrintMultipleHorizontalPages"->False,
+"PrintRegistrationMarks"->False,
+"PrintingMargins"->{{54, 54}, {72, 72}}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 124, 4, 68, "Section"],
+Cell[694, 28, 4749, 92, 774, "Text"],
+Cell[5446, 122, 1173, 42, 89, "Equation"],
+Cell[6622, 166, 275, 7, 69, "Text"],
+Cell[6900, 175, 654, 14, 256, "Text"],
+Cell[7557, 191, 507, 13, 123, "Input",
+ InitializationCell->True],
+Cell[8067, 206, 1526, 36, 235, "Text"],
+Cell[9596, 244, 535, 17, 33, "DisplayFormulaNumbered"],
+Cell[10134, 263, 372, 15, 48, "Text"],
+Cell[10509, 280, 258, 9, 33, "DisplayFormulaNumbered"],
+Cell[10770, 291, 1732, 56, 214, "Text"],
+Cell[12505, 349, 350, 12, 34, "Equation"],
+Cell[12858, 363, 922, 19, 173, "Text"],
+Cell[13783, 384, 423, 15, 37, "Equation"],
+Cell[14209, 401, 352, 7, 69, "Text"],
+Cell[14564, 410, 1574, 41, 283, "Input",
+ InitializationCell->True],
+Cell[16141, 453, 1185, 34, 173, "Text"],
+Cell[17329, 489, 187, 6, 60, "Input",
+ InitializationCell->True],
+Cell[17519, 497, 538, 13, 173, "Text"],
+Cell[18060, 512, 1069, 18, 276, "Text"],
+Cell[19132, 532, 213, 6, 101, "Input",
+ InitializationCell->True],
+Cell[19348, 540, 171, 5, 79, "Input",
+ InitializationCell->True],
+Cell[19522, 547, 165, 5, 79, "Input",
+ InitializationCell->True],
+Cell[19690, 554, 425, 9, 90, "Text"],
+Cell[20118, 565, 484, 11, 70, "Text"],
+Cell[CellGroupData[{
+Cell[20627, 580, 7202, 217, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[27832, 799, 232, 7, 24, "FigureCaption"]
+}, Open  ]],
+Cell[28079, 809, 3983, 110, 546, "Text"],
+Cell[32065, 921, 1332, 43, 57, "Equation"],
+Cell[33400, 966, 650, 21, 90, "Text"],
+Cell[34053, 989, 365, 11, 56, "Input",
+ InitializationCell->True],
+Cell[34421, 1002, 107, 3, 56, "Input",
+ InitializationCell->True],
+Cell[34531, 1007, 1156, 34, 152, "Text"],
+Cell[35690, 1043, 1851, 46, 277, "Input",
+ InitializationCell->True],
+Cell[37544, 1091, 566, 9, 131, "Text"],
+Cell[CellGroupData[{
+Cell[38135, 1104, 619, 14, 101, "Input",
+ InitializationCell->True],
+Cell[38757, 1120, 355, 13, 24, "FigureCaption"]
+}, Open  ]],
+Cell[39127, 1136, 575, 17, 90, "Text"],
+Cell[39705, 1155, 922, 28, 131, "Text"],
+Cell[40630, 1185, 1537, 41, 233, "Input",
+ InitializationCell->True],
+Cell[42170, 1228, 847, 30, 171, "Text"],
+Cell[43020, 1260, 331, 8, 157, "Input",
+ InitializationCell->True],
+Cell[43354, 1270, 507, 11, 107, "Text"],
+Cell[CellGroupData[{
+Cell[43886, 1285, 80, 2, 63, "Subsection"],
+Cell[43969, 1289, 1099, 43, 107, "Text"],
+Cell[45071, 1334, 402, 9, 140, "Text"],
+Cell[45476, 1345, 605, 26, 75, "Text"],
+Cell[46084, 1373, 950, 37, 171, "Text"],
+Cell[47037, 1412, 154, 3, 75, "Text"],
+Cell[47194, 1417, 294, 11, 41, "DisplayFormula"],
+Cell[47491, 1430, 626, 23, 107, "Text"],
+Cell[48120, 1455, 465, 18, 107, "Text"],
+Cell[48588, 1475, 719, 18, 140, "Text"],
+Cell[49310, 1495, 1392, 42, 310, "Text"],
+Cell[CellGroupData[{
+Cell[50727, 1541, 1109, 30, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[51839, 1573, 80, 2, 37, "FigureCaption"]
+}, Open  ]],
+Cell[51934, 1578, 567, 25, 113, "Text"],
+Cell[52504, 1605, 731, 15, 237, "Text"],
+Cell[CellGroupData[{
+Cell[53260, 1624, 6675, 207, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[59938, 1833, 81, 2, 37, "FigureCaption"]
+}, Open  ]],
+Cell[60034, 1838, 638, 12, 203, "Text"],
+Cell[60675, 1852, 693, 17, 171, "Text"],
+Cell[61371, 1871, 1663, 51, 140, "Text"],
+Cell[63037, 1924, 1572, 27, 366, "Text"],
+Cell[64612, 1953, 730, 21, 107, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

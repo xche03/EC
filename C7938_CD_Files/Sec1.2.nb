@@ -1,0 +1,2973 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     94074,       2964]
+NotebookOptionsPosition[     87906,       2801]
+NotebookOutlinePosition[     88777,       2834]
+CellTagsIndexPosition[     88734,       2831]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["1.2 Properties of Probability", "Section",
+ CellFrameColor->GrayLevel[0],
+ CellChangeTimes->{{3.43533926749353*^9, 3.43533927429253*^9}},
+ TextAlignment->Center,
+ FontSize->14],
+
+Cell["\<\
+\tWe will begin this section with examples of the concrete construction of \
+probability measures for sample spaces with finitely many outcomes.  With our \
+feet on good intuitive ground, we will then be ready to set up a formal axiom \
+system which permits rigorous proof of some important properties of \
+probability. This is the way that most mathematical research actually \
+proceeds: from concrete to abstract rather than the other way around. \
+\>", "Text",
+ CellChangeTimes->{{3.4562637356456003`*^9, 3.456263761058*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  If, as we said in Section 1.1, a probability measure gives likelihood to \
+events, then at its most basic level it gives likelihood to simple events",
+ ", that is, outcomes",
+ ". As an example, I recently saw a breakdown of advanced placement scores \
+for Illinois 12th graders on the subject test in English Language and \
+Composition.  Scores range from 1 to 5, and the numbers of test takers in \
+these categories for the particular year I looked at were:  1: 74, 2: 293, 3: \
+480, 4: 254, 5: 130, for a total of 1231 students.  Consider first the random \
+experiment of drawing a student at random from this group and observing the \
+test score. "
+}], "Text",
+ CellChangeTimes->{{3.40663977084375*^9, 3.406639776078125*^9}, 
+   3.4562637892004004`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"PieChart", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"74", ",", "293", ",", "480", ",", "254", ",", "130"}], "}"}], 
+     ",", 
+     RowBox[{"ChartLabels", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}]}], ",", 
+     RowBox[{"ChartStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"GrayLevel", "[", "1", "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "1", "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "1", "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "1", "]"}], ",", 
+        RowBox[{"GrayLevel", "[", "1", "]"}]}], "}"}]}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Arrow", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{".7", ",", ".6"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"g1", ",", "g2", ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}], ",", 
+      RowBox[{"FontSize", "\[Rule]", "10"}]}], "}"}]}]}], " ", 
+  "]"}]}], "Input",
+ CellFrame->True,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.398007964371908*^9, {3.3980924446777678`*^9, 3.398092451336787*^9}, {
+   3.398092509360915*^9, 3.398092543937793*^9}, {3.3980925980227833`*^9, 
+   3.398092601805606*^9}, {3.3984440072961597`*^9, 3.3984440315366144`*^9}, {
+   3.42341423253125*^9, 3.423414232796875*^9}, {3.44036817361392*^9, 
+   3.4403681806495204`*^9}, {3.4403686589963207`*^9, 3.4403686729115205`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Figure 1.2 ",
+ StyleBox["- Sampling from a discrete population",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.4038861168125*^9, 3.40388611696875*^9}},
+ TextAlignment->Center,
+ FontFamily->"Arial",
+ FontWeight->"Bold"],
+
+Cell["\<\
+\tThere are 5 possible outcomes, namely, the scores 1-5.  We can think of the \
+experiment of randomly sampling a student score as spinning the arrow on the \
+pie chart of Figure 2, which has been constructed so that the angles of the \
+circular wedges are proportional to the frequencies in the categories that \
+were listed in the last paragraph.  
+\tThis example illustrates several important features of the subject of \
+probability.  First, there is an underlying physics that drives the motion \
+and final resting position of the arrow.  But differences in the starting \
+point, the angular momentum imparted to the arrow, and even slight wind \
+currents and unevenness of the surface of the spinner give rise to a \
+non-deterministic or random phenomenon.  We cannot predict with certainty \
+where the arrow will land. It could be philosophically argued that if we knew \
+all of these randomizing factors perfectly, then the laws of physics would \
+perfectly predict the landing point of the arrow, so that the phenomenon is \
+not really random.  Perhaps this is true in most, if not all, phenomena that \
+we call random.  Nevertheless, it is difficult to know these factors, and the \
+ability to measure likelihoods of events that we model as random is useful to \
+have. 
+\tSecond, this example shows the two main ways of arriving at an assignment \
+of probabilities. We might make simplifying assumptions which lead to a \
+logical assignment of probability.  Or we might repeat the experiment many \
+times and observe how frequently events occur.  We were fortunate enough here \
+to have the background data from which our spinner was constructed, which \
+would indicate by simple counting that if the spinner was truly spun \
+\"randomly\" we should assign probabilities\
+\>", "Text",
+ CellChangeTimes->{{3.403886132*^9, 3.403886132140625*^9}, {
+  3.423414558359375*^9, 3.423414559703125*^9}, {3.4356825616099997`*^9, 
+  3.435682561901*^9}, {3.4562638020392*^9, 3.4562638305716*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "1", "]"}], "=", 
+    FractionBox["74", "1231"]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "2", "]"}], "=", 
+    FractionBox["293", "1231"]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "3", "]"}], "=", 
+    FractionBox["480", "1231"]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "4", "]"}], "=", 
+    FractionBox["254", "1231"]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "5", "]"}], "=", 
+    FractionBox["130", "1231"]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CounterAssignments->{"Chapter", "2"},
+ FontFamily->"Times New Roman",
+ CounterBoxOptions->{CounterFunction:>Identity}],
+
+Cell[TextData[{
+ "to the five outcomes.  But step back for a moment and consider what we \
+would have to do with our spinner if we weren't blessed with the numbers.  We \
+would have no recourse but to perform the experiment repeatedly.  If, say, \
+1000 spins produced 70 1's, then we would estimate P[1] empirically by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"70", "/", "1000"}], "=", ".07"}], TraditionalForm]]],
+ ", and similarly for the other outcomes. \n\tThird, we can attempt to \
+generalize conclusions.  This data set itself can be thought of as a sort of \
+repeated spinning experiment, in which each student represents a selection \
+from a larger universe of students who could take the test.  The \
+probabilities in formula (1), which would be exact probabilities for the \
+experiment of selecting one student from this particular batch, become \
+estimates of probabilities for a different experiment; that of selecting 1231 \
+students from the universe of all students, past and present, who could take \
+the test.  Whether our particular data set is a \"random\" sample \
+representing that universe without bias is a very serious statistical \
+question, best left for a statistics course with a good unit on samples and \
+surveys.\n\tUsing the probabilities in (1), how should probability be \
+assigned to composite events like \"1 or 3",
+ "?",
+ "\" The logical thing to do is to pool together the probabilities of all \
+outcomes that are contained in the composite event.  Then we would have "
+}], "Text",
+ CellChangeTimes->{{3.423415802234375*^9, 3.4234158035*^9}, {
+  3.4562638674344*^9, 3.4562638700708*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"1", " ", "or", " ", "3"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"P", "[", "1", "]"}], " ", "+", " ", 
+    RowBox[{"P", "[", "3", "]"}]}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     FormBox[
+      FractionBox["74", "1231"],
+      TraditionalForm], "+", " ", 
+     FormBox[
+      FractionBox["480", "1231"],
+      TraditionalForm]}], " ", "=", " ", 
+    FormBox[
+     FractionBox["554", "1231"],
+     TraditionalForm]}]}]}]], "DisplayFormulaNumbered",
+ TaggingRules->{
+  "CounterSettings" -> {
+    "CounterFormat" -> {"EquationNumbered"}, "CounterTarget" -> "Cell", 
+     "XRefPrefix" -> "Equation"}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "So the probability of an event is the total of all probabilities of the \
+outcomes that make up the event. \n\tTwo implications follow easily from the \
+last observation: the empty event \[EmptySet] which contains no outcomes has \
+probability zero. Also, the event that the spinner lands somewhere is \
+certain, that is, it has probability 1 (100%). Another way to look at it is \
+that the sample space, denoted by \[CapitalOmega] say, is the composite event \
+consisting of all ",
+ StyleBox["outcomes",
+  FontColor->GrayLevel[0]],
+ ". In this case we have:"
+}], "Text",
+ CellChangeTimes->{{3.40664076725*^9, 3.406640769828125*^9}, 
+   3.4234154928125*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    RowBox[{"P", "[", "\[CapitalOmega]", "]"}], "=", 
+    RowBox[{"P", "[", 
+     RowBox[{
+     "1", " ", "or", " ", "2", " ", "or", " ", "3", " ", "or", " ", "4", " ", 
+      "or", " ", "5"}], "]"}]},
+   {" ", "=", 
+    RowBox[{
+     RowBox[{"P", "[", "1", "]"}], " ", "+", " ", 
+     RowBox[{"P", "[", "2", "]"}], "  ", "+", " ", "\[CenterEllipsis]", "+", 
+     " ", 
+     RowBox[{"P", "[", "5", "]"}]}]},
+   {" ", "=", 
+    RowBox[{
+     FractionBox["74", "1231"], "+", 
+     FractionBox["293", "1231"], "+", " ", "\[CenterEllipsis]", " ", "+", 
+     FractionBox["130", "1231"]}]},
+   {" ", "=", "1"}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+    "RowsIndexed" -> {}}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "\tIn summary, so far we have learned that outcomes can be given \
+probabilities between 0 and 1 using theoretical assumptions or empirical \
+methods, and probabilities for composite events are the totals of the outcome \
+probabilities for outcomes in the event. Also ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "\[EmptySet]", "]"}], "=", "0"}], 
+   TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", "\[CapitalOmega]", "]"}], "=", "1"}], 
+   TraditionalForm]]],
+ ". Try the following activity, which suggests another property. You will \
+learn more about that property shortly."
+}], "Text",
+ CellChangeTimes->{{3.406640791953125*^9, 3.40664079328125*^9}, 
+   3.406831599734375*^9, {3.43576506178932*^9, 3.43576507500232*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  For the spinner experiment we looked at P[1 or 3].  Consider now the two \
+events \"at least 3\" and \"between 1 and 3 inclusive.\"  What is the \
+probability of the event ",
+ Cell[BoxData[
+  FormBox["{", TraditionalForm]]],
+ "\"at least 3\" or \"between 1 and 3 inclusive\"",
+ Cell[BoxData[
+  FormBox["}", TraditionalForm]]],
+ "?  How does this probability relate to the individual event probabilities?  \
+Can you deduce a general principle regarding the probability of one event or \
+another occurring?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{
+  3.406649205625*^9, {3.406831618375*^9, 3.406831682546875*^9}, {
+   3.456263968226*^9, 3.4562639699888*^9}}],
+
+Cell["\<\
+\tSometimes we are interested in the set theoretic complement of an event, \
+i.e., the event that the original event does not occur. Does the probability \
+of the complementary event relate to the probability of the event? For the \
+spinner, look at the events \"at least 3\" and \"less than 3,\" which are \
+complements. We have, using formula (1):\
+\>", "Text",
+ CellChangeTimes->{{3.4562639739356003`*^9, 3.4562639757608*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"at", " ", "least", " ", "3"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"3", " ", "or", " ", "4", " ", "or", " ", "5"}], "]"}], " ", "=", 
+   " ", 
+   RowBox[{
+    RowBox[{
+     FractionBox["480", "1231"], "+", 
+     FractionBox["254", "1231"], "+", 
+     FractionBox["130", "1231"]}], "=", 
+    FractionBox["864", "1231"]}]}]}], "\n", 
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"less", " ", "than", " ", "3"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"1", " ", "or", " ", "2"}], "]"}], " ", "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox["74", "1231"], "+", 
+     FractionBox["293", "1231"]}], "=", 
+    FractionBox["367", "1231"]}]}]}]}], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "Notice that the two probabilities add to one, that is for these two events ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["E", "c"], TraditionalForm]]],
+ ":"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["E",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    SuperscriptBox[
+     StyleBox["E",
+      FontSlant->"Italic"], 
+     StyleBox["c",
+      FontSlant->"Italic"]], "]"}]}], " ", "=", " ", 
+  "1"}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "This is not a coincidence. Together ",
+ StyleBox["E",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["E", "c"], TraditionalForm]]],
+ " contain all outcomes, and they have no outcomes in common. The total of \
+their probabilities must therefore equal 1, which is the probability of the \
+sample space.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.40664922621875*^9, 3.406649229828125*^9}, {
+  3.4068317604375*^9, 3.406831775953125*^9}, {3.43576510806732*^9, 
+  3.4357651080693197`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ ". Let's look at another random phenomenon.  Recall from Section 1.1 the \
+experiment of selecting a sequence of two numbers at random from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
+   TraditionalForm]]],
+ " with no repetition of numbers allowed. Such an ordered selection without \
+replacement is known as a ",
+ StyleBox["permutation",
+  FontSlant->"Italic"],
+ ", in this case a permutation of 2 objects from 5.  ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can display all possible permutations as follows.  The command \n\n\t\t\t\t\
+KPermutations[list, k] \n\nin the ",
+ "KnoxProb7",
+ "`Utilities` package returns a list of all ordered sequences of length ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " from the list given in its first argument, assuming that a list member, \
+once selected, cannot be selected again."
+}], "Text",
+ CellChangeTimes->{
+  3.403892579078125*^9, {3.4357651347673197`*^9, 3.4357651365173197`*^9}, 
+   3.4403683506115203`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<KnoxProb7`Utilities`\>\"", "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{3.4403683568515205`*^9}],
+
+Cell[BoxData[
+ RowBox[{"KPermutations", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], ",", "2"}], 
+  "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{"Length", "[", 
+  RowBox[{"KPermutations", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], ",", "2"}],
+    "]"}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True],
+
+Cell[TextData[{
+ "As the Length output reports, there are 20 such permutations. These 20 are \
+the outcomes that form the sample space of the experiment. The randomness of \
+the drawing makes it quite reasonable to take the theoretical approach to \
+assigning probabilities. Each ",
+ "outcome",
+ " should have the same likelihood. Since the total sample space has \
+probability 1, the common likelihood of the simple events, say ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ ", satisfies"
+}], "Text",
+ CellChangeTimes->{{3.40664924903125*^9, 3.406649251390625*^9}, {
+  3.406831829890625*^9, 3.406831832390625*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   StyleBox["x",
+    FontSlant->"Italic"], " ", "+", " ", 
+   StyleBox["x",
+    FontSlant->"Italic"], " ", "+", " ", "\[CenterEllipsis]", " ", "+", " ", 
+   RowBox[{
+    StyleBox["x",
+     FontSlant->"Italic"], " ", 
+    RowBox[{"(", 
+     RowBox[{"20", " ", "times"}], ")"}]}]}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"1", " ", "\[DoubleLongRightArrow]", " ", "20"}], 
+    StyleBox["x",
+     FontSlant->"Italic"]}], "=", 
+   RowBox[{
+    RowBox[{"1", " ", "\[DoubleLongRightArrow]", " ", 
+     StyleBox["x",
+      FontSlant->"Italic"]}], "=", 
+    FractionBox["1", "20"]}]}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+In other words, our probability measure on the sample space is defined on \
+outcomes as:\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], "]"}], "=", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", "1"}], "}"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "3"}], "}"}], "]"}], "=", 
+    RowBox[{"\[CenterEllipsis]", "=", 
+     RowBox[{
+      RowBox[{"P", "[", 
+       RowBox[{"{", 
+        RowBox[{"5", ",", "4"}], "}"}], "]"}], "=", 
+      FractionBox["1", "20"]}]}]}]}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell["\<\
+and for composite events, we can again total the probabilities of outcomes \
+contained in them.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  In the example of selecting two positive integers from the first five, \
+find the probability that 1 is in the sample. Explain why your result is \
+intuitively reasonable."
+}], "Text",
+ CellFrame->True],
+
+Cell["\tFor instance, ", "Text"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+      "either", " ", "1", " ", "or", " ", "2", " ", "is", " ", "in", " ", 
+       "the", " ", "sample"}], "]"}]},
+    {
+     RowBox[{"=", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1", ",", "2"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "3"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3", ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "4"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "5"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "3"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3", ",", "2"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "4"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "2"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "5"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "2"}], "}"}]}], "]"}]}]},
+    {
+     RowBox[{"=", " ", 
+      FormBox[
+       FractionBox["14", "20"],
+       TraditionalForm]}]}
+   }], TraditionalForm]],
+ GridBoxOptions->{
+ GridBoxAlignment->{
+  "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+   "RowsIndexed" -> {}}}]], "DisplayFormula"],
+
+Cell["and", "Text"],
+
+Cell[TextData[{
+ " ",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{"2", " ", "is", " ", "not", " ", "in", " ", "sample"}], "]"}]},
+     {
+      RowBox[{"=", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "3"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "3"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "3"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "5"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "4"}], "}"}]}], "]"}], " "}]},
+     {
+      RowBox[{"=", 
+       FractionBox["12", "20"]}]}
+    }], TraditionalForm]],
+  GridBoxOptions->{
+  GridBoxAlignment->{
+   "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+    "RowsIndexed" -> {}}}]
+}], "DisplayFormula"],
+
+Cell["\<\
+By counting outcomes you can check that P[2 is in sample] = 8/20, which is \
+complementary to P[2 is not in sample] = 12/20 from above. Also notice that \
+\>", "Text",
+ CellChangeTimes->{{3.42341603578125*^9, 3.423416036390625*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{"1", " ", "in", " ", "sample"}], "]"}], " ", "=", " ", 
+   RowBox[{
+    FractionBox["8", "20"], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"2", " ", "in", " ", "sample"}], "]"}]}]}], 
+  TextForm]], "Equation"],
+
+Cell["however,", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+   "1", " ", "in", " ", "sample", " ", "or", " ", "2", " ", "in", " ", 
+    "sample"}], "]"}], " ", "=", " ", 
+  FormBox[
+   RowBox[{
+    FractionBox["14", "20"], "\[NotEqual]", 
+    RowBox[{
+     FractionBox["8", "20"], "+", 
+     FractionBox["8", "20"]}]}],
+   TraditionalForm]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "We see that the probability of the event \"either 1 is in the sample or 2 \
+is in the sample\" is not simply the sum of the individual probability that 1 \
+is in the sample plus the probability that 2 is in it. The reason is that in \
+adding ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"8", "/", "20"}], "+", 
+    RowBox[{"8", "/", "20"}]}], TraditionalForm]]],
+ " we let the outcomes ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1"}], "}"}], TraditionalForm]]],
+ " contribute twice to the sum. This overstates the true probability, but we \
+now realize that it is easy to correct for the double count by subtracting ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"2", "/", "20"}], TraditionalForm]]],
+ " which is the amount of probability contributed by the doubly counted \
+outcomes. (See Theorem 2 below.)  \[FilledSmallSquare]"
+}], "Text",
+ CellChangeTimes->{3.406649403484375*^9}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ " Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to display the ordered samples of size 3 without replacement from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6"}], "}"}], 
+   TraditionalForm]]],
+ ". What is the probability that 1 is in the sample? What is the probability \
+that neither 5 nor 6 is in the sample?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{3.403882961765625*^9}],
+
+Cell["\<\
+\tArmed with the experience of our examples, let us now develop a \
+mathematical model for probability, events, and sample spaces that proceeds \
+from a minimal set of axioms to derive several of the most important basic \
+properties of probability. A few other properties are given in the exercises. \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  A ",
+ StyleBox["sample space",
+  FontSlant->"Italic"],
+ " \[CapitalOmega] of a random experiment is a set whose elements \[Omega] \
+are called ",
+ StyleBox["outcomes",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellFrame->False],
+
+Cell[TextData[{
+ "\tDefinition 2 below is provisional ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " we will have to be more careful about what an event is when we come to \
+continuous probability. "
+}], "Text",
+ CellChangeTimes->{3.4562640351656*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 2.",
+  FontWeight->"Bold"],
+ "  An ",
+ StyleBox["event",
+  FontSlant->"Italic"],
+ " ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " is a subset of the sample space \[CapitalOmega], hence an event is a set \
+of outcomes. The collection of all events is denoted by \[ScriptCapitalH]."
+}], "Text",
+ CellFrame->False,
+ CellChangeTimes->{
+  3.406649438046875*^9, {3.4562640499700003`*^9, 3.4562640504379997`*^9}}],
+
+Cell[TextData[{
+ "\tSuppose for example we consider another sampling experiment in which \
+three letters are to be selected at random, without replacement and without \
+regard to order from the set of letters ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], TraditionalForm]]],
+ ".  The Combinatorica` package in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " (which is loaded automatically when you load KnoxProb7`Utilities`) has the \
+commands\n\n\t\t\tKSubsets[list, k]              and            \
+Subsets[universe]\n\nwhich, respectively, return all subsets of size ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " taken from the given list of objects, and all subsets of the given \
+universal set.  We can use these to find the sample space of the experiment, \
+and the collection of events \[ScriptCapitalH]: "
+}], "Text",
+ CellChangeTimes->{{3.40388009725*^9, 3.403880105*^9}, {3.42341618203125*^9, 
+   3.423416185515625*^9}, 3.44036837260752*^9, {3.4562640739472*^9, 
+   3.4562640752888002`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[CapitalOmega]", "=", 
+  RowBox[{"KSubsets", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", "3"}], 
+   "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"GlobalSymbolStyle"->None,
+ "LocalVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"\[ScriptCapitalH]", "=", " ", 
+  RowBox[{"Subsets", "[", "\[CapitalOmega]", "]"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Notice that the empty set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "}"}], TraditionalForm]]],
+ " is the first subset of \[CapitalOmega] that is displayed; next are the \
+simple events ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c"}], "}"}], "}"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "d"}], "}"}], "}"}], TraditionalForm]]],
+ " etc.; next are the two element composite events; and so forth.",
+ "  \n\tIn all subsequent work we will continue a practice that we have done \
+so far, which is to blur the distinction between ",
+ StyleBox["outcomes ",
+  FontSlant->"Italic"],
+ "\[Omega], which are members of the sample space, and ",
+ StyleBox["simple events",
+  FontSlant->"Italic"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", "\[Omega]", "}"}], TraditionalForm]]],
+ " which are sets consisting of a single outcome. This will enable us to \
+speak of the \"probability of an outcome\" when in fact probability is a \
+function on events, as seen in the next definition."
+}], "Text",
+ CellChangeTimes->{3.43576561204632*^9}],
+
+Cell[TextData[{
+ StyleBox["Definition 3",
+  FontWeight->"Bold"],
+ ".  A ",
+ StyleBox["probability measure",
+  FontSlant->"Italic"],
+ " P is a function taking the family of events \[ScriptCapitalH] to the real \
+numbers such that\n\t(i) P[\[CapitalOmega]] = 1;\n\t(ii) For all ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ " \[Element] \[ScriptCapitalH],  P[",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]]],
+ "] \[GreaterEqual] 0;\n\t(iii) If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "1"], ",", " ", 
+    SubscriptBox["A", "2"], ",", "\[CenterEllipsis]"}], TraditionalForm]]],
+ "  is a sequence of pairwise disjoint events then \n\t\t\tP[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["A", "1"], "\[Union]", 
+     SubscriptBox["A", "2"], "\[Union]", " ", "\[CenterEllipsis]"}], " ", 
+    "]"}], TraditionalForm]]],
+ " =  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderscriptBox["\[CapitalSigma]", "i"], 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     SubscriptBox["A", "i"], "]"}]}], TraditionalForm]]]
+}], "Text",
+ CellFrame->False,
+ CellChangeTimes->{{3.406649508703125*^9, 3.406649512453125*^9}}],
+
+Cell[TextData[{
+ "\tProperties (i), (ii), and (iii) are called the ",
+ StyleBox["axioms of probability",
+  FontSlant->"Italic"],
+ ". Our mathematical model so far corresponds with our intuition: a random \
+experiment has a set of possible outcomes called the sample space, an event \
+is a set of these outcomes, and probability attaches a real number to each \
+event. Axiom (i) requires the entire sample space to have probability 1, \
+axiom (ii) says that all probabilities are non-negative numbers, and axiom \
+(iii) says that when combining ",
+ StyleBox["disjoint",
+  FontSlant->"Italic"],
+ " events, the probability of the union is the sum of the individual event \
+probabilities. For finite sample spaces this axiom permits us to just define \
+probabilities on outcomes, and then give each event a probability equal to \
+the sum of its (disjoint) outcome probabilities. We will encounter various \
+ways of constructing probability measures along the way, which we must verify \
+to satisfy the axioms. Once having done so, other properties of probability \
+listed in the theorems below are ours for free. They follow from the axioms \
+alone, and not from any particular construction, which of course is the huge \
+advantage of basing a mathematical model on the smallest possible collection \
+of axioms. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " is an event with complement ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["A", "c"], TraditionalForm]]],
+ ", then "
+}], "Text",
+ CellFrame->False],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["A",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    SuperscriptBox[
+     StyleBox["A",
+      FontSlant->"Italic"], "c"], "]"}]}], "=", 
+  "1"}]], "DisplayFormulaNumbered",
+ CellFrame->False,
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "Therefore, P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] = 1 ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ StyleBox[" ",
+  FontFamily->"Times New Roman"],
+ Cell[BoxData[
+  RowBox[{"P", "[", 
+   SuperscriptBox[
+    StyleBox["A",
+     FontSlant->"Italic"], "c"], "]"}]],
+  FontFamily->"Times New Roman"],
+ " and ",
+ Cell[BoxData[
+  StyleBox[
+   RowBox[{"P", "[", 
+    SuperscriptBox[
+     StyleBox["A",
+      FontSlant->"Italic"], "c"], "]"}],
+   FontFamily->"Times New Roman"]]],
+ "= 1 ",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]]],
+ " P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "]."
+}], "Text",
+ CellChangeTimes->{3.4562642728472*^9}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  The events ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["A", "c"], TraditionalForm]]],
+ " are pairwise disjoint, by definition of complementation. By the third \
+axiom,"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{"A", " ", "\[Union]", 
+       SuperscriptBox["A", "c"]}], "]"}], "=", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       StyleBox["A",
+        FontSlant->"Italic"], "]"}], " ", "+", 
+      StyleBox[" ",
+       FontSlant->"Italic"], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       SuperscriptBox[
+        StyleBox["A",
+         FontSlant->"Italic"], "c"], "]"}]}]}], TraditionalForm]]]]], 
+  TextForm]], "Equation",
+ CellChangeTimes->{{3.406650218*^9, 3.40665021834375*^9}}],
+
+Cell[TextData[{
+ "Also, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], " ", "\[Union]", 
+    SuperscriptBox[
+     StyleBox["A",
+      FontSlant->"Italic"], "c"]}], TextForm]]],
+ " = \[CapitalOmega]. By the first axiom, P[\[CapitalOmega]] = 1, therefore"
+}], "Text",
+ CellChangeTimes->{3.423416350109375*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{Cell[TextData[Cell[BoxData[
+    FormBox[
+     RowBox[{"1", "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", "\[CapitalOmega]", "]"}], "=", 
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{"A", " ", "\[Union]", 
+          SuperscriptBox["A", "c"]}], "]"}], "=", 
+        RowBox[{
+         RowBox[{
+          StyleBox["P",
+           FontSlant->"Plain"], "[", 
+          StyleBox["A",
+           FontSlant->"Italic"], "]"}], " ", "+", 
+         StyleBox[" ",
+          FontSlant->"Italic"], 
+         RowBox[{
+          StyleBox["P",
+           FontSlant->"Plain"], "[", 
+          SuperscriptBox[
+           StyleBox["A",
+            FontSlant->"Italic"], "c"], "]"}]}]}]}]}], TraditionalForm]]]]], 
+   ".", "  ", "\[FilledSquare]"}], TextForm]], "Equation",
+ CellChangeTimes->{{3.40665002278125*^9, 3.406650026109375*^9}, {
+  3.4066502248125*^9, 3.4066502251875*^9}}],
+
+Cell["\<\
+\tTheorem 1 was anticipated earlier. It is generally used in cases where the \
+complement of an event of interest is easier to handle than the original \
+event. If we have the probability of one of the two, then we have the other \
+by subtracting from 1. 
+\tThe next result is based on the idea that the total probability of a union \
+can be found by adding the individual probabilities and correcting if \
+necessary by subtracting the probability in the double-counted intersection \
+region. \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ". If ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are arbitrary events, then"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], "\[Union]", 
+    StyleBox["B",
+     FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["A",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     StyleBox["B",
+      FontSlant->"Italic"], 
+     FormBox[
+      FormBox["]",
+       TraditionalForm],
+      TraditionalForm]}], " ", 
+    FormBox[
+     RowBox[{"-", " "}],
+     TraditionalForm], 
+    RowBox[{"P", "[", 
+     RowBox[{
+      StyleBox["A",
+       FontSlant->"Italic"], "\[Intersection]", 
+      StyleBox["B",
+       FontSlant->"Italic"]}], "]"}]}]}]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "In particular if ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are disjoint, then"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], "\[Union]", 
+    StyleBox["B",
+     FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["A",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    StyleBox["B",
+     FontSlant->"Italic"], "]"}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"\[CapitalOmega]", ",", "A", ",", "B"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}], ",", "\n", 
+    RowBox[{"Circle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"3", "/", "2"}], ",", "1"}], "}"}], ",", 
+      RowBox[{"2", "/", "3"}]}], "]"}], ",", 
+    RowBox[{"Circle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"5", "/", "2"}], ",", "1"}], "}"}], ",", 
+      RowBox[{"2", "/", "3"}]}], "]"}], ",", "\n", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"\[CapitalOmega]", ",", "Medium"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3.6", ",", "1.8"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"A", ",", "Medium"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1.4", ",", "1.4"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"B", ",", "Medium"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2.6", ",", "1.4"}], "}"}]}], "]"}], ",", "\n", "\t\t", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"\"\<A \[Intersection] B\>\"", ",", "Italic"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", ".1"}], "}"}]}], "]"}], ",", "\n", 
+    RowBox[{"Arrow", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", ".2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+  "]"}]}], "Input",
+ CellFrame->True,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.398008004299184*^9, {3.398444245282035*^9, 3.398444359712188*^9}, {
+   3.398444425698073*^9, 3.398444429410754*^9}, {3.398444468035116*^9, 
+   3.398444469719862*^9}, {3.398444586559636*^9, 3.398444611292371*^9}, {
+   3.3984446558862405`*^9, 3.3984446871144404`*^9}, 3.398445008114731*^9, {
+   3.3984450575969896`*^9, 3.398445107110488*^9}, {3.40388119971875*^9, 
+   3.40388120775*^9}, {3.403881249453125*^9, 3.403881274234375*^9}, {
+   3.40665004753125*^9, 3.406650069375*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Figure 1.3",
+ StyleBox[" - The probability of a union is the total of the event \
+probabilities minus the intersection probability",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.403886155546875*^9, 3.403886155765625*^9}},
+ TextAlignment->Center,
+ FontFamily->"Arial",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  (See Figure 3.) Since ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " can be expressed as the disjoint union ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " = (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Intersection]", "B"}], TraditionalForm]]],
+ ") \[Union] ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"A", 
+     FormBox[
+      RowBox[{
+       RowBox[{"\[Intersection]", 
+        SuperscriptBox["B", "c"]}], ")"}],
+      TraditionalForm]}]}], TraditionalForm]]],
+ ", and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " can be expressed as the disjoint union ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"B", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"A", "\[Intersection]", "B"}], ")"}], " ", "\[Union]", " ", 
+     RowBox[{"(", 
+      RowBox[{"B", 
+       FormBox[
+        RowBox[{
+         RowBox[{"\[Intersection]", 
+          SuperscriptBox["A", "c"]}], ")"}],
+        TraditionalForm]}]}]}]}], TraditionalForm]]],
+ " we have, by axiom (iii),"
+}], "Text",
+ CellChangeTimes->{{3.403886161109375*^9, 3.403886161296875*^9}, {
+  3.4357660913823195`*^9, 3.43576609169732*^9}, {3.4562642914424*^9, 
+  3.4562642941256*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        StyleBox["A",
+         FontSlant->"Italic"], "]"}], " ", "+", " ", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        StyleBox["B",
+         FontSlant->"Italic"], "]"}]}], "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], "\[Intersection]", 
+         StyleBox["B",
+          FontSlant->"Italic"]}], "]"}], "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], 
+         FormBox[
+          RowBox[{"\[Intersection]", 
+           SuperscriptBox["B", "c"]}],
+          TraditionalForm]}], "]"}], "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], "\[Intersection]", 
+         StyleBox["B",
+          FontSlant->"Italic"]}], "]"}], "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["B",
+          FontSlant->"Italic"], 
+         FormBox[
+          RowBox[{"\[Intersection]", 
+           SuperscriptBox["A", "c"]}],
+          TraditionalForm]}], "]"}]}]},
+     {" ", "=", 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], 
+         FormBox[
+          RowBox[{"\[Intersection]", 
+           SuperscriptBox["B", "c"]}],
+          TraditionalForm]}], "]"}], "+", 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["B",
+          FontSlant->"Italic"], 
+         FormBox[
+          RowBox[{"\[Intersection]", 
+           SuperscriptBox["A", "c"]}],
+          TraditionalForm]}], "]"}], "+", 
+       RowBox[{"2", 
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          StyleBox["A",
+           FontSlant->"Italic"], "\[Intersection]", 
+          StyleBox["B",
+           FontSlant->"Italic"]}], "]"}]}]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}}], TraditionalForm]]]]]], "Equation",
+ CellChangeTimes->{{3.427826517697715*^9, 3.427826532511715*^9}, {
+  3.434657879206525*^9, 3.4346578798055253`*^9}, {3.4354129358185997`*^9, 
+  3.4354129560736*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell["Therefore,", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["A",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    StyleBox["B",
+     FontSlant->"Italic"], "]"}], " ", 
+   FormBox["-",
+    TraditionalForm], " ", 
+   RowBox[{"P", "[", 
+    FormBox[
+     RowBox[{"A", "\[Intersection]", "B"}],
+     TraditionalForm], "]"}]}], " ", "=", " ", 
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["A",
+       FontSlant->"Italic"], 
+      FormBox[
+       RowBox[{"\[Intersection]", 
+        SuperscriptBox["B", "c"]}],
+       TraditionalForm]}], "]"}], "+", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["B",
+       FontSlant->"Italic"], 
+      FormBox[
+       RowBox[{"\[Intersection]", 
+        SuperscriptBox["A", "c"]}],
+       TraditionalForm]}], "]"}], "+", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["A",
+       FontSlant->"Italic"], "\[Intersection]", 
+      StyleBox["B",
+       FontSlant->"Italic"]}], "]"}]}],
+   TraditionalForm]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "But it is easy to see from Figure 3 that the events (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], 
+    FormBox[
+     RowBox[{"\[Intersection]", 
+      SuperscriptBox["B", "c"]}],
+     TraditionalForm]}], TraditionalForm]]],
+ "), (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["B",
+     FontSlant->"Italic"], 
+    FormBox[
+     RowBox[{"\[Intersection]", 
+      SuperscriptBox["A", "c"]}],
+     TraditionalForm]}], TraditionalForm]]],
+ "), and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"A", "\[Intersection]", "B"}], ")"}], TraditionalForm]]],
+ " are pairwise disjoint and their union is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Union]", "B"}], TraditionalForm]]],
+ ". Thus, by axiom (iii) of probability again,"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["A",
+       FontSlant->"Italic"], "\[Intersection]", 
+      FormBox[
+       SuperscriptBox["B", "c"],
+       TraditionalForm]}], "]"}], "+", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["B",
+       FontSlant->"Italic"], "\[Intersection]", 
+      FormBox[
+       SuperscriptBox["A", "c"],
+       TraditionalForm]}], "]"}], "+", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      StyleBox["A",
+       FontSlant->"Italic"], "\[Intersection]", 
+      StyleBox["B",
+       FontSlant->"Italic"]}], "]"}]}], " ", "=", " ", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     StyleBox["A",
+      FontSlant->"Italic"], "\[Union]", 
+     StyleBox["B",
+      FontSlant->"Italic"]}], "]"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered"],
+
+Cell[TextData[{
+ "Combining (10) and (11) proves the first assertion. The second assertion \
+follows directly as a specialization of axiom (iii) to two events. \
+Alternatively, if ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are disjoint, then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Intersection]", "B"}], TraditionalForm]]],
+ " = \[EmptySet] and by Exercise 11, P[\[EmptySet]] = 0. ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.406650159578125*^9, 3.40665015959375*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Try to devise an analogous thoerem to Theorem 2 for a three set union. \
+(Hint: if you subtract all paired intersection probabilities, are you doing \
+too much?) See Exercise 14 for a statement of the general result."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tYou may be curious that the axioms only require events to have non-negative \
+probability. It should also be clear that events must have probability less \
+than or equal to 1, because probability 1 represents certainty. In the \
+exercises you are asked to give a rigorous proof of this fact, stated below \
+as Theorem 3. \
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 3",
+  FontWeight->"Bold"],
+ ".  For any event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] \[LessEqual] 1.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.406650635234375*^9, 3.406650637171875*^9}}],
+
+Cell[TextData[{
+ "\tAnother intuitively obvious property is that if an event ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " has all of the outcomes in it that another event ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " has, and perhaps more, then ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " should have higher probability than ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ". This result is given as Theorem 4, and the proof is Exercise 12."
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 4",
+  FontWeight->"Bold"],
+ ".  If ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are events such that ",
+ StyleBox["A ",
+  FontSlant->"Italic"],
+ "\[Subset] ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ", then P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] \[LessEqual] P[",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "].  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4066506471875*^9, 3.4066506495625*^9}, 
+   3.42341653403125*^9}],
+
+Cell[TextData[{
+ "\tTheorems 3 and 4 help to reassure us that our theoretical model of \
+probability corresponds to our intuition, and they will be useful in certain \
+proofs. But Theorems 1 and 2 on complements and unions are more useful in \
+computations. We would like to finish this section by adding a third very \
+useful computational result, usually called the ",
+ StyleBox["Law of Total Probability",
+  FontSlant->"Italic"],
+ ". Basically it states that we can \"divide and conquer,\" that is break up \
+the computation of a complicated probability P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] into a sum of easier probabilities of the form P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "\[Intersection]",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "]. The imposition of condition ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " in addition to ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " presumably simplifies the computation by limiting or structuring the \
+outcomes in the intersection. (See Figure 4.)  All of our computational \
+results will be used regularly in the rest of the text, and the exercise set \
+for this section lets you begin to practice with them."
+}], "Text",
+ CellChangeTimes->{{3.403886174265625*^9, 3.403886174453125*^9}, {
+  3.43576635672832*^9, 3.43576635698232*^9}, {3.4562643288824*^9, 
+  3.4562643312848*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Graphics", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Circle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"4", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3.5", ",", "1"}], "}"}]}], "]"}], ",", "\n", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "4"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"8", ",", "4"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"8", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}], ",", "\n", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "4"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}]}], "}"}], "]"}], ",", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"6", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"6", ",", "4"}], "}"}]}], "}"}], "]"}], ",", "\n", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{"A", ",", "Large"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "2.5"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      SubscriptBox["B", "1"], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "3.5"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      SubscriptBox["B", "2"], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "3.5"}], "}"}]}], "]"}], ",", "\n", "\t\t\t", 
+    RowBox[{"Text", "[", 
+     RowBox[{"\"\<...\>\"", ",", 
+      RowBox[{"{", 
+       RowBox[{"5", ",", "3.5"}], "}"}]}], "]"}], ",", 
+    RowBox[{"Text", "[", 
+     RowBox[{
+      SubscriptBox["B", "n"], ",", 
+      RowBox[{"{", 
+       RowBox[{"7", ",", "3.5"}], "}"}]}], "]"}]}], "}"}], "]"}]], "Input",
+ CellFrame->True,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.398008023028763*^9, {3.398444744059063*^9, 3.398444857746767*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Figure 1.4",
+ StyleBox[" - The Law of Total Probability",
+  FontWeight->"Plain"]
+}], "FigureCaption",
+ CellChangeTimes->{{3.403886180578125*^9, 3.403886180765625*^9}},
+ TextAlignment->Center,
+ FontFamily->"Arial",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ StyleBox["Theorem 5",
+  FontWeight->"Bold"],
+ ".  Let ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " be an arbitrary event, and assume that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "1"], ",", " ", 
+    SubscriptBox["B", "2"], ",", 
+    SubscriptBox["B", "3"], ",", " ", "\[Ellipsis]", " ", ",", " ", 
+    SubscriptBox["B", "n"]}], TraditionalForm]]],
+ " is a partition of the sample space \[CapitalOmega], that is, the sets ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "i"], TraditionalForm]]],
+ " are pairwise disjoint and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubsuperscriptBox["\[Union]", 
+      RowBox[{"i", "=", "1"}], "n"], 
+     SubscriptBox["B", "i"]}], "=", "\[CapitalOmega]"}], TraditionalForm]]],
+ ". Then, "
+}], "Text",
+ CellChangeTimes->{3.403881616421875*^9, 3.4562644000495996`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   StyleBox["A",
+    FontSlant->"Italic"], "]"}], " ", "=", " ", 
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{"i", "=", "1"}], "n"], 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"A", "\[Intersection]", 
+      SubscriptBox["B", "i"]}], "]"}]}],
+   TraditionalForm]}]], "DisplayFormulaNumbered",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  We will use induction on the number of events ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "i"], TraditionalForm]]],
+ " beginning with the base case ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " = 2. In the base case, it is clear that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "2"], TraditionalForm]]],
+ " =",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    SubsuperscriptBox["B", "1", "c"]}], TraditionalForm]]],
+ ", and therefore ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], 
+       FormBox[
+        RowBox[{
+         RowBox[{"\[Intersection]", 
+          SubscriptBox["B", "1"]}], ")"}],
+        TraditionalForm]}], "\[Union]", 
+      RowBox[{"(", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], 
+        FormBox[
+         RowBox[{
+          RowBox[{"\[Intersection]", 
+           SubsuperscriptBox["B", "1", "c"]}], ")"}],
+         TraditionalForm]}]}]}]}]}], TraditionalForm]]],
+ " and the two sets in this union are disjoint. By Theorem 2, "
+}], "Text",
+ CellChangeTimes->{{3.4066507264375*^9, 3.406651018*^9}}],
+
+Cell[BoxData[Cell[TextData[Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     StyleBox["A",
+      FontSlant->"Italic"], "]"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], 
+        FormBox[
+         RowBox[{"\[Intersection]", 
+          SubscriptBox["B", "1"]}],
+         TraditionalForm]}], "]"}], " ", "+", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], 
+        FormBox[
+         RowBox[{"\[Intersection]", 
+          SubsuperscriptBox["B", "1", "c"]}],
+         TraditionalForm]}], "]"}]}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], 
+        FormBox[
+         RowBox[{"\[Intersection]", 
+          SubscriptBox["B", "1"]}],
+         TraditionalForm]}], "]"}], " ", "+", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], 
+        FormBox[
+         RowBox[{"\[Intersection]", 
+          SubscriptBox["B", "2"]}],
+         TraditionalForm]}], "]"}]}]}]}], TraditionalForm]]]]]], "Equation",
+ CellChangeTimes->{{3.403889288921875*^9, 3.40388929090625*^9}, {
+  3.403892755484375*^9, 3.403892755859375*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "The anchor step of the induction is complete.\n\tNow assume that for all \
+partitions consisting of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " events formula (12) is true. Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "1"], ",", " ", 
+    SubscriptBox["B", "2"], ",", 
+    SubscriptBox["B", "3"], ",", " ", "\[Ellipsis]", " ", ",", " ", 
+    SubscriptBox["B", 
+     RowBox[{"n", "+", "1"}]]}], TraditionalForm]]],
+ " be a partition of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ " events; we must show (12) with the upper index of summation replaced by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ ". Define the events ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", "i"], TraditionalForm]]],
+ " by:"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[
+    RowBox[{
+     RowBox[{
+      SubscriptBox["C", "1"], "=", 
+      SubscriptBox["B", "1"]}], ",", " ", 
+     RowBox[{
+      SubscriptBox["C", "2"], "=", 
+      SubscriptBox["B", "2"]}], ",", " ", "\[CenterEllipsis]", " ", ",", 
+     RowBox[{
+      SubscriptBox["C", 
+       RowBox[{"n", "-", "1"}]], "=", 
+      SubscriptBox["B", 
+       RowBox[{"n", "-", "1"}]]}], ",", " ", 
+     RowBox[{
+      SubscriptBox["C", "n"], " ", "=", " ", 
+      RowBox[{
+       SubscriptBox["B", "n"], "\[Union]", " ", 
+       SubscriptBox["B", 
+        RowBox[{"n", "+", "1"}]]}]}]}], TraditionalForm]]]]], 
+  TextForm]], "Equation",
+ CellChangeTimes->{{3.40389274715625*^9, 3.403892747578125*^9}}],
+
+Cell[TextData[{
+ "Then the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", "i"], TraditionalForm]]],
+ "'s are also a partition of \[CapitalOmega] (see Activity 5 below). By the \
+inductive hypothesis"
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      StyleBox["A",
+       FontSlant->"Italic"], "]"}], "=", 
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{
+        StyleBox["i",
+         FontSlant->"Italic"], "=", "1"}], 
+       StyleBox["n",
+        FontSlant->"Italic"]], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], "\[Intersection]", 
+        SubscriptBox[
+         StyleBox["C",
+          FontSlant->"Italic"], 
+         StyleBox["i",
+          FontSlant->"Italic"]]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SubsuperscriptBox["\[Sum]", 
+        RowBox[{
+         StyleBox["i",
+          FontSlant->"Italic"], "=", "1"}], 
+        RowBox[{
+         StyleBox["n",
+          FontSlant->"Italic"], "-", "1"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], "\[Intersection]", 
+         SubscriptBox[
+          StyleBox["B",
+           FontSlant->"Italic"], 
+          StyleBox["i",
+           FontSlant->"Italic"]]}], "]"}]}], " ", "+", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], "\[Intersection]", 
+        RowBox[{"(", 
+         RowBox[{
+          SubscriptBox[
+           StyleBox["B",
+            FontSlant->"Italic"], 
+           StyleBox["n",
+            FontSlant->"Italic"]], "\[Union]", 
+          StyleBox[" ",
+           FontSlant->"Italic"], 
+          SubscriptBox[
+           StyleBox["B",
+            FontSlant->"Italic"], 
+           RowBox[{
+            StyleBox["n",
+             FontSlant->"Italic"], "+", "1"}]]}], ")"}]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SubsuperscriptBox["\[Sum]", 
+        RowBox[{
+         StyleBox["i",
+          FontSlant->"Italic"], 
+         StyleBox[" ",
+          FontSlant->"Italic"], "=", "1"}], 
+        RowBox[{
+         StyleBox["n",
+          FontSlant->"Italic"], "-", "1"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], "\[Intersection]", 
+         SubscriptBox[
+          StyleBox["B",
+           FontSlant->"Italic"], 
+          StyleBox["i",
+           FontSlant->"Italic"]]}], "]"}]}], " ", "+", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["A",
+           FontSlant->"Italic"], "\[Intersection]", 
+          SubscriptBox[
+           StyleBox["B",
+            FontSlant->"Italic"], 
+           StyleBox["n",
+            FontSlant->"Italic"]]}], ")"}], "\[Union]", 
+        RowBox[{"(", 
+         RowBox[{
+          StyleBox["A",
+           FontSlant->"Italic"], "\[Intersection]", 
+          SubscriptBox[
+           StyleBox["B",
+            FontSlant->"Italic"], 
+           RowBox[{
+            StyleBox["n",
+             FontSlant->"Italic"], "+", "1"}]]}], ")"}]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SubsuperscriptBox["\[Sum]", 
+        RowBox[{
+         StyleBox["i",
+          FontSlant->"Italic"], "=", "1"}], 
+        RowBox[{
+         StyleBox["n",
+          FontSlant->"Italic"], "-", "1"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         StyleBox["A",
+          FontSlant->"Italic"], "\[Intersection]", 
+         SubscriptBox[
+          StyleBox["B",
+           FontSlant->"Italic"], 
+          StyleBox["i",
+           FontSlant->"Italic"]]}], "]"}]}], " ", "+", " ", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], "\[Intersection]", 
+        SubscriptBox[
+         StyleBox["B",
+          FontSlant->"Italic"], 
+         StyleBox["n",
+          FontSlant->"Italic"]]}], "]"}], "+", 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], "\[Intersection]", 
+        SubscriptBox[
+         StyleBox["B",
+          FontSlant->"Italic"], 
+         RowBox[{
+          StyleBox["n",
+           FontSlant->"Italic"], "+", "1"}]]}], "]"}]}]},
+    {" ", "=", 
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{
+        StyleBox["i",
+         FontSlant->"Italic"], "=", "1"}], 
+       RowBox[{
+        StyleBox["n",
+         FontSlant->"Italic"], "+", "1"}]], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        StyleBox["A",
+         FontSlant->"Italic"], "\[Intersection]", 
+        SubscriptBox[
+         StyleBox["B",
+          FontSlant->"Italic"], 
+         StyleBox["i",
+          FontSlant->"Italic"]]}], "]"}]}]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TextForm]], "DisplayFormulaNumbered"],
+
+Cell["\<\
+This finishes the inductive step of the proof.  \[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.40665110146875*^9, 3.40665110346875*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "  Why are the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", "i"], TraditionalForm]]],
+ "'s in the proof of the Law of Total Probability a partition of \
+\[CapitalOmega]?  Why is the fourth line of (13) true?"
+}], "Text",
+ CellFrame->True],
+
+Cell["Exercises 1.2", "Subsection",
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell["\<\
+1.  Consider the experiment of rolling one red die and two white dice \
+randomly.  Observe the number of the face that lands up on the red die and \
+the sum of the two face up numbers on the white dice.  
+  (a) Describe the sample space, giving the format of a typical outcome and \
+two specific examples of outcomes.
+  (b) Define a probability measure on this sample space. Argue that it \
+satisfies the three axioms of probability.\
+\>", "Text",
+ CellChangeTimes->{{3.403892881859375*^9, 3.403892884390625*^9}}],
+
+Cell["\<\
+2.  This is a continuation of Exercise 1.  A simulated baseball game is \
+played in such a way that each batter has a card like the one shown in the \
+figure.  One red die and two white dice are rolled.  The outcome of the \
+batter's plate appearance is decided by finding the column corresponding to \
+the red die and the row corresponding to the sum of the white dice.  The \
+entry in that row and that column could be a base hit (1b), a double (2b), a \
+triple (3b), a home run (HR) or a blank, which would mean that the batter is \
+out.  For the batter shown, what is the probability that he will get a hit of \
+any kind? If you were designing such a card to simulate a hitter who \
+historically hits about a home run every 20 plate appearances, where would \
+you place HR symbols on the card? \
+\>", "Text"],
+
+Cell[TextData[{
+ "\t                            red die\nwhite sum    ",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {" ", "1", "2", "3", "4", "5", "6"},
+     {"2", " ", " ", " ", " ", " ", 
+      RowBox[{
+       StyleBox["3",
+        FontSlant->"Plain"], 
+       StyleBox["b", "Text",
+        FontSlant->"Italic"]}]},
+     {"3", 
+      RowBox[{"2", "b"}], " ", 
+      RowBox[{"1", "b"}], " ", " ", " "},
+     {"4", " ", " ", " ", 
+      RowBox[{"1", "b"}], " ", " "},
+     {"5", " ", " ", 
+      RowBox[{"1", "b"}], " ", 
+      RowBox[{"2", "b"}], " "},
+     {"6", " ", " ", " ", 
+      RowBox[{"1", "b"}], " ", " "},
+     {"7", " ", 
+      RowBox[{"1", "b"}], " ", " ", "HR", " "},
+     {"8", 
+      RowBox[{"1", "b"}], " ", " ", 
+      RowBox[{"1", "b"}], " ", " "},
+     {"9", " ", 
+      RowBox[{"2", "b"}], " ", " ", " ", 
+      RowBox[{"1", "b"}]},
+     {"10", " ", " ", " ", 
+      RowBox[{"1", "b"}], " ", " "},
+     {"11", " ", " ", 
+      RowBox[{"1", "b"}], " ", 
+      RowBox[{"1", "b"}], " "},
+     {"12", 
+      RowBox[{"2", "b"}], " ", " ", " ", " ", " "}
+    },
+    GridBoxDividers->{
+     "Columns" -> {False, {True}, False}, "ColumnsIndexed" -> {}, 
+      "Rows" -> {False, {True}, False}, "RowsIndexed" -> {}}], 
+   TraditionalForm]],
+  GridBoxOptions->{
+  GridBoxDividers->{
+   "Columns" -> {True, {False}, True}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {True, {False}, True}, "RowsIndexed" -> {}}}]
+}], "DisplayFormula",
+ CellChangeTimes->{{3.407083800453125*^9, 3.407083803125*^9}}],
+
+Cell["Exercise 2", "FigureCaption",
+ TextAlignment->Center,
+ FontFamily->"Arial",
+ FontWeight->"Bold"],
+
+Cell["\<\
+3.  On a driver's education test there are three questions that are \
+considered most important and most difficult.  The questions are multiple \
+choice, with four alternative answers labeled a, b, c, and d on each \
+question. Exactly one answer is correct for each question.  A test taker \
+guesses randomly on these three questions. 
+  (a) Describe the sample space, giving the format of a typical outcome and \
+two specific examples of outcomes.
+  (b) Define a probability measure on this sample space. Argue that it \
+satisfies the three axioms of probability.
+  (c) What is the probability that the random guesser gets at least two \
+questions right?\
+\>", "Text",
+ CellChangeTimes->{{3.403892872828125*^9, 3.403892875984375*^9}}],
+
+Cell[TextData[{
+ "4.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to display the sample space of all possible random samples without order \
+and without replacement of three names from the list of names {Al, Bubba, \
+Celine, Delbert, Erma}. How many events are in the collection of all events \
+\[ScriptCapitalH]?  Describe a probability measure for this experiment, and \
+find the probability that either Bubba or Erma is in the sample."
+}], "Text"],
+
+Cell[TextData[{
+ "5.  Explain why each of the following attempts ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["P",
+      FontSlant->"Plain"], "1"], " ", "and", " ", 
+    SubscriptBox[
+     StyleBox["P",
+      FontSlant->"Plain"], "2"]}], TraditionalForm]]],
+ " is not a good definition of a probability measure on the space of outcomes \
+\[CapitalOmega] = {",
+ StyleBox["a",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["b",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["c",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["d",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["e",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["g",
+  FontSlant->"Italic"],
+ "}."
+}], "Text"],
+
+Cell[BoxData[
+ FormBox[Cell[TextData[Cell[BoxData[
+   FormBox[GridBox[{
+      {" ", 
+       SubscriptBox[
+        StyleBox["P",
+         FontSlant->"Plain"], "1"], 
+       SubscriptBox[
+        StyleBox["P",
+         FontSlant->"Plain"], "2"]},
+      {"a", ".12", ".16"},
+      {"b", ".05", ".20"},
+      {"c", ".21", ".20"},
+      {"d", ".01", ".12"},
+      {"e", ".04", ".08"},
+      {"f", ".28", ".15"},
+      {"g", ".13", ".12"}
+     }], TraditionalForm]]]]], TextForm]], "Equation",
+ CellChangeTimes->{{3.40389278365625*^9, 3.403892784*^9}}],
+
+Cell[TextData[{
+ "6.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to display the sample space of all possible random samples in succession \
+and without replacement of two numbers from the set ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "...", ",", "10"}], "}"}], TraditionalForm]]],
+ ".  Describe a probability measure, and find the probability that 10 is not \
+in the sample."
+}], "Text"],
+
+Cell["\<\
+7.  A 1999 Internal Revenue Service study showed that 44.9 million U.S. \
+taxpayers reported earnings of less than $20,000, 20.4 million earned between \
+$20,000 and $30,000, 16.2 million earned between $30,000 and $40,000, 41.9 \
+million earned between $40,000 and $100,000, and 10.5 million earned more \
+than $100,000.  
+  (a) Write the outcomes for the experiment of sampling one taxpayer at \
+random, and define a probability measure. In such a random sample of one \
+taxpayer, what is the probability that the reported earnings is at least \
+$30,000?
+  (b) Write the outcomes for the experiment of sampling two taxpayers at \
+random and with replacement, that is, once a taxpayer has been selected that \
+person goes back into the pool and could be selected again.  Define a \
+probability measure.  (Hint: for a succession of two events which do not \
+depend on one another, it makes sense to compute the probability that they \
+both occur as the product of their probabilities.  You can convince yourself \
+of this by considering a very simple experiment like the flip of two coins.)  \
+Find the probability that at least one of the two earned more than $100,000.  \
+\>", "Text",
+ CellChangeTimes->{
+  3.403886205671875*^9, {3.4038928581875*^9, 3.40389286015625*^9}}],
+
+Cell[TextData[{
+ "8.  Suppose that a point with random ",
+ StyleBox["x",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["y",
+  FontSlant->"Italic"],
+ " coordinates in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"[", 
+    RowBox[{
+     RowBox[{"-", "2"}], ",", "2"}], "]"}], TraditionalForm]]],
+ " is selected.  By this we mean that the probability that the random point \
+lies in a region ",
+ StyleBox["R",
+  FontSlant->"Italic"],
+ " inside the square is the proportion of the square's area that ",
+ StyleBox["R",
+  FontSlant->"Italic"],
+ " has.\n  (a) Argue that this means of defining a probability measure on the \
+square ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", "2"}], "]"}], "\[Times]", 
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", "2"}], "]"}]}], TraditionalForm]]],
+ " satisfies the axioms of probability.\n  (b) Find the probability that the \
+random point will be in the third quadrant.\n  (c) Find the probability that \
+the random point is not in the circle of radius 2 shown in the picture.\n  \
+(d) Find the probability that the random point is either in the third \
+quadrant or not in the circle of radius 2. "
+}], "Text",
+ CellChangeTimes->{{3.4038928431875*^9, 3.403892852296875*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"x", ",", "y"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Graphics", "[", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", "2"}], "]"}], "]"}], ",", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{"Line", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "2"}], ",", 
+           RowBox[{"-", "2"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", 
+           RowBox[{"-", "2"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "2"}], ",", 
+           RowBox[{"-", "2"}]}], "}"}]}], "}"}], "]"}], "]"}], ",", "\n", 
+     "\t", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"PointSize", "[", ".02", "]"}], ",", 
+        RowBox[{"Point", "[", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", ".5"}], "}"}], "]"}]}], "}"}], "]"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{"Text", "[", 
+       RowBox[{
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<(x,y)\>\"", ",", "Italic"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", ".3"}], "}"}]}], "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"Axes", "->", "True"}], ",", 
+   RowBox[{"AspectRatio", "->", "1"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"FontSize", "->", "8"}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.403880256515625*^9, 3.403880339359375*^9}, {
+  3.406651156328125*^9, 3.406651163765625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["Exercise 8", "FigureCaption",
+ TextAlignment->Center,
+ FontFamily->"Arial",
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "9.  If ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " are events such that P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "\[Intersection]",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "] = .24, P[",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ "] = .61, and P[",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ "] = .37, find P[",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"A", "\[Union]", "B"}], ")"}], "c"], TraditionalForm]]],
+ "]."
+}], "Text"],
+
+Cell["10. Prove Theorem 3.", "Text"],
+
+Cell["11.  Prove that P[\[EmptySet]] = 0.", "Text"],
+
+Cell["12.  Prove Theorem 4.", "Text"],
+
+Cell[TextData[{
+ "13.  List out all events for the sample space \[CapitalOmega] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["\[Omega]", "1"], ",", 
+      SubscriptBox["\[Omega]", "2"], ",", 
+      SubscriptBox["\[Omega]", "3"]}],
+     TraditionalForm], "}"}], TraditionalForm]]],
+ ".  Find the probability of each simple event if P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["\[Omega]", "1"], ",", 
+      SubscriptBox["\[Omega]", "2"]}],
+     TraditionalForm], "}"}], TraditionalForm]]],
+ "] = .6, P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["\[Omega]", "2"], ",", 
+      SubscriptBox["\[Omega]", "3"]}],
+     TraditionalForm], "}"}], TraditionalForm]]],
+ "] = .8, and P[",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    FormBox[
+     RowBox[{
+      SubscriptBox["\[Omega]", "1"], ",", 
+      SubscriptBox["\[Omega]", "3"]}],
+     TraditionalForm], "}"}], TraditionalForm]]],
+ "] = .6. "
+}], "Text"],
+
+Cell[TextData[{
+ "14.  Prove that for arbitrary events ",
+ StyleBox["A",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ ", and ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ ":"
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", 
+   RowBox[{
+    StyleBox["A",
+     FontSlant->"Italic"], "\[Union]", 
+    StyleBox["B",
+     FontSlant->"Italic"], "\[Union]", 
+    StyleBox["C",
+     FontSlant->"Italic"]}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"P", "[", 
+    StyleBox["A",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    StyleBox["B",
+     FontSlant->"Italic"], "]"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    StyleBox["C",
+     FontSlant->"Italic"], "]"}], " ", 
+   FormBox["-",
+    TraditionalForm], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"P", "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], "\[Intersection]", 
+       StyleBox["B",
+        FontSlant->"Italic"]}], "]"}], " ", "+", " ", 
+     RowBox[{"P", "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], "\[Intersection]", 
+       StyleBox["C",
+        FontSlant->"Italic"]}], "]"}], " ", "+", " ", 
+     RowBox[{"P", "[", 
+      RowBox[{
+       StyleBox["B",
+        FontSlant->"Italic"], "\[Intersection]", 
+       StyleBox["C",
+        FontSlant->"Italic"]}], "]"}]}], ")"}], " ", "+", " ", 
+   RowBox[{"P", "[", 
+    RowBox[{
+     StyleBox["A",
+      FontSlant->"Italic"], "\[Intersection]", 
+     StyleBox["B",
+      FontSlant->"Italic"], "\[Intersection]", 
+     StyleBox["C",
+      FontSlant->"Italic"]}], "]"}]}]}]], "Equation",
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "15.  The general result for the probability of a union, which has Theorem 2 \
+and Exercise 14 as special cases, is called the ",
+ StyleBox["law of inclusion and exclusion",
+  FontSlant->"Italic"],
+ ". Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "1"], ",", " ", 
+    SubscriptBox["A", "2"], ",", " ", 
+    SubscriptBox["A", "3"], ",", "...", ",", " ", 
+    SubscriptBox["A", "n"]}], TraditionalForm]]],
+ " be a collection of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " events.  To simplify notation, let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", 
+    StyleBox["ij",
+     FontSlant->"Italic"]], TraditionalForm]]],
+ " stand for a typical intersection of two of them ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "i"], "\[Intersection]"}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", "j"], TraditionalForm]]],
+ ", let ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", 
+    StyleBox["ijk",
+     FontSlant->"Italic"]], TraditionalForm]]],
+ " stand for a three-fold intersection ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "i"], "\[Intersection]"}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "j"], "\[Intersection]"}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["A", "k"], TraditionalForm]]],
+ ", etc. The law states that "
+}], "Text"],
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"P", "[", 
+    FormBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        SubscriptBox["A", "1"], "\[Union]", 
+        SubscriptBox["A", "2"], "\[Union]", 
+        SubscriptBox["A", "3"], "\[Union]"}], "..."}], "\[Union]", 
+      SubscriptBox["A", "n"]}],
+     TraditionalForm], "]"}], " "}],
+  FontFamily->"Times New Roman"], "\n", 
+ StyleBox[
+  RowBox[{"=", " ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       UnderscriptBox["\[CapitalSigma]", "i"], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        SubscriptBox["A", "i"], "]"}]}], "-", 
+      RowBox[{
+       UnderscriptBox["\[CapitalSigma]", "i"], 
+       UnderscriptBox["\[CapitalSigma]", 
+        RowBox[{"<", " ", "j"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        SubscriptBox["A", 
+         StyleBox["ij",
+          FontSlant->"Italic"]], "]"}]}], " ", "+", " ", 
+      RowBox[{
+       UnderscriptBox["\[CapitalSigma]", "i"], 
+       UnderscriptBox["\[CapitalSigma]", 
+        RowBox[{"<", "j"}]], 
+       UnderscriptBox["\[CapitalSigma]", 
+        RowBox[{"<", "k"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        SubscriptBox["A", 
+         StyleBox["ijk",
+          FontSlant->"Italic"]], "]"}]}], "-", " ", "\[CenterEllipsis]"}], 
+     "\n", "             ", 
+     RowBox[{
+      RowBox[{"+", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"-", "1"}], ")"}], 
+        RowBox[{"n", "+", "1"}]]}], 
+      StyleBox[" ",
+       FontSlant->"Italic"], 
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          SubscriptBox["A", "1"], "\[Intersection]", 
+          SubscriptBox["A", "2"], "\[Intersection]", 
+          SubscriptBox["A", "3"], "\[Intersection]"}], "..."}], 
+        "\[Intersection]", 
+        SubscriptBox["A", "n"]}], "]"}]}]}],
+    TraditionalForm]}],
+  FontFamily->"Times New Roman"]}], "Equation",
+ CellChangeTimes->{{3.407083868859375*^9, 3.407083898234375*^9}}],
+
+Cell[TextData[{
+ "In other words, one alternately adds and subtracts all ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ "-fold intersection probabilities as ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ " goes from 1 to ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ".  Use this result in the following classical problem.  Four men leave \
+their hats at a hat check station, then on departing take a hat randomly.  \
+Find the probability that at least one man takes his own hat."
+}], "Text"],
+
+Cell["\<\
+16.  Recall Exercise 5 of Section 1.1 (the blackjack deal).  Use the Law of \
+Total Probability, Theorem 5, to find P[queen on 2nd] in a well-justified way.\
+\>", "Text"],
+
+Cell["\<\
+17. There are two groups of experimental subjects, one with 2 men and 3 women \
+and the other with 3 men and 2 women. A person is selected at random from the \
+first group and placed into the second group. Then a person is randomly \
+selected from the second group.  Use the Law of Total Probability to find the \
+probability that the person selected from the second group is a woman. \
+\>", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+  3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+  3.406832612421875*^9}}],
+
+Cell[TextData[{
+ "\t",
+ StyleBox["In this book we will include as appropriate problems taken from \
+the list of sample questions for the Society of Actuaries/Casualty Actuarial \
+Society qualifying exam P (Probability).  These problems have been obtained \
+with permission from the societies at the website  \
+www.soa.org/files/pdf/P-09-05ques.pdf.",
+  FontSlant->"Italic"]
+}], "Text",
+ CellChangeTimes->{{3.423418277390625*^9, 3.423418433796875*^9}, {
+   3.423418469625*^9, 3.42341848896875*^9}, 3.45626451719*^9}],
+
+Cell["Sample Problems from Actuarial Exam P", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, {3.423417214921875*^9, 3.423417226515625*^9}, 
+   3.423417463390625*^9},
+ FontWeight->"Bold"],
+
+Cell["\<\
+18. The probability that a visit to a primary care physician's (PCP) office \
+results in neither lab work nor referral to a specialist is 35%. Of those \
+coming to a PCP's office, 30% are referred to specialists and 40% require lab \
+work. Determine the probability that a visit to a PCP's office results in \
+both lab work and referral to a specialist. \
+\>", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, 3.423417254765625*^9, 3.423417286328125*^9, {
+   3.4234174705625*^9, 3.423417587125*^9}}],
+
+Cell["\<\
+19. An urn contains 10 balls: 4 red and 6 blue. A second urn contains 16 red \
+balls and an unknown number of blue balls. A single ball is drawn from each \
+urn.  The probability that both balls are the same color is 0.44.  Calculate \
+the number of blue balls in the second urn. \
+\>", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, 3.423417254765625*^9, 3.423417286328125*^9, {
+   3.4234174705625*^9, 3.423417587125*^9}, {3.42341765240625*^9, 
+   3.423417748328125*^9}}],
+
+Cell["\<\
+20. An auto insurance company has 10,000 policyholders. Each policyholder is \
+classified as: (i) young or old; (ii) male or female; and (iii) married or \
+single. Of these policyholders, 3000 are young, 4600 are male, and 7000 are \
+married. The policyholders can also be classified as 1320 young males, 3010 \
+married males, and 1400 young married persons.  Finally, 600 of the \
+policyholders are young married males. How many of the company's \
+policyholders are young, female, and single? \
+\>", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, 3.423417254765625*^9, 3.423417286328125*^9, {
+   3.4234174705625*^9, 3.423417587125*^9}, {3.42341775871875*^9, 
+   3.423417819515625*^9}, {3.423417865390625*^9, 3.423417949109375*^9}}],
+
+Cell["\<\
+21. An insurer offers a health plan to the employees of a large company. As \
+part of this plan, the individual employees may choose exactly two of the \
+supplementary coverages A, B, and C, or they may choose no supplementary \
+coverage. The proportions of the company's employees that choose coverages A, \
+B, and C are 1/4, 1/3, and 5/12 respectively. Determine the probability that \
+a randomly chosen employee will choose no supplementary coverage. \
+\>", "Text",
+ CellChangeTimes->{{3.406651531625*^9, 3.406651536671875*^9}, {
+   3.406832394765625*^9, 3.40683239621875*^9}, {3.406832431484375*^9, 
+   3.406832612421875*^9}, 3.423417254765625*^9, 3.423417286328125*^9, {
+   3.4234174705625*^9, 3.423417587125*^9}, {3.42341812621875*^9, 
+   3.423418237953125*^9}}]
+},
+AutoGeneratedPackage->None,
+CellGrouping->Manual,
+WindowSize->{661, 634},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 1 Discrete Probability"], "Header"]}, {
+   Cell[
+    TextData["1.2 Properties of Probability"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 182, 4, 68, "Section"],
+Cell[730, 26, 538, 8, 87, "Text"],
+Cell[1271, 36, 822, 15, 132, "Text"],
+Cell[2096, 53, 1873, 51, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[3972, 106, 256, 8, 24, "FigureCaption"],
+Cell[4231, 116, 2002, 29, 339, "Text"],
+Cell[6236, 147, 887, 31, 47, "DisplayFormulaNumbered",
+ CounterAssignments->{"Chapter", "2"}],
+Cell[7126, 180, 1638, 27, 297, "Text"],
+Cell[8767, 209, 712, 23, 47, "DisplayFormulaNumbered"],
+Cell[9482, 234, 675, 13, 110, "Text"],
+Cell[10160, 249, 819, 23, 100, "DisplayFormulaNumbered"],
+Cell[10982, 274, 885, 24, 90, "Text"],
+Cell[11870, 300, 732, 18, 111, "Text"],
+Cell[12605, 320, 439, 7, 69, "Text"],
+Cell[13047, 329, 812, 25, 90, "DisplayFormulaNumbered"],
+Cell[13862, 356, 236, 9, 27, "Text"],
+Cell[14101, 367, 355, 13, 33, "DisplayFormulaNumbered"],
+Cell[14459, 382, 546, 15, 48, "Text"],
+Cell[15008, 399, 1106, 28, 194, "Text"],
+Cell[16117, 429, 174, 4, 56, "Input",
+ InitializationCell->True],
+Cell[16294, 435, 216, 7, 56, "Input",
+ InitializationCell->True],
+Cell[16513, 444, 253, 8, 56, "Input",
+ InitializationCell->True],
+Cell[16769, 454, 611, 13, 90, "Text"],
+Cell[17383, 469, 685, 22, 47, "DisplayFormulaNumbered"],
+Cell[18071, 493, 112, 3, 27, "Text"],
+Cell[18186, 498, 567, 19, 47, "DisplayFormulaNumbered"],
+Cell[18756, 519, 119, 3, 27, "Text"],
+Cell[18878, 524, 269, 7, 69, "Text"],
+Cell[19150, 533, 32, 0, 27, "Text"],
+Cell[19185, 535, 1628, 52, 78, "DisplayFormula"],
+Cell[20816, 589, 19, 0, 27, "Text"],
+Cell[20838, 591, 1448, 47, 78, "DisplayFormula"],
+Cell[22289, 640, 242, 4, 48, "Text"],
+Cell[22534, 646, 359, 13, 54, "Equation"],
+Cell[22896, 661, 24, 0, 27, "Text"],
+Cell[22923, 663, 384, 13, 54, "Equation"],
+Cell[23310, 678, 1038, 28, 110, "Text"],
+Cell[24351, 708, 527, 16, 69, "Text"],
+Cell[24881, 726, 325, 5, 69, "Text"],
+Cell[25209, 733, 298, 12, 28, "Text"],
+Cell[25510, 747, 293, 8, 48, "Text"],
+Cell[25806, 757, 454, 14, 49, "Text"],
+Cell[26263, 773, 1063, 22, 214, "Text"],
+Cell[27329, 797, 350, 11, 56, "Input",
+ InitializationCell->True],
+Cell[27682, 810, 214, 5, 56, "Input",
+ InitializationCell->True],
+Cell[27899, 817, 1183, 34, 131, "Text"],
+Cell[29085, 853, 1182, 38, 142, "Text"],
+Cell[30270, 893, 1321, 22, 256, "Text"],
+Cell[31594, 917, 262, 12, 28, "Text"],
+Cell[31859, 931, 321, 12, 33, "DisplayFormulaNumbered"],
+Cell[32183, 945, 670, 31, 27, "Text"],
+Cell[32856, 978, 295, 12, 28, "Text"],
+Cell[33154, 992, 704, 24, 34, "Equation"],
+Cell[33861, 1018, 346, 12, 27, "Text"],
+Cell[34210, 1032, 1008, 31, 34, "Equation"],
+Cell[35221, 1065, 517, 9, 131, "Text"],
+Cell[35741, 1076, 202, 10, 28, "Text"],
+Cell[35946, 1088, 749, 29, 33, "DisplayFormulaNumbered"],
+Cell[36698, 1119, 160, 8, 27, "Text"],
+Cell[36861, 1129, 408, 15, 34, "Equation"],
+Cell[37272, 1146, 2778, 79, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[40053, 1227, 327, 9, 24, "FigureCaption"],
+Cell[40383, 1238, 1199, 44, 49, "Text"],
+Cell[41585, 1284, 2663, 89, 57, "Equation"],
+Cell[44251, 1375, 26, 0, 27, "Text"],
+Cell[44280, 1377, 1198, 46, 36, "DisplayFormulaNumbered"],
+Cell[45481, 1425, 813, 31, 48, "Text"],
+Cell[46297, 1458, 983, 38, 33, "DisplayFormulaNumbered"],
+Cell[47283, 1498, 539, 16, 48, "Text"],
+Cell[47825, 1516, 314, 7, 69, "Text"],
+Cell[48142, 1525, 347, 6, 69, "Text"],
+Cell[48492, 1533, 291, 12, 28, "Text"],
+Cell[48786, 1547, 448, 14, 69, "Text"],
+Cell[49237, 1563, 522, 25, 28, "Text"],
+Cell[49762, 1590, 1342, 31, 193, "Text"],
+Cell[51107, 1623, 2434, 77, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[53544, 1702, 252, 8, 24, "FigureCaption"],
+Cell[53799, 1712, 860, 28, 51, "Text"],
+Cell[54662, 1742, 429, 15, 38, "DisplayFormulaNumbered"],
+Cell[55094, 1759, 1217, 44, 72, "Text"],
+Cell[56314, 1805, 1554, 53, 37, "Equation"],
+Cell[57871, 1860, 822, 27, 90, "Text"],
+Cell[58696, 1889, 745, 22, 34, "Equation"],
+Cell[59444, 1913, 214, 7, 27, "Text"],
+Cell[59661, 1922, 5119, 181, 130, "DisplayFormulaNumbered"],
+Cell[64783, 2105, 151, 3, 27, "Text"],
+Cell[64937, 2110, 307, 10, 69, "Text"],
+Cell[65247, 2122, 80, 2, 41, "Subsection"],
+Cell[65330, 2126, 523, 9, 128, "Text"],
+Cell[65856, 2137, 822, 12, 173, "Text"],
+Cell[66681, 2151, 1500, 46, 276, "DisplayFormula"],
+Cell[68184, 2199, 102, 3, 24, "FigureCaption"],
+Cell[68289, 2204, 745, 13, 193, "Text"],
+Cell[69037, 2219, 522, 12, 90, "Text"],
+Cell[69562, 2233, 720, 34, 48, "Text"],
+Cell[70285, 2269, 546, 18, 175, "Equation"],
+Cell[70834, 2289, 496, 15, 69, "Text"],
+Cell[71333, 2306, 1284, 20, 276, "Text"],
+Cell[72620, 2328, 1275, 37, 193, "Text"],
+Cell[73898, 2367, 2071, 62, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[75972, 2431, 102, 3, 24, "FigureCaption"],
+Cell[76077, 2436, 528, 26, 27, "Text"],
+Cell[76608, 2464, 36, 0, 27, "Text"],
+Cell[76647, 2466, 51, 0, 27, "Text"],
+Cell[76701, 2468, 37, 0, 27, "Text"],
+Cell[76741, 2470, 1048, 39, 48, "Text"],
+Cell[77792, 2511, 209, 11, 27, "Text"],
+Cell[78004, 2524, 1428, 50, 57, "Equation"],
+Cell[79435, 2576, 1395, 49, 94, "Text"],
+Cell[80833, 2627, 2114, 69, 94, "Equation"],
+Cell[82950, 2698, 481, 13, 90, "Text"],
+Cell[83434, 2713, 180, 3, 48, "Text"],
+Cell[83617, 2718, 569, 9, 90, "Text"],
+Cell[84189, 2729, 515, 10, 90, "Text"],
+Cell[84707, 2741, 308, 5, 27, "Text"],
+Cell[85018, 2748, 629, 10, 90, "Text"],
+Cell[85650, 2760, 604, 10, 69, "Text"],
+Cell[86257, 2772, 864, 13, 110, "Text"],
+Cell[87124, 2787, 778, 12, 110, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)

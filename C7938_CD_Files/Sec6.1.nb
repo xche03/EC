@@ -1,0 +1,4243 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[    134798,       4234]
+NotebookOptionsPosition[    127529,       4034]
+NotebookOutlinePosition[    128345,       4065]
+CellTagsIndexPosition[    128302,       4062]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "CHAPTER 6 \n ",
+ StyleBox["STOCHASTIC PROCESSES AND APPLICATIONS",
+  FontColor->GrayLevel[0]]
+}], "Title",
+ CellChangeTimes->{{3.425570724668*^9, 3.425570724683*^9}, {
+   3.4255707601870003`*^9, 3.425570760755*^9}, 3.431982002759*^9},
+ TextAlignment->Center,
+ FontSize->18,
+ FontWeight->"Bold"],
+
+Cell[BoxData[" "], "Input"],
+
+Cell[TextData[{
+ "This chapter is meant to introduce you to a few topics in applied \
+probability that have been the focus of much effort in the second half of the \
+",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["20", "th"], TraditionalForm]]],
+ " century, and which will continue to flourish in the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["21", "st"], TraditionalForm]]],
+ " century.  To do this we will take advantage of many of the foundational \
+results of probability from Chapters 1",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "5.\n\tProbability theory has ridden the wave of the technological and \
+telecommunications revolution.  The analysis of modern systems for \
+production, inventory, distribution, computing, and communication involves \
+studying the effect of random inputs on complex operations, predicting their \
+behavior, and improving the operations. Many of these applications involve \
+modeling and predicting random phenomena through time.\n\t",
+ StyleBox["A ",
+  FontColor->GrayLevel[0]],
+ StyleBox["stochastic process",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" is a family of random variables ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["X", "t"], ")"}], 
+    RowBox[{"t", "\[Element]", "T"}]], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" thought of as observations of a random phenomenon through time. \
+The random variable ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "t"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is called the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["state of the process",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" at time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  The set of times ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is typically the non-negative integers ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", ",", "1", ",", "2", ",", "..."}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" or the non-negative real numbers ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[DoubleStruckCapitalR]", "+"], "=", 
+    RowBox[{"[", 
+     RowBox[{"0", ",", "\[Infinity]"}], ")"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  There are two points of view that can be taken on stochastic \
+processes. We might be interested in the probability distribution of the \
+state of the process at each particular time ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", which emphasizes the role of the process as a collection of \
+random variables. Or we might be interested in properties of the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["path of the process",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[", that is, the function ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "\[RightTeeArrow]", 
+    RowBox[{
+     SubscriptBox["X", "t"], "(", "\[Omega]", ")"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" for fixed outcome \[Omega] and varying time.  Is the process \
+continuous, does it reach a limit as ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"t", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", what proportion of the time does it visit each state, etc. ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4309094820973177`*^9, 3.430909501877318*^9}, {
+   3.430909558658318*^9, 3.430909697058318*^9}, {3.430910063841318*^9, 
+   3.4309100826373177`*^9}, {3.430910143824318*^9, 3.430910204066318*^9}, {
+   3.430910244403318*^9, 3.430910450004318*^9}, {3.430910497982318*^9, 
+   3.430910500966318*^9}, {3.4319713394493356`*^9, 3.4319713492073355`*^9}, {
+   3.431982084918*^9, 3.431982228519*^9}, {3.431982269559*^9, 
+   3.431982274722*^9}, {3.431982320196*^9, 3.431982331927*^9}, {
+   3.4387149712911997`*^9, 3.4387149739842*^9}, {3.4387150386682*^9, 
+   3.4387150494882*^9}, 3.4387151969052*^9, 3.4570863314231997`*^9}],
+
+Cell[CellGroupData[{
+
+Cell["6.1 Markov Chains", "Section",
+ CellFrameColor->GrayLevel[0],
+ TextAlignment->Center,
+ FontSize->14,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "We will begin with the subject of ",
+ StyleBox["Markov chains",
+  FontSlant->"Italic"],
+ ", which roughly are systems taking on various states as ",
+ StyleBox["discrete time ",
+  FontColor->GrayLevel[0]],
+ "progresses, subject to random influences.  Here are just a few systems \
+which could be amenable to Markov chain modeling."
+}], "Text",
+ CellChangeTimes->{{3.430910468361318*^9, 3.430910473146318*^9}, {
+   3.430910519903318*^9, 3.4309105875493183`*^9}, {3.430910639232318*^9, 
+   3.430910713135318*^9}, {3.430910984302318*^9, 3.430910995007318*^9}, 
+   3.4319822493310003`*^9, 3.4387152476492*^9}],
+
+Cell["\<\
+\t1. The state of deterioration of a piece of equipment
+\t2. The popularity of a politician
+\t3. The inventory level of an item in a store
+\t4. The number of jobs waiting for processing by a computer server
+\t5. The value of a retirement investment\
+\>", "Text",
+ CellChangeTimes->{{3.430910468361318*^9, 3.430910473146318*^9}, {
+   3.430910519903318*^9, 3.4309105875493183`*^9}, {3.430910639232318*^9, 
+   3.430910713135318*^9}, {3.430910984302318*^9, 3.430910995007318*^9}, 
+   3.4319822493310003`*^9, {3.4387152476492*^9, 3.4387152543112*^9}}],
+
+Cell["\<\
+You may also recall the random walk that we simulated in Section 1.3, which \
+is a special kind of Markov chain.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Activity 1",
+  FontWeight->"Bold"],
+ "  Try to think of more examples of time dependent random processes in the \
+world similar to 1",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "5 above."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{3.4570864653206*^9}],
+
+Cell["\<\
+\tA precise definition of a Markov chain is below.  Note that the random \
+states of the system are modeled as random variables, and we impose an extra \
+condition on the conditional distributions that makes future states \
+independent of the past, given the present.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Definition 1",
+  FontWeight->"Bold"],
+ ".  A sequence ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " of random variables is said to be a ",
+ StyleBox["Markov chain",
+  FontSlant->"Italic"],
+ " if for every ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[GreaterEqual]", "0"}], TraditionalForm]]],
+ ","
+}], "Text",
+ CellChangeTimes->{{3.438379186785327*^9, 3.438379186788327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["X", 
+       RowBox[{"n", "+", "1"}]], "=", 
+      RowBox[{
+       RowBox[{"j", " ", "|", " ", 
+        SubscriptBox["X", "0"]}], "=", 
+       SubscriptBox["i", "0"]}]}], ",", 
+     RowBox[{
+      SubscriptBox["X", "1"], "=", 
+      SubscriptBox["i", "1"]}], ",", 
+     RowBox[{
+      RowBox[{"...", 
+       SubscriptBox["X", "n"]}], "=", 
+      SubscriptBox["i", "n"]}]}], "]"}], "=", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", 
+      RowBox[{"n", "+", "1"}]], "=", 
+     RowBox[{
+      RowBox[{"j", " ", "|", " ", 
+       SubscriptBox["X", "n"]}], "=", 
+      SubscriptBox["i", "n"]}]}], "]"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438379193762327*^9, 3.4383791943073273`*^9}}],
+
+Cell[TextData[{
+ "In other words, at each time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ",",
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", 
+    RowBox[{"n", "+", "1"}]], TraditionalForm]]],
+ " is conditionally independent of  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", " ", 
+    SubscriptBox["X", "1"], ",", "...", " ", ",", 
+    SubscriptBox["X", 
+     RowBox[{"n", "-", "1"}]]}], TraditionalForm]]],
+ " given ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ "."
+}], "Text"],
+
+Cell[TextData[{
+ "\tThis conditional independence condition (1) makes the prediction of \
+future values of the chain tractable, and yet it is not unreasonably \
+restrictive.  Consider the chain of store inventory levels in the third \
+example problem above.  The next inventory level will depend on the current \
+level, and on random sales activity during the current time period, not on \
+the past sequence of levels.  There are many systems in which past behavior \
+has no bearing on the future trajectory, given the present state, and for \
+those systems, Markov chain modeling is appropriate.  \n\tMany interesting \
+results have been derived about Markov chains.  But for our purposes we will \
+be content to introduce you to ",
+ StyleBox["three ",
+  FontColor->GrayLevel[0]],
+ "problems: (1) finding the probability law of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ "; (2) finding the limit as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]]],
+ " of this probability law, in order to predict the long term average \
+behavior of the chain",
+ StyleBox["; and (3) for chains in which there are states that are able to \
+absorb the chain forever, the likelihood that each such absorbing state is \
+the final destination of the chain.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{
+  3.430910908270318*^9, {3.430911099383318*^9, 3.4309112000093184`*^9}, {
+   3.4319716177563353`*^9, 3.431971625378336*^9}, {3.431982664025*^9, 
+   3.4319826846610003`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Short Run Distributions",
+ FontColor->GrayLevel[0]]], "Subsection",
+ CellChangeTimes->{{3.430910916650318*^9, 3.430910921161318*^9}}],
+
+Cell[TextData[{
+ "Now by formula (1), the probabilistic structure of a Markov chain can be \
+represented by a graph called a ",
+ StyleBox["transition diagram",
+  FontSlant->"Italic"],
+ ".  Consider the chain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " with possible states 1, 2, 3, and 4 shown as the labeled bubbles in Figure \
+1."
+}], "Text",
+ CellChangeTimes->{{3.430910908270318*^9, 3.430910911522318*^9}, 
+   3.431971998444336*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "2"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2", ",", "2"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2", ",", "0"}], "}"}], ",", "0.2`"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "2"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "2"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"4", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "2.1`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/4\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1.8`", ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<2/3\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0.82`", ",", "1.3`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<3/4\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", 
+          RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/3\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.1`"}], ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.3`"}], ",", "0.2`"}], "}"}]}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.8`", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"2.1`", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2.1`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.9`", ",", "0.2`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.9`", ",", "1.8`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.8`", ",", "0.1`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", 
+           RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8`", ",", 
+           RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.22`"}], ",", 
+           RowBox[{"-", "0.025`"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.2`"}], ",", "0"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g5", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Circle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "0.3`"}], ",", "0"}], "}"}], ",", "0.1`", ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", 
+        FractionBox[
+         RowBox[{"7", " ", "\[Pi]"}], "4"]}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4", ",", "g5"}], "}"}], 
+  "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.404301055046875*^9, 3.404301055421875*^9}, 
+   3.4043010920625*^9, {3.40430116753125*^9, 3.404301456953125*^9}, {
+   3.40430218509375*^9, 3.404302205921875*^9}, 3.404302255796875*^9, 
+   3.404302328765625*^9, {3.404302447953125*^9, 3.404302546953125*^9}, {
+   3.404302589953125*^9, 3.404302603625*^9}, {3.4043026789375*^9, 
+   3.404302709125*^9}, {3.404302760734375*^9, 3.40430282953125*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.1 -",
+  FontWeight->"Bold"],
+ " The transition diagram of a Markov chain",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438378403783327*^9, 3.438378409967327*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["For example, i",
+  FontColor->GrayLevel[0]],
+ "f ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "n"], "=", "1"}], TraditionalForm]]],
+ " at some time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", then the arrows in the transition diagram show that ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", 
+    RowBox[{"n", "+", "1"}]], TraditionalForm]]],
+ " can only take on the values 3 or 4, and it will do so with conditional \
+probabilities 2/3 and 1/3, respectively. ",
+ StyleBox["From state 2, the only possible moves that the chain can make in \
+one step are to states 1 or 3, with equal likelihood. ",
+  FontColor->GrayLevel[0]],
+ "Because of (1), the probability law of the chain is completely determined \
+by these single time step transition probabilities.  The same transition \
+probabilities can be assembled into a matrix called a ",
+ StyleBox["transition matrix",
+  FontSlant->"Italic"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.430911614720318*^9, 3.430911680235318*^9}, {
+  3.431982752637*^9, 3.431982753008*^9}, {3.438379251530327*^9, 
+  3.438379251535327*^9}}],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{"later", ":", "   ", 
+   FormBox[GridBox[{
+      {"1", 
+       RowBox[{"      ", "2"}], 
+       RowBox[{"      ", "3"}], 
+       RowBox[{"      ", "4"}]}
+     }],
+    TraditionalForm]}], TraditionalForm], "\n", 
+ FormBox[
+  RowBox[{
+   StyleBox["T",
+    FontSlant->"Italic"], " ", "=", " ", 
+   RowBox[{"now", ":", "  ", 
+    RowBox[{
+     FormBox[GridBox[{
+        {"1"},
+        {"2"},
+        {"3"},
+        {"4"}
+       }],
+      TraditionalForm], 
+     FormBox[
+      RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+         {"0", "0", 
+          RowBox[{"2", "/", "3"}], 
+          RowBox[{"1", "/", "3"}]},
+         {
+          RowBox[{"1", "/", "2"}], "0", 
+          RowBox[{"1", "/", "2"}], "0"},
+         {"0", 
+          RowBox[{"1", "/", "4"}], "0", 
+          RowBox[{"3", "/", "4"}]},
+         {"0", "0", 
+          RowBox[{"1", "/", "2"}], 
+          RowBox[{"1", "/", "2"}]}
+        }], "\[NegativeThinSpace]", ")"}],
+      TraditionalForm]}]}]}], TraditionalForm]}], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4383792619773273`*^9, 3.4383793102513275`*^9}}],
+
+Cell[TextData[{
+ "where each row refers to a possible state \"now\" (at time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ") and each column corresponds to a possible state \"later\" (at time ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "+", "1"}], TraditionalForm]]],
+ ").  For example, the row 3-column 2 entry is"
+}], "Text",
+ CellChangeTimes->{{3.438379320396327*^9, 3.438379320400327*^9}, 
+   3.4570864928078003`*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", 
+      RowBox[{"n", "+", "1"}]], "=", 
+     RowBox[{
+      RowBox[{"2", " ", "|", " ", 
+       SubscriptBox["X", "n"]}], "=", "3"}]}], "]"}], "=", 
+   RowBox[{"1", "/", "4"}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379329410327*^9, 3.438379329837327*^9}}],
+
+Cell[TextData[{
+ "\tFurthermore, the discrete probability distribution of the initial state ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ ", if known, can be written as a row vector.  For instance,"
+}], "Text",
+ CellChangeTimes->{{3.438379342582327*^9, 3.438379342587327*^9}, 
+   3.4570864996562*^9}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox[
+    StyleBox["p",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "0"], "=", 
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{"1", "/", "2"}], 
+       RowBox[{"1", "/", "2"}], "0", "0"}
+     }], "\[NegativeThinSpace]", ")"}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4383793508533273`*^9, 3.4383793512083273`*^9}}],
+
+Cell[TextData[{
+ "is the initial distribution for which ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ " is equally likely to be in states 1 and 2.  Special row vectors such as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["p",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "0"], " ", "=", " ", 
+    RowBox[{"(", 
+     RowBox[{"0", "  ", "1", "  ", "0", "  ", "0"}], ")"}]}], 
+   TraditionalForm]]],
+ " apply when the inital state is certain; in this case it is state 2.  "
+}], "Text",
+ CellChangeTimes->{{3.430911753976318*^9, 3.430911766969318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 2",
+  FontWeight->"Bold"],
+ "  Try multiplying each row vector ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    StyleBox["p",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "0"], TraditionalForm]]],
+ " above on the right by the transition matrix ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ".  Make note of not only the final answers for the entries of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["p",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "0"], "T"}], TraditionalForm]]],
+ ", but also what they are composed of.  Before reading on, try to guess at \
+the meaning of the entries of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["p",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "0"], "T"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ "\tThe Law of Total Probability is the tool to prove the main theorem about \
+the probability distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ ".  The ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]]],
+ " power of the transition matrix gives the conditional distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ " given ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ ", and you can pre-multiply by the initial distribution ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    StyleBox["p",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "0"], TraditionalForm]]],
+ " to get the unconditional distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.430911850658318*^9, 3.430911854890318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 1",
+  FontWeight->"Bold"],
+ ".  (a) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["T", "n"], "(", 
+     RowBox[{"i", ",", "j"}], ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["X", "n"], "=", 
+      RowBox[{
+       RowBox[{"j", " ", "|", " ", 
+        SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ " denotes the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]]],
+ " power of the transition matrix.\n(b) ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox[
+      StyleBox["p",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "0"], "\[CenterDot]", 
+     RowBox[{
+      SuperscriptBox["T", "n"], "(", "j", ")"}]}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["X", "n"], "=", "j"}], "]"}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    StyleBox["p",
+     FontWeight->"Bold",
+     FontSlant->"Plain"], "0"], TraditionalForm]]],
+ " denotes the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ " in vector form."
+}], "Text",
+ CellChangeTimes->{{3.430911873210318*^9, 3.4309118764463177`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ". (a) We work by induction on the power ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " of the transition matrix.  When ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "1"}], TraditionalForm]]],
+ " we have for all ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ ","
+}], "Text",
+ CellChangeTimes->{{3.438379373214327*^9, 3.4383793732183275`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["T", "1"], "(", 
+    RowBox[{"i", ",", "j"}], ")"}], "=", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "1"], "=", 
+     RowBox[{
+      RowBox[{"j", " ", "|", " ", 
+       SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379380405327*^9, 3.438379380842327*^9}}],
+
+Cell[TextData[{
+ "by the construction of the transition matrix.  This anchors the induction.  \
+For the inductive step we assume for a particular ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "-", "1"}], TraditionalForm]]],
+ " and all states ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["T", 
+      RowBox[{"n", "-", "1"}]], "(", 
+     RowBox[{"i", ",", "j"}], ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["X", 
+       RowBox[{"n", "-", "1"}]], "=", 
+      RowBox[{
+       RowBox[{"j", " ", "|", " ", 
+        SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}]}], TraditionalForm]]],
+ ".  By the Law of Total Probability,"
+}], "Text",
+ CellChangeTimes->{{3.438379393405327*^9, 3.438379393408327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "n"], "=", 
+     RowBox[{
+      RowBox[{"j", " ", "|", " ", 
+       SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}], "=", 
+   RowBox[{
+    UnderscriptBox["\[Sum]", "k"], " ", 
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       SubscriptBox["X", 
+        RowBox[{"n", "-", "1"}]], "=", 
+       RowBox[{
+        RowBox[{"k", " ", "|", " ", 
+         SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}], " ", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["X", "n"], "=", 
+        RowBox[{
+         RowBox[{"j", " ", "|", " ", 
+          SubscriptBox["X", 
+           RowBox[{"n", "-", "1"}]]}], "=", "k"}]}], ",", 
+       RowBox[{
+        SubscriptBox["X", "0"], "=", "i"}]}], "]"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379400388327*^9, 3.4383794007843275`*^9}}],
+
+Cell[TextData[{
+ "where the sum is taken over all states ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ".  The first factor in the sum is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["T", 
+     RowBox[{"n", "-", "1"}]], "(", 
+    RowBox[{"i", ",", "k"}], ")"}], TraditionalForm]]],
+ " by the inductive hypothesis, and the second is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "(", 
+    RowBox[{"k", ",", "j"}], ")"}], TraditionalForm]]],
+ " by the Markov property (1).  Thus, "
+}], "Text",
+ CellChangeTimes->{{3.4383794159493275`*^9, 3.438379415953327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "n"], "=", 
+     RowBox[{
+      RowBox[{"j", " ", "|", " ", 
+       SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}], "=", 
+   RowBox[{
+    UnderscriptBox["\[Sum]", "k"], 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["T", 
+       RowBox[{"n", "-", "1"}]], "(", 
+      RowBox[{"i", ",", "k"}], ")"}], " ", 
+     RowBox[{"T", "(", 
+      RowBox[{"k", ",", "j"}], ")"}]}]}]}], 
+  TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379422033327*^9, 3.438379423191327*^9}}],
+
+Cell[TextData[{
+ "By the definition of matrix multiplication, the sum on the right is now the \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"i", "-", "j"}], TraditionalForm]]],
+ " component of the product ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["T", 
+      RowBox[{"n", "-", "1"}]], " ", "T"}], "=", 
+    SuperscriptBox["T", "n"]}], TraditionalForm]]],
+ ", which finishes the proof of part (a).  "
+}], "Text"],
+
+Cell["(b) By part (a) and the Law of Total Probability,", "Text",
+ CellChangeTimes->{{3.438379437115327*^9, 3.4383794371193275`*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       SubscriptBox[
+        StyleBox["p",
+         FontWeight->"Bold",
+         FontSlant->"Plain"], "0"], 
+       RowBox[{
+        SuperscriptBox["T", "n"], "(", "j", ")"}]}],
+      TraditionalForm], "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["\[Sum]", "k"], " ", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox[
+          StyleBox["p",
+           FontWeight->"Bold",
+           FontSlant->"Plain"], "0"], "(", "k", ")"}], 
+        RowBox[{
+         SuperscriptBox["T", "n"], "(", 
+         RowBox[{"k", ",", "j"}], ")"}]}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["\[Sum]", "k"], " ", 
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          SubscriptBox["X", "0"], "=", "k"}], "]"}], " ", 
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          SubscriptBox["X", "n"], "=", 
+          RowBox[{
+           RowBox[{"j", " ", "|", " ", 
+            SubscriptBox["X", "0"]}], "=", "k"}]}], "]"}]}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       StyleBox["P",
+        FontSlant->"Plain"], "[", 
+       RowBox[{
+        SubscriptBox["X", "n"], "=", "j"}], "]"}],
+      TraditionalForm]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.4383794432023273`*^9, 3.4383794439783273`*^9}}],
+
+Cell[TextData[{
+ StyleBox["which completes the proof.  ",
+  FontColor->GrayLevel[0]],
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4309120482923183`*^9, 3.430912053969318*^9}, {
+  3.4383784519323273`*^9, 3.4383784570833273`*^9}}],
+
+Cell[TextData[{
+ "\tTheorem 1 says that all we need to know about the probability \
+distribution of the state ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "n"], TraditionalForm]]],
+ " of the chain at time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " is contained in the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]]],
+ " power of the transition matrix.  Try the following activity."
+}], "Text",
+ CellChangeTimes->{{3.430912070310318*^9, 3.430912074914318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 3",
+  FontWeight->"Bold"],
+ "  For the Markov chain whose transition matrix is as in (2), find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "2"], "=", 
+     RowBox[{
+      RowBox[{"3", " ", "|", " ", 
+       SubscriptBox["X", "0"]}], "=", "1"}]}], "]"}], TraditionalForm]]],
+ ".  Compare your answer to the transition diagram in Figure 1 to see that it \
+is reasonable.  If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     StyleBox["p",
+      FontWeight->"Bold"], "0"], "=", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"1", "/", "4"}], "    ", 
+      RowBox[{"1", "/", "4"}], "    ", 
+      RowBox[{"1", "/", "4"}], "    ", 
+      RowBox[{"1", "/", "4"}]}], ")"}]}], TraditionalForm]]],
+ ", find the probability mass function of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "2"], TraditionalForm]]],
+ ". "
+}], "Text",
+ CellFrame->True],
+
+Cell[TextData[{
+ StyleBox["Example 1",
+  FontWeight->"Bold"],
+ "  A drilling machine can be in any of five different states of alignment, \
+labeled 1 for the best, 2 for the next best, etc., down to the worst state 5. \
+ From one week to the next, it either stays in its current state with \
+probability .95, or moves to the next lower state with probability .05.  At \
+state 5 it is certain to remain there the next week.  Let us compute the \
+probability distribution of the state of the machine at several times ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", given that it started in state 1.  What is the smallest ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " (that is, the first time) such that it is at least 2% likely that the \
+machine has reached its worst state at time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ "?  ",
+ "\n",
+ "\tBy the assumptions of the problem, the chain of machine alignment states ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " has the transition matrix"
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{".95", ",", ".05", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", ".95", ",", ".05", ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", ".95", ",", ".05", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", ".95", ",", ".05"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}]}],
+   ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "T", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "By Theorem 1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     SubscriptBox["X", "n"], "=", 
+     RowBox[{
+      RowBox[{"j", " ", "|", " ", 
+       SubscriptBox["X", "0"]}], "=", "1"}]}], "]"}], TraditionalForm]]],
+ " is row 1 of the transition matrix ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]]],
+ " raised to the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]]],
+ " power.  The conditional distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ " given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], "=", "1"}], TraditionalForm]]],
+ " is of course the first row ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{".95", ",", ".05", ",", "0", ",", "0", ",", "0"}], "}"}], 
+   TraditionalForm]]],
+ " of the transition matrix itself.  We compute these first rows for powers ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"n", "=", "2"}], ",", " ", "3"}], TraditionalForm]]],
+ ", and 4 below, using ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s MatrixPower[mat, n] function.  (You could also use the period for matrix \
+multiplication.)  "
+}], "Text",
+ CellChangeTimes->{{3.430912343784318*^9, 3.4309123471823177`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"MatrixPower", "[", 
+   RowBox[{"T", ",", "2"}], "]"}], "[", 
+  RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MatrixPower", "[", 
+   RowBox[{"T", ",", "3"}], "]"}], "[", 
+  RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MatrixPower", "[", 
+   RowBox[{"T", ",", "4"}], "]"}], "[", 
+  RowBox[{"[", "1", "]"}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "4"}], TraditionalForm]]],
+ ", we notice that the likelihood is only 6.25 \[Cross] ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", 
+    RowBox[{"-", "6"}]], TraditionalForm]]],
+ " that the worst state 5 has been reached yet.  The following command allows \
+us to inspect the 1",
+ Cell[BoxData[
+  FormBox["-", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "5 element of some of the powers ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ ".  "
+}], "Text",
+ CellChangeTimes->{3.4570865867198*^9}],
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"n", ",", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"MatrixPower", "[", 
+        RowBox[{"T", ",", "n"}], "]"}], ")"}], "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", "20", ",", "30"}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+This output shows that it will be 22 weeks until it is at least .02 likely \
+that the machine will be in state 5, given that it started in state 1.  \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.430912359562318*^9, 3.4309123595633183`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Long Run Distributions",
+ FontColor->GrayLevel[0]]], "Subsection",
+ CellChangeTimes->{{3.4309108517143183`*^9, 3.4309108565963182`*^9}, 
+   3.435429592849*^9}],
+
+Cell["\<\
+Our second main goal is to find, if it exists, the vector of limiting \
+probabilities\
+\>", "Text",
+ CellChangeTimes->{
+  3.4319719868463354`*^9, {3.438379480505327*^9, 3.438379480509327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], "(", "j", ")"}], "=", " ", 
+   RowBox[{
+    UnderscriptBox["lim", 
+     RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], " ", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["X", "n"], "=", "j"}], "]"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4383794868453274`*^9, 3.438379487453327*^9}}],
+
+Cell[TextData[{
+ "The ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["j", "th"], TraditionalForm]]],
+ " entry of this limiting vector ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " has the interpretation of the long-run proportion of time the chain spends \
+in state ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ ".  We will not prove it here, but a sufficient condition under which this ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " exists is the ",
+ StyleBox["regularity",
+  FontSlant->"Italic"],
+ " of the chain."
+}], "Text",
+ CellChangeTimes->{{3.430912378875318*^9, 3.430912383048318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ".  A Markov chain is ",
+ StyleBox["regular",
+  FontSlant->"Italic"],
+ " if there is a power ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ " of the transition matrix that has all non-zero entries.  "
+}], "Text"],
+
+Cell[TextData[{
+ "\tSo, regularity of the chain means that there is a common time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " such that all states can reach all other states by a path of length ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " with positive probability.  The two chains with diagrams in Figure 2(a) \
+and 2(b) are ",
+ StyleBox["not",
+  FontVariations->{"Underline"->True}],
+ " regular.  To simplify the diagrams we have suppressed the transition \
+probabilities. The arrows display the transitions that have positive \
+probability.  Also in (b) we have suppressed a self-loop on state 4 \
+indicating state 4 must return to itself.  In (a), state 1 can only reach \
+state 3 by a path of length 2, or 5, or 8, etc., while state 1 can only reach \
+itself in a path of length 3, or 6, or 9, etc.  There can be no common value \
+of ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " so that both 1 reaches 3 and 1 reaches itself in ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " steps.  In (b), state 4 does not reach any of the other states at all, so \
+the chain cannot be regular.  "
+}], "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"4", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"5", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"6", ",", "0"}], "}"}], ",", "0.2`"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"3", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"4", ",", 
+        RowBox[{"{", 
+         RowBox[{"6", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.8`"}], ",", "0.2`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.2`"}], ",", "0.8`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", "0.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0.8`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.8`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.8`"}], ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3.2`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3.8`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"4.2`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4.8`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"5.2`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5.8`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"4.8`", ",", "0.1`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"g1", ",", "g2", ",", "g3"}], "}"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", ".3"}]}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.40430154734375*^9, 3.404301749515625*^9}, {
+   3.404303772015625*^9, 3.4043037788125*^9}, {3.404317085328125*^9, 
+   3.40431712021875*^9}, 3.404317227078125*^9, {3.404317330140625*^9, 
+   3.404317330640625*^9}, {3.40431738496875*^9, 3.404317421671875*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "(a)                                                     (b) \n",
+ StyleBox["Figure 6.2 -",
+  FontWeight->"Bold"],
+ " Two non-regular Markov chains ",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4383785311333275`*^9, 3.438378536558327*^9}},
+ TextAlignment->Center],
+
+Cell["\<\
+The Markov chain whose transition diagram is in Figure 3 however is regular.  \
+You can check that there is a path of length 3 of positive probability from \
+every state to every other state.  (For example, paths 1,3,2,1;  1,3,3,2;  \
+and 1,3,3,3 are paths of length 3 from state 1 to all of the states.)  \
+\>", "Text",
+ CellChangeTimes->{3.4570866812714*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.3`", ",", "0"}], "}"}], ",", "0.15`", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"3", " ", "\[Pi]"}], "4"]}], ",", 
+          FractionBox["\[Pi]", "2"]}], "}"}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "0.2`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.2`"}], ",", "1"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.15`", ",", "0.85`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0.85`", ",", "0.15`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.8`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.8`"}], ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.2`"}], ",", "0.9`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.9`"}], ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1.3`", ",", "0.15`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.8`"}], ",", "0.5`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.45`"}], ",", "0.5`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0.6`", ",", "0.5`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/2\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1.3`", ",", "0.25`"}], "}"}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.404301777484375*^9, 3.404301979078125*^9}, {
+  3.404317495703125*^9, 3.404317572859375*^9}, {3.404317603640625*^9, 
+  3.404317606015625*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ " ",
+ StyleBox["Figure 6.3 -",
+  FontWeight->"Bold"],
+ " A regular Markov chain"
+}], "Text",
+ CellChangeTimes->{{3.438378578112327*^9, 3.438378585196327*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 4",
+  FontWeight->"Bold"],
+ "  Use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to check that the Markov chain with transition matrix in (2) is regular."
+}], "Text",
+ CellFrame->True],
+
+Cell["\<\
+\tLet us look at a few of the powers of the transition matrix of the chain \
+corresponding to Figure 3.\
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", ".5", ",", ".5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", ".5", ",", ".5"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "T", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"MatrixPower", "[", 
+     RowBox[{"T", ",", "2"}], "]"}], "//", "MatrixForm"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MatrixPower", "[", 
+     RowBox[{"T", ",", "3"}], "]"}], "//", "MatrixForm"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MatrixPower", "[", 
+     RowBox[{"T", ",", "4"}], "]"}], "//", "MatrixForm"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MatrixPower", "[", 
+     RowBox[{"T", ",", "5"}], "]"}], "//", "MatrixForm"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MatrixPower", "[", 
+     RowBox[{"T", ",", "6"}], "]"}], "//", "MatrixForm"}]}], "}"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "Rows 1 and 3 of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ " actually are identical for each ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ " (look at the transition diagram to see why this is true), and row 2 is \
+different from those rows. However all of the rows seem to be in closer and \
+closer agreement as the power grows.  The matrix ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ " may be reaching a limit as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}], TraditionalForm]]],
+ ", which has the form of a matrix of identical rows.  This would suggest that"
+}], "Text",
+ CellChangeTimes->{{3.4383795205623274`*^9, 3.4383795205673275`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{" ", 
+   FormBox[
+    RowBox[{
+     RowBox[{
+      UnderscriptBox["lim", 
+       RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+      RowBox[{
+       SuperscriptBox["T", "n"], "(", 
+       RowBox[{"i", ",", "j"}], ")"}]}], "=", 
+     RowBox[{
+      RowBox[{
+       UnderscriptBox["lim", 
+        RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox["X", "n"], "=", 
+         RowBox[{
+          RowBox[{"j", " ", "|", " ", 
+           SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}]}], "=", 
+      RowBox[{
+       StyleBox["\[Pi]",
+        FontWeight->"Bold"], "(", "j", ")"}]}]}],
+    TraditionalForm]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438379527204327*^9, 3.438379527552327*^9}}],
+
+Cell[TextData[{
+ "independently of the initial state ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ ".  Let us find out what this limiting distribution must be, if it does \
+exist. \n\tIf ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " is to be the limit in (4), then we must have"
+}], "Text",
+ CellChangeTimes->{{3.430912797987318*^9, 3.4309128134903183`*^9}, 
+   3.431982951295*^9, {3.438379537518327*^9, 3.438379537523327*^9}}],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     FormBox[
+      RowBox[{
+       StyleBox["\[Pi]",
+        FontWeight->"Bold"], "(", "j", ")"}],
+      TraditionalForm], "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["lim", 
+        RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+       RowBox[{
+        SuperscriptBox["T", 
+         RowBox[{"n", "+", "1"}]], "(", 
+        RowBox[{"i", ",", "j"}], ")"}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["lim", 
+        RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+       RowBox[{
+        UnderscriptBox["\[Sum]", "k"], 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox["T", "n"], "(", 
+          RowBox[{"i", ",", "k"}], ")"}], 
+         RowBox[{"T", "(", 
+          RowBox[{"k", ",", "j"}], ")"}]}]}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["\[Sum]", "k"], " ", 
+       RowBox[{
+        UnderscriptBox["lim", 
+         RowBox[{"n", "\[LongRightArrow]", "\[Infinity]"}]], 
+        RowBox[{
+         RowBox[{
+          SuperscriptBox["T", "n"], "(", 
+          RowBox[{"i", ",", "k"}], ")"}], 
+         RowBox[{"T", "(", 
+          RowBox[{"k", ",", "j"}], ")"}]}]}]}],
+      TraditionalForm]},
+    {" ", "=", 
+     FormBox[
+      RowBox[{
+       UnderscriptBox["\[Sum]", "k"], " ", 
+       RowBox[{
+        RowBox[{
+         StyleBox["\[Pi]",
+          FontWeight->"Bold"], "(", "k", ")"}], 
+        RowBox[{"T", "(", 
+         RowBox[{"k", ",", "j"}], ")"}]}]}],
+      TraditionalForm]}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438379544207327*^9, 3.438379544763327*^9}}],
+
+Cell[TextData[{
+ "By computation (5), the limiting distribution ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " satisfies the system of matrix equations:"
+}], "Text",
+ CellChangeTimes->{{3.4383795549773273`*^9, 3.438379554986327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["\[Pi]",
+    FontWeight->"Bold"], "=", 
+   RowBox[{
+    RowBox[{
+     StyleBox["\[Pi]",
+      FontWeight->"Bold"], " ", "T", "   ", "and", "   ", 
+     StyleBox[
+      RowBox[{"\[Pi]", " ", "1"}],
+      FontWeight->"Bold"]}], "=", "1"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4383795611493273`*^9, 3.438379561519327*^9}}],
+
+Cell[TextData[{
+ "Here ",
+ StyleBox["1",
+  FontWeight->"Bold"],
+ " refers to a column vector of 1's of the same length as ",
+ StyleBox["\[Pi] ",
+  FontWeight->"Bold"],
+ "so that the equation ",
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox[
+     RowBox[{"\[Pi]", " ", "1"}],
+     FontWeight->"Bold"], "=", "1"}], TraditionalForm]]],
+ " means that the sum of the entries of ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " equals 1.  We require this in order for ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " to be a valid discrete probability mass function.",
+ "\n",
+ "\tWe have motivated the following theorem. "
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["Theorem 2",
+  FontWeight->"Bold"],
+ ". If a Markov chain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " is regular, then the limiting distribution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], "(", "j", ")"}], TraditionalForm]]],
+ " in (4) exists and satisfies",
+ StyleBox[" the system of equations ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["\[Pi]",
+      FontWeight->"Bold"], "=", 
+     RowBox[{
+      StyleBox["\[Pi]",
+       FontWeight->"Bold"], " ", "T"}]}], ",", " ", 
+    RowBox[{
+     StyleBox[
+      RowBox[{"\[Pi]", " ", "1"}],
+      FontWeight->"Bold"], "=", "1"}]}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[".  ",
+  FontColor->GrayLevel[0]],
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.430912749051318*^9, 3.430912770885318*^9}, {
+  3.4319722625823355`*^9, 3.4319722766773357`*^9}, {3.438378617880327*^9, 
+  3.4383786203273273`*^9}}],
+
+Cell["\<\
+\tIn the next example we see how Theorem 2 can be used in the long-run \
+prediction of business revenue flow.\
+\>", "Text"],
+
+Cell[TextData[{
+ StyleBox["Example 2",
+  FontWeight->"Bold"],
+ "  A plumbing contractor services jobs of six types according to their time \
+demands, respectively 1 to 6 hours.  The fee for the service is $40 per hour. \
+ Initially the contractor believes that the durations of successive jobs are \
+independent of one another, and they occur with the following probabilities:"
+}], "Text",
+ CellChangeTimes->{{3.4383795958193274`*^9, 3.4383795958263273`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"1", " ", 
+    RowBox[{"hr", ":", ".56"}]}], ";", 
+   RowBox[{"2", " ", 
+    RowBox[{"hrs", ":", ".23"}]}], ";", 
+   RowBox[{"3", " ", 
+    RowBox[{"hrs", ":", ".10"}]}], ";", 
+   RowBox[{"4", " ", 
+    RowBox[{"hrs", ":", ".05"}]}], ";", 
+   RowBox[{"5", " ", 
+    RowBox[{"hrs", ":", ".03"}]}], ";", 
+   RowBox[{"6", " ", 
+    RowBox[{"hrs", ":", ".03"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379601724327*^9, 3.438379602087327*^9}}],
+
+Cell["\<\
+However, detailed data analysis suggests that the sequence of job times may \
+instead be a Markov chain, with slightly different column entries (next job \
+duration probabilities) for each row (current job duration) as follows:\
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      ".52", ",", ".25", ",", ".11", ",", ".06", ",", ".03", ",", ".03"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      ".59", ",", ".22", ",", ".09", ",", ".03", ",", ".04", ",", ".03"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      ".50", ",", ".31", ",", ".12", ",", ".03", ",", ".02", ",", ".02"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      ".55", ",", ".24", ",", ".09", ",", ".07", ",", ".03", ",", ".02"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      ".60", ",", ".25", ",", ".08", ",", ".03", ",", ".02", ",", ".02"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      ".62", ",", ".28", ",", ".05", ",", ".03", ",", ".01", ",", ".01"}], 
+      "}"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MatrixForm", "[", "T", "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+By how much does the expected long-run revenue per job change if the job \
+times do form a Markov chain?\
+\>", "Text",
+ CellChangeTimes->{3.430912903352318*^9}],
+
+Cell[TextData[{
+ "\tFirst, in the default case where job times are independent and \
+identically distributed, the average revenue per job is just ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    RowBox[{
+     StyleBox["E",
+      FontSlant->"Plain"], "[", 
+     RowBox[{"40", "X"}], "]"}]}], TraditionalForm]]],
+ ", where ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " is a discrete random variable modeling the duration of the job, with the \
+distribution given above.  By the Strong Law of Large Numbers, with \
+probability 1 the actual average revenue per job ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    OverscriptBox["X", "_"], "n"], TraditionalForm]]],
+ " will converge to \[Mu].  We compute:"
+}], "Text",
+ CellChangeTimes->{{3.430912903352318*^9, 3.430912906941318*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[Mu]", "=", 
+  RowBox[{"40", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"1", 
+      RowBox[{"(", ".56", ")"}]}], "+", 
+     RowBox[{"2", 
+      RowBox[{"(", ".23", ")"}]}], "+", 
+     RowBox[{"3", 
+      RowBox[{"(", ".10", ")"}]}], "+", 
+     RowBox[{"4", 
+      RowBox[{"(", ".05", ")"}]}], "+", 
+     RowBox[{"5", 
+      RowBox[{"(", ".03", ")"}]}], "+", 
+     RowBox[{"6", 
+      RowBox[{"(", ".03", ")"}]}]}], ")"}]}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "\tNow from Theorem 2 we can compute the long-run distribution of the Markov \
+chain, then make a similar computation of the long-run expected revenue per \
+job.  By Exercise 6, the system of equations ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], "=", 
+    StyleBox[
+     RowBox[{
+      StyleBox["\[Pi]",
+       FontWeight->"Bold"], "T"}]]}], TraditionalForm]]],
+ " is a dependent system; therefore, we can afford to discard one equation in \
+it, and replace it with the condition that the sum of the entries of ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ " is 1.  We will discard the sixth equation. By setting ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], "=", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["x", "1"], ",", 
+      SubscriptBox["x", "2"], ",", 
+      SubscriptBox["x", "3"], ",", 
+      SubscriptBox["x", "4"], ",", 
+      SubscriptBox["x", "5"], ",", 
+      SubscriptBox["x", "6"]}], ")"}]}], TraditionalForm]]],
+ " and multiplying out ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], " ", "T"}], TraditionalForm]]],
+ " we get the following."
+}], "Text",
+ CellChangeTimes->{{3.430913009643318*^9, 3.430913021676318*^9}, 
+   3.4570867211918*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"system", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["x", "1"], "\[Equal]", 
+      RowBox[{
+       RowBox[{".52", 
+        SubscriptBox["x", "1"]}], "+", 
+       RowBox[{".59", 
+        SubscriptBox["x", "2"]}], "+", 
+       RowBox[{".5", 
+        SubscriptBox["x", "3"]}], "+", 
+       RowBox[{".55", 
+        SubscriptBox["x", "4"]}], "+", 
+       RowBox[{".6", 
+        SubscriptBox["x", "5"]}], "+", 
+       RowBox[{".62", 
+        SubscriptBox["x", "6"]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      SubscriptBox["x", "2"], "\[Equal]", 
+      RowBox[{
+       RowBox[{".25", 
+        SubscriptBox["x", "1"]}], "+", 
+       RowBox[{".22", 
+        SubscriptBox["x", "2"]}], "+", 
+       RowBox[{".31", 
+        SubscriptBox["x", "3"]}], "+", 
+       RowBox[{".24", 
+        SubscriptBox["x", "4"]}], "+", 
+       RowBox[{".25", 
+        SubscriptBox["x", "5"]}], "+", 
+       RowBox[{".28", 
+        SubscriptBox["x", "6"]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      SubscriptBox["x", "3"], "\[Equal]", 
+      RowBox[{
+       RowBox[{".11", 
+        SubscriptBox["x", "1"]}], "+", 
+       RowBox[{".09", 
+        SubscriptBox["x", "2"]}], "+", 
+       RowBox[{".12", 
+        SubscriptBox["x", "3"]}], "+", 
+       RowBox[{".09", 
+        SubscriptBox["x", "4"]}], "+", 
+       RowBox[{".08", 
+        SubscriptBox["x", "5"]}], "+", 
+       RowBox[{".05", 
+        SubscriptBox["x", "6"]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      SubscriptBox["x", "4"], "\[Equal]", 
+      RowBox[{
+       RowBox[{".06", 
+        SubscriptBox["x", "1"]}], "+", 
+       RowBox[{".03", 
+        SubscriptBox["x", "2"]}], "+", 
+       RowBox[{".03", 
+        SubscriptBox["x", "3"]}], "+", 
+       RowBox[{".07", 
+        SubscriptBox["x", "4"]}], "+", 
+       RowBox[{".03", 
+        SubscriptBox["x", "5"]}], "+", 
+       RowBox[{".03", 
+        SubscriptBox["x", "6"]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      SubscriptBox["x", "5"], "\[Equal]", 
+      RowBox[{
+       RowBox[{".03", 
+        SubscriptBox["x", "1"]}], "+", 
+       RowBox[{".04", 
+        SubscriptBox["x", "2"]}], "+", 
+       RowBox[{".02", 
+        SubscriptBox["x", "3"]}], "+", 
+       RowBox[{".03", 
+        SubscriptBox["x", "4"]}], "+", 
+       RowBox[{".02", 
+        SubscriptBox["x", "5"]}], "+", 
+       RowBox[{".01", 
+        SubscriptBox["x", "6"]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["x", "1"], "+", 
+       SubscriptBox["x", "2"], "+", 
+       SubscriptBox["x", "3"], "+", 
+       SubscriptBox["x", "4"], "+", 
+       SubscriptBox["x", "5"], "+", 
+       SubscriptBox["x", "6"]}], "\[Equal]", "1"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Solve", "[", 
+  RowBox[{"system", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["x", "1"], ",", 
+     SubscriptBox["x", "2"], ",", 
+     SubscriptBox["x", "3"], ",", 
+     SubscriptBox["x", "4"], ",", 
+     SubscriptBox["x", "5"], ",", 
+     SubscriptBox["x", "6"]}], "}"}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell["\<\
+Hence, the long-run average revenue per job under the Markov chain model is\
+\>", "Text",
+ CellChangeTimes->{3.4570867623758*^9}],
+
+Cell[BoxData[
+ RowBox[{"40", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"1", 
+     RowBox[{"(", ".542039", ")"}]}], "+", 
+    RowBox[{"2", 
+     RowBox[{"(", ".249027", ")"}]}], "+", 
+    RowBox[{"3", 
+     RowBox[{"(", ".102504", ")"}]}], "+", 
+    RowBox[{"4", 
+     RowBox[{"(", ".0481887", ")"}]}], "+", 
+    RowBox[{"5", 
+     RowBox[{"(", ".0306065", ")"}]}], "+", 
+    RowBox[{"6", 
+     RowBox[{"(", ".0276343", ")"}]}]}], ")"}]}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "So the more sophisticated Markov chain model did not make a great change in \
+the revenue flow prediction; it predicts only about an extra 37 cents per \
+job.  This is perhaps to be expected, because the differences between the row \
+probability distributions and the distribution assumed for ",
+ StyleBox["X",
+  FontSlant->"Italic"],
+ " in the i.i.d. case are small.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.430913053986318*^9, 3.430913053988318*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Absorbing Chains",
+ FontColor->GrayLevel[0]]], "Subsection",
+ CellChangeTimes->{{3.430910814613318*^9, 3.430910819442318*^9}, {
+   3.430917780860318*^9, 3.4309177908333178`*^9}, 3.4319831165*^9}],
+
+Cell[TextData[{
+ "The last problem type that we will study involves cases where the Markov \
+chain has one or more states ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"T", "(", 
+     RowBox[{"j", ",", "j"}], ")"}], "=", "1"}], TraditionalForm]]],
+ ", so that once the chain enters that state it can never leave. Such a state \
+is called ",
+ StyleBox["absorbing",
+  FontSlant->"Italic"],
+ ". The specific question that we would like to answer is this: if a Markov \
+chain has more than one absorbing state, how likely is it for the chain to be \
+absorbed by each such state, given that the chain begins in a non-absorbing \
+state?  There are two types of states that we will consider here (not the \
+only two types, by the way). "
+}], "Text",
+ CellChangeTimes->{{3.430915453487318*^9, 3.430915621928318*^9}, {
+  3.4309156941343184`*^9, 3.430915739678318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Definition 2",
+  FontWeight->"Bold"],
+ ".  A state ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ " in a Markov chain is called ",
+ StyleBox["transient",
+  FontSlant->"Italic"],
+ " if, once the chain is there, there is a positive probability that it will \
+never be visited again. A state ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ " is called ",
+ StyleBox["absorbing",
+  FontSlant->"Italic"],
+ " if, once the chain is there, with probability 1 the chain stays there \
+forever. "
+}], "Text",
+ CellChangeTimes->{{3.430914765409318*^9, 3.430914774978318*^9}, {
+  3.430915746393318*^9, 3.430915802212318*^9}, {3.4309159381343184`*^9, 
+  3.430915993662318*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "2"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2", ",", "2"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2", ",", "0"}], "}"}], ",", "0.2`"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "2"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "2"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"4", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Large", ",", "Bold"}], "}"}]}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/3\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "2.1`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/3\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0.82`", ",", "1.3`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"\"\<1/3\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "0.1`"}], ",", "1"}], "}"}]}], "]"}]}], "}"}], "]"}]}],
+   ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.2", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8", ",", "2"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"2.1`", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2.1`", ",", "0.2`"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.2`", ",", "1.8`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.8`", ",", "0.2`"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.404301055046875*^9, 3.404301055421875*^9}, 
+   3.4043010920625*^9, {3.40430116753125*^9, 3.404301456953125*^9}, {
+   3.40430218509375*^9, 3.404302205921875*^9}, 3.404302255796875*^9, 
+   3.404302328765625*^9, {3.404302447953125*^9, 3.404302546953125*^9}, {
+   3.404302589953125*^9, 3.404302603625*^9}, {3.4043026789375*^9, 
+   3.404302709125*^9}, {3.404302760734375*^9, 3.40430282953125*^9}, {
+   3.430914204914318*^9, 3.430914246940318*^9}, {3.4309142870633183`*^9, 
+   3.430914295448318*^9}, {3.430914365430318*^9, 3.430914623915318*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.4 -",
+  FontWeight->"Bold"],
+ " A simple absorbing Markov chain",
+ " "
+}], "Text",
+ CellChangeTimes->{{3.4383786692533274`*^9, 3.4383786753503275`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tA simple example to illustrate the definition is in Figure 4. The absence \
+of arrows emanating from states 3 and 4 indicates that the transition \
+probabilities ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "(", 
+    RowBox[{"3", ",", "3"}], ")"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "(", 
+    RowBox[{"4", ",", "4"}], ")"}], TraditionalForm]]],
+ " equal 1, so states 3 and 4 are absorbing.  State 2 is transient, because \
+not only can it eventually be left forever, it must be left forever \
+immediately in one step.  Similarly state 1 is transient, because starting \
+there the chain could either be absorbed by state 4 immediately, or by state \
+3 immediately, or the chain could pass through state 2 first, and then be \
+absorbed by state 3.  "
+}], "Text",
+ CellChangeTimes->{{3.430916011389318*^9, 3.4309162371703176`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Activity 5",
+  FontWeight->"Bold"],
+ "  Are any of the states 1, 2, or 3 in Figure 3 absorbing? Are any of them \
+transient?"
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4309158404573183`*^9, 3.430915893032318*^9}}],
+
+Cell[TextData[{
+ "\tThe simple structure of the chain in Figure 4 makes it especially simple \
+to analyze.  Starting from state 2, with certainty state 3 will absorb the \
+chain.  Starting from state 1, either state 4 will immediately absorb the \
+chain, which happens with probability 1/3, or within two steps state 3 will \
+absorb the chain, which will happen with total probability ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"1", "/", "3"}], "+", 
+     RowBox[{"1", "/", "3"}]}], "=", 
+    RowBox[{"2", "/", "3"}]}], TraditionalForm]]],
+ ".  Since there were just two absorbing states, this probability is \
+complementary to the state 4 absorption probability. ",
+ StyleBox["Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["V", "j"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be the time (after time 0) of first visit to ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox["; then if ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is absorbing, the event ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["V", "j"], "<", "\[Infinity]"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" occurs if and only if the chain is absorbed at ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ StyleBox[". ",
+  FontColor->RGBColor[1, 0, 0]],
+ "If we denote"
+}], "Text",
+ CellChangeTimes->{{3.430916309546318*^9, 3.430916506902318*^9}, {
+  3.430916554985318*^9, 3.430916591468318*^9}, {3.4319726423503356`*^9, 
+  3.4319726447643356`*^9}, {3.438379648469327*^9, 3.4383796484753275`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["f", 
+    RowBox[{"i", " ", "j"}]], "=", 
+   RowBox[{
+    StyleBox["P",
+     FontSlant->"Plain"], "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["V", "j"], "<", "\[Infinity]"}], "|", 
+      SubscriptBox["X", "0"]}], "=", "i"}], "]"}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.4383796561293273`*^9, 3.438379656683327*^9}}],
+
+Cell[TextData[{
+ "for transient states ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ " and absorbing states ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ ", then for the chain in Figure 4 we have found that"
+}], "Text",
+ CellChangeTimes->{{3.4309166385383177`*^9, 3.430916666976318*^9}, {
+  3.4383796714613276`*^9, 3.438379671467327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "23"], "=", "1"}], ";", " ", 
+   RowBox[{
+    SubscriptBox["f", "13"], "=", 
+    RowBox[{"2", "/", "3"}]}], ";", " ", 
+   RowBox[{
+    SubscriptBox["f", "14"], "=", 
+    RowBox[{"1", "/", "3"}]}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379677547327*^9, 3.438379677954327*^9}}],
+
+Cell[TextData[{
+ "\tIt is relatively easy to use recursive thinking and the Law of Total \
+Probability to develop a system of linear equations using which we can \
+compute the set of values ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", 
+    RowBox[{"i", " ", "j"}]], TraditionalForm]]],
+ " for ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ " transient and ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ " absorbing.  Activity 5 was attempting to get you to think about a third \
+kind of state, the ",
+ StyleBox["recurrent state",
+  FontSlant->"Italic"],
+ ", which is a non-absorbing state that is certain to be visited again and \
+again by the chain.  The states in a regular chain are recurrent. We consider \
+chains that have no such states in our next theorem. "
+}], "Text",
+ CellChangeTimes->{{3.430916751043318*^9, 3.430916804451318*^9}, {
+  3.430916997627318*^9, 3.430917116893318*^9}, {3.430917292051318*^9, 
+  3.430917336369318*^9}}],
+
+Cell[TextData[{
+ StyleBox["Theorem 3",
+  FontWeight->"Bold"],
+ ". Let ",
+ StyleBox["TR",
+  FontSlant->"Italic"],
+ " be the set of transient states of the Markov chain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "n"], ")"}], TraditionalForm]]],
+ " whose transition matrix is ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ".  Assume that the state space of the chain consists only of transient \
+states and absorbing states. Let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"i", "\[Element]", 
+    StyleBox["TR",
+     FontSlant->"Italic"]}], TraditionalForm]]],
+ ", and let ",
+ StyleBox["j",
+  FontSlant->"Italic"],
+ " be an absorbing state of the chain.  Then"
+}], "Text",
+ CellChangeTimes->{{3.430912749051318*^9, 3.430912770885318*^9}, {
+   3.430914721818318*^9, 3.430914724529318*^9}, 3.430917166477318*^9, {
+   3.4319735057853355`*^9, 3.4319735584293356`*^9}, {3.4319744124923353`*^9, 
+   3.4319744306813354`*^9}, {3.438379695124327*^9, 3.438379695127327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["f", 
+    RowBox[{"i", " ", "j"}]], "=", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sum]", 
+      RowBox[{"k", "\[Element]", 
+       StyleBox["TR",
+        FontSlant->"Italic"]}]], 
+     RowBox[{
+      RowBox[{"T", "(", 
+       RowBox[{"i", ",", "k"}], ")"}], " ", 
+      SubscriptBox["f", 
+       RowBox[{"k", " ", "j"}]]}]}], " ", "+", 
+    RowBox[{"T", "(", 
+     RowBox[{"i", ",", "j"}], ")"}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.438379701957327*^9, 3.438379702339327*^9}}],
+
+Cell[TextData[{
+ StyleBox["Proof",
+  FontWeight->"Bold"],
+ ".  We will condition and uncondition on ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "1"], TraditionalForm]]],
+ ".  Let ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["ABS",
+    FontSlant->"Italic"], TraditionalForm]]],
+ " denote the set of absorbing states of the chain. If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], "=", "i"}], TraditionalForm]]],
+ ", then at time 1 the chain could move to another state in ",
+ StyleBox["TR",
+  FontSlant->"Italic"],
+ ", or to a state in ",
+ StyleBox["ABS",
+  FontSlant->"Italic"],
+ ".  If that state to which it moves in ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["ABS",
+    FontSlant->"Italic"], TraditionalForm]]],
+ " is state ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ " then, of course, the chain is absorbed there, and if the state is any \
+other absorbing state, it is impossible to be absorbed at ",
+ Cell[BoxData[
+  FormBox["j", TraditionalForm]]],
+ ".  Thus, we have:"
+}], "Text",
+ CellChangeTimes->{{3.430917372789318*^9, 3.430917587705318*^9}, {
+  3.4319744409143353`*^9, 3.431974467038336*^9}, {3.4383797228863273`*^9, 
+  3.438379722891327*^9}, {3.457086796337*^9, 3.4570867988486*^9}}],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     SubscriptBox["f", 
+      RowBox[{"i", " ", "j"}]], "=", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         SubscriptBox["V", "j"], "<", "\[Infinity]"}], "|", 
+        SubscriptBox["X", "0"]}], "=", "i"}], "]"}]},
+    {" ", "=", 
+     RowBox[{
+      SubscriptBox["\[Sum]", 
+       RowBox[{"k", "\[Element]", "E"}]], 
+      RowBox[{
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            SubscriptBox["V", "j"], "<", "\[Infinity]"}], "|", 
+           SubscriptBox["X", "1"]}], "=", "k"}], ",", 
+         RowBox[{
+          SubscriptBox["X", "0"], "=", "i"}]}], "]"}], 
+       RowBox[{
+        StyleBox["P",
+         FontSlant->"Plain"], "[", 
+        RowBox[{
+         SubscriptBox["X", "1"], "=", 
+         RowBox[{
+          RowBox[{"k", "|", 
+           SubscriptBox["X", "0"]}], "=", "i"}]}], "]"}]}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{"k", "\[Element]", 
+         StyleBox["TR",
+          FontSlant->"Italic"]}]], 
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             SubscriptBox["V", "j"], "<", "\[Infinity]"}], "|", 
+            SubscriptBox["X", "1"]}], "=", "k"}], ",", 
+          RowBox[{
+           SubscriptBox["X", "0"], "=", "i"}]}], "]"}], 
+        RowBox[{"T", "(", 
+         RowBox[{"i", ",", "k"}], ")"}]}]}], "+", 
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{"k", "\[Element]", 
+         StyleBox["ABS",
+          FontSlant->"Italic"]}]], 
+       RowBox[{
+        RowBox[{
+         StyleBox["P",
+          FontSlant->"Plain"], "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             SubscriptBox["V", "j"], "<", "\[Infinity]"}], "|", 
+            SubscriptBox["X", "1"]}], "=", "k"}], ",", 
+          RowBox[{
+           SubscriptBox["X", "0"], "=", "i"}]}], "]"}], 
+        RowBox[{"T", "(", 
+         RowBox[{"i", ",", "k"}], ")"}]}]}]}]},
+    {" ", "=", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{"k", "\[Element]", 
+         StyleBox["TR",
+          FontSlant->"Italic"]}]], 
+       RowBox[{
+        SubscriptBox["f", 
+         RowBox[{"k", " ", "j"}]], 
+        RowBox[{"T", "(", 
+         RowBox[{"i", ",", "k"}], ")"}]}]}], "+", 
+      RowBox[{"1", "\[CenterDot]", 
+       RowBox[{
+        RowBox[{"T", "(", 
+         RowBox[{"i", ",", "j"}], ")"}], " ", "."}]}]}]}
+   }], TraditionalForm]],
+ GridBoxOptions->{
+ GridBoxAlignment->{
+  "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+   "RowsIndexed" -> {}}}]], "DisplayFormula",
+ CellChangeTimes->{{3.430917206617318*^9, 3.430917236953318*^9}, {
+  3.430917648107318*^9, 3.430917719210318*^9}, {3.4319744792493353`*^9, 
+  3.431974496767336*^9}}],
+
+Cell["\<\
+The Markov property justifies the fourth line.  This proves formula (8).  \
+\[FilledSquare]\
+\>", "Text",
+ CellChangeTimes->{{3.4309177273843184`*^9, 3.4309177667143183`*^9}, {
+  3.4383787162773275`*^9, 3.438378718224327*^9}}],
+
+Cell[TextData[{
+ "\tFormula (8) sets up a method for us to solve for the absorption \
+probabilities ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", 
+    RowBox[{"i", " ", "j"}]], TraditionalForm]]],
+ ".  For each transient state ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ " there is a linear equation in which all of the absorption probabilities ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", 
+    RowBox[{"k", " ", "j"}]], TraditionalForm]]],
+ " are involved. We simply identify the coefficients and solve for the \
+unknowns.  It is particularly easy for the chain in Figure 4; there we have \
+two transient states 1 and 2, and for absorbing state 3 we get the equations:"
+}], "Text",
+ CellChangeTimes->{{3.430918023993318*^9, 3.430918088976318*^9}, {
+  3.430918122506318*^9, 3.4309183318843184`*^9}, {3.4319745848363357`*^9, 
+  3.4319745891743355`*^9}, {3.438379797387327*^9, 3.4383797973923273`*^9}}],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   SubscriptBox["f", "13"], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"T", "(", 
+       RowBox[{"1", ",", "1"}], ")"}], 
+      SubscriptBox["f", "13"]}], "+", 
+     RowBox[{
+      RowBox[{"T", "(", 
+       RowBox[{"1", ",", "2"}], ")"}], 
+      SubscriptBox["f", "23"]}], "+", 
+     RowBox[{"T", "(", 
+      RowBox[{"1", ",", "3"}], ")"}]}], "=", 
+    RowBox[{"0", "+", 
+     RowBox[{
+      FractionBox["1", "3"], 
+      SubscriptBox["f", "23"]}], "+", 
+     FractionBox["1", "3"]}]}]}], TraditionalForm], "\n", 
+ FormBox[
+  RowBox[{
+   SubscriptBox["f", "23"], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"T", "(", 
+       RowBox[{"2", ",", "1"}], ")"}], 
+      SubscriptBox["f", "13"]}], "+", 
+     RowBox[{
+      RowBox[{"T", "(", 
+       RowBox[{"2", ",", "2"}], ")"}], 
+      SubscriptBox["f", "23"]}], "+", 
+     RowBox[{"T", "(", 
+      RowBox[{"2", ",", "3"}], ")"}]}], "=", 
+    RowBox[{
+     RowBox[{"0", "+", "0", "+", "1"}], "=", "1"}]}]}], 
+  TraditionalForm]}], "DisplayFormula",
+ CellChangeTimes->{{3.438379806146327*^9, 3.4383798066093273`*^9}}],
+
+Cell[TextData[{
+ "Substituting the value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "23"], "=", "1"}], TraditionalForm]]],
+ " into the top equation gives ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "13"], "=", 
+    RowBox[{"2", "/", "3"}]}], TraditionalForm]]],
+ ".  (Try to write a similar system for absorbing state 4.)\n\tWe close with \
+a less obvious example."
+}], "Text",
+ CellChangeTimes->{{3.430918579673318*^9, 3.4309186042073183`*^9}, 
+   3.4319800604630003`*^9, {3.43198009374*^9, 3.431980099888*^9}}],
+
+Cell[TextData[{
+ StyleBox["Example 3",
+  FontWeight->"Bold"],
+ " Consider the six state random walk in Figure 5, in which states 0 and 5 \
+are absorbing. Find the probability, starting at each of states 1 through 4 \
+of being absorbed at state 5, and the probability of being absorbed at state \
+0. "
+}], "Text",
+ CellChangeTimes->{{3.430918616034318*^9, 3.430918666500318*^9}, {
+  3.4319746605223355`*^9, 3.4319747365183353`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"g1", "=", 
+  RowBox[{"Graphics", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"4", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+     RowBox[{"Circle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"5", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", " ", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"0", ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"1", ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"2", ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"3", ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"4", ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{"5", ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "0"}], "}"}]}], "]"}], ",", "Large"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"4.2`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4.8`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"2.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3.8`", ",", "0.1`"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"1.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"3.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{"p", ",", 
+       RowBox[{"{", 
+        RowBox[{"4.5`", ",", 
+         RowBox[{"-", "0.2`"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"1", "-", "p"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3.5`", ",", "0.2`"}], "}"}]}], "]"}]}], "}"}], "]"}], 
+  " "}]], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.3984360157386284`*^9, 3.3984361316143703`*^9}, {
+  3.398436161911439*^9, 3.3984361760677795`*^9}, {3.3984379385790596`*^9, 
+  3.398438054439176*^9}, {3.398438188924412*^9, 3.3984382701436815`*^9}, {
+  3.3984383083158007`*^9, 3.3984385303015966`*^9}, {3.430913751533318*^9, 
+  3.430913840245318*^9}, {3.430914663919318*^9, 3.4309146755313177`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.5",
+  FontWeight->"Bold"],
+ StyleBox[" - An absorbing random walk",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438378743551327*^9, 3.4383787494193273`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ "\tFormula (8) can be applied at each state to give the system of four \
+equations below in the unknowns ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "15"], ",", 
+    SubscriptBox["f", "25"], ",", 
+    SubscriptBox["f", "35"], ",", 
+    SubscriptBox["f", "45"]}], TraditionalForm]]],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.4319747613163357`*^9, 3.4319747990733356`*^9}, {
+  3.431975071288336*^9, 3.4319751046573353`*^9}, {3.438379834756327*^9, 
+  3.438379834763327*^9}}],
+
+Cell["", "Text"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   StyleBox[
+    RowBox[{
+     StyleBox["{",
+      SpanMaxSize->Infinity], GridBox[{
+       {
+        RowBox[{
+         SubscriptBox["f", "15"], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", "p"}], ")"}], 
+            SubscriptBox["f", "05"]}], "+", 
+           RowBox[{"p", " ", 
+            SubscriptBox["f", "25"]}]}], "=", 
+          RowBox[{"p", " ", 
+           SubscriptBox["f", "25"]}]}]}]},
+       {
+        RowBox[{
+         SubscriptBox["f", "25"], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1", "-", "p"}], ")"}], 
+           SubscriptBox["f", "15"]}], "+", 
+          RowBox[{"p", " ", 
+           SubscriptBox["f", "35"]}]}]}]},
+       {
+        RowBox[{
+         SubscriptBox["f", "35"], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1", "-", "p"}], ")"}], 
+           SubscriptBox["f", "25"]}], "+", 
+          RowBox[{"p", " ", 
+           SubscriptBox["f", "45"]}]}]}]},
+       {
+        RowBox[{
+         SubscriptBox["f", "45"], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", "p"}], ")"}], 
+            SubscriptBox["f", "35"]}], "+", 
+           RowBox[{"p", " ", 
+            SubscriptBox["f", "55"]}]}], "=", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", "p"}], ")"}], 
+            SubscriptBox["f", "35"]}], "+", "p", " "}]}]}]}
+      }]}],
+    ShowAutoStyles->False],
+   #& ], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.431974804215336*^9, 3.431974810694336*^9}, {
+   3.4319748836603355`*^9, 3.431975042887336*^9}, 3.4319751088603354`*^9}],
+
+Cell[TextData[{
+ "(Compare the equations to the diagram and make sure that you understand the \
+intuition.) In the first equation we have used the fact that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "05"], "=", "0"}], TraditionalForm]]],
+ " since state 0 is absorbing, and similarly in the last equation we note \
+that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "55"], "=", "1"}], TraditionalForm]]],
+ " since state 5 is absorbing.  We let ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " solve this system:"
+}], "Text",
+ CellChangeTimes->{{3.431975153293336*^9, 3.4319752670063353`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["f", "15"], "\[Equal]", 
+      RowBox[{"p", "*", 
+       SubscriptBox["f", "25"]}]}], ",", 
+     RowBox[{
+      SubscriptBox["f", "25"], "\[Equal]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        SubscriptBox["f", "15"]}], "+", 
+       RowBox[{"p", "*", 
+        SubscriptBox["f", "35"]}]}]}], ",", 
+     RowBox[{
+      SubscriptBox["f", "35"], "\[Equal]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        SubscriptBox["f", "25"]}], "+", 
+       RowBox[{"p", "*", 
+        SubscriptBox["f", "45"]}]}]}], ",", 
+     RowBox[{
+      SubscriptBox["f", "45"], "\[Equal]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", "p"}], ")"}], 
+        SubscriptBox["f", "35"]}], "+", "p"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["f", "15"], ",", 
+     SubscriptBox["f", "25"], ",", 
+     SubscriptBox["f", "35"], ",", 
+     SubscriptBox["f", "45"]}], "}"}]}], "]"}]], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4319752708973355`*^9, 3.4319752738623357`*^9}, {
+  3.4319753074633355`*^9, 3.4319754035893354`*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ "By complementation, the absorption probabilities at zero are given by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "10"], "=", 
+    RowBox[{"1", "-", 
+     SubscriptBox["f", "15"]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "20"], "=", 
+    RowBox[{"1", "-", 
+     SubscriptBox["f", "25"]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "30"], "=", 
+    RowBox[{"1", "-", 
+     SubscriptBox["f", "35"]}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "40"], "=", 
+    RowBox[{"1", "-", 
+     SubscriptBox["f", "45"]}]}], TraditionalForm]]],
+ ".\n\tWe can look at the dependence of the absorption probabilities on the \
+probability ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ " of taking a step to the right.  For example, Figure 6 shows ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["f", "35"], TraditionalForm]]],
+ " as a function of ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ ".  The probability of being absorbed at state 5 increases, as one would \
+expect, as the right step probability increases. At a value of ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ " of .2, the chain has a strong tendency to drift left, and it is only about \
+.05 likely for the chain to be absorbed at state 5. There is a rapid increase \
+in the absorption probability between values of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".3"}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", ".6"}], TraditionalForm]]],
+ " followed by a leveling off.  For right step probabilities of .8 and above \
+it is nearly certain that the chain will be absorbed at state 5.  ",
+ "\[FilledSquare]"
+}], "Text",
+ CellChangeTimes->{{3.4319781855690002`*^9, 3.431978285067*^9}, {
+  3.4319783156549997`*^9, 3.431978386734*^9}, {3.431978506*^9, 
+  3.43197852941*^9}, {3.431978561896*^9, 3.4319786117539997`*^9}, {
+  3.4319795850150003`*^9, 3.431979631903*^9}, {3.431979758199*^9, 
+  3.431979880758*^9}, {3.431979961176*^9, 3.431980019546*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f35", "[", "p_", "]"}], ":=", 
+   RowBox[{"-", 
+    FractionBox[
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["p", "2"]}], "+", 
+      SuperscriptBox["p", "3"], "-", 
+      SuperscriptBox["p", "4"]}], 
+     RowBox[{"1", "-", 
+      RowBox[{"3", " ", "p"}], "+", 
+      RowBox[{"4", " ", 
+       SuperscriptBox["p", "2"]}], "-", 
+      RowBox[{"2", " ", 
+       SuperscriptBox["p", "3"]}], "+", 
+      SuperscriptBox["p", "4"]}]]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"f35", "[", "p", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"p", ",", "None"}], "}"}]}]}], "]"}]}], "Input",
+ CellFrame->True,
+ InitializationCell->True,
+ CellChangeTimes->{{3.4319786204709997`*^9, 3.4319786857390003`*^9}, {
+  3.431978767212*^9, 3.431978783367*^9}, {3.431978935552*^9, 
+  3.431978938373*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Figure 6.6",
+  FontWeight->"Bold"],
+ StyleBox[" - Probability of absorption at state 5 starting at state 3",
+  FontWeight->"Plain"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438378788655327*^9, 3.4383787954963274`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["Activity 6",
+  FontWeight->"Bold"],
+ "  In Example 3, how large must ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]]],
+ " be so that the probability that the random walk is absorbed at state 5 \
+given that it started at state 3 is at least .8?  Approximate to at least two \
+decimal places."
+}], "Text",
+ CellFrame->True,
+ CellChangeTimes->{{3.4309158404573183`*^9, 3.430915893032318*^9}, {
+  3.4319788261470003`*^9, 3.431978904223*^9}, {3.4319798999779997`*^9, 
+  3.431979917071*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises 6.1", "Subsection",
+ CellChangeTimes->{{3.431978861315*^9, 3.4319788622860003`*^9}},
+ TextAlignment->Center,
+ FontWeight->"Bold"],
+
+Cell[TextData[{
+ "1. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") For the Markov chain whose transition diagram is as in Figure 1, compute \
+the distribution of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]]],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], " "}], TraditionalForm]]],
+ "is equally likely to equal each of the four states.  Find the limiting \
+distribution."
+}], "Text"],
+
+Cell[TextData[{
+ "2. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A store keeps a small inventory of at most four units of a large \
+appliance, which sells rather slowly.  Each week, one unit will be sold with \
+probability .40, or no units will be sold with probability .60.  When the \
+inventory empties out, the store is immediately able to order four \
+replacements, so that from the state of no units, one goes next week to four \
+units if none sell, or three if one unit sells.  If the store starts with \
+four units, find the distribution of the number of units in inventory at time \
+2.  If the Markov chain of inventory levels is regular, find its limiting \
+distribution."
+}], "Text"],
+
+Cell[TextData[{
+ "3. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") Build a command in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " which takes an initial state ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]]],
+ ", a transition matrix ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " of a Markov chain, and a final time ",
+ StyleBox["n",
+  FontSlant->"Italic"],
+ ", and returns a simulated list of states ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", "...", " ", ",", 
+    SubscriptBox["X", "n"]}], TraditionalForm]]],
+ ".  Assume that states are numbered consecutively: 1, 2, 3, ... ."
+}], "Text",
+ CellChangeTimes->{{3.4323048830642*^9, 3.4323049036912003`*^9}}],
+
+Cell[TextData[{
+ "4.  Argue that an i.i.d. sequence of discrete random variables ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["X", "0"], ",", 
+    SubscriptBox["X", "1"], ",", 
+    SubscriptBox["X", "2"], ",", "..."}], TraditionalForm]]],
+ " is a special case of a Markov chain.  What special structure would the \
+transition matrix of this chain have?"
+}], "Text"],
+
+Cell[TextData[{
+ "5.  (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A communications system has six channels.  When messages attempt to \
+access the system when all channels are full, they are turned away.  \
+Otherwise, because messages neither arrive nor depart simultaneously, if \
+there are free channels the next change either increases the number of \
+channels in use by 1 (with probability .3) or decreases the number of \
+channels in use by 1 (with probability .7).  Of course, when all channels are \
+free, the next change must be an increase and when all channels are busy the \
+next change must be a decrease.  Find the transition matrix for a Markov \
+chain that models this situation.  If the chain is regular, find its limiting \
+distribution.  If the chain is not regular, explain why it is not."
+}], "Text",
+ CellChangeTimes->{{3.43231103155*^9, 3.432311041266*^9}, 3.4570868681906*^9}],
+
+Cell[TextData[{
+ "6.  Show that for a regular Markov chain with transition matrix ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ ", the system ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox["\[Pi]",
+     FontWeight->"Bold"], "=", 
+    RowBox[{
+     StyleBox["\[Pi]",
+      FontWeight->"Bold"], " ", "T"}]}], TraditionalForm]]],
+ " has infinitely many solutions.  (Hint: Consider a constant times ",
+ StyleBox["\[Pi]",
+  FontWeight->"Bold"],
+ ".)"
+}], "Text"],
+
+Cell[TextData[{
+ StyleBox["7. (",
+  FontColor->GrayLevel[0]],
+ StyleBox["Mathematica",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[") Consider the Markov chain in Figure 3.  Find the limiting \
+distribution, and find ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" large enough that each entry of",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "n"], TraditionalForm]]],
+ " is within .01 of the corresponding entry of the limiting distribution."
+}], "Text",
+ CellChangeTimes->{{3.431981473365*^9, 3.431981506084*^9}, {
+   3.4323051890022*^9, 3.4323052459512*^9}, {3.4323111020629997`*^9, 
+   3.432311102891*^9}, 3.432311909197*^9}],
+
+Cell[TextData[{
+ StyleBox["8. Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "n"], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be a general two-state Markov chain such that ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"T", "(", 
+     RowBox[{"1", ",", "1"}], ")"}], "=", "p"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"T", "(", 
+     RowBox[{"2", ",", "2"}], ")"}], "=", "q"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". Find the distribution of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "3"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" if ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "0"], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is equally likely to be each state. Find the limiting \
+distribution in terms of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["q", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[", and find, if possible, a combination of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" and ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["q", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" values such that limiting distribution is ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"1", "/", "3"}], ",", 
+     RowBox[{"2", "/", "3"}]}], "}"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". ",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4319815823789997`*^9, 3.431981731803*^9}, {
+   3.4323111055880003`*^9, 3.43231110649*^9}, {3.4323117610620003`*^9, 
+   3.432311894481*^9}, 3.4323119276400003`*^9, 3.43233111845252*^9}],
+
+Cell[TextData[{
+ "9. (",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ") A short-haul rental moving van can be borrowed from and returned to three \
+sites in a city.  If it is borrowed from site 1, then it is returned to sites \
+1, 2, and 3 with probabilities 2/3, 1/6, and 1/6, respectively.  If it is \
+borrowed from site 2, then it is returned to sites 1, 2, and 3 with \
+probabilities 1/2, 1/4, and 1/4, respectively.  And if it is borrowed from \
+site 3, then it is returned to sites 1, 2, and 3 with equal probabilities.  \
+Given that the van starts at site 3, with what probability does it come to \
+each site after four rentals?  What is the long-run proportion of times that \
+it is returned to each site?"
+}], "Text",
+ CellChangeTimes->{{3.432311110242*^9, 3.432311111032*^9}, {
+  3.4323117302139997`*^9, 3.4323117329230003`*^9}}],
+
+Cell[TextData[{
+ "10. ",
+ StyleBox[" ",
+  FontColor->RGBColor[1, 0, 0]],
+ "A Markov chain has states 1, 2, 3, and 4, and the transition matrix below."
+}], "Text",
+ CellChangeTimes->{{3.4319812981540003`*^9, 3.431981329752*^9}, {
+  3.432311289953*^9, 3.432311290428*^9}, {3.4323117208859997`*^9, 
+  3.432311736578*^9}, {3.438379946821327*^9, 3.438379946823327*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"T", "=", " ", 
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {"1", "0", "0", "0"},
+      {".3", "0", ".7", "0"},
+      {"0", ".6", "0", ".4"},
+      {"0", "0", "0", "1"}
+     }], "\[NegativeThinSpace]", ")"}]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.438379953495327*^9, 3.4383799540043273`*^9}}],
+
+Cell[" Draw the transition diagram of the chain.  Let", "Text"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "i", ")"}], "=", " "}], TraditionalForm]]],
+ "P[chain hits state 1 before state 4 | ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["X", "0"], "=", "i"}], "]"}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"i", "=", "1"}], ",", "2", ",", "3", ",", "4"}], TraditionalForm]]]
+}], "DisplayFormula"],
+
+Cell[TextData[{
+ "Set up and solve a system of equations to find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "i", ")"}], TraditionalForm]]],
+ " for all states ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]]],
+ ". Explain where the equations in the system come from."
+}], "Text",
+ CellChangeTimes->{{3.432311268013*^9, 3.432311278189*^9}, {3.432311529392*^9,
+   3.432311575028*^9}}],
+
+Cell[TextData[{
+ StyleBox["11. Let ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    SubscriptBox["X", "n"], ")"}], TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" be a Markov chain with the transition matrix below. Classify all \
+states as transient, absorbing, or neither.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.43198018308*^9, 3.431980203826*^9}, {3.432312084539*^9, 
+  3.432312159955*^9}, {3.432312257953*^9, 3.432312288751*^9}, {
+  3.438379967493327*^9, 3.4383799674963274`*^9}}],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"(", "\[NegativeThinSpace]", GridBox[{
+      {
+       RowBox[{"1", "/", "3"}], 
+       RowBox[{"2", "/", "3"}], "0", "0", "0", "0"},
+      {
+       RowBox[{"1", "/", "2"}], 
+       RowBox[{"1", "/", "2"}], "0", "0", "0", "0"},
+      {"0", 
+       RowBox[{"1", "/", "2"}], "0", 
+       RowBox[{"1", "/", "6"}], 
+       RowBox[{"1", "/", "3"}], "0"},
+      {"0", "0", "0", 
+       RowBox[{"1", "/", "3"}], 
+       RowBox[{"1", "/", "3"}], "0"},
+      {"0", "0", "0", "0", "1", "0"},
+      {"0", "0", "0", "0", "0", "1"}
+     }], "\[NegativeThinSpace]", ")"}], 
+   StyleBox[" ",
+    FontColor->GrayLevel[0]]}], TraditionalForm]], "DisplayFormula",
+ CellChangeTimes->{{3.43198018308*^9, 3.431980203826*^9}, {3.432312084539*^9, 
+  3.432312159955*^9}, {3.432312257953*^9, 3.432312288751*^9}, {
+  3.438379967493327*^9, 3.4383799821333275`*^9}}],
+
+Cell[TextData[{
+ StyleBox["12. Consider the general four state absorbing random walk below.  \
+Find all probabilities of absorption to state 4 in terms of ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[". For what ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FontColor->GrayLevel[0]],
+ StyleBox[" is the absorption probability to state 4 from state 2 increasing \
+most rapidly?",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.431979657447*^9, 3.4319797188380003`*^9}, {
+  3.432312638648*^9, 3.432312688266*^9}, {3.432312938639*^9, 
+  3.432312939631*^9}, {3.4323312024945197`*^9, 3.43233120369452*^9}, {
+  3.43233185786152*^9, 3.43233186611152*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"g1", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"4", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"5", ",", "0"}], "}"}], ",", "0.2`"}], "]"}], ",", 
+      RowBox[{"Circle", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"6", ",", "0"}], "}"}], ",", "0.2`"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g2", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"{", 
+         RowBox[{"3", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", "\"\<Large\>\""}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"2", ",", 
+        RowBox[{"{", 
+         RowBox[{"4", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", "\"\<Large\>\""}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"3", ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", "\"\<Large\>\""}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"4", ",", 
+        RowBox[{"{", 
+         RowBox[{"6", ",", "0"}], "}"}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", "\"\<Large\>\""}]}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g3", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"3.8`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3.2`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"4.2`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4.8`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"5.2`", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5.8`", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"4.8`", ",", "0.1`"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4.2`", ",", "0.1`"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"g4", "=", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Text", "[", 
+       RowBox[{
+        RowBox[{"1", "-", "p"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"3.5`", ",", "0.1`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"p", ",", 
+        RowBox[{"{", 
+         RowBox[{"4.5`", ",", 
+          RowBox[{"-", "0.1`"}]}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{
+        RowBox[{"1", "-", "p"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"4.5`", ",", "0.2`"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"p", ",", 
+        RowBox[{"{", 
+         RowBox[{"5.5`", ",", "0.1`"}], "}"}]}], "]"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"Show", "[", 
+  RowBox[{"{", 
+   RowBox[{"g1", ",", "g2", ",", "g3", ",", "g4"}], "}"}], "]"}]}], "Input",
+ CellFrame->False,
+ CellOpen->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.399069504046875*^9, 3.39906955378125*^9}, {
+   3.399069595546875*^9, 3.399069749796875*^9}, {3.399069857890625*^9, 
+   3.3990698954375*^9}, {3.3990699309375*^9, 3.399069988234375*^9}, 
+   3.399070035671875*^9, {3.432313089164*^9, 3.432313154156*^9}},
+ AutoStyleOptions->{"FunctionLocalVariableStyle"->None,
+ "FunctionNotebookStyle"->None,
+ "GlobalSymbolStyle"->None,
+ "GlobalToLocalScopeConflictStyle"->None,
+ "LocalScopeConflictStyle"->None,
+ "LocalVariableStyle"->None,
+ "PatternVariableStyle"->None,
+ "UndefinedSymbolStyle"->None}],
+
+Cell[TextData[{
+ StyleBox["Exercise 12",
+  FontWeight->"Bold"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.438378835033327*^9, 3.4383788420933275`*^9}},
+ TextAlignment->Center],
+
+Cell[TextData[{
+ StyleBox["13. A ",
+  FontColor->GrayLevel[0]],
+ StyleBox["symmetric",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" random walk is one in which steps to the right and steps to the \
+left have equal probability. If a 5-state symmetric random walk with an \
+absorbing state on each end is such that states are numbered sequentially 0, \
+1, 2, 3, 4, show that the absorption probability at state 4 is a linear \
+function of the state.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellChangeTimes->{{3.4319803138789997`*^9, 3.431980358033*^9}, {
+   3.4323124886280003`*^9, 3.4323126078640003`*^9}, {3.432312945137*^9, 
+   3.432312946337*^9}, 3.4570870443146*^9}],
+
+Cell[TextData[StyleBox["14. In a manufacturing process, items go through four \
+stages of assembly before potentially being sent out for sale. At each stage, \
+the item is inspected, and either goes on to the next stage with probability \
+.9, or is disposed of because of defects. Model the situation as a Markov \
+chain. Find the proportion of items that complete all stages successfully and \
+are sent out for sale rather than being disposed of. ",
+ FontColor->GrayLevel[0]]], "Text",
+ CellChangeTimes->{{3.4319805844230003`*^9, 3.431980624574*^9}, {
+  3.4323127108929996`*^9, 3.432312918698*^9}, {3.432312954166*^9, 
+  3.432312955297*^9}}],
+
+Cell[TextData[{
+ StyleBox["15.  For the drilling machine in Example 1, compute the p.m.f. of \
+the time to absorption at state 5 given that the machine starts in state 1: ",
+  FontColor->GrayLevel[0]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"g", "(", "n", ")"}], "=", 
+    RowBox[{
+     StyleBox["P",
+      FontSlant->"Plain"], "[", 
+     RowBox[{
+      SubscriptBox["T", "5"], "=", 
+      RowBox[{
+       RowBox[{"n", "|", 
+        SubscriptBox["X", "0"]}], "=", "1"}]}], "]"}]}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "5"], TraditionalForm]]],
+ " is the first time that the chain hits state 5. "
+}], "Text",
+ CellChangeTimes->{{3.430912138601318*^9, 3.430912161635318*^9}, {
+  3.432311636271*^9, 3.432311674505*^9}, {3.43231200134*^9, 
+  3.4323120661280003`*^9}, {3.43231292856*^9, 3.432312998927*^9}, {
+  3.4323930976070004`*^9, 3.432393099578*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowSize->{655, 641},
+WindowMargins->{{10, Automatic}, {Automatic, 10}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], None, 
+   Cell[
+    TextData["Chapter 6  Stochastic Processes and Applications"], "Header"]}, {
+   Cell[
+    TextData["6.1 Markov Chains"], "Header"], None, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+ShowSelection->True,
+ShowCellLabel->False,
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 312, 9, 118, "Title"],
+Cell[882, 33, 27, 0, 35, "Input"],
+Cell[912, 35, 4355, 112, 382, "Text"],
+Cell[CellGroupData[{
+Cell[5292, 151, 127, 4, 68, "Section"],
+Cell[5422, 157, 622, 13, 69, "Text"],
+Cell[6047, 172, 556, 10, 110, "Text"],
+Cell[6606, 184, 136, 3, 48, "Text"],
+Cell[6745, 189, 326, 11, 69, "Text"],
+Cell[7074, 202, 291, 5, 69, "Text"],
+Cell[7368, 209, 533, 19, 49, "Text"],
+Cell[7904, 230, 913, 32, 33, "DisplayFormulaNumbered"],
+Cell[8820, 264, 543, 23, 27, "Text"],
+Cell[9366, 289, 1557, 31, 235, "Text"],
+Cell[CellGroupData[{
+Cell[10948, 324, 157, 2, 41, "Subsection"],
+Cell[11108, 328, 566, 16, 69, "Text"],
+Cell[11677, 346, 6588, 198, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[18268, 546, 217, 7, 28, "Text"],
+Cell[18488, 555, 1114, 30, 131, "Text"],
+Cell[19605, 587, 1114, 39, 114, "DisplayFormulaNumbered"],
+Cell[20722, 628, 420, 11, 48, "Text"],
+Cell[21145, 641, 413, 13, 27, "DisplayFormula"],
+Cell[21561, 656, 331, 8, 48, "Text"],
+Cell[21895, 666, 414, 12, 27, "DisplayFormula"],
+Cell[22312, 680, 615, 18, 48, "Text"],
+Cell[22930, 700, 863, 32, 90, "Text"],
+Cell[23796, 734, 924, 31, 92, "Text"],
+Cell[24723, 767, 1419, 55, 71, "Text"],
+Cell[26145, 824, 448, 18, 49, "Text"],
+Cell[26596, 844, 445, 15, 30, "DisplayFormula"],
+Cell[27044, 861, 888, 31, 71, "Text"],
+Cell[27935, 894, 1046, 36, 49, "DisplayFormula"],
+Cell[28984, 932, 570, 18, 50, "Text"],
+Cell[29557, 952, 612, 21, 49, "DisplayFormula"],
+Cell[30172, 975, 439, 15, 50, "Text"],
+Cell[30614, 992, 133, 1, 27, "Text"],
+Cell[30750, 995, 1616, 56, 69, "DisplayFormula"],
+Cell[32369, 1053, 237, 6, 27, "Text"],
+Cell[32609, 1061, 496, 15, 71, "Text"],
+Cell[33108, 1078, 976, 34, 90, "Text"],
+Cell[34087, 1114, 1124, 28, 194, "Text"],
+Cell[35214, 1144, 975, 26, 123, "Input",
+ InitializationCell->True],
+Cell[36192, 1172, 1316, 45, 112, "Text"],
+Cell[37511, 1219, 750, 22, 101, "Input",
+ InitializationCell->True],
+Cell[38264, 1243, 609, 21, 71, "Text"],
+Cell[38876, 1266, 705, 22, 56, "Input",
+ InitializationCell->True],
+Cell[39584, 1290, 258, 5, 48, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39879, 1300, 183, 3, 41, "Subsection"],
+Cell[40065, 1305, 202, 5, 27, "Text"],
+Cell[40270, 1312, 472, 15, 37, "DisplayFormulaNumbered"],
+Cell[40745, 1329, 594, 20, 72, "Text"],
+Cell[41342, 1351, 310, 11, 49, "Text"],
+Cell[41655, 1364, 1098, 25, 193, "Text"],
+Cell[42756, 1391, 5680, 169, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[48439, 1562, 276, 8, 49, "Text"],
+Cell[48718, 1572, 370, 6, 69, "Text"],
+Cell[49091, 1580, 4810, 149, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[53904, 1731, 199, 7, 28, "Text"],
+Cell[54106, 1740, 229, 8, 69, "Text"],
+Cell[54338, 1750, 127, 3, 48, "Text"],
+Cell[54468, 1755, 717, 22, 79, "Input",
+ InitializationCell->True],
+Cell[55188, 1779, 1039, 31, 145, "Input",
+ InitializationCell->True],
+Cell[56230, 1812, 764, 20, 90, "Text"],
+Cell[56997, 1834, 866, 27, 37, "DisplayFormulaNumbered"],
+Cell[57866, 1863, 426, 11, 70, "Text"],
+Cell[58295, 1876, 1811, 60, 93, "DisplayFormulaNumbered"],
+Cell[60109, 1938, 234, 6, 28, "Text"],
+Cell[60346, 1946, 402, 13, 33, "DisplayFormulaNumbered"],
+Cell[60751, 1961, 637, 24, 92, "Text"],
+Cell[61391, 1987, 1121, 39, 49, "Text"],
+Cell[62515, 2028, 133, 3, 48, "Text"],
+Cell[62651, 2033, 459, 8, 91, "Text"],
+Cell[63113, 2043, 510, 15, 27, "DisplayFormula"],
+Cell[63626, 2060, 251, 4, 69, "Text"],
+Cell[63880, 2066, 1265, 39, 189, "Input",
+ InitializationCell->True],
+Cell[65148, 2107, 170, 4, 48, "Text"],
+Cell[65321, 2113, 789, 22, 92, "Text"],
+Cell[66113, 2137, 790, 26, 79, "Input",
+ InitializationCell->True],
+Cell[66906, 2165, 1314, 40, 111, "Text"],
+Cell[68223, 2207, 3416, 108, 211, "Input",
+ InitializationCell->True],
+Cell[71642, 2317, 139, 3, 27, "Text"],
+Cell[71784, 2322, 776, 25, 79, "Input",
+ InitializationCell->True],
+Cell[72563, 2349, 486, 10, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73086, 2364, 219, 3, 41, "Subsection"],
+Cell[73308, 2369, 932, 22, 131, "Text"],
+Cell[74243, 2393, 702, 21, 70, "Text"],
+Cell[74948, 2416, 4635, 135, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[79586, 2553, 212, 7, 28, "Text"],
+Cell[79801, 2562, 886, 20, 131, "Text"],
+Cell[80690, 2584, 250, 7, 48, "Text"],
+Cell[80943, 2593, 1765, 48, 156, "Text"],
+Cell[82711, 2643, 424, 14, 33, "DisplayFormulaNumbered"],
+Cell[83138, 2659, 354, 10, 27, "Text"],
+Cell[83495, 2671, 370, 11, 27, "DisplayFormula"],
+Cell[83868, 2684, 960, 24, 133, "Text"],
+Cell[84831, 2710, 979, 29, 70, "Text"],
+Cell[85813, 2741, 571, 19, 38, "DisplayFormulaNumbered"],
+Cell[86387, 2762, 1229, 39, 91, "Text"],
+Cell[87619, 2803, 3065, 100, 106, "DisplayFormula"],
+Cell[90687, 2905, 236, 5, 27, "Text"],
+Cell[90926, 2912, 919, 21, 114, "Text"],
+Cell[91848, 2935, 1129, 39, 71, "DisplayFormula"],
+Cell[92980, 2976, 551, 16, 69, "Text"],
+Cell[93534, 2994, 431, 9, 70, "Text"],
+Cell[93968, 3005, 6488, 193, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[100459, 3200, 236, 8, 28, "Text"],
+Cell[100698, 3210, 505, 14, 48, "Text"],
+Cell[101206, 3226, 16, 0, 27, "Text"],
+Cell[101225, 3228, 1801, 60, 86, "DisplayFormula"],
+Cell[103029, 3290, 635, 18, 90, "Text"],
+Cell[103667, 3310, 1598, 51, 101, "Input",
+ InitializationCell->True],
+Cell[105268, 3363, 2141, 62, 193, "Text"],
+Cell[107412, 3427, 1268, 38, 104, "Input",
+ InitializationCell->True],
+Cell[108683, 3467, 268, 8, 28, "Text"],
+Cell[108954, 3477, 515, 13, 90, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[109506, 3495, 145, 3, 41, "Subsection"],
+Cell[109654, 3500, 452, 16, 69, "Text"],
+Cell[110109, 3518, 706, 13, 152, "Text"],
+Cell[110818, 3533, 768, 26, 69, "Text"],
+Cell[111589, 3561, 378, 10, 48, "Text"],
+Cell[111970, 3573, 912, 15, 173, "Text"],
+Cell[112885, 3590, 461, 17, 49, "Text"],
+Cell[113349, 3609, 799, 23, 69, "Text"],
+Cell[114151, 3634, 2089, 71, 90, "Text"],
+Cell[116243, 3707, 845, 15, 152, "Text"],
+Cell[117091, 3724, 364, 8, 27, "Text"],
+Cell[117458, 3734, 361, 9, 86, "DisplayFormula"],
+Cell[117822, 3745, 63, 0, 27, "Text"],
+Cell[117888, 3747, 428, 16, 27, "DisplayFormula"],
+Cell[118319, 3765, 390, 11, 48, "Text"],
+Cell[118712, 3778, 547, 14, 48, "Text"],
+Cell[119262, 3794, 883, 24, 126, "DisplayFormula"],
+Cell[120148, 3820, 771, 19, 69, "Text"],
+Cell[120922, 3841, 4147, 125, 23, "Input",
+ CellOpen->False,
+ InitializationCell->True],
+Cell[125072, 3968, 172, 6, 28, "Text"],
+Cell[125247, 3976, 689, 15, 90, "Text"],
+Cell[125939, 3993, 642, 9, 110, "Text"],
+Cell[126584, 4004, 905, 25, 69, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
