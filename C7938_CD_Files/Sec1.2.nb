@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     94074,       2964]
-NotebookOptionsPosition[     87906,       2801]
-NotebookOutlinePosition[     88777,       2834]
-CellTagsIndexPosition[     88734,       2831]
+NotebookDataLength[     94156,       2961]
+NotebookOptionsPosition[     87955,       2798]
+NotebookOutlinePosition[     88827,       2831]
+CellTagsIndexPosition[     88784,       2828]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -114,33 +114,33 @@ Cell[TextData[{
  FontFamily->"Arial",
  FontWeight->"Bold"],
 
-Cell["\<\
-\tThere are 5 possible outcomes, namely, the scores 1-5.  We can think of the \
-experiment of randomly sampling a student score as spinning the arrow on the \
-pie chart of Figure 2, which has been constructed so that the angles of the \
-circular wedges are proportional to the frequencies in the categories that \
-were listed in the last paragraph.  
-\tThis example illustrates several important features of the subject of \
-probability.  First, there is an underlying physics that drives the motion \
-and final resting position of the arrow.  But differences in the starting \
-point, the angular momentum imparted to the arrow, and even slight wind \
-currents and unevenness of the surface of the spinner give rise to a \
-non-deterministic or random phenomenon.  We cannot predict with certainty \
-where the arrow will land. It could be philosophically argued that if we knew \
-all of these randomizing factors perfectly, then the laws of physics would \
-perfectly predict the landing point of the arrow, so that the phenomenon is \
-not really random.  Perhaps this is true in most, if not all, phenomena that \
-we call random.  Nevertheless, it is difficult to know these factors, and the \
-ability to measure likelihoods of events that we model as random is useful to \
-have. 
-\tSecond, this example shows the two main ways of arriving at an assignment \
-of probabilities. We might make simplifying assumptions which lead to a \
-logical assignment of probability.  Or we might repeat the experiment many \
-times and observe how frequently events occur.  We were fortunate enough here \
-to have the background data from which our spinner was constructed, which \
-would indicate by simple counting that if the spinner was truly spun \
-\"randomly\" we should assign probabilities\
-\>", "Text",
+Cell[TextData[{
+ "\tThere are 5 possible outcomes, namely, the scores 1-5.  We can think of \
+the experiment of randomly sampling a student score as spinning the arrow on \
+the pie chart of Figure 2, which has been constructed so that the angles of \
+the circular wedges are proportional to the frequencies in the categories \
+that were listed in the last paragraph.  \n\tThis example illustrates several \
+important features of the subject of probability.  First, there is an \
+underlying physics that drives the motion and final resting position of the \
+arrow.  But differences in the starting point, the angular momentum imparted \
+to the arrow, and even slight wind currents and unevenness of the surface of \
+the spinner give rise to a non-deterministic or random phenomenon.  We cannot \
+predict with certainty where the arrow will land. It could be philosophically \
+argued that if we knew all of these randomizing factors perfectly, then the \
+laws of physics would perfectly predict the landing point of the arrow, so \
+that the phenomenon is not really random.  Perhaps this is true in most, if \
+not all, phenomena that we call random.  Nevertheless, it is difficult to \
+know these factors, and the ability to measure likelihoods of events that we \
+model as random is useful to have. \n\tSecond, this example shows the ",
+ StyleBox["two main ways",
+  Background->RGBColor[1, 0.85, 0.85]],
+ " of arriving at an assignment of probabilities. We might make simplifying \
+assumptions which lead to a logical assignment of probability.  Or we might \
+repeat the experiment many times and observe how frequently events occur.  We \
+were fortunate enough here to have the background data from which our spinner \
+was constructed, which would indicate by simple counting that if the spinner \
+was truly spun \"randomly\" we should assign probabilities"
+}], "Text",
  CellChangeTimes->{{3.403886132*^9, 3.403886132140625*^9}, {
   3.423414558359375*^9, 3.423414559703125*^9}, {3.4356825616099997`*^9, 
   3.435682561901*^9}, {3.4562638020392*^9, 3.4562638305716*^9}}],
@@ -748,8 +748,7 @@ are called ",
 Cell[TextData[{
  "\tDefinition 2 below is provisional ",
  Cell[BoxData[
-  FormBox["-", TraditionalForm]],
-  FormatType->"TraditionalForm"],
+  FormBox["-", TraditionalForm]]],
  " we will have to be more careful about what an event is when we come to \
 continuous probability. "
 }], "Text",
@@ -804,9 +803,9 @@ Cell[BoxData[
    "]"}]}]], "Input",
  CellFrame->True,
  InitializationCell->True,
- AutoStyleOptions->{"GlobalSymbolStyle"->None,
- "LocalVariableStyle"->None,
- "UndefinedSymbolStyle"->None}],
+ AutoStyleOptions->{"LocalVariableStyle"->None,
+ "UndefinedSymbolStyle"->None},
+ AutoStyleOptions -> {"GlobalSymbolStyle" -> None}],
 
 Cell[BoxData[
  RowBox[{"\[ScriptCapitalH]", "=", " ", 
@@ -2103,9 +2102,7 @@ Cell[BoxData[
     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
      "RowsIndexed" -> {}}], TextForm]], "DisplayFormulaNumbered"],
 
-Cell["\<\
-This finishes the inductive step of the proof.  \[FilledSquare]\
-\>", "Text",
+Cell["This finishes the inductive step of the proof.  \[FilledSquare]", "Text",
  CellChangeTimes->{{3.40665110146875*^9, 3.40665110346875*^9}}],
 
 Cell[TextData[{
@@ -2801,8 +2798,8 @@ a randomly chosen employee will choose no supplementary coverage. \
 },
 AutoGeneratedPackage->None,
 CellGrouping->Manual,
-WindowSize->{661, 634},
-WindowMargins->{{4, Automatic}, {Automatic, 4}},
+WindowSize->{845, 711},
+WindowMargins->{{118, Automatic}, {162, Automatic}},
 PrintingCopies->1,
 PrintingPageRange->{Automatic, Automatic},
 PageHeaders->{{
@@ -2817,8 +2814,8 @@ PageHeaders->{{
     TextData[{
       CounterBox["Page"]}], "PageNumber"]}},
 ShowCellLabel->False,
-Magnification->1.25,
-FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+Magnification->2.,
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
 StyleDefinitions->FrontEnd`FileName[{"Book"}, "Textbook.nb", 
   CharacterEncoding -> "WindowsANSI"]
 ]
@@ -2833,139 +2830,139 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[545, 20, 182, 4, 68, "Section"],
-Cell[730, 26, 538, 8, 87, "Text"],
-Cell[1271, 36, 822, 15, 132, "Text"],
-Cell[2096, 53, 1873, 51, 23, "Input",
+Cell[545, 20, 182, 4, 109, "Section"],
+Cell[730, 26, 538, 8, 202, "Text"],
+Cell[1271, 36, 822, 15, 274, "Text"],
+Cell[2096, 53, 1873, 51, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[3972, 106, 256, 8, 24, "FigureCaption"],
-Cell[4231, 116, 2002, 29, 339, "Text"],
-Cell[6236, 147, 887, 31, 47, "DisplayFormulaNumbered",
+Cell[3972, 106, 256, 8, 37, "FigureCaption"],
+Cell[4231, 116, 2068, 29, 802, "Text"],
+Cell[6302, 147, 887, 31, 144, "DisplayFormulaNumbered",
  CounterAssignments->{"Chapter", "2"}],
-Cell[7126, 180, 1638, 27, 297, "Text"],
-Cell[8767, 209, 712, 23, 47, "DisplayFormulaNumbered"],
-Cell[9482, 234, 675, 13, 110, "Text"],
-Cell[10160, 249, 819, 23, 100, "DisplayFormulaNumbered"],
-Cell[10982, 274, 885, 24, 90, "Text"],
-Cell[11870, 300, 732, 18, 111, "Text"],
-Cell[12605, 320, 439, 7, 69, "Text"],
-Cell[13047, 329, 812, 25, 90, "DisplayFormulaNumbered"],
-Cell[13862, 356, 236, 9, 27, "Text"],
-Cell[14101, 367, 355, 13, 33, "DisplayFormulaNumbered"],
-Cell[14459, 382, 546, 15, 48, "Text"],
-Cell[15008, 399, 1106, 28, 194, "Text"],
-Cell[16117, 429, 174, 4, 56, "Input",
+Cell[7192, 180, 1638, 27, 637, "Text"],
+Cell[8833, 209, 712, 23, 73, "DisplayFormulaNumbered"],
+Cell[9548, 234, 675, 13, 238, "Text"],
+Cell[10226, 249, 819, 23, 156, "DisplayFormulaNumbered"],
+Cell[11048, 274, 885, 24, 173, "Text"],
+Cell[11936, 300, 732, 18, 206, "Text"],
+Cell[12671, 320, 439, 7, 173, "Text"],
+Cell[13113, 329, 812, 25, 140, "DisplayFormulaNumbered"],
+Cell[13928, 356, 236, 9, 42, "Text"],
+Cell[14167, 367, 355, 13, 42, "DisplayFormulaNumbered"],
+Cell[14525, 382, 546, 15, 108, "Text"],
+Cell[15074, 399, 1106, 28, 369, "Text"],
+Cell[16183, 429, 174, 4, 91, "Input",
  InitializationCell->True],
-Cell[16294, 435, 216, 7, 56, "Input",
+Cell[16360, 435, 216, 7, 91, "Input",
  InitializationCell->True],
-Cell[16513, 444, 253, 8, 56, "Input",
+Cell[16579, 444, 253, 8, 91, "Input",
  InitializationCell->True],
-Cell[16769, 454, 611, 13, 90, "Text"],
-Cell[17383, 469, 685, 22, 47, "DisplayFormulaNumbered"],
-Cell[18071, 493, 112, 3, 27, "Text"],
-Cell[18186, 498, 567, 19, 47, "DisplayFormulaNumbered"],
-Cell[18756, 519, 119, 3, 27, "Text"],
-Cell[18878, 524, 269, 7, 69, "Text"],
-Cell[19150, 533, 32, 0, 27, "Text"],
-Cell[19185, 535, 1628, 52, 78, "DisplayFormula"],
-Cell[20816, 589, 19, 0, 27, "Text"],
-Cell[20838, 591, 1448, 47, 78, "DisplayFormula"],
-Cell[22289, 640, 242, 4, 48, "Text"],
-Cell[22534, 646, 359, 13, 54, "Equation"],
-Cell[22896, 661, 24, 0, 27, "Text"],
-Cell[22923, 663, 384, 13, 54, "Equation"],
-Cell[23310, 678, 1038, 28, 110, "Text"],
-Cell[24351, 708, 527, 16, 69, "Text"],
-Cell[24881, 726, 325, 5, 69, "Text"],
-Cell[25209, 733, 298, 12, 28, "Text"],
-Cell[25510, 747, 293, 8, 48, "Text"],
-Cell[25806, 757, 454, 14, 49, "Text"],
-Cell[26263, 773, 1063, 22, 214, "Text"],
-Cell[27329, 797, 350, 11, 56, "Input",
+Cell[16835, 454, 611, 13, 173, "Text"],
+Cell[17449, 469, 685, 22, 73, "DisplayFormulaNumbered"],
+Cell[18137, 493, 112, 3, 42, "Text"],
+Cell[18252, 498, 567, 19, 73, "DisplayFormulaNumbered"],
+Cell[18822, 519, 119, 3, 76, "Text"],
+Cell[18944, 524, 269, 7, 141, "Text"],
+Cell[19216, 533, 32, 0, 42, "Text"],
+Cell[19251, 535, 1628, 52, 124, "DisplayFormula"],
+Cell[20882, 589, 19, 0, 42, "Text"],
+Cell[20904, 591, 1448, 47, 150, "DisplayFormula"],
+Cell[22355, 640, 242, 4, 76, "Text"],
+Cell[22600, 646, 359, 13, 85, "Equation"],
+Cell[22962, 661, 24, 0, 42, "Text"],
+Cell[22989, 663, 384, 13, 85, "Equation"],
+Cell[23376, 678, 1038, 28, 238, "Text"],
+Cell[24417, 708, 527, 16, 141, "Text"],
+Cell[24947, 726, 325, 5, 141, "Text"],
+Cell[25275, 733, 298, 12, 76, "Text"],
+Cell[25576, 747, 260, 7, 76, "Text"],
+Cell[25839, 756, 454, 14, 76, "Text"],
+Cell[26296, 772, 1063, 22, 337, "Text"],
+Cell[27362, 796, 374, 11, 91, "Input",
  InitializationCell->True],
-Cell[27682, 810, 214, 5, 56, "Input",
+Cell[27739, 809, 214, 5, 91, "Input",
  InitializationCell->True],
-Cell[27899, 817, 1183, 34, 131, "Text"],
-Cell[29085, 853, 1182, 38, 142, "Text"],
-Cell[30270, 893, 1321, 22, 256, "Text"],
-Cell[31594, 917, 262, 12, 28, "Text"],
-Cell[31859, 931, 321, 12, 33, "DisplayFormulaNumbered"],
-Cell[32183, 945, 670, 31, 27, "Text"],
-Cell[32856, 978, 295, 12, 28, "Text"],
-Cell[33154, 992, 704, 24, 34, "Equation"],
-Cell[33861, 1018, 346, 12, 27, "Text"],
-Cell[34210, 1032, 1008, 31, 34, "Equation"],
-Cell[35221, 1065, 517, 9, 131, "Text"],
-Cell[35741, 1076, 202, 10, 28, "Text"],
-Cell[35946, 1088, 749, 29, 33, "DisplayFormulaNumbered"],
-Cell[36698, 1119, 160, 8, 27, "Text"],
-Cell[36861, 1129, 408, 15, 34, "Equation"],
-Cell[37272, 1146, 2778, 79, 23, "Input",
+Cell[27956, 816, 1183, 34, 272, "Text"],
+Cell[29142, 852, 1182, 38, 222, "Text"],
+Cell[30327, 892, 1321, 22, 538, "Text"],
+Cell[31651, 916, 262, 12, 42, "Text"],
+Cell[31916, 930, 321, 12, 42, "DisplayFormulaNumbered"],
+Cell[32240, 944, 670, 31, 42, "Text"],
+Cell[32913, 977, 295, 12, 76, "Text"],
+Cell[33211, 991, 704, 24, 54, "Equation"],
+Cell[33918, 1017, 346, 12, 42, "Text"],
+Cell[34267, 1031, 1008, 31, 54, "Equation"],
+Cell[35278, 1064, 517, 9, 206, "Text"],
+Cell[35798, 1075, 202, 10, 42, "Text"],
+Cell[36003, 1087, 749, 29, 42, "DisplayFormulaNumbered"],
+Cell[36755, 1118, 160, 8, 42, "Text"],
+Cell[36918, 1128, 408, 15, 54, "Equation"],
+Cell[37329, 1145, 2778, 79, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[40053, 1227, 327, 9, 24, "FigureCaption"],
-Cell[40383, 1238, 1199, 44, 49, "Text"],
-Cell[41585, 1284, 2663, 89, 57, "Equation"],
-Cell[44251, 1375, 26, 0, 27, "Text"],
-Cell[44280, 1377, 1198, 46, 36, "DisplayFormulaNumbered"],
-Cell[45481, 1425, 813, 31, 48, "Text"],
-Cell[46297, 1458, 983, 38, 33, "DisplayFormulaNumbered"],
-Cell[47283, 1498, 539, 16, 48, "Text"],
-Cell[47825, 1516, 314, 7, 69, "Text"],
-Cell[48142, 1525, 347, 6, 69, "Text"],
-Cell[48492, 1533, 291, 12, 28, "Text"],
-Cell[48786, 1547, 448, 14, 69, "Text"],
-Cell[49237, 1563, 522, 25, 28, "Text"],
-Cell[49762, 1590, 1342, 31, 193, "Text"],
-Cell[51107, 1623, 2434, 77, 23, "Input",
+Cell[40110, 1226, 327, 9, 61, "FigureCaption"],
+Cell[40440, 1237, 1199, 44, 108, "Text"],
+Cell[41642, 1283, 2663, 89, 114, "Equation"],
+Cell[44308, 1374, 26, 0, 54, "Text"],
+Cell[44337, 1376, 1198, 46, 72, "DisplayFormulaNumbered"],
+Cell[45538, 1424, 813, 31, 96, "Text"],
+Cell[46354, 1457, 983, 38, 66, "DisplayFormulaNumbered"],
+Cell[47340, 1497, 539, 16, 96, "Text"],
+Cell[47882, 1515, 314, 7, 138, "Text"],
+Cell[48199, 1524, 347, 6, 138, "Text"],
+Cell[48549, 1532, 291, 12, 56, "Text"],
+Cell[48843, 1546, 448, 14, 138, "Text"],
+Cell[49294, 1562, 522, 25, 56, "Text"],
+Cell[49819, 1589, 1342, 31, 386, "Text"],
+Cell[51164, 1622, 2434, 77, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[53544, 1702, 252, 8, 24, "FigureCaption"],
-Cell[53799, 1712, 860, 28, 51, "Text"],
-Cell[54662, 1742, 429, 15, 38, "DisplayFormulaNumbered"],
-Cell[55094, 1759, 1217, 44, 72, "Text"],
-Cell[56314, 1805, 1554, 53, 37, "Equation"],
-Cell[57871, 1860, 822, 27, 90, "Text"],
-Cell[58696, 1889, 745, 22, 34, "Equation"],
-Cell[59444, 1913, 214, 7, 27, "Text"],
-Cell[59661, 1922, 5119, 181, 130, "DisplayFormulaNumbered"],
-Cell[64783, 2105, 151, 3, 27, "Text"],
-Cell[64937, 2110, 307, 10, 69, "Text"],
-Cell[65247, 2122, 80, 2, 41, "Subsection"],
-Cell[65330, 2126, 523, 9, 128, "Text"],
-Cell[65856, 2137, 822, 12, 173, "Text"],
-Cell[66681, 2151, 1500, 46, 276, "DisplayFormula"],
-Cell[68184, 2199, 102, 3, 24, "FigureCaption"],
-Cell[68289, 2204, 745, 13, 193, "Text"],
-Cell[69037, 2219, 522, 12, 90, "Text"],
-Cell[69562, 2233, 720, 34, 48, "Text"],
-Cell[70285, 2269, 546, 18, 175, "Equation"],
-Cell[70834, 2289, 496, 15, 69, "Text"],
-Cell[71333, 2306, 1284, 20, 276, "Text"],
-Cell[72620, 2328, 1275, 37, 193, "Text"],
-Cell[73898, 2367, 2071, 62, 23, "Input",
+Cell[53601, 1701, 252, 8, 48, "FigureCaption"],
+Cell[53856, 1711, 860, 28, 102, "Text"],
+Cell[54719, 1741, 429, 15, 76, "DisplayFormulaNumbered"],
+Cell[55151, 1758, 1217, 44, 144, "Text"],
+Cell[56371, 1804, 1554, 53, 74, "Equation"],
+Cell[57928, 1859, 822, 27, 180, "Text"],
+Cell[58753, 1888, 745, 22, 68, "Equation"],
+Cell[59501, 1912, 214, 7, 54, "Text"],
+Cell[59718, 1921, 5119, 181, 260, "DisplayFormulaNumbered"],
+Cell[64840, 2104, 143, 1, 54, "Text"],
+Cell[64986, 2107, 307, 10, 138, "Text"],
+Cell[65296, 2119, 80, 2, 82, "Subsection"],
+Cell[65379, 2123, 523, 9, 256, "Text"],
+Cell[65905, 2134, 822, 12, 346, "Text"],
+Cell[66730, 2148, 1500, 46, 552, "DisplayFormula"],
+Cell[68233, 2196, 102, 3, 48, "FigureCaption"],
+Cell[68338, 2201, 745, 13, 386, "Text"],
+Cell[69086, 2216, 522, 12, 180, "Text"],
+Cell[69611, 2230, 720, 34, 96, "Text"],
+Cell[70334, 2266, 546, 18, 350, "Equation"],
+Cell[70883, 2286, 496, 15, 138, "Text"],
+Cell[71382, 2303, 1284, 20, 552, "Text"],
+Cell[72669, 2325, 1275, 37, 386, "Text"],
+Cell[73947, 2364, 2071, 62, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[75972, 2431, 102, 3, 24, "FigureCaption"],
-Cell[76077, 2436, 528, 26, 27, "Text"],
-Cell[76608, 2464, 36, 0, 27, "Text"],
-Cell[76647, 2466, 51, 0, 27, "Text"],
-Cell[76701, 2468, 37, 0, 27, "Text"],
-Cell[76741, 2470, 1048, 39, 48, "Text"],
-Cell[77792, 2511, 209, 11, 27, "Text"],
-Cell[78004, 2524, 1428, 50, 57, "Equation"],
-Cell[79435, 2576, 1395, 49, 94, "Text"],
-Cell[80833, 2627, 2114, 69, 94, "Equation"],
-Cell[82950, 2698, 481, 13, 90, "Text"],
-Cell[83434, 2713, 180, 3, 48, "Text"],
-Cell[83617, 2718, 569, 9, 90, "Text"],
-Cell[84189, 2729, 515, 10, 90, "Text"],
-Cell[84707, 2741, 308, 5, 27, "Text"],
-Cell[85018, 2748, 629, 10, 90, "Text"],
-Cell[85650, 2760, 604, 10, 69, "Text"],
-Cell[86257, 2772, 864, 13, 110, "Text"],
-Cell[87124, 2787, 778, 12, 110, "Text"]
+Cell[76021, 2428, 102, 3, 48, "FigureCaption"],
+Cell[76126, 2433, 528, 26, 54, "Text"],
+Cell[76657, 2461, 36, 0, 54, "Text"],
+Cell[76696, 2463, 51, 0, 54, "Text"],
+Cell[76750, 2465, 37, 0, 54, "Text"],
+Cell[76790, 2467, 1048, 39, 96, "Text"],
+Cell[77841, 2508, 209, 11, 54, "Text"],
+Cell[78053, 2521, 1428, 50, 114, "Equation"],
+Cell[79484, 2573, 1395, 49, 188, "Text"],
+Cell[80882, 2624, 2114, 69, 188, "Equation"],
+Cell[82999, 2695, 481, 13, 180, "Text"],
+Cell[83483, 2710, 180, 3, 96, "Text"],
+Cell[83666, 2715, 569, 9, 180, "Text"],
+Cell[84238, 2726, 515, 10, 180, "Text"],
+Cell[84756, 2738, 308, 5, 54, "Text"],
+Cell[85067, 2745, 629, 10, 180, "Text"],
+Cell[85699, 2757, 604, 10, 138, "Text"],
+Cell[86306, 2769, 864, 13, 220, "Text"],
+Cell[87173, 2784, 778, 12, 220, "Text"]
 }
 ]
 *)
