@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     94156,       2961]
-NotebookOptionsPosition[     87955,       2798]
-NotebookOutlinePosition[     88827,       2831]
-CellTagsIndexPosition[     88784,       2828]
+NotebookDataLength[    119673,       3645]
+NotebookOptionsPosition[    112681,       3455]
+NotebookOutlinePosition[    113552,       3488]
+CellTagsIndexPosition[    113509,       3485]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -50,6 +50,8 @@ test score. "
 }], "Text",
  CellChangeTimes->{{3.40663977084375*^9, 3.406639776078125*^9}, 
    3.4562637892004004`*^9}],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -103,6 +105,327 @@ Cell[BoxData[{
  "LocalVariableStyle"->None,
  "PatternVariableStyle"->None,
  "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {}, 
+    DynamicModuleBox[{DynamicChart`click$403$466 = True, 
+     DynamicChart`click$413$466 = True, DynamicChart`click$417$466 = False, 
+     DynamicChart`click$421$466 = True, DynamicChart`click$425$466 = True}, {
+      {RGBColor[0.5, 0.5, 1.], EdgeForm[{GrayLevel[0], Opacity[0.5]}], {{{}, {
+          {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[0.5]}], 
+           GeometricTransformationBox[
+            TagBox[
+             TagBox[
+              TooltipBox[
+               TagBox[{
+                 DynamicBox[{
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"], 
+                    EdgeForm[{
+                    GrayLevel[0.5], 
+                    AbsoluteThickness[2.5], 
+                    Opacity[0.66]}], {}, {}], 
+                   
+                   DiskBox[{0, 0}, 1., {2.763886956813766, 
+                    3.141592653589793}]},
+                  
+                  ImageSizeCache->{{57.44578643762691, 
+                   295.7142135623731}, {-97.94186200373768, \
+-8.285786437626896}}], {}},
+                StatusArea[#, 74]& ,
+                TagBoxNote->"74"],
+               StyleBox[
+               "74", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+              Annotation[#, 
+               Style[74, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+             
+             EventHandlerTag[{
+              "MouseClicked" :> FEPrivate`Set[DynamicChart`click$403$466, 
+                 FEPrivate`Not[DynamicChart`click$403$466]], PassEventsDown -> 
+               True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+            If[DynamicChart`click$403$466, {{{1., 0}, {
+                0, 1.}}, {-0.19644404774360977`, 0.03754645264344388}}, {{1, 
+              0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+             TrackedSymbols :> {DynamicChart`click$403$466}]]}, 
+          {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[0.5]}], 
+           GeometricTransformationBox[
+            TagBox[
+             TagBox[
+              TooltipBox[
+               TagBox[{
+                 DynamicBox[{
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"], 
+                    EdgeForm[{
+                    GrayLevel[0.5], 
+                    AbsoluteThickness[2.5], 
+                    Opacity[0.66]}], {}, {}], 
+                   
+                   DiskBox[{0, 0}, 1., {1.2683765628221992`, 
+                    2.763886956813766}]},
+                  
+                  ImageSizeCache->{{74.0411998787111, 
+                   365.83555080659437`}, {-246.5542135623731, \
+-8.285786437626882}}], {}},
+                StatusArea[#, 293]& ,
+                TagBoxNote->"293"],
+               StyleBox[
+               "293", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+              Annotation[#, 
+               Style[293, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+             
+             EventHandlerTag[{
+              "MouseClicked" :> FEPrivate`Set[DynamicChart`click$413$466, 
+                 FEPrivate`Not[DynamicChart`click$413$466]], PassEventsDown -> 
+               True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+            If[DynamicChart`click$413$466, {{{1., 0}, {
+                0, 1.}}, {-0.08615212430056864, 0.18049324496639585`}}, {{1, 
+              0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+             TrackedSymbols :> {DynamicChart`click$413$466}]]}, 
+          {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[0.5]}], 
+           GeometricTransformationBox[
+            TagBox[
+             TagBox[
+              TooltipBox[
+               TagBox[{
+                 DynamicBox[{
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"], 
+                    EdgeForm[{
+                    GrayLevel[0.5], 
+                    AbsoluteThickness[2.5], 
+                    Opacity[0.66]}], {}, {}], 
+                   
+                   DiskBox[{0, 0}, 1., {-1.1816063351844628`, 
+                    1.2683765628221992`}]},
+                  
+                  ImageSizeCache->{{292.8857864376269, 
+                   531.1542135623731}, {-235.86961764219095`, 
+                   209.54723628434616`}}], {}},
+                StatusArea[#, 480]& ,
+                TagBoxNote->"480"],
+               StyleBox[
+               "480", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+              Annotation[#, 
+               Style[480, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+             
+             EventHandlerTag[{
+              "MouseClicked" :> FEPrivate`Set[DynamicChart`click$417$466, 
+                 FEPrivate`Not[DynamicChart`click$417$466]], PassEventsDown -> 
+               True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+            If[DynamicChart`click$417$466, {{{1., 0}, {0, 1.}}, {
+               0.1998118027124834, 0.008674300939419672}}, {{1, 0}, {0, 
+              1}}, {{1, 0}, {0, 1}}], 
+             TrackedSymbols :> {DynamicChart`click$417$466}]]}, 
+          {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[0.5]}], 
+           GeometricTransformationBox[
+            TagBox[
+             TagBox[
+              TooltipBox[
+               TagBox[{
+                 DynamicBox[{
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"], 
+                    EdgeForm[{
+                    GrayLevel[0.5], 
+                    AbsoluteThickness[2.5], 
+                    Opacity[0.66]}], {}, {}], 
+                   
+                   DiskBox[{0, 0}, 
+                    1., {-2.4780556187129887`, -1.1816063351844628`}]},
+                  
+                  ImageSizeCache->{{107.40175672668877`, 
+                   385.04935676933496`}, {-11.114213562373067`, 
+                   227.15421356237312`}}], {}},
+                StatusArea[#, 254]& ,
+                TagBoxNote->"254"],
+               StyleBox[
+               "254", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+              Annotation[#, 
+               Style[254, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+             
+             EventHandlerTag[{
+              "MouseClicked" :> FEPrivate`Set[DynamicChart`click$421$466, 
+                 FEPrivate`Not[DynamicChart`click$421$466]], PassEventsDown -> 
+               True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+            If[
+             DynamicChart`click$421$466, {{{1., 0}, {
+                0, 1.}}, {-0.051229505566720374`, -0.19332754009553157`}}, {{
+              1, 0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+             TrackedSymbols :> {DynamicChart`click$421$466}]]}, 
+          {GrayLevel[1], EdgeForm[{GrayLevel[0], Opacity[0.5]}], 
+           GeometricTransformationBox[
+            TagBox[
+             TagBox[
+              TooltipBox[
+               TagBox[{
+                 DynamicBox[{
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"], 
+                    EdgeForm[{
+                    GrayLevel[0.5], 
+                    AbsoluteThickness[2.5], 
+                    Opacity[0.66]}], {}, {}], 
+                   
+                   DiskBox[{0, 0}, 
+                    1., {-3.141592653589793, -2.4780556187129887`}]},
+                  
+                  ImageSizeCache->{{57.44578643762691, 
+                   295.7142135623731}, {-11.114213562373067`, 
+                   136.72341438146532`}}], {}},
+                StatusArea[#, 130]& ,
+                TagBoxNote->"130"],
+               StyleBox[
+               "130", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+              Annotation[#, 
+               Style[130, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+             
+             EventHandlerTag[{
+              "MouseClicked" :> FEPrivate`Set[DynamicChart`click$425$466, 
+                 FEPrivate`Not[DynamicChart`click$425$466]], PassEventsDown -> 
+               True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+            If[DynamicChart`click$425$466, {{{1., 0}, {
+                0, 1.}}, {-0.18909355772689343`, -0.06514312263152591}}, {{1, 
+              0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+             TrackedSymbols :> {
+              DynamicChart`click$425$466}]]}}}, {}}, {}}, {{{
+         GeometricTransformationBox[
+          TagBox[
+           TagBox[
+            TooltipBox[
+             TagBox[{{}, {{}, InsetBox[
+                 StyleBox["1",
+                  StripOnInput->False,
+                  
+                  FontFamily->
+                   "Helvetica"], \
+{-0.6548134924786991, 0.12515484214481293`}]}},
+              StatusArea[#, 74]& ,
+              TagBoxNote->"74"],
+             StyleBox[
+             "74", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[74, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+           
+           EventHandlerTag[{
+            "MouseClicked" :> FEPrivate`Set[DynamicChart`click$403$466, 
+               FEPrivate`Not[DynamicChart`click$403$466]], PassEventsDown -> 
+             True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+          If[DynamicChart`click$403$466, {{{1., 0}, {
+              0, 1.}}, {-0.19644404774360977`, 0.03754645264344388}}, {{1, 
+            0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+           TrackedSymbols :> {DynamicChart`click$403$466}]], 
+         GeometricTransformationBox[
+          TagBox[
+           TagBox[
+            TooltipBox[
+             TagBox[{{}, {{}, InsetBox[
+                 StyleBox["2",
+                  StripOnInput->False,
+                  
+                  FontFamily->
+                   "Helvetica"], {-0.2871737476685621, 0.6016441498879861}]}},
+              StatusArea[#, 293]& ,
+              TagBoxNote->"293"],
+             StyleBox[
+             "293", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[293, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+           
+           EventHandlerTag[{
+            "MouseClicked" :> FEPrivate`Set[DynamicChart`click$413$466, 
+               FEPrivate`Not[DynamicChart`click$413$466]], PassEventsDown -> 
+             True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+          If[DynamicChart`click$413$466, {{{1., 0}, {
+              0, 1.}}, {-0.08615212430056864, 0.18049324496639585`}}, {{1, 
+            0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+           TrackedSymbols :> {DynamicChart`click$413$466}]], 
+         GeometricTransformationBox[
+          TagBox[
+           TagBox[
+            TooltipBox[
+             TagBox[{{}, {{}, InsetBox[
+                 StyleBox["3",
+                  StripOnInput->False,
+                  FontFamily->"Helvetica"], 
+                 {0.6660393423749446, 0.028914336464732238`}]}},
+              StatusArea[#, 480]& ,
+              TagBoxNote->"480"],
+             StyleBox[
+             "480", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[480, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+           
+           EventHandlerTag[{
+            "MouseClicked" :> FEPrivate`Set[DynamicChart`click$417$466, 
+               FEPrivate`Not[DynamicChart`click$417$466]], PassEventsDown -> 
+             True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+          If[DynamicChart`click$417$466, {{{1., 0}, {0, 1.}}, {
+             0.1998118027124834, 0.008674300939419672}}, {{1, 0}, {0, 1}}, {{
+            1, 0}, {0, 1}}], TrackedSymbols :> {DynamicChart`click$417$466}]],
+          GeometricTransformationBox[
+          TagBox[
+           TagBox[
+            TooltipBox[
+             TagBox[{{}, {{}, InsetBox[
+                 StyleBox["4",
+                  StripOnInput->False,
+                  
+                  FontFamily->
+                   "Helvetica"], \
+{-0.17076501855573456`, -0.6444251336517719}]}},
+              StatusArea[#, 254]& ,
+              TagBoxNote->"254"],
+             StyleBox[
+             "254", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[254, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+           
+           EventHandlerTag[{
+            "MouseClicked" :> FEPrivate`Set[DynamicChart`click$421$466, 
+               FEPrivate`Not[DynamicChart`click$421$466]], PassEventsDown -> 
+             True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+          If[DynamicChart`click$421$466, {{{1., 0}, {
+              0, 1.}}, {-0.051229505566720374`, -0.19332754009553157`}}, {{1, 
+            0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+           TrackedSymbols :> {DynamicChart`click$421$466}]], 
+         GeometricTransformationBox[
+          TagBox[
+           TagBox[
+            TooltipBox[
+             TagBox[{{}, {{}, InsetBox[
+                 StyleBox["5",
+                  StripOnInput->False,
+                  
+                  FontFamily->
+                   "Helvetica"], \
+{-0.6303118590896447, -0.21714374210508636`}]}},
+              StatusArea[#, 130]& ,
+              TagBoxNote->"130"],
+             StyleBox[
+             "130", {FontFamily -> "Helvetica"}, StripOnInput -> False]],
+            Annotation[#, 
+             Style[130, {FontFamily -> "Helvetica"}], "Tooltip"]& ],
+           
+           EventHandlerTag[{
+            "MouseClicked" :> FEPrivate`Set[DynamicChart`click$425$466, 
+               FEPrivate`Not[DynamicChart`click$425$466]], PassEventsDown -> 
+             True, Method -> "Preemptive", PassEventsUp -> True}]], Dynamic[
+          If[DynamicChart`click$425$466, {{{1., 0}, {
+              0, 1.}}, {-0.18909355772689343`, -0.06514312263152591}}, {{1, 
+            0}, {0, 1}}, {{1, 0}, {0, 1}}], 
+           TrackedSymbols :> {DynamicChart`click$425$466}]]}, {}}, {}}},
+     DynamicModuleValues:>{}], {{}, {}}, {{{}, {}, {}, {}}, {}}}, 
+   ArrowBox[{{0, 0}, {0.7, 0.6}}]},
+  BaseStyle->{FontFamily -> "Times", FontSize -> 10},
+  ContentSelectable->False,
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  LabelStyle->{FontFamily -> "Helvetica"},
+  PlotRange->{{-1.2, 1.2}, {-1.2, 1.2}},
+  PlotRangePadding->Scaled[0.02]]], "Output",
+ CellChangeTimes->{3.6586664974459715`*^9}]
+}, Open  ]],
 
 Cell[TextData[{
  "Figure 1.2 ",
@@ -195,14 +518,16 @@ probabilities in formula (1), which would be exact probabilities for the \
 experiment of selecting one student from this particular batch, become \
 estimates of probabilities for a different experiment; that of selecting 1231 \
 students from the universe of all students, past and present, who could take \
-the test.  Whether our particular data set is a \"random\" sample \
+the test.  ",
+ StyleBox["Whether our particular data set is a \"random\" sample \
 representing that universe without bias is a very serious statistical \
 question, best left for a statistics course with a good unit on samples and \
-surveys.\n\tUsing the probabilities in (1), how should probability be \
-assigned to composite events like \"1 or 3",
- "?",
- "\" The logical thing to do is to pool together the probabilities of all \
-outcomes that are contained in the composite event.  Then we would have "
+surveys.",
+  Background->RGBColor[0.94, 0.88, 0.94]],
+ "\n\tUsing the probabilities in (1), how should probability be assigned to \
+composite events like \"1 or 3?\" The logical thing to do is to pool together \
+the probabilities of all outcomes that are contained in the composite event.  \
+Then we would have "
 }], "Text",
  CellChangeTimes->{{3.423415802234375*^9, 3.4234158035*^9}, {
   3.4562638674344*^9, 3.4562638700708*^9}}],
@@ -235,11 +560,18 @@ Cell[BoxData[
 Cell[TextData[{
  "So the probability of an event is the total of all probabilities of the \
 outcomes that make up the event. \n\tTwo implications follow easily from the \
-last observation: the empty event \[EmptySet] which contains no outcomes has \
-probability zero. Also, the event that the spinner lands somewhere is \
-certain, that is, it has probability 1 (100%). Another way to look at it is \
-that the sample space, denoted by \[CapitalOmega] say, is the composite event \
-consisting of all ",
+last observation: the ",
+ StyleBox["empty event \[EmptySet]",
+  Background->RGBColor[1, 0.9, 0.8]],
+ " which contains no outcomes has probability zero. Also, the event that the \
+spinner lands somewhere is certain, that is, it has probability 1 (100%). \
+Another way to look at it is that the ",
+ StyleBox["sample space",
+  Background->RGBColor[0.88, 1, 0.88]],
+ ", denoted by ",
+ StyleBox["\[CapitalOmega]",
+  Background->RGBColor[1, 0.85, 0.85]],
+ " say, is the composite event consisting of all ",
  StyleBox["outcomes",
   FontColor->GrayLevel[0]],
  ". In this case we have:"
@@ -273,25 +605,36 @@ Cell[BoxData[GridBox[{
  FontFamily->"Times New Roman"],
 
 Cell[TextData[{
- "\tIn summary, so far we have learned that outcomes can be given \
+ "\t",
+ StyleBox["In summary, so far we have learned that outcomes can be given \
 probabilities between 0 and 1 using theoretical assumptions or empirical \
-methods, and probabilities for composite events are the totals of the outcome \
-probabilities for outcomes in the event. Also ",
+methods,",
+  Background->RGBColor[0.87, 0.94, 1]],
+ " ",
+ StyleBox["and probabilities for composite events are the totals of the \
+outcome probabilities for outcomes in the event.",
+  Background->RGBColor[1, 0.9, 1]],
+ " ",
+ StyleBox["Also ",
+  Background->RGBColor[1, 1, 0.85]],
  Cell[BoxData[
   FormBox[
    RowBox[{
     RowBox[{
      StyleBox["P",
       FontSlant->"Plain"], "[", "\[EmptySet]", "]"}], "=", "0"}], 
-   TraditionalForm]]],
- " and ",
+   TraditionalForm]],
+  Background->RGBColor[1, 1, 0.85]],
+ StyleBox[" and ",
+  Background->RGBColor[1, 1, 0.85]],
  Cell[BoxData[
   FormBox[
    RowBox[{
     RowBox[{
      StyleBox["P",
       FontSlant->"Plain"], "[", "\[CapitalOmega]", "]"}], "=", "1"}], 
-   TraditionalForm]]],
+   TraditionalForm]],
+  Background->RGBColor[1, 1, 0.85]],
  ". Try the following activity, which suggests another property. You will \
 learn more about that property shortly."
 }], "Text",
@@ -366,18 +709,20 @@ Cell[TextData[{
 }], "Text"],
 
 Cell[BoxData[
- RowBox[{
+ StyleBox[
   RowBox[{
-   RowBox[{"P", "[", 
-    StyleBox["E",
-     FontSlant->"Italic"], "]"}], " ", "+", " ", 
-   RowBox[{"P", "[", 
-    SuperscriptBox[
+   RowBox[{
+    RowBox[{"P", "[", 
      StyleBox["E",
-      FontSlant->"Italic"], 
-     StyleBox["c",
-      FontSlant->"Italic"]], "]"}]}], " ", "=", " ", 
-  "1"}]], "DisplayFormulaNumbered",
+      FontSlant->"Italic"], "]"}], " ", "+", " ", 
+    RowBox[{"P", "[", 
+     SuperscriptBox[
+      StyleBox["E",
+       FontSlant->"Italic"], 
+      StyleBox["c",
+       FontSlant->"Italic"]], "]"}]}], " ", "=", " ", "1"}],
+  FontColor->RGBColor[1, 0.5, 0],
+  Background->RGBColor[0.9, 1, 1]]], "DisplayFormulaNumbered",
  FontFamily->"Times New Roman"],
 
 Cell[TextData[{
@@ -407,17 +752,18 @@ experiment of selecting a sequence of two numbers at random from the set ",
    RowBox[{"{", 
     RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}], 
    TraditionalForm]]],
- " with no repetition of numbers allowed. Such an ordered selection without \
-replacement is known as a ",
+ " with no repetition of numbers allowed. ",
+ StyleBox["Such an ordered selection without replacement",
+  Background->RGBColor[0.9, 1, 1]],
+ " is known as a ",
  StyleBox["permutation",
   FontSlant->"Italic"],
  ", in this case a permutation of 2 objects from 5.  ",
  StyleBox["Mathematica",
   FontSlant->"Italic"],
  " can display all possible permutations as follows.  The command \n\n\t\t\t\t\
-KPermutations[list, k] \n\nin the ",
- "KnoxProb7",
- "`Utilities` package returns a list of all ordered sequences of length ",
+KPermutations[list, k] \n\nin the KnoxProb7`Utilities` package returns a list \
+of all ordered sequences of length ",
  StyleBox["k",
   FontSlant->"Italic"],
  " from the list given in its first argument, assuming that a list member, \
@@ -434,6 +780,45 @@ Cell[BoxData[
  CellChangeTimes->{3.4403683568515205`*^9}],
 
 Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "compat"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Combinatorica Graph and Permutations functionality has \
+been superseded by preloaded functionality. The package now being loaded may \
+conflict with this. Please see the Compatibility Guide for details.\"\>"}]], \
+"Message", "MSG",
+ CellChangeTimes->{3.6586664978459835`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Get", "::", "noopen"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Cannot open \
+\[NoBreak]\\!\\(\\*RowBox[{\\\"\\\\\\\"Utilities`FilterOptions`\\\\\\\"\\\"}]\
+\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
+\\\"Get::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.658666498095991*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Needs", "::", "nocont"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Context \
+\[NoBreak]\\!\\(\\*RowBox[{\\\"\\\\\\\"Utilities`FilterOptions`\\\\\\\"\\\"}]\
+\\)\[NoBreak] was not created when Needs was evaluated. \\!\\(\\*ButtonBox[\\\
+\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/Needs/nocont\\\", ButtonNote -> \
+\\\"Needs::nocont\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.658666498115991*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"KPermutations", "[", 
   RowBox[{
    RowBox[{"{", 
@@ -441,6 +826,54 @@ Cell[BoxData[
   "]"}]], "Input",
  CellFrame->True,
  InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "4"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.658666498135992*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Length", "[", 
@@ -451,6 +884,10 @@ Cell[BoxData[
     "]"}], "]"}]], "Input",
  CellFrame->True,
  InitializationCell->True],
+
+Cell[BoxData["20"], "Output",
+ CellChangeTimes->{3.658666498135992*^9}]
+}, Open  ]],
 
 Cell[TextData[{
  "As the Length output reports, there are 20 such permutations. These 20 are \
@@ -733,15 +1170,27 @@ properties of probability. A few other properties are given in the exercises. \
 
 Cell[TextData[{
  StyleBox["Definition 1",
-  FontWeight->"Bold"],
- ".  A ",
+  FontWeight->"Bold",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]],
+ StyleBox[".  A ",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]],
  StyleBox["sample space",
-  FontSlant->"Italic"],
- " \[CapitalOmega] of a random experiment is a set whose elements \[Omega] \
-are called ",
+  FontSlant->"Italic",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]],
+ StyleBox[" \[CapitalOmega] of a random experiment is a set whose elements \
+\[Omega] are called ",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]],
  StyleBox["outcomes",
-  FontSlant->"Italic"],
- ". "
+  FontSlant->"Italic",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]],
+ StyleBox[". ",
+  FontColor->RGBColor[0.6, 0.4, 0.2],
+  Background->RGBColor[0.87, 0.94, 1]]
 }], "Text",
  CellFrame->False],
 
@@ -794,6 +1243,8 @@ and the collection of events \[ScriptCapitalH]: "
    3.423416185515625*^9}, 3.44036837260752*^9, {3.4562640739472*^9, 
    3.4562640752888002`*^9}}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"\[CapitalOmega]", "=", 
   RowBox[{"KSubsets", "[", 
@@ -808,11 +1259,124 @@ Cell[BoxData[
  AutoStyleOptions -> {"GlobalSymbolStyle" -> None}],
 
 Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "c", ",", "d"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6586664981459923`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"\[ScriptCapitalH]", "=", " ", 
   RowBox[{"Subsets", "[", "\[CapitalOmega]", "]"}]}]], "Input",
  CellFrame->True,
  InitializationCell->True,
  AutoStyleOptions->{"UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "d"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "c", ",", "d"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"b", ",", "c", ",", "d"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "c", ",", "d"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6586664981559925`*^9}]
+}, Open  ]],
 
 Cell[TextData[{
  "Notice that the empty set ",
@@ -852,24 +1416,31 @@ function on events, as seen in the next definition."
 
 Cell[TextData[{
  StyleBox["Definition 3",
-  FontWeight->"Bold"],
- ".  A ",
+  FontWeight->"Bold",
+  Background->RGBColor[0.87, 0.94, 1]],
+ StyleBox[".  A ",
+  Background->RGBColor[0.87, 0.94, 1]],
  StyleBox["probability measure",
-  FontSlant->"Italic"],
- " P is a function taking the family of events \[ScriptCapitalH] to the real \
-numbers such that\n\t(i) P[\[CapitalOmega]] = 1;\n\t(ii) For all ",
+  FontSlant->"Italic",
+  Background->RGBColor[0.87, 0.94, 1]],
+ StyleBox[" P is a function taking the family of events \[ScriptCapitalH] to \
+the real numbers such that\n\t(i) P[\[CapitalOmega]] = 1;\n\t(ii) For all ",
+  Background->RGBColor[0.87, 0.94, 1]],
  Cell[BoxData[
   FormBox["A", TraditionalForm]]],
- " \[Element] \[ScriptCapitalH],  P[",
+ StyleBox[" \[Element] \[ScriptCapitalH],  P[",
+  Background->RGBColor[0.87, 0.94, 1]],
  Cell[BoxData[
   FormBox["A", TraditionalForm]]],
- "] \[GreaterEqual] 0;\n\t(iii) If ",
+ StyleBox["] \[GreaterEqual] 0;\n\t(iii) If ",
+  Background->RGBColor[0.87, 0.94, 1]],
  Cell[BoxData[
   FormBox[
    RowBox[{
     SubscriptBox["A", "1"], ",", " ", 
     SubscriptBox["A", "2"], ",", "\[CenterEllipsis]"}], TraditionalForm]]],
- "  is a sequence of pairwise disjoint events then \n\t\t\tP[",
+ StyleBox["  is a sequence of pairwise disjoint events then \n\t\t\tP[",
+  Background->RGBColor[0.87, 0.94, 1]],
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -877,7 +1448,8 @@ numbers such that\n\t(i) P[\[CapitalOmega]] = 1;\n\t(ii) For all ",
      SubscriptBox["A", "1"], "\[Union]", 
      SubscriptBox["A", "2"], "\[Union]", " ", "\[CenterEllipsis]"}], " ", 
     "]"}], TraditionalForm]]],
- " =  ",
+ StyleBox[" =  ",
+  Background->RGBColor[0.87, 0.94, 1]],
  Cell[BoxData[
   FormBox[
    RowBox[{
@@ -891,33 +1463,44 @@ numbers such that\n\t(i) P[\[CapitalOmega]] = 1;\n\t(ii) For all ",
  CellChangeTimes->{{3.406649508703125*^9, 3.406649512453125*^9}}],
 
 Cell[TextData[{
- "\tProperties (i), (ii), and (iii) are called the ",
+ "\t",
+ StyleBox["Properties (i), (ii), and (iii) are called the ",
+  Background->RGBColor[1, 1, 0]],
  StyleBox["axioms of probability",
-  FontSlant->"Italic"],
- ". Our mathematical model so far corresponds with our intuition: a random \
-experiment has a set of possible outcomes called the sample space, an event \
-is a set of these outcomes, and probability attaches a real number to each \
-event. Axiom (i) requires the entire sample space to have probability 1, \
+  FontSlant->"Italic",
+  Background->RGBColor[1, 1, 0]],
+ StyleBox[". Our mathematical model so far corresponds with our intuition: a \
+random experiment has a set of possible outcomes called the sample space, an \
+event is a set of these outcomes, and probability attaches a real number to \
+each event. Axiom (i) requires the entire sample space to have probability 1, \
 axiom (ii) says that all probabilities are non-negative numbers, and axiom \
 (iii) says that when combining ",
+  Background->RGBColor[1, 1, 0]],
  StyleBox["disjoint",
-  FontSlant->"Italic"],
- " events, the probability of the union is the sum of the individual event \
-probabilities. For finite sample spaces this axiom permits us to just define \
-probabilities on outcomes, and then give each event a probability equal to \
-the sum of its (disjoint) outcome probabilities. We will encounter various \
-ways of constructing probability measures along the way, which we must verify \
-to satisfy the axioms. Once having done so, other properties of probability \
-listed in the theorems below are ours for free. They follow from the axioms \
-alone, and not from any particular construction, which of course is the huge \
-advantage of basing a mathematical model on the smallest possible collection \
-of axioms. "
+  FontSlant->"Italic",
+  Background->RGBColor[1, 1, 0]],
+ StyleBox[" events, the probability of the union is the sum of the individual \
+event probabilities. ",
+  Background->RGBColor[1, 1, 0]],
+ "For finite sample spaces this axiom permits us to just define probabilities \
+on outcomes, and then give each event a probability equal to the sum of its \
+(disjoint) outcome probabilities. ",
+ StyleBox["We will encounter various ways of constructing probability \
+measures along the way, which we must verify to satisfy the axioms.",
+  Background->RGBColor[1, 0.5, 0]],
+ " Once having done so, other properties of probability listed in the \
+theorems below are ours for free. They follow from the axioms alone, and not \
+from any particular construction, which of course is the huge advantage of \
+basing a mathematical model on the smallest possible collection of axioms. "
 }], "Text"],
 
 Cell[TextData[{
  StyleBox["Theorem 1",
-  FontWeight->"Bold"],
- ".  If ",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+ StyleBox[".",
+  Background->RGBColor[1, 1, 0]],
+ "  If ",
  StyleBox["A",
   FontSlant->"Italic"],
  " is an event with complement ",
@@ -1075,7 +1658,8 @@ region. \
 
 Cell[TextData[{
  StyleBox["Theorem 2",
-  FontWeight->"Bold"],
+  FontWeight->"Bold",
+  Background->RGBColor[1, 0.5, 0.5]],
  ". If ",
  StyleBox["A",
   FontSlant->"Italic"],
@@ -1142,6 +1726,8 @@ Cell[BoxData[
     StyleBox["B",
      FontSlant->"Italic"], "]"}]}]}]], "Equation",
  FontFamily->"Times New Roman"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -1223,6 +1809,27 @@ Cell[BoxData[{
  "LocalVariableStyle"->None,
  "PatternVariableStyle"->None,
  "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{LineBox[{{0, 0}, {0, 2}, {4, 2}, {4, 0}, {0, 0}}], 
+   CircleBox[NCache[{Rational[3, 2], 1}, {1.5, 1}], NCache[
+    Rational[2, 3], 0.6666666666666666]], 
+   CircleBox[NCache[{Rational[5, 2], 1}, {2.5, 1}], NCache[
+    Rational[2, 3], 0.6666666666666666]], InsetBox[
+    StyleBox["\[CapitalOmega]",
+     StripOnInput->False,
+     FontSize->Medium], {3.6, 1.8}], InsetBox[
+    StyleBox["A",
+     StripOnInput->False,
+     FontSize->Medium], {1.4, 1.4}], InsetBox[
+    StyleBox["B",
+     StripOnInput->False,
+     FontSize->Medium], {2.6, 1.4}], InsetBox[
+    StyleBox["\<\"A \[Intersection] B\"\>",
+     StripOnInput->False,
+     FontSlant->Italic], {2, 0.1}], ArrowBox[{{2, 0.2}, {2, 1}}]}]], "Input",
+ CellChangeTimes->{3.6586881947418957`*^9}]
+}, Open  ]],
 
 Cell[TextData[{
  "Figure 1.3",
@@ -1376,50 +1983,60 @@ Cell["Therefore,", "Text"],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"P", "[", 
-    StyleBox["A",
-     FontSlant->"Italic"], "]"}], " ", "+", " ", 
-   RowBox[{"P", "[", 
-    StyleBox["B",
-     FontSlant->"Italic"], "]"}], " ", 
-   FormBox["-",
-    TraditionalForm], " ", 
-   RowBox[{"P", "[", 
-    FormBox[
-     RowBox[{"A", "\[Intersection]", "B"}],
-     TraditionalForm], "]"}]}], " ", "=", " ", 
-  FormBox[
+  StyleBox[
    RowBox[{
+    RowBox[{"P", "[", 
+     StyleBox["A",
+      FontSlant->"Italic"], "]"}], " ", "+", " ", 
+    RowBox[{"P", "[", 
+     StyleBox["B",
+      FontSlant->"Italic"], "]"}], " ", 
+    FormBox["-",
+     TraditionalForm], " ", 
+    RowBox[{"P", "[", 
+     FormBox[
+      RowBox[{"A", "\[Intersection]", "B"}],
+      TraditionalForm], "]"}]}],
+   Background->RGBColor[1, 0.5, 0]], 
+  StyleBox[" ",
+   Background->RGBColor[1, 0.5, 0]], 
+  StyleBox["=",
+   Background->RGBColor[1, 0.5, 0]], 
+  StyleBox[" ",
+   Background->RGBColor[1, 0.5, 0]], 
+  StyleBox[
+   FormBox[
     RowBox[{
-     StyleBox["P",
-      FontSlant->"Plain"], "[", 
      RowBox[{
-      StyleBox["A",
-       FontSlant->"Italic"], 
-      FormBox[
-       RowBox[{"\[Intersection]", 
-        SuperscriptBox["B", "c"]}],
-       TraditionalForm]}], "]"}], "+", 
-    RowBox[{
-     StyleBox["P",
-      FontSlant->"Plain"], "[", 
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], 
+       FormBox[
+        RowBox[{"\[Intersection]", 
+         SuperscriptBox["B", "c"]}],
+        TraditionalForm]}], "]"}], "+", 
      RowBox[{
-      StyleBox["B",
-       FontSlant->"Italic"], 
-      FormBox[
-       RowBox[{"\[Intersection]", 
-        SuperscriptBox["A", "c"]}],
-       TraditionalForm]}], "]"}], "+", 
-    RowBox[{
-     StyleBox["P",
-      FontSlant->"Plain"], "[", 
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["B",
+        FontSlant->"Italic"], 
+       FormBox[
+        RowBox[{"\[Intersection]", 
+         SuperscriptBox["A", "c"]}],
+        TraditionalForm]}], "]"}], "+", 
      RowBox[{
-      StyleBox["A",
-       FontSlant->"Italic"], "\[Intersection]", 
-      StyleBox["B",
-       FontSlant->"Italic"]}], "]"}]}],
-   TraditionalForm]}]], "DisplayFormulaNumbered",
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], "\[Intersection]", 
+       StyleBox["B",
+        FontSlant->"Italic"]}], "]"}]}],
+    TraditionalForm],
+   Background->RGBColor[1, 0.5, 0.5]]}]], "DisplayFormulaNumbered",
  FontFamily->"Times New Roman"],
 
 Cell[TextData[{
@@ -1458,41 +2075,49 @@ Cell[TextData[{
 Cell[BoxData[
  FormBox[
   RowBox[{
-   RowBox[{
+   StyleBox[
+    RowBox[{
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], "\[Intersection]", 
+       FormBox[
+        SuperscriptBox["B", "c"],
+        TraditionalForm]}], "]"}], "+", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["B",
+        FontSlant->"Italic"], "\[Intersection]", 
+       FormBox[
+        SuperscriptBox["A", "c"],
+        TraditionalForm]}], "]"}], "+", 
+     RowBox[{
+      StyleBox["P",
+       FontSlant->"Plain"], "[", 
+      RowBox[{
+       StyleBox["A",
+        FontSlant->"Italic"], "\[Intersection]", 
+       StyleBox["B",
+        FontSlant->"Italic"]}], "]"}]}],
+    Background->RGBColor[1, 0.5, 0.5]], 
+   StyleBox[" ",
+    Background->RGBColor[1, 0.5, 0.5]], 
+   StyleBox["=",
+    Background->RGBColor[1, 0.5, 0.5]], " ", 
+   StyleBox[
     RowBox[{
      StyleBox["P",
       FontSlant->"Plain"], "[", 
      RowBox[{
       StyleBox["A",
-       FontSlant->"Italic"], "\[Intersection]", 
-      FormBox[
-       SuperscriptBox["B", "c"],
-       TraditionalForm]}], "]"}], "+", 
-    RowBox[{
-     StyleBox["P",
-      FontSlant->"Plain"], "[", 
-     RowBox[{
+       FontSlant->"Italic"], "\[Union]", 
       StyleBox["B",
-       FontSlant->"Italic"], "\[Intersection]", 
-      FormBox[
-       SuperscriptBox["A", "c"],
-       TraditionalForm]}], "]"}], "+", 
-    RowBox[{
-     StyleBox["P",
-      FontSlant->"Plain"], "[", 
-     RowBox[{
-      StyleBox["A",
-       FontSlant->"Italic"], "\[Intersection]", 
-      StyleBox["B",
-       FontSlant->"Italic"]}], "]"}]}], " ", "=", " ", 
-   RowBox[{
-    StyleBox["P",
-     FontSlant->"Plain"], "[", 
-    RowBox[{
-     StyleBox["A",
-      FontSlant->"Italic"], "\[Union]", 
-     StyleBox["B",
-      FontSlant->"Italic"]}], "]"}]}], 
+       FontSlant->"Italic"]}], "]"}],
+    Background->RGBColor[1, 0.5, 0]]}], 
   TraditionalForm]], "DisplayFormulaNumbered"],
 
 Cell[TextData[{
@@ -1532,15 +2157,15 @@ as Theorem 3. \
 
 Cell[TextData[{
  StyleBox["Theorem 3",
-  FontWeight->"Bold"],
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
  ".  For any event ",
  StyleBox["A",
   FontSlant->"Italic"],
  ", P[",
  StyleBox["A",
   FontSlant->"Italic"],
- "] \[LessEqual] 1.  ",
- "\[FilledSquare]"
+ "] \[LessEqual] 1.  \[FilledSquare]"
 }], "Text",
  CellChangeTimes->{{3.406650635234375*^9, 3.406650637171875*^9}}],
 
@@ -1562,7 +2187,8 @@ Cell[TextData[{
 
 Cell[TextData[{
  StyleBox["Theorem 4",
-  FontWeight->"Bold"],
+  FontWeight->"Bold",
+  Background->RGBColor[1, 0.5, 0.5]],
  ".  If ",
  StyleBox["A",
   FontSlant->"Italic"],
@@ -1581,8 +2207,7 @@ Cell[TextData[{
  "] \[LessEqual] P[",
  StyleBox["B",
   FontSlant->"Italic"],
- "].  ",
- "\[FilledSquare]"
+ "].  \[FilledSquare]"
 }], "Text",
  CellChangeTimes->{{3.4066506471875*^9, 3.4066506495625*^9}, 
    3.42341653403125*^9}],
@@ -1619,6 +2244,8 @@ for this section lets you begin to practice with them."
  CellChangeTimes->{{3.403886174265625*^9, 3.403886174453125*^9}, {
   3.43576635672832*^9, 3.43576635698232*^9}, {3.4562643288824*^9, 
   3.4562643312848*^9}}],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Graphics", "[", 
@@ -1698,6 +2325,21 @@ Cell[BoxData[
  "LocalVariableStyle"->None,
  "PatternVariableStyle"->None,
  "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{CircleBox[{4, 2}, {3.5, 1.}], 
+   LineBox[{{0, 0}, {0, 4}, {8, 4}, {8, 0}, {0, 0}}], 
+   LineBox[{{2, 0}, {2, 4}}], LineBox[{{4, 0}, {4, 4}}], 
+   LineBox[{{6, 0}, {6, 4}}], InsetBox[
+    StyleBox["A",
+     StripOnInput->False,
+     FontSize->Large], {3, 2.5}], InsetBox[
+    SubscriptBox["B", "1"], {1, 3.5}], InsetBox[
+    SubscriptBox["B", "2"], {3, 3.5}], InsetBox["\<\"...\"\>", {5, 3.5}], 
+   InsetBox[
+    SubscriptBox["B", "n"], {7, 3.5}]}]], "Output",
+ CellChangeTimes->{3.6586664982059937`*^9}]
+}, Closed]],
 
 Cell[TextData[{
  "Figure 1.4",
@@ -2362,6 +3004,8 @@ quadrant or not in the circle of radius 2. "
 }], "Text",
  CellChangeTimes->{{3.4038928431875*^9, 3.403892852296875*^9}}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"Clear", "[", 
@@ -2425,6 +3069,19 @@ Cell[BoxData[{
  "LocalVariableStyle"->None,
  "PatternVariableStyle"->None,
  "UndefinedSymbolStyle"->None}],
+
+Cell[BoxData[
+ GraphicsBox[{CircleBox[{0, 0}, 2], 
+   LineBox[{{-2, -2}, {-2, 2}, {2, 2}, {2, -2}, {-2, -2}}], 
+   {PointSize[0.02], PointBox[{1, 0.5}]}, InsetBox[
+    StyleBox["\<\"(x,y)\"\>",
+     StripOnInput->False,
+     FontSlant->Italic], {1, 0.3}]},
+  AspectRatio->1,
+  Axes->True,
+  BaseStyle->{FontSize -> 8}]], "Output",
+ CellChangeTimes->{3.6586664982259946`*^9}]
+}, Open  ]],
 
 Cell["Exercise 8", "FigureCaption",
  TextAlignment->Center,
@@ -2799,7 +3456,7 @@ a randomly chosen employee will choose no supplementary coverage. \
 AutoGeneratedPackage->None,
 CellGrouping->Manual,
 WindowSize->{845, 711},
-WindowMargins->{{118, Automatic}, {162, Automatic}},
+WindowMargins->{{492, Automatic}, {46, Automatic}},
 PrintingCopies->1,
 PrintingPageRange->{Automatic, Automatic},
 PageHeaders->{{
@@ -2833,138 +3490,164 @@ Notebook[{
 Cell[545, 20, 182, 4, 109, "Section"],
 Cell[730, 26, 538, 8, 202, "Text"],
 Cell[1271, 36, 822, 15, 274, "Text"],
-Cell[2096, 53, 1873, 51, 38, "Input",
+Cell[CellGroupData[{
+Cell[2118, 55, 1873, 51, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[3972, 106, 256, 8, 37, "FigureCaption"],
-Cell[4231, 116, 2068, 29, 802, "Text"],
-Cell[6302, 147, 887, 31, 144, "DisplayFormulaNumbered",
+Cell[3994, 108, 14160, 318, 619, "Output"]
+}, Open  ]],
+Cell[18169, 429, 256, 8, 37, "FigureCaption"],
+Cell[18428, 439, 2068, 29, 802, "Text"],
+Cell[20499, 470, 887, 31, 144, "DisplayFormulaNumbered",
  CounterAssignments->{"Chapter", "2"}],
-Cell[7192, 180, 1638, 27, 637, "Text"],
-Cell[8833, 209, 712, 23, 73, "DisplayFormulaNumbered"],
-Cell[9548, 234, 675, 13, 238, "Text"],
-Cell[10226, 249, 819, 23, 156, "DisplayFormulaNumbered"],
-Cell[11048, 274, 885, 24, 173, "Text"],
-Cell[11936, 300, 732, 18, 206, "Text"],
-Cell[12671, 320, 439, 7, 173, "Text"],
-Cell[13113, 329, 812, 25, 140, "DisplayFormulaNumbered"],
-Cell[13928, 356, 236, 9, 42, "Text"],
-Cell[14167, 367, 355, 13, 42, "DisplayFormulaNumbered"],
-Cell[14525, 382, 546, 15, 108, "Text"],
-Cell[15074, 399, 1106, 28, 369, "Text"],
-Cell[16183, 429, 174, 4, 91, "Input",
+Cell[21389, 503, 1692, 29, 637, "Text"],
+Cell[23084, 534, 712, 23, 74, "DisplayFormulaNumbered"],
+Cell[23799, 559, 846, 20, 241, "Text"],
+Cell[24648, 581, 819, 23, 153, "DisplayFormulaNumbered"],
+Cell[25470, 606, 1168, 35, 208, "Text"],
+Cell[26641, 643, 732, 18, 241, "Text"],
+Cell[27376, 663, 439, 7, 175, "Text"],
+Cell[27818, 672, 812, 25, 144, "DisplayFormulaNumbered"],
+Cell[28633, 699, 236, 9, 76, "Text"],
+Cell[28872, 710, 444, 15, 43, "DisplayFormulaNumbered"],
+Cell[29319, 727, 546, 15, 109, "Text"],
+Cell[29868, 744, 1151, 29, 406, "Text"],
+Cell[31022, 775, 174, 4, 90, "Input",
  InitializationCell->True],
-Cell[16360, 435, 216, 7, 91, "Input",
+Cell[31199, 781, 399, 9, 199, "Message"],
+Cell[31601, 792, 485, 11, 46, "Message"],
+Cell[32089, 805, 524, 11, 85, "Message"],
+Cell[CellGroupData[{
+Cell[32638, 820, 216, 7, 90, "Input",
  InitializationCell->True],
-Cell[16579, 444, 253, 8, 91, "Input",
+Cell[32857, 829, 1275, 43, 160, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34169, 877, 253, 8, 90, "Input",
  InitializationCell->True],
-Cell[16835, 454, 611, 13, 173, "Text"],
-Cell[17449, 469, 685, 22, 73, "DisplayFormulaNumbered"],
-Cell[18137, 493, 112, 3, 42, "Text"],
-Cell[18252, 498, 567, 19, 73, "DisplayFormulaNumbered"],
-Cell[18822, 519, 119, 3, 76, "Text"],
-Cell[18944, 524, 269, 7, 141, "Text"],
-Cell[19216, 533, 32, 0, 42, "Text"],
-Cell[19251, 535, 1628, 52, 124, "DisplayFormula"],
-Cell[20882, 589, 19, 0, 42, "Text"],
-Cell[20904, 591, 1448, 47, 150, "DisplayFormula"],
-Cell[22355, 640, 242, 4, 76, "Text"],
-Cell[22600, 646, 359, 13, 85, "Equation"],
-Cell[22962, 661, 24, 0, 42, "Text"],
-Cell[22989, 663, 384, 13, 85, "Equation"],
-Cell[23376, 678, 1038, 28, 238, "Text"],
-Cell[24417, 708, 527, 16, 141, "Text"],
-Cell[24947, 726, 325, 5, 141, "Text"],
-Cell[25275, 733, 298, 12, 76, "Text"],
-Cell[25576, 747, 260, 7, 76, "Text"],
-Cell[25839, 756, 454, 14, 76, "Text"],
-Cell[26296, 772, 1063, 22, 337, "Text"],
-Cell[27362, 796, 374, 11, 91, "Input",
+Cell[34425, 887, 71, 1, 57, "Output"]
+}, Open  ]],
+Cell[34511, 891, 611, 13, 208, "Text"],
+Cell[35125, 906, 685, 22, 74, "DisplayFormulaNumbered"],
+Cell[35813, 930, 112, 3, 76, "Text"],
+Cell[35928, 935, 567, 19, 74, "DisplayFormulaNumbered"],
+Cell[36498, 956, 119, 3, 76, "Text"],
+Cell[36620, 961, 269, 7, 142, "Text"],
+Cell[36892, 970, 32, 0, 43, "Text"],
+Cell[36927, 972, 1628, 52, 121, "DisplayFormula"],
+Cell[38558, 1026, 19, 0, 43, "Text"],
+Cell[38580, 1028, 1448, 47, 148, "DisplayFormula"],
+Cell[40031, 1077, 242, 4, 76, "Text"],
+Cell[40276, 1083, 359, 13, 86, "Equation"],
+Cell[40638, 1098, 24, 0, 43, "Text"],
+Cell[40665, 1100, 384, 13, 86, "Equation"],
+Cell[41052, 1115, 1038, 28, 241, "Text"],
+Cell[42093, 1145, 527, 16, 142, "Text"],
+Cell[42623, 1163, 325, 5, 142, "Text"],
+Cell[42951, 1170, 790, 24, 76, "Text"],
+Cell[43744, 1196, 260, 7, 76, "Text"],
+Cell[44007, 1205, 454, 14, 76, "Text"],
+Cell[44464, 1221, 1063, 22, 373, "Text"],
+Cell[CellGroupData[{
+Cell[45552, 1247, 374, 11, 90, "Input",
  InitializationCell->True],
-Cell[27739, 809, 214, 5, 91, "Input",
+Cell[45929, 1260, 373, 11, 57, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46339, 1276, 214, 5, 90, "Input",
  InitializationCell->True],
-Cell[27956, 816, 1183, 34, 272, "Text"],
-Cell[29142, 852, 1182, 38, 222, "Text"],
-Cell[30327, 892, 1321, 22, 538, "Text"],
-Cell[31651, 916, 262, 12, 42, "Text"],
-Cell[31916, 930, 321, 12, 42, "DisplayFormulaNumbered"],
-Cell[32240, 944, 670, 31, 42, "Text"],
-Cell[32913, 977, 295, 12, 76, "Text"],
-Cell[33211, 991, 704, 24, 54, "Equation"],
-Cell[33918, 1017, 346, 12, 42, "Text"],
-Cell[34267, 1031, 1008, 31, 54, "Equation"],
-Cell[35278, 1064, 517, 9, 206, "Text"],
-Cell[35798, 1075, 202, 10, 42, "Text"],
-Cell[36003, 1087, 749, 29, 42, "DisplayFormulaNumbered"],
-Cell[36755, 1118, 160, 8, 42, "Text"],
-Cell[36918, 1128, 408, 15, 54, "Equation"],
-Cell[37329, 1145, 2778, 79, 38, "Input",
+Cell[46556, 1283, 2979, 94, 364, "Output"]
+}, Open  ]],
+Cell[49550, 1380, 1183, 34, 274, "Text"],
+Cell[50736, 1416, 1554, 46, 222, "Text"],
+Cell[52293, 1464, 1577, 30, 538, "Text"],
+Cell[53873, 1496, 343, 15, 43, "Text"],
+Cell[54219, 1513, 321, 12, 43, "DisplayFormulaNumbered"],
+Cell[54543, 1527, 670, 31, 43, "Text"],
+Cell[55216, 1560, 295, 12, 76, "Text"],
+Cell[55514, 1574, 704, 24, 55, "Equation"],
+Cell[56221, 1600, 346, 12, 43, "Text"],
+Cell[56570, 1614, 1008, 31, 55, "Equation"],
+Cell[57581, 1647, 517, 9, 241, "Text"],
+Cell[58101, 1658, 239, 11, 43, "Text"],
+Cell[58343, 1671, 749, 29, 43, "DisplayFormulaNumbered"],
+Cell[59095, 1702, 160, 8, 43, "Text"],
+Cell[59258, 1712, 408, 15, 55, "Equation"],
+Cell[CellGroupData[{
+Cell[59691, 1731, 2778, 79, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[40110, 1226, 327, 9, 61, "FigureCaption"],
-Cell[40440, 1237, 1199, 44, 108, "Text"],
-Cell[41642, 1283, 2663, 89, 114, "Equation"],
-Cell[44308, 1374, 26, 0, 54, "Text"],
-Cell[44337, 1376, 1198, 46, 72, "DisplayFormulaNumbered"],
-Cell[45538, 1424, 813, 31, 96, "Text"],
-Cell[46354, 1457, 983, 38, 66, "DisplayFormulaNumbered"],
-Cell[47340, 1497, 539, 16, 96, "Text"],
-Cell[47882, 1515, 314, 7, 138, "Text"],
-Cell[48199, 1524, 347, 6, 138, "Text"],
-Cell[48549, 1532, 291, 12, 56, "Text"],
-Cell[48843, 1546, 448, 14, 138, "Text"],
-Cell[49294, 1562, 522, 25, 56, "Text"],
-Cell[49819, 1589, 1342, 31, 386, "Text"],
-Cell[51164, 1622, 2434, 77, 38, "Input",
+Cell[62472, 1812, 773, 18, 336, InheritFromParent]
+}, Open  ]],
+Cell[63260, 1833, 327, 9, 60, "FigureCaption"],
+Cell[63590, 1844, 1199, 44, 109, "Text"],
+Cell[64792, 1890, 2663, 89, 88, "Equation"],
+Cell[67458, 1981, 26, 0, 43, "Text"],
+Cell[67487, 1983, 1489, 56, 90, "DisplayFormulaNumbered"],
+Cell[68979, 2041, 813, 31, 109, "Text"],
+Cell[69795, 2074, 1228, 46, 43, "DisplayFormulaNumbered"],
+Cell[71026, 2122, 539, 16, 109, "Text"],
+Cell[71568, 2140, 314, 7, 142, "Text"],
+Cell[71885, 2149, 347, 6, 175, "Text"],
+Cell[72235, 2157, 319, 12, 43, "Text"],
+Cell[72557, 2171, 448, 14, 142, "Text"],
+Cell[73008, 2187, 554, 25, 43, "Text"],
+Cell[73565, 2214, 1342, 31, 406, "Text"],
+Cell[CellGroupData[{
+Cell[74932, 2249, 2434, 77, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[53601, 1701, 252, 8, 48, "FigureCaption"],
-Cell[53856, 1711, 860, 28, 102, "Text"],
-Cell[54719, 1741, 429, 15, 76, "DisplayFormulaNumbered"],
-Cell[55151, 1758, 1217, 44, 144, "Text"],
-Cell[56371, 1804, 1554, 53, 74, "Equation"],
-Cell[57928, 1859, 822, 27, 180, "Text"],
-Cell[58753, 1888, 745, 22, 68, "Equation"],
-Cell[59501, 1912, 214, 7, 54, "Text"],
-Cell[59718, 1921, 5119, 181, 260, "DisplayFormulaNumbered"],
-Cell[64840, 2104, 143, 1, 54, "Text"],
-Cell[64986, 2107, 307, 10, 138, "Text"],
-Cell[65296, 2119, 80, 2, 82, "Subsection"],
-Cell[65379, 2123, 523, 9, 256, "Text"],
-Cell[65905, 2134, 822, 12, 346, "Text"],
-Cell[66730, 2148, 1500, 46, 552, "DisplayFormula"],
-Cell[68233, 2196, 102, 3, 48, "FigureCaption"],
-Cell[68338, 2201, 745, 13, 386, "Text"],
-Cell[69086, 2216, 522, 12, 180, "Text"],
-Cell[69611, 2230, 720, 34, 96, "Text"],
-Cell[70334, 2266, 546, 18, 350, "Equation"],
-Cell[70883, 2286, 496, 15, 138, "Text"],
-Cell[71382, 2303, 1284, 20, 552, "Text"],
-Cell[72669, 2325, 1275, 37, 386, "Text"],
-Cell[73947, 2364, 2071, 62, 38, "Input",
+Cell[77369, 2328, 532, 12, 336, "Output"]
+}, Closed]],
+Cell[77916, 2343, 252, 8, 37, "FigureCaption"],
+Cell[78171, 2353, 860, 28, 109, "Text"],
+Cell[79034, 2383, 429, 15, 57, "DisplayFormulaNumbered"],
+Cell[79466, 2400, 1217, 44, 142, "Text"],
+Cell[80686, 2446, 1554, 53, 55, "Equation"],
+Cell[82243, 2501, 822, 27, 175, "Text"],
+Cell[83068, 2530, 745, 22, 55, "Equation"],
+Cell[83816, 2554, 214, 7, 76, "Text"],
+Cell[84033, 2563, 5119, 181, 191, "DisplayFormulaNumbered"],
+Cell[89155, 2746, 143, 1, 43, "Text"],
+Cell[89301, 2749, 307, 10, 109, "Text"],
+Cell[89611, 2761, 80, 2, 66, "Subsection"],
+Cell[89694, 2765, 523, 9, 235, "Text"],
+Cell[90220, 2776, 822, 12, 340, "Text"],
+Cell[91045, 2790, 1500, 46, 443, "DisplayFormula"],
+Cell[92548, 2838, 102, 3, 48, "FigureCaption"],
+Cell[92653, 2843, 745, 13, 386, "Text"],
+Cell[93401, 2858, 522, 12, 180, "Text"],
+Cell[93926, 2872, 720, 34, 96, "Text"],
+Cell[94649, 2908, 546, 18, 350, "Equation"],
+Cell[95198, 2928, 496, 15, 138, "Text"],
+Cell[95697, 2945, 1284, 20, 552, "Text"],
+Cell[96984, 2967, 1275, 37, 340, "Text"],
+Cell[CellGroupData[{
+Cell[98284, 3008, 2071, 62, 38, "Input",
  CellOpen->False,
  InitializationCell->True],
-Cell[76021, 2428, 102, 3, 48, "FigureCaption"],
-Cell[76126, 2433, 528, 26, 54, "Text"],
-Cell[76657, 2461, 36, 0, 54, "Text"],
-Cell[76696, 2463, 51, 0, 54, "Text"],
-Cell[76750, 2465, 37, 0, 54, "Text"],
-Cell[76790, 2467, 1048, 39, 96, "Text"],
-Cell[77841, 2508, 209, 11, 54, "Text"],
-Cell[78053, 2521, 1428, 50, 114, "Equation"],
-Cell[79484, 2573, 1395, 49, 188, "Text"],
-Cell[80882, 2624, 2114, 69, 188, "Equation"],
-Cell[82999, 2695, 481, 13, 180, "Text"],
-Cell[83483, 2710, 180, 3, 96, "Text"],
-Cell[83666, 2715, 569, 9, 180, "Text"],
-Cell[84238, 2726, 515, 10, 180, "Text"],
-Cell[84756, 2738, 308, 5, 54, "Text"],
-Cell[85067, 2745, 629, 10, 180, "Text"],
-Cell[85699, 2757, 604, 10, 138, "Text"],
-Cell[86306, 2769, 864, 13, 220, "Text"],
-Cell[87173, 2784, 778, 12, 220, "Text"]
+Cell[100358, 3072, 374, 10, 619, "Output"]
+}, Open  ]],
+Cell[100747, 3085, 102, 3, 48, "FigureCaption"],
+Cell[100852, 3090, 528, 26, 54, "Text"],
+Cell[101383, 3118, 36, 0, 54, "Text"],
+Cell[101422, 3120, 51, 0, 54, "Text"],
+Cell[101476, 3122, 37, 0, 54, "Text"],
+Cell[101516, 3124, 1048, 39, 96, "Text"],
+Cell[102567, 3165, 209, 11, 54, "Text"],
+Cell[102779, 3178, 1428, 50, 114, "Equation"],
+Cell[104210, 3230, 1395, 49, 188, "Text"],
+Cell[105608, 3281, 2114, 69, 188, "Equation"],
+Cell[107725, 3352, 481, 13, 180, "Text"],
+Cell[108209, 3367, 180, 3, 96, "Text"],
+Cell[108392, 3372, 569, 9, 180, "Text"],
+Cell[108964, 3383, 515, 10, 180, "Text"],
+Cell[109482, 3395, 308, 5, 54, "Text"],
+Cell[109793, 3402, 629, 10, 180, "Text"],
+Cell[110425, 3414, 604, 10, 138, "Text"],
+Cell[111032, 3426, 864, 13, 220, "Text"],
+Cell[111899, 3441, 778, 12, 220, "Text"]
 }
 ]
 *)
 
-(* End of internal cache information *)
